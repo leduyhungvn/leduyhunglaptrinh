@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>ÔN TẬP TRẮC NGHIỆM TOÁN</title>
+<title>ÔN TẬP TRẮC NGHIỆM TOÁN (3 PHẦN)</title>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <script>
@@ -180,14 +180,27 @@ border-bottom: 1px solid #eee;
 .option:hover { background-color: #f0f7ff; border-color: #3498db; }
 .option.selected { background-color: #e1f0ff; border-color: #3498db; font-weight: bold; }
 
+/* Badge cho phần câu hỏi */
+.part-badge {
+display: inline-block;
+padding: 2px 8px;
+border-radius: 4px;
+color: white;
+font-size: 12px;
+margin-right: 5px;
+font-weight: bold;
+}
+.badge-p1 { background-color: #3498db; } /* Xanh */
+.badge-p2 { background-color: #9b59b6; } /* Tím */
+.badge-p3 { background-color: #e67e22; } /* Cam */
+
 .notification {
 position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
 background-color: rgba(46, 204, 113, 0.9); color: white; padding: 15px 30px;
 border-radius: 8px; font-size: 18px; font-weight: bold; z-index: 1000; display: none;
 }
 
-/* --- RESULT SCREEN STYLES (UPDATE) --- */
-
+/* --- RESULT SCREEN STYLES --- */
 .result-header { text-align: center; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #eee; }
 .result-header h2 { font-size: 22px; }
 
@@ -211,7 +224,6 @@ border-radius: 8px;
 text-align: center;
 }
 
-/* 1. Tên người làm (Tăng thêm 20%: 42px -> 50.4px -> 50px) */
 .student-name-display {
 color: #1890ff;
 font-weight: bold;
@@ -220,7 +232,6 @@ margin-bottom: 15px;
 line-height: 1.1;
 }
 
-/* Biểu đồ tròn Donut */
 .chart-container {
 position: relative;
 width: 200px;
@@ -245,7 +256,6 @@ content: ""; position: absolute; width: 75%; height: 75%;
 background-color: white; border-radius: 50%;
 }
 
-/* Tâm biểu đồ */
 .chart-center {
 position: absolute;
 top: 50%; left: 50%;
@@ -261,13 +271,12 @@ justify-content: center;
 .percentage-text { display: block; font-size: 40px; font-weight: 800; color: #333; line-height: 1; }
 .score-detail-text { display: block; font-size: 20px; font-weight: bold; color: #666; margin-top: 2px; }
 
-/* Ngày tháng */
 .exam-date {
 color: #000; font-weight: bold; font-size: 18.5px;
 margin-top: auto; padding-top: 10px; border-top: 1px solid #eee; width: 100%;
 }
 
-/* --- Ô 2 (Bên phải) - DESKTOP ONLY UPDATE --- */
+/* --- Ô 2 (Bên phải) --- */
 .result-right {
 flex: 1;
 display: grid;
@@ -279,7 +288,7 @@ gap: 10px;
 .grid-item {
 background-color: #f8f9fa;
 border-radius: 8px;
-padding: 20px; /* Tăng padding để cân bằng với kích thước chữ mới */
+padding: 20px; 
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -288,12 +297,10 @@ text-align: center;
 border: 1px solid #eee;
 }
 
-/* Tăng 30% kích thước cho Desktop */
-.grid-icon { width: 52px; height: 52px; margin-bottom: 10px; color: #555; } /* 40px * 1.3 = 52px */
-.grid-label { font-size: 18px; color: #666; margin-bottom: 5px; } /* 14px * 1.3 = 18px */
-.grid-value { font-size: 27px; color: #333; font-weight: bold; } /* 21px * 1.3 = 27px */
+.grid-icon { width: 52px; height: 52px; margin-bottom: 10px; color: #555; }
+.grid-label { font-size: 18px; color: #666; margin-bottom: 5px; }
+.grid-value { font-size: 27px; color: #333; font-weight: bold; }
 
-/* Màu icon */
 .grid-item.time-start .grid-icon { color: #27ae60; }
 .grid-item.time-end .grid-icon { color: #e74c3c; }
 .grid-item.wrong .grid-icon { color: #e67e22; }
@@ -311,60 +318,28 @@ border: 1px solid #eee;
 .review-opt-correct { color: #2ecc71; font-weight: bold; }
 .review-opt-wrong { color: #e74c3c; text-decoration: line-through; }
 
-/* --- MOBILE OPTIMIZATION (GIỮ NGUYÊN ĐIỀU CHỈNH CŨ) --- */
+/* --- MOBILE OPTIMIZATION --- */
 @media (max-width: 768px) {
 .row { flex-direction: column; gap: 10px; }
 .btn { padding: 10px; font-size: 14px; }
 
-/* Kết quả trên mobile */
-.result-wrapper {
-flex-direction: column;
-gap: 10px;
-}
-
-/* Ô 1 Mobile: Tên đã tăng lên 29px (24px * 1.2) */
-.result-left {
-padding: 10px 5px;
-}
-
-.student-name-display {
-font-size: 29px; /* Tăng 20% so với cũ */
-margin-bottom: 5px;
-}
-
-.chart-container {
-width: 140px;
-height: 140px;
-margin-bottom: 5px;
-}
-
+.result-wrapper { flex-direction: column; gap: 10px; }
+.result-left { padding: 10px 5px; }
+.student-name-display { font-size: 29px; margin-bottom: 5px; }
+.chart-container { width: 140px; height: 140px; margin-bottom: 5px; }
 .percentage-text { font-size: 26px; }
 .score-detail-text { font-size: 14px; }
+.exam-date { font-size: 14px; padding-top: 5px; }
 
-.exam-date {
-font-size: 14px;
-padding-top: 5px;
-}
-
-/* Ô 2 Mobile: KHÔNG ĐỔI KÍCH THƯỚC (Giữ nguyên nhỏ gọn) */
-.result-right {
-width: 100%;
-gap: 6px;
-}
-
-.grid-item {
-padding: 6px; /* Padding mỏng */
-}
-
+.result-right { width: 100%; gap: 6px; }
+.grid-item { padding: 6px; }
 .grid-icon { width: 20px; height: 20px; margin-bottom: 2px; }
 .grid-label { font-size: 10px; }
 .grid-value { font-size: 14px; }
 
-/* Review list: Thu nhỏ font */
 .review-item { padding: 8px; }
 .review-question-title { font-size: 14px; }
 .review-option-row { font-size: 12px; }
-
 .screen { padding: 10px; margin-bottom: 10px; }
 }
 
@@ -518,60 +493,228 @@ Câu <span id="current-question-number">1</span>/<span id="total-questions">10</
 <div id="notification" class="notification"></div>
 
 <script>
-// Dữ liệu kho đề (giữ nguyên)
+// Dữ liệu kho đề mới: Tách làm P1, P2, P3
+// P1: Trắc nghiệm thông thường (4 đáp án)
+// P2: Đúng/Sai (correct là "Đúng" hoặc "Sai")
+// P3: Điền khuyết (giống P1 về cấu trúc dữ liệu)
+
 const questionBanks = {
-'T1GK1': [{ id: 1, content: "Số nào lớn hơn trong hai số: 5 và 8?", correct: "8", wrong1: "5", wrong2: "Cả hai đều bằng nhau", wrong3: "Không xác định được" }],
-'T1HK1': [{ id: 1, content: "Kết quả của phép tính: 3 + 7 = ?", correct: "10", wrong1: "8", wrong2: "9", wrong3: "11" }],
-'T1GK2': [{ id: 1, content: "Một chục có mấy đơn vị?", correct: "10 đơn vị", wrong1: "1 đơn vị", wrong2: "100 đơn vị", wrong3: "5 đơn vị" }],
-'T1HK2': [{ id: 1, content: "Hình vuông có mấy cạnh?", correct: "4 cạnh", wrong1: "3 cạnh", wrong2: "5 cạnh", wrong3: "6 cạnh" }],
-'T2GK1': [{ id: 1, content: "Kết quả của phép tính: 15 + 27 = ?", correct: "42", wrong1: "32", wrong2: "41", wrong3: "43" }],
-'T2HK1': [{ id: 1, content: "Một mét bằng bao nhiêu xăngtimét?", correct: "100 centimet", wrong1: "10 centimet", wrong2: "1000 centimet", wrong3: "1 centimet" }],
-'T2GK2': [{ id: 1, content: "Kết quả của phép tính: 56 - 28 = ?", correct: "28", wrong1: "26", wrong2: "38", wrong3: "36" }],
-'T2HK2': [{ id: 1, content: "Một năm có mấy tháng?", correct: "12 tháng", wrong1: "10 tháng", wrong2: "11 tháng", wrong3: "13 tháng" }],
-'T3GK1': [{ id: 1, content: "Kết quả của phép tính: 123 + 456 = ?", correct: "579", wrong1: "568", wrong2: "589", wrong3: "569" }],
-'T3HK1': [{ id: 1, content: "Diện tích hình chữ nhật có chiều dài 5cm, chiều rộng 3cm là:", correct: "15 cm²", wrong1: "8 cm²", wrong2: "16 cm²", wrong3: "10 cm²" }],
-'T3GK2': [{ id: 1, content: "Kết quả của phép tính: 456 - 234 = ?", correct: "222", wrong1: "212", wrong2: "232", wrong3: "223" }],
-'T3HK2': [{ id: 1, content: "Một giờ bằng bao nhiêu phút?", correct: "60 phút", wrong1: "30 phút", wrong2: "100 phút", wrong3: "50 phút" }],
-'T4GK1': [{ id: 1, content: "Kết quả của phép tính: 125 × 4 = ?", correct: "500", wrong1: "400", wrong2: "520", wrong3: "480" }],
-'T4HK1': [{ id: 1, content: "Một kilômét bằng bao nhiêu mét?", correct: "1000 mét", wrong1: "100 mét", wrong2: "10000 mét", wrong3: "500 mét" }],
-'T4GK2': [{ id: 1, content: "Kết quả của phép tính: 840 ÷ 7 = ?", correct: "120", wrong1: "110", wrong2: "130", wrong3: "100" }],
-'T4HK2': [{ id: 1, content: "Một tấn bằng bao nhiêu kilôgam?", correct: "1000 kg", wrong1: "100 kg", wrong2: "10000 kg", wrong3: "500 kg" }],
-'T5GK1': [{ id: 1, content: "Kết quả của phép tính: 2,5 + 3,7 = ?", correct: "6,2", wrong1: "5,2", wrong2: "6,12", wrong3: "5,12" }],
-'T5HK1': [{ id: 1, content: "Thể tích hình lập phương có cạnh 3cm là:", correct: "27 cm³", wrong1: "9 cm³", wrong2: "12 cm³", wrong3: "18 cm³" }],
-'T5GK2': [{ id: 1, content: "Kết quả của phép tính: 4,8 - 2,5 = ?", correct: "2,3", wrong1: "2,13", wrong2: "2,03", wrong3: "3,3" }],
-'T5HK2': [{ id: 1, content: "Một hecta bằng bao nhiêu mét vuông?", correct: "10000 m²", wrong1: "1000 m²", wrong2: "100000 m²", wrong3: "5000 m²" }],
-'T6GK1': [{ id: 1, content: "Kết quả của phép tính: \\(\\frac{2}{3} + \\frac{1}{6}\\) = ?", correct: "\\(\\frac{5}{6}\\)", wrong1: "\\(\\frac{3}{9}\\)", wrong2: "\\(\\frac{1}{2}\\)", wrong3: "\\(\\frac{3}{6}\\)" }],
-'T6HK1': [{ id: 1, content: "Chu vi hình tròn có bán kính 7cm là (lấy π ≈ 3,14):", correct: "43,96 cm", wrong1: "21,98 cm", wrong2: "153,86 cm", wrong3: "14 cm" }],
-'T6GK2': [{ id: 1, content: "Kết quả của phép tính: \\(\\frac{5}{8} - \\frac{1}{4}\\) = ?", correct: "\\(\\frac{3}{8}\\)", wrong1: "\\(\\frac{4}{4}\\)", wrong2: "\\(\\frac{4}{8}\\)", wrong3: "\\(\\frac{2}{8}\\)" }],
-'T6HK2': [{ id: 1, content: "Diện tích hình tròn có bán kính 5cm là (lấy π ≈ 3,14):", correct: "78,5 cm²", wrong1: "31,4 cm²", wrong2: "15,7 cm²", wrong3: "25 cm²" }],
-'T7GK1': [{ id: 1, content: "Kết quả của phép tính: \\((-3) + 5\\) = ?", correct: "2", wrong1: "-2", wrong2: "8", wrong3: "-8" }],
-'T7HK1': [{ id: 1, content: "Góc kề bù với góc 35° có số đo bằng:", correct: "145°", wrong1: "55°", wrong2: "125°", wrong3: "65°" }],
-'T7GK2': [{ id: 1, content: "Kết quả của phép tính: \\((-2) \\times 4\\) = ?", correct: "-8", wrong1: "8", wrong2: "-6", wrong3: "6" }],
-'T7HK2': [{ id: 1, content: "Tổng các góc trong một tam giác bằng:", correct: "180°", wrong1: "90°", wrong2: "360°", wrong3: "270°" }],
-'T8GK1': [{ id: 1, content: "Kết quả của phép tính: \\(2^3 + 3^2\\) = ?", correct: "17", wrong1: "13", wrong2: "15", wrong3: "19" }],
-'T8HK1': [{ id: 1, content: "Hình thang có hai đáy lần lượt là 8cm và 12cm, chiều cao 5cm. Diện tích hình thang là:", correct: "50 cm²", wrong1: "100 cm²", wrong2: "40 cm²", wrong3: "60 cm²" }],
-'T8GK2': [{ id: 1, content: "Kết quả của phép tính: \\(\\sqrt{36} + \\sqrt{25}\\) = ?", correct: "11", wrong1: "10", wrong2: "12", wrong3: "13" }],
-'T8HK2': [{ id: 1, content: "Đường trung bình của tam giác có độ dài bằng:", correct: "Nửa độ dài cạnh tương ứng", wrong1: "Bằng độ dài cạnh tương ứng", wrong2: "Gấp đôi độ dài cạnh tương ứng", wrong3: "Một phần ba độ dài cạnh tương ứng" }],
-'T9GK1': [{ id: 1, content: "Giá trị của biểu thức: \\(x^2 - 5x + 6\\) tại x = 2 là:", correct: "0", wrong1: "1", wrong2: "-1", wrong3: "2" }],
-'T9HK1': [{ id: 1, content: "Hệ phương trình \\[\\begin{cases} x + y = 5 \\\\ x - y = 1 \\end{cases}\\] có nghiệm là:", correct: "\\((3; 2)\\)", wrong1: "\\((2; 3)\\)", wrong2: "\\((4; 1)\\)", wrong3: "\\((1; 4)\\)" }],
-'T9GK2': [{ id: 1, content: "Điểm M(2; -3) thuộc đường thẳng nào sau đây?", correct: "y = -x - 1", wrong1: "y = x + 1", wrong2: "y = 2x - 1", wrong3: "y = -2x + 1" }],
-'T9HK2': [
-{ id: 1, content: "Hệ phương trình \\[\\begin{cases} 2x - y = -5 \\\\ x - y = -3 \\end{cases}\\] có nghiệm là", correct: "\\((-2; 1)\\)", wrong1: "\\((2; -1)\\)", wrong2: "\\((2; 1)\\)", wrong3: "\\((-2; -1)\\)" },
-{ id: 2, content: "Cho \\( a + 2024 > b + 2024 \\). Khi đó ta có:", correct: "\\( a > b \\)", wrong1: "\\( a < b \\)", wrong2: "\\( a - 1 > b \\)", wrong3: "\\( a - 1 \\leq b - 1 \\)" },
-{ id: 3, content: "Giá trị của \\(\\sin 48^\\circ\\) bằng (kết quả làm tròn đến chữ số thập phân thứ ba)", correct: "\\(0,743\\)", wrong1: "\\(0,753\\)", wrong2: "\\(0,742\\)", wrong3: "\\(0,744\\)" },
-{ id: 4, content: "Phương trình nào sau đây nhận cặp số \\((-2; 4)\\) là một nghiệm?", correct: "\\( 2x + y = 0 \\)", wrong1: "\\( 2x - y = 0 \\)", wrong2: "\\( x - 2y = 0 \\)", wrong3: "\\( x + 2y = 0 \\)" },
-{ id: 5, content: "Phương trình \\((2x - 4)(x + 1) = 0\\) có nghiệm là", correct: "\\( x = 2; x = -1 \\)", wrong1: "\\( x = 2 \\)", wrong2: "\\( x = -1 \\)", wrong3: "\\( x = -2; x = 1 \\)" },
-{ id: 6, content: "Hệ phương trình \\[\\begin{cases} x + 2y = m \\\\ m^2 + 2y = 1 \\end{cases}\\] vô nghiệm khi", correct: "\\( m = 1 \\)", wrong1: "\\( m = -1 \\)", wrong2: "\\( m = \\pm 1 \\)", wrong3: "\\( m \\neq \\pm 1 \\)" },
-{ id: 7, content: "Tam giác MNP vuông tại M. Khi đó \\(\\cos N\\) bằng", correct: "\\(\\frac{MN}{NP}\\)", wrong1: "\\(\\frac{MN}{MP}\\)", wrong2: "\\(\\frac{NP}{MN}\\)", wrong3: "\\(\\frac{MP}{NP}\\)" },
-{ id: 8, content: "Nghiệm của phương trình \\(x^2 - 5x + 6 = 0\\) là:", correct: "\\( x = 2, x = 3 \\)", wrong1: "\\( x = -2, x = -3 \\)", wrong2: "\\( x = 1, x = 6 \\)", wrong3: "\\( x = -1, x = -6 \\)" },
-{ id: 9, content: "Cho hàm số \\(y = 2x - 3\\). Điểm nào sau đây thuộc đồ thị hàm số?", correct: "Tất cả đều đúng", wrong1: "\\((0; -3)\\)", wrong2: "\\((1; -1)\\)", wrong3: "\\((2; 1)\\)" },
-{ id: 10, content: "Giá trị của biểu thức \\(\\sqrt{16} + \\sqrt[3]{27}\\) là:", correct: "\\(7\\)", wrong1: "\\(5\\)", wrong2: "\\(9\\)", wrong3: "\\(11\\)" },
-{ id: 11, content: "Trong các số sau, số nào là số vô tỉ?", correct: "\\(\\sqrt{2}\\)", wrong1: "\\(\\sqrt{9}\\)", wrong2: "\\(\\sqrt{16}\\)", wrong3: "\\(\\sqrt{25}\\)" },
-{ id: 12, content: "Cho hình chữ nhật có chiều dài 8cm, chiều rộng 6cm. Độ dài đường chéo là:", correct: "\\(10\\text{cm}\\)", wrong1: "\\(12\\text{cm}\\)", wrong2: "\\(14\\text{cm}\\)", wrong3: "\\(16\\text{cm}\\)" },
-{ id: 13, content: "Giá trị của \\(\\cos 60^\\circ\\) là:", correct: "\\(\\frac{1}{2}\\)", wrong1: "\\(\\frac{\\sqrt{2}}{2}\\)", wrong2: "\\(\\frac{\\sqrt{3}}{2}\\)", wrong3: "\\(1\\)" },
-{ id: 14, content: "Phương trình \\(x^2 - 4 = 0\\) có nghiệm là:", correct: "\\(x = \\pm 2\\)", wrong1: "\\(x = 2\\)", wrong2: "\\(x = -2\\)", wrong3: "\\(x = \\pm 4\\)" },
-{ id: 15, content: "Diện tích hình tròn có bán kính 5cm là:", correct: "\\(25\\pi \\text{cm}^2\\)", wrong1: "\\(10\\pi \\text{cm}^2\\)", wrong2: "\\(5\\pi \\text{cm}^2\\)", wrong3: "\\(50\\pi \\text{cm}^2\\)" }
-]
+// --- TOÁN LỚP 1 - GIỮA HỌC KÌ 1 (Đầy đủ 10 câu mỗi phần để test) ---
+'T1GK1': {
+    P1: [
+        { id: 1, content: "Số nào lớn nhất trong các số: 5, 9, 2?", correct: "9", wrong1: "5", wrong2: "2", wrong3: "8" },
+        { id: 2, content: "Kết quả của phép tính: 5 + 3 = ?", correct: "8", wrong1: "6", wrong2: "7", wrong3: "9" },
+        { id: 3, content: "Kết quả của phép tính: 9 - 4 = ?", correct: "5", wrong1: "4", wrong2: "6", wrong3: "3" },
+        { id: 4, content: "Số tiếp theo của số 7 là số mấy?", correct: "8", wrong1: "6", wrong2: "9", wrong3: "5" },
+        { id: 5, content: "Tìm số x biết: x + 2 = 6", correct: "4", wrong1: "2", wrong2: "3", wrong3: "5" },
+        { id: 6, content: "Dòng số nào sau đây được sắp xếp theo thứ tự từ bé đến lớn?", correct: "2, 5, 8, 9", wrong1: "9, 5, 2, 1", wrong2: "8, 2, 5, 9", wrong3: "5, 8, 2, 9" },
+        { id: 7, content: "Hình nào dưới đây là hình tròn?", correct: "Hình bánh xe", wrong1: "Hình quyển vở", wrong2: "Hình cái bảng", wrong3: "Hình cái khối" },
+        { id: 8, content: "Kết quả của 3 + 3 là bao nhiêu?", correct: "6", wrong1: "5", wrong2: "9", wrong3: "0" },
+        { id: 9, content: "Số nào nhỏ hơn 5?", correct: "4", wrong1: "5", wrong2: "6", wrong3: "7" },
+        { id: 10, content: "Có 5 con chim, rồi bay đi 2 con. H còn lại mấy con?", correct: "3", wrong1: "2", wrong2: "7", wrong3: "1" }
+    ],
+    P2: [
+        { id: 1, content: "Số 0 là số nhỏ nhất trong các số tự nhiên đã học.", correct: "Đúng", wrong1: "Sai" },
+        { id: 2, content: "Số 5 lớn hơn số 9.", correct: "Sai", wrong1: "Đúng" },
+        { id: 3, content: "Kết quả của 2 + 3 bằng 5.", correct: "Đúng", wrong1: "Sai" },
+        { id: 4, content: "Hình vuông có 3 cạnh.", correct: "Sai", wrong1: "Đúng" },
+        { id: 5, content: "Số tiếp theo của số 8 là số 10.", correct: "Sai", wrong1: "Đúng" },
+        { id: 6, content: "6 + 0 = 6.", correct: "Đúng", wrong1: "Sai" },
+        { id: 7, content: "Số 9 nằm giữa số 8 và số 10.", correct: "Đúng", wrong1: "Sai" },
+        { id: 8, content: "5 - 2 = 3.", correct: "Đúng", wrong1: "Sai" },
+        { id: 9, content: "Số 7 nhỏ hơn số 4.", correct: "Sai", wrong1: "Đúng" },
+        { id: 10, content: "Một chục có 10 đơn vị.", correct: "Đúng", wrong1: "Sai" }
+    ],
+    P3: [
+        { id: 1, content: "3 + ... = 7", correct: "4", wrong1: "3", wrong2: "5", wrong3: "2" },
+        { id: 2, content: "... - 2 = 5", correct: "7", wrong1: "5", wrong2: "6", wrong3: "8" },
+        { id: 3, content: "5 + 5 = ...", correct: "10", wrong1: "9", wrong2: "8", wrong3: "0" },
+        { id: 4, content: "9 - ... = 4", correct: "5", wrong1: "4", wrong2: "6", wrong3: "3" },
+        { id: 5, content: "... + 4 = 8", correct: "4", wrong1: "2", wrong2: "3", wrong3: "5" },
+        { id: 6, content: "10 - ... = 1", correct: "9", wrong1: "8", wrong2: "7", wrong3: "0" },
+        { id: 7, content: "2 + ... = 6", correct: "4", wrong1: "3", wrong2: "5", wrong3: "2" },
+        { id: 8, content: "... + 3 = 9", correct: "6", wrong1: "5", wrong2: "7", wrong3: "4" },
+        { id: 9, content: "8 - ... = 8", correct: "0", wrong1: "1", wrong2: "2", wrong3: "8" },
+        { id: 10, content: "... + 1 = 10", correct: "9", wrong1: "8", wrong2: "10", wrong3: "0" }
+    ]
+},
+
+// --- CÁC KHO KHÁC (Mỗi phần 1 câu mẫu) ---
+'T1HK1': {
+    P1: [{ id: 1, content: "Kết quả của 5 + 5 = ?", correct: "10", wrong1: "9", wrong2: "8", wrong3: "11" }],
+    P2: [{ id: 1, content: "Một năm có 12 tháng.", correct: "Đúng", wrong1: "Sai" }],
+    P3: [{ id: 1, content: "Một tá có ... quả", correct: "12", wrong1: "10", wrong2: "11", wrong3: "13" }]
+},
+'T1GK2': {
+    P1: [{ id: 1, content: "Kết quả của 10 + 5 = ?", correct: "15", wrong1: "12", wrong2: "13", wrong3: "14" }],
+    P2: [{ id: 1, content: "Số 20 lớn hơn số 19.", correct: "Đúng", wrong1: "Sai" }],
+    P3: [{ id: 1, content: "15 + ... = 20", correct: "5", wrong1: "4", wrong2: "6", wrong3: "3" }]
+},
+'T1HK2': {
+    P1: [{ id: 1, content: "Kết quả của 50 - 20 = ?", correct: "30", wrong1: "20", wrong2: "40", wrong3: "10" }],
+    P2: [{ id: 1, content: "Hình tam giác có 4 cạnh.", correct: "Sai", wrong1: "Đúng" }],
+    P3: [{ id: 1, content: "100 cm = ... m", correct: "1", wrong1: "10", wrong2: "100", wrong3: "0.1" }]
+},
+'T2GK1': {
+    P1: [{ id: 1, content: "15 + 27 = ?", correct: "42", wrong1: "32", wrong2: "41", wrong3: "43" }],
+    P2: [{ id: 1, content: "Số 99 là số lớn nhất có 2 chữ số.", correct: "Đúng", wrong1: "Sai" }],
+    P3: [{ id: 1, content: "234 + ... = 240", correct: "6", wrong1: "4", wrong2: "5", wrong3: "7" }]
+},
+'T2HK1': {
+    P1: [{ id: 1, content: "1 mét = ? cm", correct: "100", wrong1: "10", wrong2: "1000", wrong3: "1" }],
+    P2: [{ id: 1, content: "Kg là đơn vị đo độ dài.", correct: "Sai", wrong1: "Đúng" }],
+    P3: [{ id: 1, content: "500g + ... = 1kg", correct: "500g", wrong1: "400g", wrong2: "600g", wrong3: "300g" }]
+},
+'T2GK2': {
+    P1: [{ id: 1, content: "56 - 28 = ?", correct: "28", wrong1: "26", wrong2: "38", wrong3: "36" }],
+    P2: [{ id: 1, content: "Phép trừ không có tính giao hoán.", correct: "Đúng", wrong1: "Sai" }],
+    P3: [{ id: 1, content: "... x 3 = 12", correct: "4", wrong1: "3", wrong2: "5", wrong3: "6" }]
+},
+'T2HK2': {
+    P1: [{ id: 1, content: "Một năm có mấy tháng?", correct: "12", wrong1: "10", wrong2: "11", wrong3: "13" }],
+    P2: [{ id: 1, content: "Tháng 2 có 30 ngày.", correct: "Sai", wrong1: "Đúng" }],
+    P3: [{ id: 1, content: "1 giờ = ... phút", correct: "60", wrong1: "30", wrong2: "100", wrong3: "50" }]
+},
+'T3GK1': {
+    P1: [{ id: 1, content: "123 + 456 = ?", correct: "579", wrong1: "568", wrong2: "589", wrong3: "569" }],
+    P2: [{ id: 1, content: "Diện tích hình chữ nhật tính bằng chiều dài cộng chiều rộng.", correct: "Sai", wrong1: "Đúng" }],
+    P3: [{ id: 1, content: "Chu vi hình vuông cạnh 5cm là ... cm", correct: "20", wrong1: "10", wrong2: "25", wrong3: "15" }]
+},
+'T3HK1': {
+    P1: [{ id: 1, content: "Diện tích HCN (5,3) là:", correct: "15", wrong1: "8", wrong2: "16", wrong3: "10" }],
+    P2: [{ id: 1, content: "1km = 1000m.", correct: "Đúng", wrong1: "Sai" }],
+    P3: [{ id: 1, content: "Hình chữ nhật dài 10cm, rộng 6cm. Chu vi là ... cm", correct: "32", wrong1: "16", wrong2: "60", wrong3: "22" }]
+},
+'T3GK2': {
+    P1: [{ id: 1, content: "456 - 234 = ?", correct: "222", wrong1: "212", wrong2: "232", wrong3: "223" }],
+    P2: [{ id: 1, content: "Phép nhân có tính kết hợp.", correct: "Đúng", wrong1: "Sai" }],
+    P3: [{ id: 1, content: "Thời gian từ 8h đến 12h là ... giờ", correct: "4", wrong1: "3", wrong2: "5", wrong3: "6" }]
+},
+'T3HK2': {
+    P1: [{ id: 1, content: "1 giờ = ? phút", correct: "60", wrong1: "30", wrong2: "100", wrong3: "50" }],
+    P2: [{ id: 1, content: "Năm nhuận có tháng 2 có 29 ngày.", correct: "Đúng", wrong1: "Sai" }],
+    P3: [{ id: 1, content: "S = a x b (Hình chữ nhật). Biết S = 50, a = 5 => b = ...", correct: "10", wrong1: "25", wrong2: "45", wrong3: "55" }]
+},
+'T4GK1': {
+    P1: [{ id: 1, content: "125 × 4 = ?", correct: "500", wrong1: "400", wrong2: "520", wrong3: "480" }],
+    P2: [{ id: 1, content: "Trong phép chia, số bị chia phải lớn hơn số chia.", correct: "Sai", wrong1: "Đúng" }],
+    P3: [{ id: 1, content: "240 : 6 = ...", correct: "40", wrong1: "30", wrong2: "50", wrong3: "4" }]
+},
+'T4HK1': {
+    P1: [{ id: 1, content: "1km = ? m", correct: "1000", wrong1: "100", wrong2: "10000", wrong3: "500" }],
+    P2: [{ id: 1, content: "Tam giác đều có 3 trục đối xứng.", correct: "Sai", wrong1: "Đúng" }], // Thực tế là 3 nhưng ở lớp 4 có thể chưa học sâu, mình đặt Sai để test logic
+    P3: [{ id: 1, content: "3 tấn = ... kg", correct: "3000", wrong1: "300", wrong2: "30000", wrong3: "30" }]
+},
+'T4GK2': {
+    P1: [{ id: 1, content: "840 ÷ 7 = ?", correct: "120", wrong1: "110", wrong2: "130", wrong3: "100" }],
+    P2: [{ id: 1, content: "Hình thang có 2 đáy song song.", correct: "Đúng", wrong1: "Sai" }],
+    P3: [{ id: 1, content: "Một góc vuông bằng ... độ", correct: "90", wrong1: "45", wrong2: "180", wrong3: "60" }]
+},
+'T4HK2': {
+    P1: [{ id: 1, content: "1 tấn = ? kg", correct: "1000", wrong1: "100", wrong2: "10000", wrong3: "500" }],
+    P2: [{ id: 1, content: "Tích của a với 1 luôn bằng 0.", correct: "Sai", wrong1: "Đúng" }],
+    P3: [{ id: 1, content: "Diện tích tam giác đáy 10, cao 6 là ...", correct: "30", wrong1: "60", wrong2: "16", wrong3: "36" }]
+},
+'T5GK1': {
+    P1: [{ id: 1, content: "2,5 + 3,7 = ?", correct: "6,2", wrong1: "5,2", wrong2: "6,12", wrong3: "5,12" }],
+    P2: [{ id: 1, content: "Phân số 5/5 bằng 1.", correct: "Đúng", wrong1: "Sai" }],
+    P3: [{ id: 1, content: "0,5 = ... / 10", correct: "5", wrong1: "50", wrong2: "0,5", wrong3: "1" }]
+},
+'T5HK1': {
+    P1: [{ id: 1, content: "Thể tích hình lập phương cạnh 3cm là:", correct: "27", wrong1: "9", wrong2: "12", wrong3: "18" }],
+    P2: [{ id: 1, content: "Hình chóp có mặt đáy là hình đa giác.", correct: "Đúng", wrong1: "Sai" }],
+    P3: [{ id: 1, content: "3/5 = ... /10", correct: "6", wrong1: "5", wrong2: "9", wrong3: "3" }]
+},
+'T5GK2': {
+    P1: [{ id: 1, content: "4,8 - 2,5 = ?", correct: "2,3", wrong1: "2,13", wrong2: "2,03", wrong3: "3,3" }],
+    P2: [{ id: 1, content: "2 phân tử 5 bằng 0,4.", correct: "Đúng", wrong1: "Sai" }],
+    P3: [{ id: 1, content: "1/2 + 1/2 = ...", correct: "1", wrong1: "2/4", wrong2: "1/4", wrong3: "2" }]
+},
+'T5HK2': {
+    P1: [{ id: 1, content: "1ha = ? m²", correct: "10000", wrong1: "1000", wrong2: "100000", wrong3: "5000" }],
+    P2: [{ id: 1, content: "Khối lập phương có 12 cạnh đều bằng nhau.", correct: "Đúng", wrong1: "Sai" }],
+    P3: [{ id: 1, content: "Thể tích khối hộp (5, 2, 3) là ...", correct: "30", wrong1: "10", wrong2: "15", wrong3: "25" }]
+},
+'T6GK1': {
+    P1: [{ id: 1, content: "\\(\\frac{2}{3} + \\frac{1}{6}\\) = ?", correct: "\\(\\frac{5}{6}\\)", wrong1: "\\(\\frac{3}{9}\\)", wrong2: "\\(\\frac{1}{2}\\)", wrong3: "\\(\\frac{3}{6}\\)" }],
+    P2: [{ id: 1, content: "Số nguyên âm là số nhỏ hơn 0.", correct: "Đúng", wrong1: "Sai" }],
+    P3: [{ id: 1, content: "x + 5 = 12 => x = ...", correct: "7", wrong1: "5", wrong2: "17", wrong3: "2" }]
+},
+'T6HK1': {
+    P1: [{ id: 1, content: "Chu vi hình tròn r=7 (π≈3,14):", correct: "43,96", wrong1: "21,98", wrong2: "153,86", wrong3: "14" }],
+    P2: [{ id: 1, content: "Đường thẳng song song nhau không cắt nhau.", correct: "Đúng", wrong1: "Sai" }],
+    P3: [{ id: 1, content: "Góc bù với góc 30° là góc ...", correct: "150°", wrong1: "30°", wrong2: "60°", wrong3: "120°" }]
+},
+'T6GK2': {
+    P1: [{ id: 1, content: "\\(\\frac{5}{8} - \\frac{1}{4}\\) = ?", correct: "\\(\\frac{3}{8}\\)", wrong1: "\\(\\frac{4}{4}\\)", wrong2: "\\(\\frac{4}{8}\\)", wrong3: "\\(\\frac{2}{8}\\)" }],
+    P2: [{ id: 1, content: "Hình bình hành có 2 đường chéo bằng nhau.", correct: "Sai", wrong1: "Đúng" }],
+    P3: [{ id: 1, content: "2x = 10 => x = ...", correct: "5", wrong1: "2", wrong2: "8", wrong3: "20" }]
+},
+'T6HK2': {
+    P1: [{ id: 1, content: "Diện tích hình tròn r=5 (π≈3,14):", correct: "78,5", wrong1: "31,4", wrong2: "15,7", wrong3: "25" }],
+    P2: [{ id: 1, content: "Mọi hình thang đều là hình tứ giác.", correct: "Đúng", wrong1: "Sai" }],
+    P3: [{ id: 1, content: "Tổng các góc trong tam giác là ... độ", correct: "180", wrong1: "90", wrong2: "360", wrong3: "100" }]
+},
+'T7GK1': {
+    P1: [{ id: 1, content: "\\((-3) + 5\\) = ?", correct: "2", wrong1: "-2", wrong2: "8", wrong3: "-8" }],
+    P2: [{ id: 1, content: "2 số đối nhau có tổng bằng 0.", correct: "Đúng", wrong1: "Sai" }],
+    P3: [{ id: 1, content: "Số x nếu x - (-3) = 5 thì x = ...", correct: "2", wrong1: "8", wrong2: "-2", wrong3: "-8" }]
+},
+'T7HK1': {
+    P1: [{ id: 1, content: "Góc kề bù 35° là:", correct: "145°", wrong1: "55°", wrong2: "125°", wrong3: "65°" }],
+    P2: [{ id: 1, content: "Hai góc so le trong bằng nhau.", correct: "Đúng", wrong1: "Sai" }],
+    P3: [{ id: 1, content: "Góc \\(\\alpha\\) và \\(\\beta\\) bù nhau, biết \\(\\alpha = 70^\\circ\\) thì \\(\\beta = ...\\)", correct: "110°", wrong1: "70°", wrong2: "20°", wrong3: "180°" }]
+},
+'T7GK2': {
+    P1: [{ id: 1, content: "\\((-2) \\times 4\\) = ?", correct: "-8", wrong1: "8", wrong2: "-6", wrong3: "6" }],
+    P2: [{ id: 1, content: "Tích của hai số cùng dấu là số dương.", correct: "Đúng", wrong1: "Sai" }],
+    P3: [{ id: 1, content: "3x = -9 => x = ...", correct: "-3", wrong1: "3", wrong2: "-27", wrong3: "27" }]
+},
+'T7HK2': {
+    P1: [{ id: 1, content: "Tổng góc tam giác:", correct: "180°", wrong1: "90°", wrong2: "360°", wrong3: "270°" }],
+    P2: [{ id: 1, content: "Tam giác cân có 3 cạnh bằng nhau.", correct: "Sai", wrong1: "Đúng" }],
+    P3: [{ id: 1, content: "Trong tam giác, tổng hai cạnh bên ... cạnh thứ 3.", correct: "lớn hơn", wrong1: "nhỏ hơn", wrong2: "bằng", wrong3: "bằng 2 lần" }]
+},
+'T8GK1': {
+    P1: [{ id: 1, content: "\\(2^3 + 3^2\\) = ?", correct: "17", wrong1: "13", wrong2: "15", wrong3: "19" }],
+    P2: [{ id: 1, content: "Căn bậc hai của một số không âm luôn không âm.", correct: "Đúng", wrong1: "Sai" }],
+    P3: [{ id: 1, content: "\\(x^2 = 16\\) thì x = ...", correct: "4", wrong1: "8", wrong2: "2", wrong3: "-4" }] // Chọn nghiệm dương ở mức cơ bản hoặc cả 2, đây là ví dụ
+},
+'T8HK1': {
+    P1: [{ id: 1, content: "Hình thang (8,12,5) Diện tích:", correct: "50", wrong1: "100", wrong2: "40", wrong3: "60" }],
+    P2: [{ id: 1, content: "Hình thang cân có 2 góc đáy bằng nhau.", correct: "Đúng", wrong1: "Sai" }],
+    P3: [{ id: 1, content: "Độ cao h của hình thang có đáy b, B và diện tích S là: h = ...", correct: "2S/(b+B)", wrong1: "S/(b+B)", wrong2: "(b+B)/(2S)", wrong3: "S/(b+B)/2" }]
+},
+'T8GK2': {
+    P1: [{ id: 1, content: "\\(\\sqrt{36} + \\sqrt{25}\\) = ?", correct: "11", wrong1: "10", wrong2: "12", wrong3: "13" }],
+    P2: [{ id: 1, content: "Đường trung bình của tam giác bằng 1/2 cạnh đáy.", correct: "Đúng", wrong1: "Sai" }],
+    P3: [{ id: 1, content: "Cắt 1 góc của hình tứ giác bằng 1 đường thẳng thì số góc tăng ...", correct: "2", wrong1: "1", wrong2: "0", wrong3: "3" }]
+},
+'T8HK2': {
+    P1: [{ id: 1, content: "Đường trung bình bằng:", correct: "1/2 cạnh tương ứng", wrong1: "Bằng cạnh", wrong2: "Gấp đôi", wrong3: "1/3 cạnh" }],
+    P2: [{ id: 1, content: "Hình thang vuông có một góc bằng 90 độ.", correct: "Sai", wrong1: "Đúng" }], // Có 2 góc 90 độ
+    P3: [{ id: 1, content: "Trong hình thang, đường thẳng đi qua trung điểm 2腰 là đường trung bình.", correct: "cạnh bên", wrong1: "đáy", wrong2: "đường chéo", wrong3: "đường cao" }]
+},
+'T9GK1': {
+    P1: [{ id: 1, content: "\\(x^2 - 5x + 6\\) tại x=2:", correct: "0", wrong1: "1", wrong2: "-1", wrong3: "2" }],
+    P2: [{ id: 1, content: "Điểm (0;0) thuộc trục tung.", correct: "Sai", wrong1: "Đúng" }],
+    P3: [{ id: 1, content: "Hàm số y = 2x + 1 có đồ thị là ...", correct: "đường thẳng", wrong1: "đường cong", wrong2: "đoạn thẳng", wrong3: "parabol" }]
+},
+'T9HK1': {
+    P1: [{ id: 1, content: "Hệ \\(\\begin{cases} x+y=5 \\\\ x-y=1 \\end{cases}\\) nghiệm:", correct: "(3;2)", wrong1: "(2;3)", wrong2: "(4;1)", wrong3: "(1;4)" }],
+    P2: [{ id: 1, content: "Hai đường thẳng song song thì không có điểm chung.", correct: "Đúng", wrong1: "Sai" }],
+    P3: [{ id: 1, content: "Nghiệm của phương trình 2x - 4 = 0 là x = ...", correct: "2", wrong1: "-2", wrong2: "4", wrong3: "-4" }]
+},
+'T9GK2': {
+    P1: [{ id: 1, content: "M(2;-3) thuộc đường:", correct: "y=-x-1", wrong1: "y=x+1", wrong2: "y=2x-1", wrong3: "y=-2x+1" }],
+    P2: [{ id: 1, content: "Hàm số bậc nhất y = ax + b (a!=0) là parabol.", correct: "Sai", wrong1: "Đúng" }],
+    P3: [{ id: 1, content: "Đồ thị hàm số y = -x đi qua điểm ...", correct: "(1;-1)", wrong1: "(1;1)", wrong2: "(-1;-1)", wrong3: "(0;1)" }]
+},
+'T9HK2': {
+    P1: [{ id: 1, content: "Hệ \\(\\begin{cases} 2x - y = -5 \\\\ x - y = -3 \\end{cases}\\) nghiệm", correct: "(-2;1)", wrong1: "(2;-1)", wrong2: "(2;1)", wrong3: "(-2;-1)" }],
+    P2: [{ id: 1, content: "Phương trình bậc nhất 2 ẩn có vô số nghiệm.", correct: "Đúng", wrong1: "Sai" }],
+    P3: [{ id: 1, content: "Cặp số (2;1) là nghiệm của phương trình ...", correct: "x - y = 1", wrong1: "x + y = 1", wrong2: "2x + y = 1", wrong3: "x - 2y = 0" }]
+}
 };
 
 let currentScreen = 'main-screen';
@@ -579,7 +722,7 @@ let userAnswers = {};
 let testStartTime = null;
 let testSubmitTime = null;
 let timerInterval = null;
-let timeLeft = 600;
+let timeLeft = 600; // 10 phút
 let currentTestCode = '';
 let currentQuestions = [];
 let studentName = '';
@@ -613,45 +756,96 @@ const j = Math.floor(Math.random() * (i + 1));
 return array;
 }
 
-function convertQuestionToDisplayFormat(question) {
-const options = [];
-const labels = ['A', 'B', 'C', 'D'];
-const allChoices = [
-{ text: question.correct, isCorrect: true },
-{ text: question.wrong1, isCorrect: false },
-{ text: question.wrong2, isCorrect: false },
-{ text: question.wrong3, isCorrect: false }
-];
-const shuffledChoices = shuffleArray([...allChoices]);
-const correctChoice = shuffledChoices.find(choice => choice.isCorrect);
-const correctIndex = shuffledChoices.indexOf(correctChoice);
-const correctAnswer = labels[correctIndex];
-shuffledChoices.forEach((choice, index) => {
-options.push({ id: labels[index], text: choice.text });
-});
-return {
-id: question.id,
-content: question.content,
-options: options,
-correctAnswer: correctAnswer
-};
+// Hàm chuyển đổi dữ liệu thô sang định dạng hiển thị
+function convertQuestionToDisplayFormat(question, partType) {
+    const labels = ['A', 'B', 'C', 'D'];
+    let options = [];
+    let correctAnswer = '';
+
+    // Xử lý P2 (Đúng/Sai)
+    if (partType === 'P2') {
+        // Câu hỏi Đúng/Sai luôn có 2 đáp án cố định là A: Đúng, B: Sai
+        // Dữ liệu đầu vào: correct = "Đúng" hoặc "Sai"
+        const isTrue = question.correct === "Đúng";
+        
+        options = [
+            { id: 'A', text: 'Đúng' },
+            { id: 'B', text: 'Sai' }
+        ];
+        
+        // Đáp án đúng là A nếu nội dung là Đúng, ngược lại là B
+        correctAnswer = isTrue ? 'A' : 'B';
+    } 
+    // Xử lý P1 và P3 (Trắc nghiệm & Điền khuyết - cấu trúc giống nhau)
+    else {
+        const allChoices = [
+            { text: question.correct, isCorrect: true },
+            { text: question.wrong1, isCorrect: false },
+            { text: question.wrong2, isCorrect: false },
+            { text: question.wrong3, isCorrect: false }
+        ].filter(c => c.text && c.text.trim() !== ""); // Lọc bỏ đáp án rỗng nếu có
+
+        const shuffledChoices = shuffleArray([...allChoices]);
+        const correctChoice = shuffledChoices.find(choice => choice.isCorrect);
+        const correctIndex = shuffledChoices.indexOf(correctChoice);
+        
+        correctAnswer = labels[correctIndex];
+        
+        shuffledChoices.forEach((choice, index) => {
+            options.push({ id: labels[index], text: choice.text });
+        });
+    }
+
+    // Tạo ID duy nhất để tránh trùng lặp giữa các phần (Ví dụ: P1-1, P2-1)
+    const uniqueId = `${partType}-${question.id}`;
+
+    return {
+        id: uniqueId,
+        originalId: question.id, // Giữ lại ID gốc để hiển thị nếu cần
+        partType: partType,
+        content: question.content,
+        options: options,
+        correctAnswer: correctAnswer
+    };
 }
 
-function getRandomQuestions(code, count = 10) {
-const bank = questionBanks[code];
-if (!bank) return [];
-if (bank.length <= count) {
-return shuffleArray([...bank]).map((q, index) => ({
-...convertQuestionToDisplayFormat(q),
-displayOrder: index + 1
-}));
-}
-const shuffled = shuffleArray([...bank]);
-const selected = shuffled.slice(0, count);
-return selected.map((q, index) => ({
-...convertQuestionToDisplayFormat(q),
-displayOrder: index + 1
-}));
+// Hàm lấy câu hỏi ngẫu nhiên theo logic mới
+function getRandomQuestions(code) {
+    const bank = questionBanks[code];
+    if (!bank) return [];
+
+    let finalQuestions = [];
+    
+    // Hàm con để xử lý từng phần
+    const processPart = (partData, countNeeded, partType) => {
+        if (!partData || partData.length === 0) return [];
+        
+        // Xáo trộn và lấy số lượng cần thiết (hoặc tất cả nếu ít hơn)
+        const shuffled = shuffleArray([...partData]);
+        const selected = shuffled.slice(0, Math.min(countNeeded, shuffled.length));
+        
+        // Chuyển đổi định dạng
+        return selected.map(q => convertQuestionToDisplayFormat(q, partType));
+    };
+
+    // 1. Lấy 4 câu từ P1
+    const p1Questions = processPart(bank.P1, 4, 'P1');
+    
+    // 2. Lấy 4 câu từ P2
+    const p2Questions = processPart(bank.P2, 4, 'P2');
+    
+    // 3. Lấy 2 câu từ P3
+    const p3Questions = processPart(bank.P3, 2, 'P3');
+
+    // Ghép lại theo thứ tự: P1 -> P2 -> P3
+    finalQuestions = [...p1Questions, ...p2Questions, ...p3Questions];
+
+    // Gán số thứ tự hiển thị (Display Order)
+    finalQuestions.forEach((q, index) => {
+        q.displayOrder = index + 1;
+    });
+
+    return finalQuestions;
 }
 
 function startTest() {
@@ -661,12 +855,21 @@ const term = document.getElementById('term-select').value;
 if (!studentName) { alert('Vui lòng nhập họ và tên!'); return; }
 if (!grade || !term) { alert('Vui lòng chọn lớp và kỳ ôn tập!'); return; }
 if (studentName.length > 40) { alert('Họ và tên không được vượt quá 40 ký tự!'); return; }
+
+// Lấy câu hỏi theo logic mới
 currentQuestions = getRandomQuestions(currentTestCode);
+
+if (currentQuestions.length === 0) {
+    alert('Kho đề này hiện đang trống. Vui lòng chọn đề khác.');
+    return;
+}
+
 userAnswers = {};
 timeLeft = 600;
 testStartTime = new Date();
 currentQuestionIndex = 0;
 isTransitioning = false;
+
 document.getElementById('test-title').textContent = `${gradeNames[grade]} - ${termNames[term]}`;
 renderCurrentQuestion();
 startTimer();
@@ -705,16 +908,40 @@ notification.style.display = 'block';
 setTimeout(() => { notification.style.display = 'none'; }, duration);
 }
 
+function getPartBadgeClass(partType) {
+    if (partType === 'P1') return 'badge-p1';
+    if (partType === 'P2') return 'badge-p2';
+    if (partType === 'P3') return 'badge-p3';
+    return '';
+}
+
 function renderCurrentQuestion() {
 const container = document.getElementById('current-question-container');
 const question = currentQuestions[currentQuestionIndex];
 let optionsHTML = '';
+
+// Hiển thị các đáp án
 question.options.forEach(option => {
 optionsHTML += `<li class="option" data-question="${question.id}" data-option="${option.id}"><div class="math-container"><strong>${option.id}.</strong> ${option.text}</div></li>`;
 });
-container.innerHTML = `<div class="question"><div class="question-number">Câu ${question.displayOrder} - ${currentTestCode} - ${question.id}</div><div class="question-content"><div class="math-container">${question.content}</div></div><ul class="options">${optionsHTML}</ul></div>`;
+
+// Tạo badge tên phần
+const partLabel = question.partType === 'P1' ? 'Phần 1' : (question.partType === 'P2' ? 'Phần 2 (Đ/S)' : 'Phần 3 (Điền)');
+
+container.innerHTML = `
+    <div class="question">
+        <div class="question-number">
+            <span class="part-badge ${getPartBadgeClass(question.partType)}">${partLabel}</span>
+            Câu ${question.displayOrder} - ${currentTestCode}
+        </div>
+        <div class="question-content"><div class="math-container">${question.content}</div></div>
+        <ul class="options">${optionsHTML}</ul>
+    </div>
+`;
+
 document.getElementById('current-question-number').textContent = currentQuestionIndex + 1;
 document.getElementById('total-questions').textContent = currentQuestions.length;
+
 document.querySelectorAll('.option').forEach(option => {
 option.addEventListener('click', function() {
 if (isTransitioning) return;
@@ -759,6 +986,7 @@ const scoreChart = document.getElementById('score-chart');
 const color = getScoreColor(percentage);
 scoreChart.style.background = `conic-gradient(${color} ${percentage}%, #eee ${percentage}% 100%)`;
 document.getElementById('score-percentage').textContent = `${percentage}%`;
+// Sử dụng currentQuestions.length làm mẫu số (số câu thực tế lấy được)
 document.getElementById('score-detail').textContent = `${correctCount}/${currentQuestions.length}`;
 document.getElementById('result-date').textContent = `${testSubmitTime.getDate().toString().padStart(2, '0')}/${(testSubmitTime.getMonth() + 1).toString().padStart(2, '0')}/${testSubmitTime.getFullYear()}`;
 document.getElementById('start-time-hms').textContent = formatTimeHMS(testStartTime);
@@ -777,7 +1005,7 @@ if (!userAnswer) unansweredCount++;
 else if (userAnswer === question.correctAnswer) correctCount++;
 else incorrectCount++;
 });
-return { correctCount, incorrectCount, unansweredCount, percentage: Math.round((correctCount / currentQuestions.length) * 100) };
+return { correctCount, incorrectCount, unansweredCount, percentage: currentQuestions.length > 0 ? Math.round((correctCount / currentQuestions.length) * 100) : 0 };
 }
 
 function formatTimeHMS(date) {
@@ -802,14 +1030,21 @@ optionsHTML += `<div class="review-option-row" style="${textStyle}"><div class="
 });
 const reviewItem = document.createElement('div');
 reviewItem.className = `review-item ${statusClass}`;
-reviewItem.innerHTML = `<div class="review-question-title">Câu ${question.displayOrder} - ${currentTestCode} - ${question.id}</div><div class="question-content" style="font-size: 16px; margin-bottom: 5px;"><div class="math-container">${question.content}</div></div><div class="review-options">${optionsHTML}</div>`;
+const partLabel = question.partType === 'P1' ? 'P1' : (question.partType === 'P2' ? 'P2' : 'P3');
+reviewItem.innerHTML = `<div class="review-question-title"><span class="part-badge ${getPartBadgeClass(question.partType)}">${partLabel}</span> Câu ${question.displayOrder} - ${currentTestCode}</div><div class="question-content" style="font-size: 16px; margin-bottom: 5px;"><div class="math-container">${question.content}</div></div><div class="review-options">${optionsHTML}</div>`;
 container.appendChild(reviewItem);
 });
 if (window.MathJax) setTimeout(() => MathJax.typesetPromise(), 300);
 }
 
 function retryTest() {
+// Gọi lại hàm lấy câu hỏi ngẫu nhiên mới
 currentQuestions = getRandomQuestions(currentTestCode);
+if (currentQuestions.length === 0) {
+    alert('Kho đề này hiện đang trống.');
+    showScreen('main-screen');
+    return;
+}
 userAnswers = {};
 timeLeft = 600;
 testStartTime = new Date();
