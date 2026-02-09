@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ÔN TẬP TRẮC NGHIỆM TOÁN</title>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<script>
+window.MathJax = {
+tex: {
+inlineMath: [['$', '$'], ['\\(', '\\)']],
+displayMath: [['$$', '$$'], ['\\[', '\\]']],
+packages: {'[+]': ['ams', 'boldsymbol']},
+tags: 'ams',
+multlineWidth: '85%',
+tagsSide: 'right',
+tagIndent: '0.8em'
+},
+svg: {
+fontCache: 'global',
+scale: 1,
+minScale: .5,
+mtextInheritFont: true,
+merrorInheritFont: true,
+mathmlSpacing: false,
+displayAlign: 'center',
+displayIndent: '0'
+},
+chtml: {
+scale: 1,
+minScale: .5,
+mtextInheritFont: true,
+merrorInheritFont: true,
+mathmlSpacing: false,
+displayAlign: 'center',
+displayIndent: '0'
+},
+options: {
+renderActions: {
+addMenu: [0, '', '']
+},
+ignoreHtmlClass: 'tex2jax_ignore',
+processHtmlClass: 'tex2jax_process'
+},
+startup: {
+typeset: false
+}
+};
+</script>
+<style>
+/* CSS cập nhật với kích thước chữ lớn hơn */
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+background-color: #f5f7fa;
+color: #333;
+line-height: 1.6;
+}
+
+.container {
+max-width: 1000px;
+margin: 0 auto;
+padding: 20px;
+}
+
+header {
+text-align: center;
+margin-bottom: 30px;
+padding: 20px;
+background: linear-gradient(135deg, #1e5799, #207cca);
+color: white;
+border-radius: 10px;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+font-size: 32px;
+margin-bottom: 10px;
+}
+
+.screen {
+display: none;
+background-color: white;
+border-radius: 10px;
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+padding: 30px;
+margin-bottom: 30px;
+}
+
+.active {
+display: block;
+}
+
+.form-group {
+margin-bottom: 20px;
+}
+
+label {
+display: block;
+margin-bottom: 8px;
+font-weight: 600;
+color: #2c3e50;
+font-size: 18px;
+}
+
+input, select {
+width: 100%;
+padding: 14px 18px;
+border: 1px solid #ddd;
+border-radius: 5px;
+font-size: 18px;
+transition: border-color 0.3s;
+}
+
+input:focus, select:focus {
+border-color: #3498db;
+outline: none;
+}
+
+.row {
+display: flex;
+gap: 20px;
+margin-bottom: 20px;
+}
+
+.col {
+flex: 1;
+}
+
+.contact-info {
+background-color: #f8f9fa;
+padding: 20px;
+border-radius: 8px;
+margin-top: 30px;
+text-align: center;
+font-size: 18px;
+}
+
+.contact-info h3 {
+margin-bottom: 15px;
+color: #2c3e50;
+font-size: 22px;
+}
+
+.contact-info p {
+margin-bottom: 10px;
+}
+
+.btn {
+display: inline-block;
+padding: 14px 28px;
+background-color: #3498db;
+color: white;
+border: none;
+border-radius: 5px;
+font-size: 18px;
+cursor: pointer;
+transition: background-color 0.3s;
+text-align: center;
+margin-right: 10px;
+margin-top: 10px;
+}
+
+.btn:hover {
+background-color: #2980b9;
+}
+
+.btn-secondary {
+background-color: #7f8c8d;
+}
+
+.btn-secondary:hover {
+background-color: #636e72;
+}
+
+.btn-success {
+background-color: #2ecc71;
+}
+
+.btn-success:hover {
+background-color: #27ae60;
+}
+
+.btn-danger {
+background-color: #e74c3c;
+}
+
+.btn-danger:hover {
+background-color: #c0392b;
+}
+
+.timer {
+text-align: center;
+font-size: 34px; /* Tăng từ 28px lên 34px (tăng ~21%) */
+font-weight: bold;
+color: #e74c3c;
+margin: 20px 0;
+padding: 12px;
+background-color: #f9f9f9;
+border-radius: 5px;
+}
+
+.question {
+margin-bottom: 25px;
+padding: 20px;
+background-color: #f9f9f9;
+border-radius: 8px;
+border-left: 4px solid #3498db;
+}
+
+.question-number {
+font-weight: bold;
+color: #3498db;
+margin-bottom: 10px;
+font-size: 24px; /* Tăng từ 20px lên 24px (tăng 20%) */
+}
+
+.question-content {
+margin-bottom: 15px;
+font-size: 22px; /* Tăng từ 18px lên 22px (tăng ~22%) */
+}
+
+.options {
+list-style-type: none;
+}
+
+.option {
+padding: 14px 18px;
+margin-bottom: 10px;
+background-color: white;
+border-radius: 5px;
+cursor: pointer;
+transition: all 0.2s;
+border: 1px solid #e0e0e0;
+font-size: 22px; /* Tăng từ 18px lên 22px (tăng ~22%) */
+}
+
+.option:hover {
+background-color: #f0f7ff;
+border-color: #3498db;
+}
+
+.option.selected {
+background-color: #e1f0ff;
+border-color: #3498db;
+font-weight: bold;
+}
+
+.result-header {
+text-align: center;
+margin-bottom: 20px;
+padding-bottom: 15px;
+border-bottom: 1px solid #eee;
+}
+
+.result-header h2 {
+font-size: 28px;
+}
+
+.student-info {
+background-color: #f8f9fa;
+padding: 25px;
+border-radius: 8px;
+margin: 20px 0;
+}
+
+.student-info p {
+margin-bottom: 15px;
+font-size: 20px;
+line-height: 1.8;
+}
+
+.student-info strong {
+font-size: 22px;
+}
+
+.score-container {
+margin: 25px 0;
+padding: 15px;
+background-color: #f8f9fa;
+border-radius: 8px;
+}
+
+.score-text {
+text-align: center;
+font-size: 28px;
+font-weight: bold;
+color: #2c3e50;
+margin-bottom: 10px;
+}
+
+.score-bar {
+height: 30px;
+background-color: #ecf0f1;
+border-radius: 15px;
+overflow: hidden;
+margin: 10px 0;
+position: relative;
+}
+
+.score-progress {
+height: 100%;
+border-radius: 15px;
+transition: width 0.5s ease;
+width: 0%;
+}
+
+.stats {
+display: flex;
+justify-content: space-around;
+margin: 20px 0;
+text-align: center;
+}
+
+.stat-item {
+flex: 1;
+padding: 15px;
+}
+
+.stat-value {
+font-size: 32px;
+font-weight: bold;
+margin-bottom: 5px;
+}
+
+.stat-correct .stat-value {
+color: #2ecc71;
+}
+
+.stat-incorrect .stat-value {
+color: #e74c3c;
+}
+
+.stat-unanswered .stat-value {
+color: #7f8c8d;
+}
+
+.review-list {
+margin-top: 30px;
+}
+
+.review-item {
+padding: 15px;
+margin-bottom: 15px;
+border-radius: 8px;
+border-left: 4px solid;
+}
+
+.review-item.correct {
+border-left-color: #2ecc71;
+background-color: #e8f5e9;
+}
+
+.review-item.incorrect {
+border-left-color: #e74c3c;
+background-color: #ffebee;
+}
+
+.review-item.unanswered {
+border-left-color: #7f8c8d;
+background-color: #f5f5f5;
+}
+
+.user-answer {
+font-weight: bold;
+margin-top: 8px;
+color: #e74c3c;
+font-size: 22px; /* Tăng từ 18px lên 22px (tăng ~22%) */
+}
+
+.correct-answer {
+font-weight: bold;
+color: #2ecc71;
+margin-top: 8px;
+font-size: 22px; /* Tăng từ 18px lên 22px (tăng ~22%) */
+}
+
+.hidden {
+display: none;
+}
+
+/* Styles for single question display */
+.question-counter {
+text-align: center;
+font-size: 24px; /* Tăng từ 20px lên 24px (tăng 20%) */
+font-weight: bold;
+color: #2c3e50;
+margin: 15px 0;
+}
+
+/* Cải thiện hiển thị công thức toán */
+.math-container {
+margin: 10px 0;
+padding: 10px;
+background-color: rgba(255, 255, 255, 0.7);
+border-radius: 5px;
+overflow-x: auto;
+}
+
+mjx-container {
+outline: none;
+}
+
+/* Tối ưu hiển thị SVG cho MathJax */
+mjx-container svg {
+shape-rendering: geometricPrecision;
+}
+
+/* Cải thiện giao diện làm bài */
+.test-header-container {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 20px;
+padding-bottom: 15px;
+border-bottom: 1px solid #eee;
+}
+
+.test-title {
+font-size: 28px; /* Tăng từ 24px lên 28px (tăng ~17%) */
+font-weight: bold;
+color: #2c3e50;
+}
+
+.test-info {
+display: flex;
+align-items: center;
+gap: 20px;
+}
+
+.timer {
+margin: 0;
+padding: 10px 15px;
+font-size: 34px; /* Tăng từ 28px lên 34px (tăng ~21%) */
+}
+
+.question-counter {
+margin: 0;
+font-size: 24px; /* Tăng từ 20px lên 24px (tăng 20%) */
+}
+
+/* Thông báo chuyển câu */
+.notification {
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+background-color: rgba(46, 204, 113, 0.9);
+color: white;
+padding: 15px 30px;
+border-radius: 8px;
+font-size: 18px;
+font-weight: bold;
+z-index: 1000;
+display: none;
+}
+
+@media (max-width: 768px) {
+.row {
+flex-direction: column;
+gap: 10px;
+}
+
+.stats {
+flex-direction: column;
+}
+
+.btn {
+width: 100%;
+margin-right: 0;
+}
+
+.student-info p {
+font-size: 18px;
+}
+
+.student-info strong {
+font-size: 20px;
+}
+
+.test-header-container {
+flex-direction: column;
+gap: 15px;
+}
+
+.test-info {
+width: 100%;
+justify-content: space-between;
+}
+
+/* Điều chỉnh kích thước chữ cho màn hình nhỏ */
+.question-content {
+font-size: 20px;
+}
+
+.option {
+font-size: 20px;
+}
+
+.question-number {
+font-size: 22px;
+}
+
+.timer {
+font-size: 28px;
+}
+
+.question-counter {
+font-size: 22px;
+}
+
+.user-answer, .correct-answer {
+font-size: 20px;
+}
+}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+<h1>ÔN TẬP TRẮC NGHIỆM TOÁN</h1>
+</header>
+
+<!-- Màn hình chính -->
+<div id="main-screen" class="screen active">
+<div class="form-group">
+<label for="student-name">Họ và tên:</label>
+<input type="text" id="student-name" maxlength="40" placeholder="Nhập họ và tên (tối đa 40 ký tự)">
+</div>
+
+<div class="row">
+<div class="col">
+<div class="form-group">
+<label for="grade-select">Chọn lớp:</label>
+<select id="grade-select">
+<option value="">-- Chọn lớp --</option>
+<option value="1">TOÁN LỚP 1</option>
+<option value="2">TOÁN LỚP 2</option>
+<option value="3">TOÁN LỚP 3</option>
+<option value="4">TOÁN LỚP 4</option>
+<option value="5">TOÁN LỚP 5</option>
+<option value="6">TOÁN LỚP 6</option>
+<option value="7">TOÁN LỚP 7</option>
+<option value="8">TOÁN LỚP 8</option>
+<option value="9">TOÁN LỚP 9</option>
+</select>
+</div>
+</div>
+
+<div class="col">
+<div class="form-group">
+<label for="term-select">Chọn kỳ ôn tập:</label>
+<select id="term-select">
+<option value="">-- Chọn kỳ --</option>
+<option value="GK1">GIỮA HỌC KÌ 1</option>
+<option value="HK1">CUỐI HỌC KÌ 1</option>
+<option value="GK2">GIỮA HỌC KÌ 2</option>
+<option value="HK2">CUỬI HỌC KÌ 2</option>
+</select>
+</div>
+</div>
+</div>
+
+<div class="form-group">
+<label>Mã kho đề: <span id="code-display" style="font-weight: bold; color: #e74c3c;"></span></label>
+</div>
+
+<button id="start-btn" class="btn btn-success">Bắt đầu làm bài</button>
+
+<div class="contact-info">
+<h3>Thông tin liên hệ</h3>
+<p><strong>Thầy Lê Duy Hùng</strong></p>
+<p>ZALO: 0967 095 025</p>
+<p>FACEBOOK: <a href="https://www.facebook.com/leduyhung.vietnam" target="_blank">https://www.facebook.com/leduyhung.vietnam</a></p>
+</div>
+</div>
+
+<!-- Màn hình làm bài -->
+<div id="test-screen" class="screen">
+<div class="test-header-container">
+<div class="test-title" id="test-title"></div>
+<div class="test-info">
+<div class="timer" id="timer">10:00</div>
+<div class="question-counter">
+Câu <span id="current-question-number">1</span>/<span id="total-questions">10</span>
+</div>
+</div>
+</div>
+
+<div id="current-question-container">
+<!-- Câu hỏi hiện tại sẽ được hiển thị ở đây -->
+</div>
+
+<div style="text-align: center;">
+<button id="submit-test-btn" class="btn btn-danger">NỘP BÀI</button>
+</div>
+</div>
+
+<!-- Màn hình kết quả -->
+<div id="result-screen" class="screen">
+<div class="result-header">
+<h2 id="result-title"></h2>
+</div>
+
+<div class="student-info">
+<p><strong>Họ tên:</strong> <span id="result-student-name"></span></p>
+<p><strong>Thời điểm bắt đầu:</strong> <span id="start-time"></span></p>
+<p><strong>Thời điểm nộp bài:</strong> <span id="submit-time"></span></p>
+</div>
+
+<div class="score-container">
+<div class="score-text" id="score-text">Điểm số: 0%</div>
+<div class="score-bar">
+<div class="score-progress" id="score-progress"></div>
+</div>
+<div class="stats">
+<div class="stat-item stat-correct">
+<div class="stat-value" id="correct-count">0/10</div>
+<div>Câu đúng</div>
+</div>
+<div class="stat-item stat-incorrect">
+<div class="stat-value" id="incorrect-count">0/10</div>
+<div>Câu sai</div>
+</div>
+<div class="stat-item stat-unanswered">
+<div class="stat-value" id="unanswered-count">0/10</div>
+<div>Chưa chọn</div>
+</div>
+</div>
+</div>
+
+<div class="review-list" id="review-list">
+<!-- Kết quả chi tiết sẽ được thêm bằng JavaScript -->
+</div>
+
+<div style="text-align: center; margin-top: 30px;">
+<button id="retry-btn" class="btn btn-success">LÀM LẠI</button>
+<button id="back-btn" class="btn btn-secondary">QUAY LẠI</button>
+</div>
+</div>
+</div>
+
+<!-- Thông báo chuyển câu -->
+<div id="notification" class="notification"></div>
+
+<script>
+// Dữ liệu cho các kho đề - CẤU TRÚC MỚI
+const questionBanks = {
+// Kho T1GK1 có 1 câu hỏi
+'T1GK1': [
+{
+id: 1,
+content: "Số nào lớn hơn trong hai số: 5 và 8?",
+correct: "8",
+wrong1: "5",
+wrong2: "Cả hai đều bằng nhau",
+wrong3: "Không xác định được"
+}
+],
+
+// Kho T1HK1 có 1 câu hỏi
+'T1HK1': [
+{
+id: 1,
+content: "Kết quả của phép tính: 3 + 7 = ?",
+correct: "10",
+wrong1: "8",
+wrong2: "9",
+wrong3: "11"
+}
+],
+
+// Kho T1GK2 có 1 câu hỏi
+'T1GK2': [
+{
+id: 1,
+content: "Một chục có mấy đơn vị?",
+correct: "10 đơn vị",
+wrong1: "1 đơn vị",
+wrong2: "100 đơn vị",
+wrong3: "5 đơn vị"
+}
+],
+
+// Kho T1HK2 có 1 câu hỏi
+'T1HK2': [
+{
+id: 1,
+content: "Hình vuông có mấy cạnh?",
+correct: "4 cạnh",
+wrong1: "3 cạnh",
+wrong2: "5 cạnh",
+wrong3: "6 cạnh"
+}
+],
+
+// Kho T2GK1 có 1 câu hỏi
+'T2GK1': [
+{
+id: 1,
+content: "Kết quả của phép tính: 15 + 27 = ?",
+correct: "42",
+wrong1: "32",
+wrong2: "41",
+wrong3: "43"
+}
+],
+
+// Kho T2HK1 có 1 câu hỏi
+'T2HK1': [
+{
+id: 1,
+content: "Một mét bằng bao nhiêu xăngtimét?",
+correct: "100 centimet",
+wrong1: "10 centimet",
+wrong2: "1000 centimet",
+wrong3: "1 centimet"
+}
+],
+
+// Kho T2GK2 có 1 câu hỏi
+'T2GK2': [
+{
+id: 1,
+content: "Kết quả của phép tính: 56 - 28 = ?",
+correct: "28",
+wrong1: "26",
+wrong2: "38",
+wrong3: "36"
+}
+],
+
+// Kho T2HK2 có 1 câu hỏi
+'T2HK2': [
+{
+id: 1,
+content: "Một năm có mấy tháng?",
+correct: "12 tháng",
+wrong1: "10 tháng",
+wrong2: "11 tháng",
+wrong3: "13 tháng"
+}
+],
+
+// Kho T3GK1 có 1 câu hỏi
+'T3GK1': [
+{
+id: 1,
+content: "Kết quả của phép tính: 123 + 456 = ?",
+correct: "579",
+wrong1: "568",
+wrong2: "589",
+wrong3: "569"
+}
+],
+
+// Kho T3HK1 có 1 câu hỏi
+'T3HK1': [
+{
+id: 1,
+content: "Diện tích hình chữ nhật có chiều dài 5cm, chiều rộng 3cm là:",
+correct: "15 cm²",
+wrong1: "8 cm²",
+wrong2: "16 cm²",
+wrong3: "10 cm²"
+}
+],
+
+// Kho T3GK2 có 1 câu hỏi
+'T3GK2': [
+{
+id: 1,
+content: "Kết quả của phép tính: 456 - 234 = ?",
+correct: "222",
+wrong1: "212",
+wrong2: "232",
+wrong3: "223"
+}
+],
+
+// Kho T3HK2 có 1 câu hỏi
+'T3HK2': [
+{
+id: 1,
+content: "Một giờ bằng bao nhiêu phút?",
+correct: "60 phút",
+wrong1: "30 phút",
+wrong2: "100 phút",
+wrong3: "50 phút"
+}
+],
+
+// Kho T4GK1 có 1 câu hỏi
+'T4GK1': [
+{
+id: 1,
+content: "Kết quả của phép tính: 125 × 4 = ?",
+correct: "500",
+wrong1: "400",
+wrong2: "520",
+wrong3: "480"
+}
+],
+
+// Kho T4HK1 có 1 câu hỏi
+'T4HK1': [
+{
+id: 1,
+content: "Một kilômét bằng bao nhiêu mét?",
+correct: "1000 mét",
+wrong1: "100 mét",
+wrong2: "10000 mét",
+wrong3: "500 mét"
+}
+],
+
+// Kho T4GK2 có 1 câu hỏi
+'T4GK2': [
+{
+id: 1,
+content: "Kết quả của phép tính: 840 ÷ 7 = ?",
+correct: "120",
+wrong1: "110",
+wrong2: "130",
+wrong3: "100"
+}
+],
+
+// Kho T4HK2 có 1 câu hỏi
+'T4HK2': [
+{
+id: 1,
+content: "Một tấn bằng bao nhiêu kilôgam?",
+correct: "1000 kg",
+wrong1: "100 kg",
+wrong2: "10000 kg",
+wrong3: "500 kg"
+}
+],
+
+// Kho T5GK1 có 1 câu hỏi
+'T5GK1': [
+{
+id: 1,
+content: "Kết quả của phép tính: 2,5 + 3,7 = ?",
+correct: "6,2",
+wrong1: "5,2",
+wrong2: "6,12",
+wrong3: "5,12"
+}
+],
+
+// Kho T5HK1 có 1 câu hỏi
+'T5HK1': [
+{
+id: 1,
+content: "Thể tích hình lập phương có cạnh 3cm là:",
+correct: "27 cm³",
+wrong1: "9 cm³",
+wrong2: "12 cm³",
+wrong3: "18 cm³"
+}
+],
+
+// Kho T5GK2 có 1 câu hỏi
+'T5GK2': [
+{
+id: 1,
+content: "Kết quả của phép tính: 4,8 - 2,5 = ?",
+correct: "2,3",
+wrong1: "2,13",
+wrong2: "2,03",
+wrong3: "3,3"
+}
+],
+
+// Kho T5HK2 có 1 câu hỏi
+'T5HK2': [
+{
+id: 1,
+content: "Một hecta bằng bao nhiêu mét vuông?",
+correct: "10000 m²",
+wrong1: "1000 m²",
+wrong2: "100000 m²",
+wrong3: "5000 m²"
+}
+],
+
+// Kho T6GK1 có 1 câu hỏi
+'T6GK1': [
+{
+id: 1,
+content: "Kết quả của phép tính: \\(\\frac{2}{3} + \\frac{1}{6}\\) = ?",
+correct: "\\(\\frac{5}{6}\\)",
+wrong1: "\\(\\frac{3}{9}\\)",
+wrong2: "\\(\\frac{1}{2}\\)",
+wrong3: "\\(\\frac{3}{6}\\)"
+}
+],
+
+// Kho T6HK1 có 1 câu hỏi
+'T6HK1': [
+{
+id: 1,
+content: "Chu vi hình tròn có bán kính 7cm là (lấy π ≈ 3,14):",
+correct: "43,96 cm",
+wrong1: "21,98 cm",
+wrong2: "153,86 cm",
+wrong3: "14 cm"
+}
+],
+
+// Kho T6GK2 có 1 câu hỏi
+'T6GK2': [
+{
+id: 1,
+content: "Kết quả của phép tính: \\(\\frac{5}{8} - \\frac{1}{4}\\) = ?",
+correct: "\\(\\frac{3}{8}\\)",
+wrong1: "\\(\\frac{4}{4}\\)",
+wrong2: "\\(\\frac{4}{8}\\)",
+wrong3: "\\(\\frac{2}{8}\\)"
+}
+],
+
+// Kho T6HK2 có 1 câu hỏi
+'T6HK2': [
+{
+id: 1,
+content: "Diện tích hình tròn có bán kính 5cm là (lấy π ≈ 3,14):",
+correct: "78,5 cm²",
+wrong1: "31,4 cm²",
+wrong2: "15,7 cm²",
+wrong3: "25 cm²"
+}
+],
+
+// Kho T7GK1 có 1 câu hỏi
+'T7GK1': [
+{
+id: 1,
+content: "Kết quả của phép tính: \\((-3) + 5\\) = ?",
+correct: "2",
+wrong1: "-2",
+wrong2: "8",
+wrong3: "-8"
+}
+],
+
+// Kho T7HK1 có 1 câu hỏi
+'T7HK1': [
+{
+id: 1,
+content: "Góc kề bù với góc 35° có số đo bằng:",
+correct: "145°",
+wrong1: "55°",
+wrong2: "125°",
+wrong3: "65°"
+}
+],
+
+// Kho T7GK2 có 1 câu hỏi
+'T7GK2': [
+{
+id: 1,
+content: "Kết quả của phép tính: \\((-2) \\times 4\\) = ?",
+correct: "-8",
+wrong1: "8",
+wrong2: "-6",
+wrong3: "6"
+}
+],
+
+// Kho T7HK2 có 1 câu hỏi
+'T7HK2': [
+{
+id: 1,
+content: "Tổng các góc trong một tam giác bằng:",
+correct: "180°",
+wrong1: "90°",
+wrong2: "360°",
+wrong3: "270°"
+}
+],
+
+// Kho T8GK1 có 1 câu hỏi
+'T8GK1': [
+{
+id: 1,
+content: "Kết quả của phép tính: \\(2^3 + 3^2\\) = ?",
+correct: "17",
+wrong1: "13",
+wrong2: "15",
+wrong3: "19"
+}
+],
+
+// Kho T8HK1 có 1 câu hỏi
+'T8HK1': [
+{
+id: 1,
+content: "Hình thang có hai đáy lần lượt là 8cm và 12cm, chiều cao 5cm. Diện tích hình thang là:",
+correct: "50 cm²",
+wrong1: "100 cm²",
+wrong2: "40 cm²",
+wrong3: "60 cm²"
+}
+],
+
+// Kho T8GK2 có 1 câu hỏi
+'T8GK2': [
+{
+id: 1,
+content: "Kết quả của phép tính: \\(\\sqrt{36} + \\sqrt{25}\\) = ?",
+correct: "11",
+wrong1: "10",
+wrong2: "12",
+wrong3: "13"
+}
+],
+
+// Kho T8HK2 có 1 câu hỏi
+'T8HK2': [
+{
+id: 1,
+content: "Đường trung bình của tam giác có độ dài bằng:",
+correct: "Nửa độ dài cạnh tương ứng",
+wrong1: "Bằng độ dài cạnh tương ứng",
+wrong2: "Gấp đôi độ dài cạnh tương ứng",
+wrong3: "Một phần ba độ dài cạnh tương ứng"
+}
+],
+
+// Kho T9GK1 có 1 câu hỏi
+'T9GK1': [
+{
+id: 1,
+content: "Giá trị của biểu thức: \\(x^2 - 5x + 6\\) tại x = 2 là:",
+correct: "0",
+wrong1: "1",
+wrong2: "-1",
+wrong3: "2"
+}
+],
+
+// Kho T9HK1 có 1 câu hỏi
+'T9HK1': [
+{
+id: 1,
+content: "Hệ phương trình \\[\\begin{cases} x + y = 5 \\\\ x - y = 1 \\end{cases}\\] có nghiệm là:",
+correct: "\\((3; 2)\\)",
+wrong1: "\\((2; 3)\\)",
+wrong2: "\\((4; 1)\\)",
+wrong3: "\\((1; 4)\\)"
+}
+],
+
+// Kho T9GK2 có 1 câu hỏi
+'T9GK2': [
+{
+id: 1,
+content: "Điểm M(2; -3) thuộc đường thẳng nào sau đây?",
+correct: "y = -x - 1",
+wrong1: "y = x + 1",
+wrong2: "y = 2x - 1",
+wrong3: "y = -2x + 1"
+}
+],
+
+// Kho T9HK2 có 15 câu hỏi (giữ nguyên)
+'T9HK2': [
+{
+id: 1,
+content: "Hệ phương trình \\[\\begin{cases} 2x - y = -5 \\\\ x - y = -3 \\end{cases}\\] có nghiệm là",
+correct: "\\((-2; 1)\\)",
+wrong1: "\\((2; -1)\\)",
+wrong2: "\\((2; 1)\\)",
+wrong3: "\\((-2; -1)\\)"
+},
+{
+id: 2,
+content: "Cho \\( a + 2024 > b + 2024 \\). Khi đó ta có:",
+correct: "\\( a > b \\)",
+wrong1: "\\( a < b \\)",
+wrong2: "\\( a - 1 > b \\)",
+wrong3: "\\( a - 1 \\leq b - 1 \\)"
+},
+{
+id: 3,
+content: "Giá trị của \\(\\sin 48^\\circ\\) bằng (kết quả làm tròn đến chữ số thập phân thứ ba)",
+correct: "\\(0,743\\)",
+wrong1: "\\(0,753\\)",
+wrong2: "\\(0,742\\)",
+wrong3: "\\(0,744\\)"
+},
+{
+id: 4,
+content: "Phương trình nào sau đây nhận cặp số \\((-2; 4)\\) là một nghiệm?",
+correct: "\\( 2x + y = 0 \\)",
+wrong1: "\\( 2x - y = 0 \\)",
+wrong2: "\\( x - 2y = 0 \\)",
+wrong3: "\\( x + 2y = 0 \\)"
+},
+{
+id: 5,
+content: "Phương trình \\((2x - 4)(x + 1) = 0\\) có nghiệm là",
+correct: "\\( x = 2; x = -1 \\)",
+wrong1: "\\( x = 2 \\)",
+wrong2: "\\( x = -1 \\)",
+wrong3: "\\( x = -2; x = 1 \\)"
+},
+{
+id: 6,
+content: "Hệ phương trình \\[\\begin{cases} x + 2y = m \\\\ m^2 + 2y = 1 \\end{cases}\\] vô nghiệm khi",
+correct: "\\( m = 1 \\)",
+wrong1: "\\( m = -1 \\)",
+wrong2: "\\( m = \\pm 1 \\)",
+wrong3: "\\( m \\neq \\pm 1 \\)"
+},
+{
+id: 7,
+content: "Tam giác MNP vuông tại M. Khi đó \\(\\cos N\\) bằng",
+correct: "\\(\\frac{MN}{NP}\\)",
+wrong1: "\\(\\frac{MN}{MP}\\)",
+wrong2: "\\(\\frac{NP}{MN}\\)",
+wrong3: "\\(\\frac{MP}{NP}\\)"
+},
+{
+id: 8,
+content: "Nghiệm của phương trình \\(x^2 - 5x + 6 = 0\\) là:",
+correct: "\\( x = 2, x = 3 \\)",
+wrong1: "\\( x = -2, x = -3 \\)",
+wrong2: "\\( x = 1, x = 6 \\)",
+wrong3: "\\( x = -1, x = -6 \\)"
+},
+{
+id: 9,
+content: "Cho hàm số \\(y = 2x - 3\\). Điểm nào sau đây thuộc đồ thị hàm số?",
+correct: "Tất cả đều đúng",
+wrong1: "\\((0; -3)\\)",
+wrong2: "\\((1; -1)\\)",
+wrong3: "\\((2; 1)\\)"
+},
+{
+id: 10,
+content: "Giá trị của biểu thức \\(\\sqrt{16} + \\sqrt[3]{27}\\) là:",
+correct: "\\(7\\)",
+wrong1: "\\(5\\)",
+wrong2: "\\(9\\)",
+wrong3: "\\(11\\)"
+},
+{
+id: 11,
+content: "Trong các số sau, số nào là số vô tỉ?",
+correct: "\\(\\sqrt{2}\\)",
+wrong1: "\\(\\sqrt{9}\\)",
+wrong2: "\\(\\sqrt{16}\\)",
+wrong3: "\\(\\sqrt{25}\\)"
+},
+{
+id: 12,
+content: "Cho hình chữ nhật có chiều dài 8cm, chiều rộng 6cm. Độ dài đường chéo là:",
+correct: "\\(10\\text{cm}\\)",
+wrong1: "\\(12\\text{cm}\\)",
+wrong2: "\\(14\\text{cm}\\)",
+wrong3: "\\(16\\text{cm}\\)"
+},
+{
+id: 13,
+content: "Giá trị của \\(\\cos 60^\\circ\\) là:",
+correct: "\\(\\frac{1}{2}\\)",
+wrong1: "\\(\\frac{\\sqrt{2}}{2}\\)",
+wrong2: "\\(\\frac{\\sqrt{3}}{2}\\)",
+wrong3: "\\(1\\)"
+},
+{
+id: 14,
+content: "Phương trình \\(x^2 - 4 = 0\\) có nghiệm là:",
+correct: "\\(x = \\pm 2\\)",
+wrong1: "\\(x = 2\\)",
+wrong2: "\\(x = -2\\)",
+wrong3: "\\(x = \\pm 4\\)"
+},
+{
+id: 15,
+content: "Diện tích hình tròn có bán kính 5cm là:",
+correct: "\\(25\\pi \\text{cm}^2\\)",
+wrong1: "\\(10\\pi \\text{cm}^2\\)",
+wrong2: "\\(5\\pi \\text{cm}^2\\)",
+wrong3: "\\(50\\pi \\text{cm}^2\\)"
+}
+]
+};
+
+// Biến toàn cục
+let currentScreen = 'main-screen';
+let userAnswers = {};
+let testStartTime = null;
+let testSubmitTime = null;
+let timerInterval = null;
+let timeLeft = 600; // 10 phút = 600 giây
+let currentTestCode = '';
+let currentQuestions = [];
+let studentName = '';
+let currentQuestionIndex = 0;
+let isTransitioning = false; // Ngăn người dùng click nhanh khi đang chuyển câu
+
+// Hàm chuyển đổi màn hình
+function showScreen(screenId) {
+document.getElementById(currentScreen).classList.remove('active');
+document.getElementById(screenId).classList.add('active');
+currentScreen = screenId;
+
+// Render lại MathJax khi chuyển màn hình
+if (window.MathJax) {
+setTimeout(() => {
+MathJax.typesetPromise();
+}, 100);
+}
+}
+
+// Hàm cập nhật mã kho đề
+function updateTestCode() {
+const grade = document.getElementById('grade-select').value;
+const term = document.getElementById('term-select').value;
+
+if (grade && term) {
+const code = `T${grade}${term}`;
+document.getElementById('code-display').textContent = code;
+currentTestCode = code;
+} else {
+document.getElementById('code-display').textContent = '';
+currentTestCode = '';
+}
+}
+
+// Hàm trộn mảng (Fisher-Yates shuffle)
+function shuffleArray(array) {
+for (let i = array.length - 1; i > 0; i--) {
+const j = Math.floor(Math.random() * (i + 1));
+[array[i], array[j]] = [array[j], array[i]];
+}
+return array;
+}
+
+// Hàm chuyển đổi câu hỏi từ cấu trúc mới sang cấu trúc hiển thị
+function convertQuestionToDisplayFormat(question) {
+// Tạo mảng các lựa chọn với nhãn A, B, C, D
+const options = [];
+const labels = ['A', 'B', 'C', 'D'];
+
+// Tạo mảng tạm thời chứa tất cả các lựa chọn
+const allChoices = [
+{ text: question.correct, isCorrect: true },
+{ text: question.wrong1, isCorrect: false },
+{ text: question.wrong2, isCorrect: false },
+{ text: question.wrong3, isCorrect: false }
+];
+
+// Trộn ngẫu nhiên các lựa chọn
+const shuffledChoices = shuffleArray([...allChoices]);
+
+// Tìm đáp án đúng sau khi trộn
+const correctChoice = shuffledChoices.find(choice => choice.isCorrect);
+const correctIndex = shuffledChoices.indexOf(correctChoice);
+const correctAnswer = labels[correctIndex];
+
+// Tạo mảng options với nhãn A, B, C, D
+shuffledChoices.forEach((choice, index) => {
+options.push({
+id: labels[index],
+text: choice.text
+});
+});
+
+return {
+id: question.id,
+content: question.content,
+options: options,
+correctAnswer: correctAnswer
+};
+}
+
+// Hàm lấy câu hỏi ngẫu nhiên từ kho đề
+function getRandomQuestions(code, count = 10) {
+const bank = questionBanks[code];
+if (!bank) return [];
+
+// Nếu kho đề có ít hơn số câu yêu cầu, lấy tất cả
+if (bank.length <= count) {
+return shuffleArray([...bank]).map((q, index) => ({
+...convertQuestionToDisplayFormat(q),
+displayOrder: index + 1
+}));
+}
+
+// Lấy ngẫu nhiên số câu yêu cầu
+const shuffled = shuffleArray([...bank]);
+const selected = shuffled.slice(0, count);
+
+// Chuyển đổi sang định dạng hiển thị và thêm displayOrder
+return selected.map((q, index) => ({
+...convertQuestionToDisplayFormat(q),
+displayOrder: index + 1
+}));
+}
+
+// Hàm bắt đầu bài kiểm tra
+function startTest() {
+studentName = document.getElementById('student-name').value.trim();
+const grade = document.getElementById('grade-select').value;
+const term = document.getElementById('term-select').value;
+
+if (!studentName) {
+alert('Vui lòng nhập họ và tên!');
+return;
+}
+
+if (!grade || !term) {
+alert('Vui lòng chọn lớp và kỳ ôn tập!');
+return;
+}
+
+if (studentName.length > 40) {
+alert('Họ và tên không được vượt quá 40 ký tự!');
+return;
+}
+
+// Lấy câu hỏi ngẫu nhiên
+currentQuestions = getRandomQuestions(currentTestCode);
+
+// Đặt lại câu trả lời
+userAnswers = {};
+
+// Đặt thời gian
+timeLeft = 600; // 10 phút
+testStartTime = new Date();
+
+// Đặt câu hỏi hiện tại là câu đầu tiên
+currentQuestionIndex = 0;
+isTransitioning = false;
+
+// Cập nhật tiêu đề
+const testTitle = `${gradeNames[grade]} - ${termNames[term]}`;
+document.getElementById('test-title').textContent = testTitle;
+
+// Hiển thị câu hỏi đầu tiên
+renderCurrentQuestion();
+
+// Bắt đầu đếm ngược
+startTimer();
+
+// Chuyển sang màn hình làm bài
+showScreen('test-screen');
+
+// Theo dõi chuyển tab
+document.addEventListener('visibilitychange', handleVisibilityChange);
+}
+
+// Hàm xử lý khi chuyển tab
+function handleVisibilityChange() {
+if (document.hidden) {
+// Người dùng chuyển sang tab khác, tự động nộp bài
+clearInterval(timerInterval);
+submitTest();
+}
+}
+
+// Hàm bắt đầu đếm ngược
+function startTimer() {
+clearInterval(timerInterval);
+updateTimerDisplay();
+
+timerInterval = setInterval(() => {
+timeLeft--;
+updateTimerDisplay();
+
+if (timeLeft <= 0) {
+clearInterval(timerInterval);
+submitTest();
+}
+}, 1000);
+}
+
+// Hàm cập nhật hiển thị đồng hồ
+function updateTimerDisplay() {
+const minutes = Math.floor(timeLeft / 60);
+const seconds = timeLeft % 60;
+document.getElementById('timer').textContent =
+`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+// Đổi màu khi còn ít thời gian
+if (timeLeft <= 60) {
+document.getElementById('timer').style.color = '#e74c3c';
+document.getElementById('timer').style.backgroundColor = '#ffebee';
+}
+}
+
+// Hàm hiển thị thông báo
+function showNotification(message, duration = 1000) {
+const notification = document.getElementById('notification');
+notification.textContent = message;
+notification.style.display = 'block';
+
+setTimeout(() => {
+notification.style.display = 'none';
+}, duration);
+}
+
+// Hàm hiển thị câu hỏi hiện tại
+function renderCurrentQuestion() {
+const container = document.getElementById('current-question-container');
+const question = currentQuestions[currentQuestionIndex];
+
+let optionsHTML = '';
+question.options.forEach(option => {
+optionsHTML += `
+<li class="option"
+data-question="${question.id}" data-option="${option.id}">
+<div class="math-container"><strong>${option.id}.</strong> ${option.text}</div>
+</li>
+`;
+});
+
+container.innerHTML = `
+<div class="question">
+<div class="question-number">Câu ${question.displayOrder} - ${currentTestCode} - ${question.id}</div>
+<div class="question-content">
+<div class="math-container">${question.content}</div>
+</div>
+<ul class="options">${optionsHTML}</ul>
+</div>
+`;
+
+// Cập nhật số câu hỏi hiện tại
+document.getElementById('current-question-number').textContent = currentQuestionIndex + 1;
+document.getElementById('total-questions').textContent = currentQuestions.length;
+
+// Thêm sự kiện click cho các lựa chọn
+document.querySelectorAll('.option').forEach(option => {
+option.addEventListener('click', function() {
+// Nếu đang chuyển câu, không xử lý click
+if (isTransitioning) return;
+
+const questionId = this.getAttribute('data-question');
+const optionId = this.getAttribute('data-option');
+
+// Đánh dấu là đang chuyển câu
+isTransitioning = true;
+
+// Lưu câu trả lời
+userAnswers[questionId] = optionId;
+
+// Hiển thị thông báo
+showNotification("Đã chọn đáp án!");
+
+// Đợi một chút rồi chuyển sang câu tiếp theo
+setTimeout(() => {
+// Nếu đã là câu cuối cùng, tự động nộp bài
+if (currentQuestionIndex >= currentQuestions.length - 1) {
+submitTest();
+} else {
+// Chuyển sang câu tiếp theo
+currentQuestionIndex++;
+renderCurrentQuestion();
+isTransitioning = false;
+}
+}, 800);
+});
+});
+
+// Render lại MathJax với độ trễ để đảm bảo DOM đã được cập nhật
+if (window.MathJax) {
+setTimeout(() => {
+MathJax.typesetPromise();
+}, 200);
+}
+}
+
+// Hàm nộp bài
+function submitTest() {
+clearInterval(timerInterval);
+testSubmitTime = new Date();
+
+// Xóa sự kiện theo dõi tab
+document.removeEventListener('visibilitychange', handleVisibilityChange);
+
+// Hiển thị kết quả
+showResults();
+}
+
+// Hàm xác định màu sắc dựa trên phần trăm
+function getScoreColor(percentage) {
+if (percentage >= 0 && percentage <= 49) return '#f5222d';
+else if (percentage >= 50 && percentage <= 69) return '#faad14';
+else if (percentage >= 70 && percentage <= 79) return '#52c41a';
+else if (percentage >= 80 && percentage <= 89) return '#13c2c2';
+else if (percentage >= 90 && percentage <= 99) return '#1890ff';
+else if (percentage === 100) return '#722ed1';
+else return '#e0e0e0'; // Màu mặc định
+}
+
+// Hàm hiển thị kết quả
+function showResults() {
+const grade = document.getElementById('grade-select').value;
+const term = document.getElementById('term-select').value;
+const resultTitle = `${gradeNames[grade]} - ${termNames[term]} - KẾT QUẢ`;
+document.getElementById('result-title').textContent = resultTitle;
+
+// Tính điểm
+const { correctCount, incorrectCount, unansweredCount, percentage } = calculateScore();
+
+// Hiển thị thông tin học sinh
+document.getElementById('result-student-name').textContent = studentName;
+document.getElementById('start-time').textContent = formatDateTime(testStartTime);
+document.getElementById('submit-time').textContent = formatDateTime(testSubmitTime);
+
+// Hiển thị điểm
+document.getElementById('score-text').textContent = `Điểm số: ${percentage}%`;
+const scoreProgress = document.getElementById('score-progress');
+scoreProgress.style.width = `${percentage}%`;
+
+// Áp dụng màu sắc cho thanh tiến trình dựa trên phần trăm
+scoreProgress.style.background = getScoreColor(percentage);
+
+// Hiển thị thống kê
+document.getElementById('correct-count').textContent = `${correctCount}/${currentQuestions.length}`;
+document.getElementById('incorrect-count').textContent = `${incorrectCount}/${currentQuestions.length}`;
+document.getElementById('unanswered-count').textContent = `${unansweredCount}/${currentQuestions.length}`;
+
+// Hiển thị chi tiết từng câu
+renderReviewQuestions();
+
+// Chuyển sang màn hình kết quả
+showScreen('result-screen');
+}
+
+// Hàm tính điểm
+function calculateScore() {
+let correctCount = 0;
+let incorrectCount = 0;
+let unansweredCount = 0;
+
+currentQuestions.forEach(question => {
+const userAnswer = userAnswers[question.id];
+
+if (!userAnswer) {
+unansweredCount++;
+} else if (userAnswer === question.correctAnswer) {
+correctCount++;
+} else {
+incorrectCount++;
+}
+});
+
+const percentage = Math.round((correctCount / currentQuestions.length) * 100);
+
+return {
+correctCount,
+incorrectCount,
+unansweredCount,
+percentage
+};
+}
+
+// Hàm hiển thị chi tiết từng câu trong kết quả
+function renderReviewQuestions() {
+const container = document.getElementById('review-list');
+container.innerHTML = '';
+
+currentQuestions.forEach(question => {
+const userAnswer = userAnswers[question.id];
+const isCorrect = userAnswer === question.correctAnswer;
+const isUnanswered = !userAnswer;
+
+let statusClass = '';
+if (isUnanswered) {
+statusClass = 'unanswered';
+} else if (isCorrect) {
+statusClass = 'correct';
+} else {
+statusClass = 'incorrect';
+}
+
+let optionsHTML = '';
+question.options.forEach(option => {
+let optionStyle = '';
+if (option.id === question.correctAnswer) {
+optionStyle = 'color: #2ecc71; font-weight: bold;';
+} else if (option.id === userAnswer && !isCorrect) {
+optionStyle = 'color: #e74c3c; font-weight: bold;';
+} else if (option.id === userAnswer && isCorrect) {
+optionStyle = 'color: #2ecc71; font-weight: bold;';
+} else {
+optionStyle = 'color: #000;';
+}
+
+optionsHTML += `
+<div style="${optionStyle}">
+<div class="math-container"><strong>${option.id}.</strong> ${option.text}</div>
+</div>
+`;
+});
+
+const reviewItem = document.createElement('div');
+reviewItem.className = `review-item ${statusClass}`;
+reviewItem.innerHTML = `
+<div class="question-number">Câu ${question.displayOrder} - ${currentTestCode} - ${question.id}</div>
+<div class="question-content">
+<div class="math-container">${question.content}</div>
+</div>
+<div class="options">${optionsHTML}</div>
+ ${!isUnanswered && !isCorrect ?
+`<div class="correct-answer">Đáp án đúng: ${question.correctAnswer}</div>` : ''}
+`;
+
+container.appendChild(reviewItem);
+});
+
+// Render lại MathJax với độ trễ để đảm bảo DOM đã được cập nhật
+if (window.MathJax) {
+setTimeout(() => {
+MathJax.typesetPromise();
+}, 300);
+}
+}
+
+// Hàm định dạng thời gian
+function formatDateTime(date) {
+if (!date) return '';
+
+const hours = date.getHours().toString().padStart(2, '0');
+const minutes = date.getMinutes().toString().padStart(2, '0');
+const day = date.getDate().toString().padStart(2, '0');
+const month = (date.getMonth() + 1).toString().padStart(2, '0');
+const year = date.getFullYear();
+
+return `${hours}:${minutes} - ${day}/${month}/${year}`;
+}
+
+// Hàm làm lại bài
+function retryTest() {
+// Lấy câu hỏi ngẫu nhiên mới
+currentQuestions = getRandomQuestions(currentTestCode);
+
+// Đặt lại câu trả lời
+userAnswers = {};
+
+// Đặt lại thời gian
+timeLeft = 600;
+testStartTime = new Date();
+
+// Đặt câu hỏi hiện tại là câu đầu tiên
+currentQuestionIndex = 0;
+isTransitioning = false;
+
+// Hiển thị câu hỏi đầu tiên
+renderCurrentQuestion();
+
+// Bắt đầu đếm ngược
+startTimer();
+
+// Thêm lại sự kiện theo dõi tab
+document.addEventListener('visibilitychange', handleVisibilityChange);
+
+// Chuyển sang màn hình làm bài
+showScreen('test-screen');
+}
+
+// Khởi tạo sự kiện khi trang được tải
+document.addEventListener('DOMContentLoaded', function() {
+// Cập nhật mã kho đề khi thay đổi lớp hoặc kỳ
+document.getElementById('grade-select').addEventListener('change', updateTestCode);
+document.getElementById('term-select').addEventListener('change', updateTestCode);
+
+// Sự kiện nút bắt đầu làm bài
+document.getElementById('start-btn').addEventListener('click', startTest);
+
+// Sự kiện nút nộp bài
+document.getElementById('submit-test-btn').addEventListener('click', submitTest);
+
+// Sự kiện nút làm lại
+document.getElementById('retry-btn').addEventListener('click', retryTest);
+
+// Sự kiện nút quay lại
+document.getElementById('back-btn').addEventListener('click', function() {
+showScreen('main-screen');
+});
+});
+
+// Tên các lớp và kỳ học
+const gradeNames = {
+'1': 'TOÁN LỚP 1',
+'2': 'TOÁN LỚP 2',
+'3': 'TOÁN LỚP 3',
+'4': 'TOÁN LỚP 4',
+'5': 'TOÁN LỚP 5',
+'6': 'TOÁN LỚP 6',
+'7': 'TOÁN LỚP 7',
+'8': 'TOÁN LỚP 8',
+'9': 'TOÁN LỚP 9'
+};
+
+const termNames = {
+'GK1': 'GIỮA HỌC KÌ 1',
+'HK1': 'CUỐI HỌC KÌ 1',
+'GK2': 'GIỮA HỌC KÌ 2',
+'HK2': 'CUỐI HỌC KÌ 2'
+};
+</script>
+</body>
+</html>
