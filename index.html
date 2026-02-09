@@ -13,7 +13,7 @@ inlineMath: [['$', '$'], ['\\(', '\\)']],
 displayMath: [['$$', '$$'], ['\\[', '\\]']],
 packages: {'[+]': ['ams', 'boldsymbol']},
 tags: 'ams',
-multlineWidth: '85%',
+multilineWidth: '85%',
 tagsSide: 'right',
 tagIndent: '0.8em'
 },
@@ -66,7 +66,7 @@ line-height: 1.4;
 .container {
 max-width: 1000px;
 margin: 0 auto;
-padding: 10px; /* Giảm padding ngoài để rộng hơn trên mobile */
+padding: 10px;
 }
 
 header {
@@ -186,14 +186,14 @@ background-color: rgba(46, 204, 113, 0.9); color: white; padding: 15px 30px;
 border-radius: 8px; font-size: 18px; font-weight: bold; z-index: 1000; display: none;
 }
 
-/* --- RESULT SCREEN STYLES (CẬP NHẬT MỚI) --- */
+/* --- RESULT SCREEN STYLES (UPDATE) --- */
 
 .result-header { text-align: center; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #eee; }
 .result-header h2 { font-size: 22px; }
 
 .result-wrapper {
 display: flex;
-flex-direction: row; /* Desktop: Ngang */
+flex-direction: row;
 gap: 20px;
 align-items: stretch;
 }
@@ -211,11 +211,11 @@ border-radius: 8px;
 text-align: center;
 }
 
-/* 3. Tên người làm (Tăng 30% so với gốc: 32px -> 42px) */
+/* 1. Tên người làm (Tăng thêm 20%: 42px -> 50.4px -> 50px) */
 .student-name-display {
-color: #1890ff; /* Xanh blue */
+color: #1890ff;
 font-weight: bold;
-font-size: 42px; 
+font-size: 50px; 
 margin-bottom: 15px;
 line-height: 1.1;
 }
@@ -223,7 +223,7 @@ line-height: 1.1;
 /* Biểu đồ tròn Donut */
 .chart-container {
 position: relative;
-width: 200px; /* Giảm nhẹ từ 220px để vừa trên màn hình ngắn */
+width: 200px;
 height: 200px;
 margin-bottom: 15px;
 flex-shrink: 0;
@@ -245,7 +245,7 @@ content: ""; position: absolute; width: 75%; height: 75%;
 background-color: white; border-radius: 50%;
 }
 
-/* 1. Tâm biểu đồ (Chính giữa tuyệt đối) */
+/* Tâm biểu đồ */
 .chart-center {
 position: absolute;
 top: 50%; left: 50%;
@@ -261,13 +261,13 @@ justify-content: center;
 .percentage-text { display: block; font-size: 40px; font-weight: 800; color: #333; line-height: 1; }
 .score-detail-text { display: block; font-size: 20px; font-weight: bold; color: #666; margin-top: 2px; }
 
-/* 2. Ngày tháng (Tăng 15%: 16px -> 18.5px) */
+/* Ngày tháng */
 .exam-date {
 color: #000; font-weight: bold; font-size: 18.5px;
 margin-top: auto; padding-top: 10px; border-top: 1px solid #eee; width: 100%;
 }
 
-/* --- Ô 2 (Bên phải) --- */
+/* --- Ô 2 (Bên phải) - DESKTOP ONLY UPDATE --- */
 .result-right {
 flex: 1;
 display: grid;
@@ -279,7 +279,7 @@ gap: 10px;
 .grid-item {
 background-color: #f8f9fa;
 border-radius: 8px;
-padding: 10px;
+padding: 20px; /* Tăng padding để cân bằng với kích thước chữ mới */
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -288,10 +288,10 @@ text-align: center;
 border: 1px solid #eee;
 }
 
-.grid-icon { width: 30px; height: 30px; margin-bottom: 5px; color: #555; }
-.grid-label { font-size: 12px; color: #666; margin-bottom: 2px; }
-/* 4. Thông số (Tăng 15%: 18px -> 21px) */
-.grid-value { font-size: 21px; color: #333; font-weight: bold; }
+/* Tăng 30% kích thước cho Desktop */
+.grid-icon { width: 52px; height: 52px; margin-bottom: 10px; color: #555; } /* 40px * 1.3 = 52px */
+.grid-label { font-size: 18px; color: #666; margin-bottom: 5px; } /* 14px * 1.3 = 18px */
+.grid-value { font-size: 27px; color: #333; font-weight: bold; } /* 21px * 1.3 = 27px */
 
 /* Màu icon */
 .grid-item.time-start .grid-icon { color: #27ae60; }
@@ -299,7 +299,7 @@ border: 1px solid #eee;
 .grid-item.wrong .grid-icon { color: #e67e22; }
 .grid-item.unanswered .grid-icon { color: #95a5a6; }
 
-/* Review List (Ẩn ở màn hình chính để tiết kiệm chỗ, hiện ở dưới) */
+/* Review List */
 .review-list { margin-top: 20px; width: 100%; }
 .review-item { padding: 10px; margin-bottom: 10px; border-radius: 8px; border-left: 4px solid; background-color: #fff; border: 1px solid #eee; }
 .review-item.correct { border-left-color: #2ecc71; background-color: #f0fff4; }
@@ -311,29 +311,29 @@ border: 1px solid #eee;
 .review-opt-correct { color: #2ecc71; font-weight: bold; }
 .review-opt-wrong { color: #e74c3c; text-decoration: line-through; }
 
-/* --- MOBILE OPTIMIZATION (KEY CHANGE) --- */
+/* --- MOBILE OPTIMIZATION (GIỮ NGUYÊN ĐIỀU CHỈNH CŨ) --- */
 @media (max-width: 768px) {
 .row { flex-direction: column; gap: 10px; }
 .btn { padding: 10px; font-size: 14px; }
 
-/* Kết quả trên mobile: Xếp chồng dọc nhưng cực kỳ gọn để vừa 1 màn hình */
+/* Kết quả trên mobile */
 .result-wrapper {
 flex-direction: column;
-gap: 10px; /* Khoảng cách cực nhỏ */
+gap: 10px;
 }
 
-/* Ô 1: Thu nhỏ lại */
+/* Ô 1 Mobile: Tên đã tăng lên 29px (24px * 1.2) */
 .result-left {
-padding: 10px 5px; /* Giảm padding dọc */
+padding: 10px 5px;
 }
 
 .student-name-display {
-font-size: 24px; /* Thu nhỏ tên cho vừa */
+font-size: 29px; /* Tăng 20% so với cũ */
 margin-bottom: 5px;
 }
 
 .chart-container {
-width: 140px; /* Thu nhỏ biểu đồ to */
+width: 140px;
 height: 140px;
 margin-bottom: 5px;
 }
@@ -342,30 +342,29 @@ margin-bottom: 5px;
 .score-detail-text { font-size: 14px; }
 
 .exam-date {
-font-size: 14px; /* Ngày tháng nhỏ lại */
+font-size: 14px;
 padding-top: 5px;
 }
 
-/* Ô 2: Lưới 2x2 nhỏ gọn */
+/* Ô 2 Mobile: KHÔNG ĐỔI KÍCH THƯỚC (Giữ nguyên nhỏ gọn) */
 .result-right {
 width: 100%;
-gap: 6px; /* Khoảng cách ô nhỏ */
+gap: 6px;
 }
 
 .grid-item {
-padding: 6px; /* Padding rất mỏng */
+padding: 6px; /* Padding mỏng */
 }
 
 .grid-icon { width: 20px; height: 20px; margin-bottom: 2px; }
 .grid-label { font-size: 10px; }
-.grid-value { font-size: 14px; } /* Chữ số nhỏ lại */
+.grid-value { font-size: 14px; }
 
-/* Review list: Thu nhỏ font để scroll nhanh */
+/* Review list: Thu nhỏ font */
 .review-item { padding: 8px; }
 .review-question-title { font-size: 14px; }
 .review-option-row { font-size: 12px; }
 
-/* Giảm padding screen chính trên mobile */
 .screen { padding: 10px; margin-bottom: 10px; }
 }
 
@@ -447,7 +446,7 @@ Câu <span id="current-question-number">1</span>/<span id="total-questions">10</
 </div>
 
 <div id="current-question-container">
-<!-- Câu hỏi hiện tại sẽ được hiển thị ở đây -->
+<!-- Câu hỏi hiện tại -->
 </div>
 
 <div style="text-align: center;">
@@ -461,7 +460,7 @@ Câu <span id="current-question-number">1</span>/<span id="total-questions">10</
 <h2 id="result-title"></h2>
 </div>
 
-<!-- Layout kết quả (Tối ưu 1 màn hình điện thoại) -->
+<!-- Layout kết quả -->
 <div class="result-wrapper">
     
     <!-- Ô 1 -->
@@ -481,28 +480,24 @@ Câu <span id="current-question-number">1</span>/<span id="total-questions">10</
 
     <!-- Ô 2 -->
     <div class="result-right">
-        <!-- Thời gian bắt đầu -->
         <div class="grid-item time-start">
             <svg class="grid-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
             <div class="grid-label">Bắt đầu</div>
             <div class="grid-value" id="start-time-hms">00:00:00</div>
         </div>
 
-        <!-- Thời gian kết thúc -->
         <div class="grid-item time-end">
             <svg class="grid-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline><line x1="12" y1="10" x2="12" y2="10.01"></line></svg>
             <div class="grid-label">Kết thúc</div>
             <div class="grid-value" id="end-time-hms">00:00:00</div>
         </div>
 
-        <!-- Số câu sai -->
         <div class="grid-item wrong">
             <svg class="grid-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
             <div class="grid-label">Sai</div>
             <div class="grid-value" id="incorrect-count">0/10</div>
         </div>
 
-        <!-- Chưa chọn -->
         <div class="grid-item unanswered">
             <svg class="grid-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="8"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
             <div class="grid-label">Chưa chọn</div>
@@ -511,9 +506,7 @@ Câu <span id="current-question-number">1</span>/<span id="total-questions">10</
     </div>
 </div>
 
-<div class="review-list" id="review-list">
-<!-- Kết quả chi tiết -->
-</div>
+<div class="review-list" id="review-list"></div>
 
 <div style="text-align: center; margin-top: 20px;">
 <button id="retry-btn" class="btn btn-success">LÀM LẠI</button>
@@ -522,11 +515,10 @@ Câu <span id="current-question-number">1</span>/<span id="total-questions">10</
 </div>
 </div>
 
-<!-- Thông báo chuyển câu -->
 <div id="notification" class="notification"></div>
 
 <script>
-// Dữ liệu cho các kho đề
+// Dữ liệu kho đề (giữ nguyên)
 const questionBanks = {
 'T1GK1': [{ id: 1, content: "Số nào lớn hơn trong hai số: 5 và 8?", correct: "8", wrong1: "5", wrong2: "Cả hai đều bằng nhau", wrong3: "Không xác định được" }],
 'T1HK1': [{ id: 1, content: "Kết quả của phép tính: 3 + 7 = ?", correct: "10", wrong1: "8", wrong2: "9", wrong3: "11" }],
@@ -582,7 +574,6 @@ const questionBanks = {
 ]
 };
 
-// Biến toàn cục
 let currentScreen = 'main-screen';
 let userAnswers = {};
 let testStartTime = null;
@@ -599,20 +590,15 @@ function showScreen(screenId) {
 document.getElementById(currentScreen).classList.remove('active');
 document.getElementById(screenId).classList.add('active');
 currentScreen = screenId;
-if (window.MathJax) {
-setTimeout(() => {
-MathJax.typesetPromise();
-}, 100);
-}
+if (window.MathJax) setTimeout(() => MathJax.typesetPromise(), 100);
 }
 
 function updateTestCode() {
 const grade = document.getElementById('grade-select').value;
 const term = document.getElementById('term-select').value;
 if (grade && term) {
-const code = `T${grade}${term}`;
-document.getElementById('code-display').textContent = code;
-currentTestCode = code;
+document.getElementById('code-display').textContent = `T${grade}${term}`;
+currentTestCode = `T${grade}${term}`;
 } else {
 document.getElementById('code-display').textContent = '';
 currentTestCode = '';
@@ -641,10 +627,7 @@ const correctChoice = shuffledChoices.find(choice => choice.isCorrect);
 const correctIndex = shuffledChoices.indexOf(correctChoice);
 const correctAnswer = labels[correctIndex];
 shuffledChoices.forEach((choice, index) => {
-options.push({
-id: labels[index],
-text: choice.text
-});
+options.push({ id: labels[index], text: choice.text });
 });
 return {
 id: question.id,
@@ -675,26 +658,16 @@ function startTest() {
 studentName = document.getElementById('student-name').value.trim();
 const grade = document.getElementById('grade-select').value;
 const term = document.getElementById('term-select').value;
-if (!studentName) {
-alert('Vui lòng nhập họ và tên!');
-return;
-}
-if (!grade || !term) {
-alert('Vui lòng chọn lớp và kỳ ôn tập!');
-return;
-}
-if (studentName.length > 40) {
-alert('Họ và tên không được vượt quá 40 ký tự!');
-return;
-}
+if (!studentName) { alert('Vui lòng nhập họ và tên!'); return; }
+if (!grade || !term) { alert('Vui lòng chọn lớp và kỳ ôn tập!'); return; }
+if (studentName.length > 40) { alert('Họ và tên không được vượt quá 40 ký tự!'); return; }
 currentQuestions = getRandomQuestions(currentTestCode);
 userAnswers = {};
 timeLeft = 600;
 testStartTime = new Date();
 currentQuestionIndex = 0;
 isTransitioning = false;
-const testTitle = `${gradeNames[grade]} - ${termNames[term]}`;
-document.getElementById('test-title').textContent = testTitle;
+document.getElementById('test-title').textContent = `${gradeNames[grade]} - ${termNames[term]}`;
 renderCurrentQuestion();
 startTimer();
 showScreen('test-screen');
@@ -702,10 +675,7 @@ document.addEventListener('visibilitychange', handleVisibilityChange);
 }
 
 function handleVisibilityChange() {
-if (document.hidden) {
-clearInterval(timerInterval);
-submitTest();
-}
+if (document.hidden) { clearInterval(timerInterval); submitTest(); }
 }
 
 function startTimer() {
@@ -714,18 +684,14 @@ updateTimerDisplay();
 timerInterval = setInterval(() => {
 timeLeft--;
 updateTimerDisplay();
-if (timeLeft <= 0) {
-clearInterval(timerInterval);
-submitTest();
-}
+if (timeLeft <= 0) { clearInterval(timerInterval); submitTest(); }
 }, 1000);
 }
 
 function updateTimerDisplay() {
 const minutes = Math.floor(timeLeft / 60);
 const seconds = timeLeft % 60;
-document.getElementById('timer').textContent =
-`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+document.getElementById('timer').textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 if (timeLeft <= 60) {
 document.getElementById('timer').style.color = '#e74c3c';
 document.getElementById('timer').style.backgroundColor = '#ffebee';
@@ -736,9 +702,7 @@ function showNotification(message, duration = 1000) {
 const notification = document.getElementById('notification');
 notification.textContent = message;
 notification.style.display = 'block';
-setTimeout(() => {
-notification.style.display = 'none';
-}, duration);
+setTimeout(() => { notification.style.display = 'none'; }, duration);
 }
 
 function renderCurrentQuestion() {
@@ -746,22 +710,9 @@ const container = document.getElementById('current-question-container');
 const question = currentQuestions[currentQuestionIndex];
 let optionsHTML = '';
 question.options.forEach(option => {
-optionsHTML += `
-<li class="option"
-data-question="${question.id}" data-option="${option.id}">
-<div class="math-container"><strong>${option.id}.</strong> ${option.text}</div>
-</li>
-`;
+optionsHTML += `<li class="option" data-question="${question.id}" data-option="${option.id}"><div class="math-container"><strong>${option.id}.</strong> ${option.text}</div></li>`;
 });
-container.innerHTML = `
-<div class="question">
-<div class="question-number">Câu ${question.displayOrder} - ${currentTestCode} - ${question.id}</div>
-<div class="question-content">
-<div class="math-container">${question.content}</div>
-</div>
-<ul class="options">${optionsHTML}</ul>
-</div>
-`;
+container.innerHTML = `<div class="question"><div class="question-number">Câu ${question.displayOrder} - ${currentTestCode} - ${question.id}</div><div class="question-content"><div class="math-container">${question.content}</div></div><ul class="options">${optionsHTML}</ul></div>`;
 document.getElementById('current-question-number').textContent = currentQuestionIndex + 1;
 document.getElementById('total-questions').textContent = currentQuestions.length;
 document.querySelectorAll('.option').forEach(option => {
@@ -773,21 +724,12 @@ isTransitioning = true;
 userAnswers[questionId] = optionId;
 showNotification("Đã chọn đáp án!");
 setTimeout(() => {
-if (currentQuestionIndex >= currentQuestions.length - 1) {
-submitTest();
-} else {
-currentQuestionIndex++;
-renderCurrentQuestion();
-isTransitioning = false;
-}
+if (currentQuestionIndex >= currentQuestions.length - 1) submitTest();
+else { currentQuestionIndex++; renderCurrentQuestion(); isTransitioning = false; }
 }, 800);
 });
 });
-if (window.MathJax) {
-setTimeout(() => {
-MathJax.typesetPromise();
-}, 200);
-}
+if (window.MathJax) setTimeout(() => MathJax.typesetPromise(), 200);
 }
 
 function submitTest() {
@@ -810,23 +752,17 @@ else return '#e0e0e0';
 function showResults() {
 const grade = document.getElementById('grade-select').value;
 const term = document.getElementById('term-select').value;
-const resultTitle = `${gradeNames[grade]} - ${termNames[term]} - KẾT QUẢ`;
-document.getElementById('result-title').textContent = resultTitle;
+document.getElementById('result-title').textContent = `${gradeNames[grade]} - ${termNames[term]} - KẾT QUẢ`;
 const { correctCount, incorrectCount, unansweredCount, percentage } = calculateScore();
 document.getElementById('result-student-name').textContent = studentName;
 const scoreChart = document.getElementById('score-chart');
-const scorePercentageText = document.getElementById('score-percentage');
-const scoreDetailText = document.getElementById('score-detail');
 const color = getScoreColor(percentage);
 scoreChart.style.background = `conic-gradient(${color} ${percentage}%, #eee ${percentage}% 100%)`;
-scorePercentageText.textContent = `${percentage}%`;
-scoreDetailText.textContent = `${correctCount}/${currentQuestions.length}`;
-const dateStr = `${testSubmitTime.getDate().toString().padStart(2, '0')}/${(testSubmitTime.getMonth() + 1).toString().padStart(2, '0')}/${testSubmitTime.getFullYear()}`;
-document.getElementById('result-date').textContent = dateStr;
-const startHMS = formatTimeHMS(testStartTime);
-document.getElementById('start-time-hms').textContent = startHMS;
-const endHMS = formatTimeHMS(testSubmitTime);
-document.getElementById('end-time-hms').textContent = endHMS;
+document.getElementById('score-percentage').textContent = `${percentage}%`;
+document.getElementById('score-detail').textContent = `${correctCount}/${currentQuestions.length}`;
+document.getElementById('result-date').textContent = `${testSubmitTime.getDate().toString().padStart(2, '0')}/${(testSubmitTime.getMonth() + 1).toString().padStart(2, '0')}/${testSubmitTime.getFullYear()}`;
+document.getElementById('start-time-hms').textContent = formatTimeHMS(testStartTime);
+document.getElementById('end-time-hms').textContent = formatTimeHMS(testSubmitTime);
 document.getElementById('incorrect-count').textContent = `${incorrectCount}/${currentQuestions.length}`;
 document.getElementById('unanswered-count').textContent = `${unansweredCount}/${currentQuestions.length}`;
 renderReviewQuestions();
@@ -834,26 +770,14 @@ showScreen('result-screen');
 }
 
 function calculateScore() {
-let correctCount = 0;
-let incorrectCount = 0;
-let unansweredCount = 0;
+let correctCount = 0, incorrectCount = 0, unansweredCount = 0;
 currentQuestions.forEach(question => {
 const userAnswer = userAnswers[question.id];
-if (!userAnswer) {
-unansweredCount++;
-} else if (userAnswer === question.correctAnswer) {
-correctCount++;
-} else {
-incorrectCount++;
-}
+if (!userAnswer) unansweredCount++;
+else if (userAnswer === question.correctAnswer) correctCount++;
+else incorrectCount++;
 });
-const percentage = Math.round((correctCount / currentQuestions.length) * 100);
-return {
-correctCount,
-incorrectCount,
-unansweredCount,
-percentage
-};
+return { correctCount, incorrectCount, unansweredCount, percentage: Math.round((correctCount / currentQuestions.length) * 100) };
 }
 
 function formatTimeHMS(date) {
@@ -870,49 +794,18 @@ currentQuestions.forEach(question => {
 const userAnswer = userAnswers[question.id];
 const isCorrect = userAnswer === question.correctAnswer;
 const isUnanswered = !userAnswer;
-let statusClass = '';
-if (isUnanswered) {
-statusClass = 'unanswered';
-} else if (isCorrect) {
-statusClass = 'correct';
-} else {
-statusClass = 'incorrect';
-}
+let statusClass = isUnanswered ? 'unanswered' : (isCorrect ? 'correct' : 'incorrect');
 let optionsHTML = '';
 question.options.forEach(option => {
-let classStyle = '';
-let textStyle = '';
-if (option.id === question.correctAnswer) {
-classStyle = 'review-opt-correct';
-textStyle = 'color: #2ecc71; font-weight: bold;';
-} else if (option.id === userAnswer && !isCorrect) {
-classStyle = 'review-opt-wrong';
-textStyle = 'color: #e74c3c; text-decoration: line-through;';
-} else {
-textStyle = 'color: #000;';
-}
-optionsHTML += `
-<div class="review-option-row ${classStyle}" style="${textStyle}">
-<div class="math-container"><strong>${option.id}.</strong> ${option.text}</div>
-</div>
-`;
+let textStyle = (option.id === question.correctAnswer) ? 'color: #2ecc71; font-weight: bold;' : ((option.id === userAnswer && !isCorrect) ? 'color: #e74c3c; text-decoration: line-through;' : 'color: #000;');
+optionsHTML += `<div class="review-option-row" style="${textStyle}"><div class="math-container"><strong>${option.id}.</strong> ${option.text}</div></div>`;
 });
 const reviewItem = document.createElement('div');
 reviewItem.className = `review-item ${statusClass}`;
-reviewItem.innerHTML = `
-<div class="review-question-title">Câu ${question.displayOrder} - ${currentTestCode} - ${question.id}</div>
-<div class="question-content" style="font-size: 16px; margin-bottom: 5px;">
-<div class="math-container">${question.content}</div>
-</div>
-<div class="review-options">${optionsHTML}</div>
-`;
+reviewItem.innerHTML = `<div class="review-question-title">Câu ${question.displayOrder} - ${currentTestCode} - ${question.id}</div><div class="question-content" style="font-size: 16px; margin-bottom: 5px;"><div class="math-container">${question.content}</div></div><div class="review-options">${optionsHTML}</div>`;
 container.appendChild(reviewItem);
 });
-if (window.MathJax) {
-setTimeout(() => {
-MathJax.typesetPromise();
-}, 300);
-}
+if (window.MathJax) setTimeout(() => MathJax.typesetPromise(), 300);
 }
 
 function retryTest() {
@@ -934,19 +827,11 @@ document.getElementById('term-select').addEventListener('change', updateTestCode
 document.getElementById('start-btn').addEventListener('click', startTest);
 document.getElementById('submit-test-btn').addEventListener('click', submitTest);
 document.getElementById('retry-btn').addEventListener('click', retryTest);
-document.getElementById('back-btn').addEventListener('click', function() {
-showScreen('main-screen');
-});
+document.getElementById('back-btn').addEventListener('click', () => showScreen('main-screen'));
 });
 
-const gradeNames = {
-'1': 'TOÁN LỚP 1', '2': 'TOÁN LỚP 2', '3': 'TOÁN LỚP 3', '4': 'TOÁN LỚP 4', '5': 'TOÁN LỚP 5',
-'6': 'TOÁN LỚP 6', '7': 'TOÁN LỚP 7', '8': 'TOÁN LỚP 8', '9': 'TOÁN LỚP 9'
-};
-
-const termNames = {
-'GK1': 'GIỮA HỌC KÌ 1', 'HK1': 'CUỐI HỌC KÌ 1', 'GK2': 'GIỮA HỌC KÌ 2', 'HK2': 'CUỐI HỌC KÌ 2'
-};
+const gradeNames = { '1': 'TOÁN LỚP 1', '2': 'TOÁN LỚP 2', '3': 'TOÁN LỚP 3', '4': 'TOÁN LỚP 4', '5': 'TOÁN LỚP 5', '6': 'TOÁN LỚP 6', '7': 'TOÁN LỚP 7', '8': 'TOÁN LỚP 8', '9': 'TOÁN LỚP 9' };
+const termNames = { 'GK1': 'GIỮA HỌC KÌ 1', 'HK1': 'CUỐI HỌC KÌ 1', 'GK2': 'GIỮA HỌC KÌ 2', 'HK2': 'CUỐI HỌC KÌ 2' };
 </script>
 </body>
 </html>
