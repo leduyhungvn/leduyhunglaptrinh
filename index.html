@@ -311,7 +311,8 @@ border: 1px solid #eee;
 .review-item { padding: 10px; margin-bottom: 10px; border-radius: 8px; border-left: 4px solid; background-color: #fff; border: 1px solid #eee; }
 .review-item.correct { border-left-color: #2ecc71; background-color: #f0fff4; }
 .review-item.incorrect { border-left-color: #e74c3c; background-color: #fff5f5; }
-.review-item.unanswered { border-left-color: #95a5a6; background-color: #f8f9fa; }
+.review-item.unanswered { border-left-color: #95a5a6; background-color: #f8f9fa; } 
+
 .review-question-title { font-weight: bold; margin-bottom: 5px; font-size: 16px; }
 .review-options { margin-top: 5px; }
 .review-option-row { padding: 3px 0; font-size: 14px; }
@@ -413,9 +414,9 @@ mjx-container { outline: none; }
 <div class="test-header-container">
 <div class="test-title" id="test-title"></div>
 <div class="test-info">
-<div class="timer" id="timer">10:00</div>
+<div class="timer" id="timer">20:00</div>
 <div class="question-counter">
-Câu <span id="current-question-number">1</span>/<span id="total-questions">10</span>
+Câu <span id="current-question-number">1</span>/<span id="total-questions">20</span>
 </div>
 </div>
 </div>
@@ -446,7 +447,7 @@ Câu <span id="current-question-number">1</span>/<span id="total-questions">10</
             <div class="pie-chart" id="score-chart"></div>
             <div class="chart-center">
                 <span class="percentage-text" id="score-percentage">0%</span>
-                <span class="score-detail-text" id="score-detail">0/10</span>
+                <span class="score-detail-text" id="score-detail">0/20</span>
             </div>
         </div>
         
@@ -470,13 +471,13 @@ Câu <span id="current-question-number">1</span>/<span id="total-questions">10</
         <div class="grid-item wrong">
             <svg class="grid-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
             <div class="grid-label">Sai</div>
-            <div class="grid-value" id="incorrect-count">0/10</div>
+            <div class="grid-value" id="incorrect-count">0/20</div>
         </div>
 
         <div class="grid-item unanswered">
             <svg class="grid-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="8"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
             <div class="grid-label">Chưa chọn</div>
-            <div class="grid-value" id="unanswered-count">0/10</div>
+            <div class="grid-value" id="unanswered-count">0/20</div>
         </div>
     </div>
 </div>
@@ -493,13 +494,9 @@ Câu <span id="current-question-number">1</span>/<span id="total-questions">10</
 <div id="notification" class="notification"></div>
 
 <script>
-// Dữ liệu kho đề mới: Tách làm P1, P2, P3
-// P1: Trắc nghiệm thông thường (4 đáp án)
-// P2: Đúng/Sai (correct là "Đúng" hoặc "Sai")
-// P3: Điền khuyết (giống P1 về cấu trúc dữ liệu)
-
+// Dữ liệu kho đề: P1 (Trắc nghiệm), P2 (Đúng/Sai), P3 (Điền khuyết)
 const questionBanks = {
-// --- TOÁN LỚP 1 - GIỮA HỌC KÌ 1 (Đầy đủ 10 câu mỗi phần để test) ---
+// --- TOÁN LỚP 1 - GIỮA HỌC KÌ 1 (Đầy đủ câu hỏi) ---
 'T1GK1': {
     P1: [
         { id: 1, content: "Số nào lớn nhất trong các số: 5, 9, 2?", correct: "9", wrong1: "5", wrong2: "2", wrong3: "8" },
@@ -539,7 +536,7 @@ const questionBanks = {
     ]
 },
 
-// --- CÁC KHO KHÁC (Mỗi phần 1 câu mẫu) ---
+// --- CÁC KHO KHÁC (Mỗi phần 1 câu mẫu - Code sẽ tự động lấy đủ nếu có, ít hơn nếu không đủ) ---
 'T1HK1': {
     P1: [{ id: 1, content: "Kết quả của 5 + 5 = ?", correct: "10", wrong1: "9", wrong2: "8", wrong3: "11" }],
     P2: [{ id: 1, content: "Một năm có 12 tháng.", correct: "Đúng", wrong1: "Sai" }],
@@ -602,7 +599,7 @@ const questionBanks = {
 },
 'T4HK1': {
     P1: [{ id: 1, content: "1km = ? m", correct: "1000", wrong1: "100", wrong2: "10000", wrong3: "500" }],
-    P2: [{ id: 1, content: "Tam giác đều có 3 trục đối xứng.", correct: "Sai", wrong1: "Đúng" }], // Thực tế là 3 nhưng ở lớp 4 có thể chưa học sâu, mình đặt Sai để test logic
+    P2: [{ id: 1, content: "Tam giác đều có 3 trục đối xứng.", correct: "Sai", wrong1: "Đúng" }], 
     P3: [{ id: 1, content: "3 tấn = ... kg", correct: "3000", wrong1: "300", wrong2: "30000", wrong3: "30" }]
 },
 'T4GK2': {
@@ -646,10 +643,1896 @@ const questionBanks = {
     P3: [{ id: 1, content: "Góc bù với góc 30° là góc ...", correct: "150°", wrong1: "30°", wrong2: "60°", wrong3: "120°" }]
 },
 'T6GK2': {
-    P1: [{ id: 1, content: "\\(\\frac{5}{8} - \\frac{1}{4}\\) = ?", correct: "\\(\\frac{3}{8}\\)", wrong1: "\\(\\frac{4}{4}\\)", wrong2: "\\(\\frac{4}{8}\\)", wrong3: "\\(\\frac{2}{8}\\)" }],
-    P2: [{ id: 1, content: "Hình bình hành có 2 đường chéo bằng nhau.", correct: "Sai", wrong1: "Đúng" }],
-    P3: [{ id: 1, content: "2x = 10 => x = ...", correct: "5", wrong1: "2", wrong2: "8", wrong3: "20" }]
+    P1: [
+{
+    id: 1,
+    content: "Cách viết nào sau đây cho ta một phân số?",
+    correct: "\\(\\frac{-2}{7}\\)",
+    wrong1: "\\(\\frac{1,5}{3}\\)",
+    wrong2: "\\(\\frac{4}{0}\\)",
+    wrong3: "\\(\\frac{3}{2,5}\\)"
+  },
+  {
+    id: 2,
+    content: "Trong phân số \\(\\frac{-5}{9}\\), số nguyên -5 đóng vai trò là",
+    correct: "tử số.",
+    wrong1: "mẫu số.",
+    wrong2: "số chia.",
+    wrong3: "hỗn số."
+  },
+  {
+    id: 3,
+    content: "Cho các số: \\(\\frac{3}{4}, \\frac{0}{5}, \\frac{-7}{0}, \\frac{1,2}{3}\\). Có bao nhiêu số là phân số?",
+    correct: "2.",
+    wrong1: "1.",
+    wrong2: "3.",
+    wrong3: "4."
+  },
+  {
+    id: 4,
+    content: "Phép chia \\((-8)\\) cho 5 được viết dưới dạng phân số là",
+    correct: "\\(\\frac{-8}{5}\\)",
+    wrong1: "\\(\\frac{5}{-8}\\)",
+    wrong2: "\\(\\frac{8}{5}\\)",
+    wrong3: "\\(\\frac{-5}{8}\\)"
+  },
+  {
+    id: 5,
+    content: "Mọi số nguyên a đều có thể viết dưới dạng phân số là",
+    correct: "\\(\\frac{a}{1}\\)",
+    wrong1: "\\(\\frac{a}{0}\\)",
+    wrong2: "\\(\\frac{a}{a}\\)",
+    wrong3: "\\(\\frac{a}{-1}\\)"
+  },
+  {
+    id: 6,
+    content: "Khẳng định nào sau đây là đúng về tính chất cơ bản của phân số?",
+    correct: "Nếu ta nhân cả tử và mẫu của một phân số với cùng một số nguyên khác 0 thì ta được một phân số bằng phân số đã cho.",
+    wrong1: "Nếu ta cộng cả tử và mẫu của một phân số với cùng một số nguyên khác 0 thì ta được một phân số bằng phân số đã cho.",
+    wrong2: "Nếu ta nhân tử số với một số nguyên và chia mẫu số cho số nguyên đó thì ta được một phân số bằng phân số đã cho.",
+    wrong3: "Nếu ta trừ cả tử và mẫu của một phân số cho cùng một số nguyên thì ta được một phân số bằng phân số đã cho."
+  },
+  {
+    id: 7,
+    content: "Tìm số nguyên x biết: \\(\\frac{-3}{5} = \\frac{x}{20}\\)?",
+    correct: "-12.",
+    wrong1: "12.",
+    wrong2: "-15.",
+    wrong3: "9."
+  },
+  {
+    id: 8,
+    content: "Phân số nào dưới đây bằng với phân số \\(\\frac{2}{3}\\)?",
+    correct: "\\(\\frac{4}{6}\\)",
+    wrong1: "\\(\\frac{4}{3}\\)",
+    wrong2: "\\(\\frac{-6}{12}\\)",
+    wrong3: "\\(\\frac{2}{-3}\\)"
+  },
+  {
+    id: 9,
+    content: "Chia cả tử và mẫu của phân số \\(\\frac{-12}{18}\\) cho 6, ta được phân số mới là",
+    correct: "\\(\\frac{-2}{3}\\)",
+    wrong1: "\\(\\frac{2}{-3}\\)",
+    wrong2: "\\(\\frac{-6}{9}\\)",
+    wrong3: "\\(\\frac{12}{-18}\\)"
+  },
+  {
+    id: 10,
+    content: "Để rút gọn phân số \\(\\frac{-24}{36}\\) về phân số tối giản, ta chia cả tử và mẫu cho ước chung lớn nhất của chúng là",
+    correct: "12.",
+    wrong1: "4.",
+    wrong2: "6.",
+    wrong3: "-12."
+  },
+  {
+    id: 11,
+    content: "Trong hai phân số có cùng mẫu số dương, phân số nào có tử số lớn hơn thì",
+    correct: "phân số đó lớn hơn.",
+    wrong1: "phân số đó nhỏ hơn.",
+    wrong2: "phân số đó bằng nhau.",
+    wrong3: "phân số đó bằng 0."
+  },
+  {
+    id: 12,
+    content: "Kết quả so sánh hai phân số \\(\\frac{-7}{12}\\) và \\(\\frac{-5}{12}\\) là",
+    correct: "\\(\\frac{-7}{12} < \\frac{-5}{12}\\)",
+    wrong1: "\\(\\frac{-7}{12} > \\frac{-5}{12}\\)",
+    wrong2: "\\(\\frac{-7}{12} = \\frac{-5}{12}\\)",
+    wrong3: "Không so sánh được."
+  },
+  {
+    id: 13,
+    content: "Chọn khẳng định đúng trong các khẳng định sau",
+    correct: "\\(\\frac{3}{4} > \\frac{1}{2}\\)",
+    wrong1: "\\(\\frac{2}{5} < \\frac{3}{10}\\)",
+    wrong2: "\\(\\frac{4}{5} > \\frac{3}{2}\\)",
+    wrong3: "\\(\\frac{1}{2} < \\frac{1}{2}\\)"
+  },
+  {
+    id: 14,
+    content: "Để so sánh hai phân số \\(\\frac{-3}{4}\\) và \\(\\frac{-2}{5}\\), ta quy đồng mẫu số hai phân số này (với mẫu chung là 20) được kết quả lần lượt là",
+    correct: "\\(\\frac{-15}{20} < \\frac{-8}{20}\\)",
+    wrong1: "\\(\\frac{-15}{20} = \\frac{8}{20}\\)",
+    wrong2: "\\(\\frac{-15}{20} > \\frac{-8}{20}\\)",
+    wrong3: "\\(\\frac{15}{20} > \\frac{-8}{20}\\)"
+  },
+  {
+    id: 15,
+    content: "Sắp xếp các số \\(\\frac{-1}{2}, \\frac{3}{4}, \\frac{-1}{3}\\) theo thứ tự tăng dần là",
+    correct: "\\(\\frac{-1}{2} < \\frac{-1}{3} < \\frac{3}{4}\\)",
+    wrong1: "\\(\\frac{-1}{2} < \\frac{3}{4} < \\frac{-1}{3}\\)",
+    wrong2: "\\(\\frac{-1}{3} < \\frac{3}{4} < \\frac{-1}{2}\\)",
+    wrong3: "\\(\\frac{3}{4} < \\frac{-1}{2} < \\frac{-1}{3}\\)"
+  },
+  {
+    id: 16,
+    content: "Muốn cộng hai phân số có cùng mẫu số, ta thực hiện",
+    correct: "cộng tử số với tử số và giữ nguyên mẫu số.",
+    wrong1: "cộng tử số với tử số và cộng mẫu số với mẫu số.",
+    wrong2: "nhân tử số với tử số và giữ nguyên mẫu số.",
+    wrong3: "giữ nguyên tử số và cộng mẫu số với mẫu số."
+  },
+  {
+    id: 17,
+    content: "Kết quả của phép tính \\(\\frac{-5}{12} + \\frac{-7}{12}\\) là",
+    correct: "-1",
+    wrong1: "\\(\\frac{-12}{24}\\)",
+    wrong2: "\\(-\\frac{1}{2}\\)",
+    wrong3: "\\(\\frac{-2}{12}\\)"
+  },
+  {
+    id: 18,
+    content: "Số đối của phân số \\(\\frac{-3}{5}\\) là",
+    correct: "\\(\\frac{3}{5}\\)",
+    wrong1: "\\(\\frac{5}{-3}\\)",
+    wrong2: "\\(\\frac{-3}{-5}\\)",
+    wrong3: "\\(\\frac{-5}{3}\\)"
+  },
+  {
+    id: 19,
+    content: "Kết quả của phép trừ \\(\\frac{1}{3} - \\frac{1}{2}\\) là",
+    correct: "\\(\\frac{-1}{6}\\)",
+    wrong1: "\\(\\frac{1}{6}\\)",
+    wrong2: "\\(\\frac{0}{1}\\)",
+    wrong3: "\\(\\frac{5}{6}\\)"
+  },
+  {
+    id: 20,
+    content: "Tìm \\(x\\) biết \\(x + \\frac{1}{4} = \\frac{3}{4}\\)?",
+    correct: "\\(x = \\frac{1}{2}\\)",
+    wrong1: "\\(x = 1\\)",
+    wrong2: "\\(x = \\frac{4}{8}\\)",
+    wrong3: "\\(x = -\\frac{1}{2}\\)"
+  },
+  {
+    id: 21,
+    content: "Quy tắc nhân hai phân số là",
+    correct: "nhân tử với tử và nhân mẫu với mẫu.",
+    wrong1: "nhân tử với tử và giữ nguyên mẫu.",
+    wrong2: "nhân tử với mẫu và nhân mẫu với tử.",
+    wrong3: "giữ nguyên tử và nhân mẫu với mẫu."
+  },
+  {
+    id: 22,
+    content: "Kết quả của phép tính \\(\\frac{-5}{9} \\times \\frac{3}{10}\\) (sau khi rút gọn tối giản) là",
+    correct: "\\(\\frac{-1}{6}\\)",
+    wrong1: "\\(\\frac{-15}{90}\\)",
+    wrong2: "\\(\\frac{-2}{19}\\)",
+    wrong3: "\\(\\frac{1}{6}\\)"
+  },
+  {
+    id: 23,
+    content: "Phân số nghịch đảo của phân số \\(\\frac{-4}{7}\\) là",
+    correct: "\\(\\frac{7}{-4}\\)",
+    wrong1: "\\(\\frac{4}{7}\\)",
+    wrong2: "\\(\\frac{7}{4}\\)",
+    wrong3: "\\(\\frac{-4}{7}\\)"
+  },
+  {
+    id: 24,
+    content: "Kết quả của phép chia \\(\\frac{-2}{3} : \\frac{1}{2}\\) là",
+    correct: "\\(-\\frac{4}{3}\\)",
+    wrong1: "\\(-\\frac{1}{3}\\)",
+    wrong2: "\\(\\frac{-2}{6}\\)",
+    wrong3: "\\(\\frac{3}{-4}\\)"
+  },
+  {
+    id: 25,
+    content: "Giá trị của biểu thức \\(A = \\left( -\\frac{1}{3} \\right)^2\\) là",
+    correct: "\\(\\frac{1}{9}\\)",
+    wrong1: "\\(-\\frac{1}{9}\\)",
+    wrong2: "\\(\\frac{2}{9}\\)",
+    wrong3: "\\(\\frac{1}{6}\\)"
+  },
+  {
+    id: 26,
+    content: "Muốn tìm \\(\\frac{m}{n}\\) của số \\(b\\) cho trước, ta tính",
+    correct: "\\(b \\cdot \\frac{m}{n}\\)",
+    wrong1: "\\(b \\cdot \\frac{m}{n} \\cdot b\\)",
+    wrong2: "\\(\\frac{m}{n} \\cdot b\\)",
+    wrong3: "\\(b + \\frac{m}{n}\\)"
+  },
+  {
+    id: 27,
+    content: "\\(\\frac{3}{4}\\) của 20 là",
+    correct: "15.",
+    wrong1: "12.",
+    wrong2: "\\(\\frac{80}{3}\\).",
+    wrong3: "24."
+  },
+  {
+    id: 28,
+    content: "Biết \\(\\frac{2}{5}\\) của số \\(x\\) bằng 10. Số \\(x\\) là",
+    correct: "25.",
+    wrong1: "4.",
+    wrong2: "20.",
+    wrong3: "50."
+  },
+  {
+    id: 29,
+    content: "Một lớp học có 40 học sinh, trong đó số học sinh nữ chiếm \\(\\frac{3}{5}\\) số học sinh cả lớp. Số học sinh nữ là",
+    correct: "24 học sinh.",
+    wrong1: "16 học sinh.",
+    wrong2: "20 học sinh.",
+    wrong3: "25 học sinh."
+  },
+  {
+    id: 30,
+    content: "\\(\\frac{2}{3}\\) của \\(-15\\) là",
+    correct: "-10.",
+    wrong1: "10.",
+    wrong2: "-45.",
+    wrong3: "-22,5."
+  },
+  {
+    id: 31,
+    content: "Hỗn số \\(2\\frac{3}{5}\\) được viết dưới dạng phân số là",
+    correct: "\\(\\frac{13}{5}\\)",
+    wrong1: "\\(\\frac{6}{5}\\)",
+    wrong2: "\\(\\frac{17}{5}\\)",
+    wrong3: "\\(\\frac{32}{5}\\)"
+  },
+  {
+    id: 32,
+    content: "Phân số nào dưới đây có thể viết được dưới dạng hỗn số?",
+    correct: "\\(\\frac{15}{4}\\)",
+    wrong1: "\\(\\frac{3}{4}\\)",
+    wrong2: "\\(\\frac{7}{9}\\)",
+    wrong3: "\\(\\frac{1}{2}\\)"
+  },
+  {
+    id: 33,
+    content: "Trong hỗn số \\(a \\frac{b}{c}\\) (với \\(a, b, c \\in \\mathbb{N}^*\\)), khẳng định nào sau đây là đúng về phần phân số \\(\\frac{b}{c}\\)?",
+    correct: "\\(b \\geq 1\\)",
+    wrong1: "\\(b > 1\\)",
+    wrong2: "\\(b < 1\\)",
+    wrong3: "\\(b = 1\\)"
+  },
+  {
+    id: 34,
+    content: "Chuyển phân số \\(\\frac{23}{4}\\) sang hỗn số, ta được kết quả là",
+    correct: "\\(5\\frac{3}{4}\\)",
+    wrong1: "\\(4\\frac{3}{4}\\)",
+    wrong2: "\\(3\\frac{4}{4}\\)",
+    wrong3: "\\(6\\frac{1}{4}\\)"
+  },
+  {
+    id: 35,
+    content: "Viết số đo thời gian “2 giờ 15 phút” dưới dạng hỗn số với đơn vị là giờ là",
+    correct: "\\(2\\frac{1}{4}\\) giờ",
+    wrong1: "\\(2\\frac{1}{5}\\) giờ",
+    wrong2: "\\(2\\frac{15}{10}\\) giờ",
+    wrong3: "\\(2\\frac{3}{4}\\) giờ"
+  },
+  {
+    id: 36,
+    content: "Hình nào sau đây không có trục đối xứng?",
+    correct: "Hình bình hành",
+    wrong1: "Hình tròn",
+    wrong2: "Hình thang cân",
+    wrong3: "Hình thoi"
+  },
+  {
+    id: 37,
+    content: "Số trục đối xứng của hình chữ nhật là",
+    correct: "2",
+    wrong1: "1",
+    wrong2: "4",
+    wrong3: "Vô số"
+  },
+  {
+    id: 38,
+    content: "Trong các biển báo giao thông sau, biển báo nào có trục đối xứng?",
+    correct: "Cả 3 biển báo trên",
+    wrong1: "Biển báo \"Cấm đi ngược chiều\" (Hình tròn có gạch ngang)",
+    wrong2: "Biển báo \"Nguy hiểm đi chậm\" (Hình tam giác vàng)",
+    wrong3: "Biển báo \"Đường cấm\" (Hình tròn viền đỏ)"
+  },
+  {
+    id: 39,
+    content: "Khẳng định nào sau đây là đúng về trục đối xứng của tam giác đều?",
+    correct: "Tam giác đều có 3 trục đối xứng",
+    wrong1: "Tam giác đều chỉ có 1 trục đối xứng",
+    wrong2: "Tam giác đều có 2 trục đối xứng",
+    wrong3: "Tam giác đều không có trục đối xứng"
+  },
+  {
+    id: 40,
+    content: "Chữ cái nào dưới đây có đúng một trục đối xứng?",
+    correct: "M",
+    wrong1: "H",
+    wrong2: "X",
+    wrong3: "N"
+  },
+{
+    id: 41,
+    content: "Hình nào dưới đây có tâm đối xứng?",
+    correct: "Hình bình hành",
+    wrong1: "Tam giác đều",
+    wrong2: "Hình tam giác cân",
+    wrong3: "Hình ngũ giác đều"
+  },
+  {
+    id: 42,
+    content: "Tâm đối xứng của hình chữ nhật là",
+    correct: "Giao điểm của hai đường chéo",
+    wrong1: "Giao điểm của hai cạnh bên",
+    wrong2: "Trung điểm của một cạnh bất kỳ",
+    wrong3: "Một đỉnh bất kỳ của hình chữ nhật"
+  },
+  {
+    id: 43,
+    content: "Trong các chữ cái in hoa sau, chữ cái nào KHÔNG có tâm đối xứng?",
+    correct: "M",
+    wrong1: "S",
+    wrong2: "Z",
+    wrong3: "N"
+  },
+  {
+    id: 44,
+    content: "Khẳng định nào sau đây là sai?",
+    correct: "Tam giác đều có tâm đối xứng là giao điểm ba đường cao",
+    wrong1: "Hình tròn có đúng một tâm đối xứng là tâm của đường tròn",
+    wrong2: "Đoạn thẳng có đúng một tâm đối xứng là trung điểm của nó",
+    wrong3: "Hình thoi có tâm đối xứng là giao điểm hai đường chéo"
+  },
+  {
+    id: 45,
+    content: "Hình lục giác đều có bao nhiêu tâm đối xứng?",
+    correct: "1",
+    wrong1: "0",
+    wrong2: "3",
+    wrong3: "6"
+  },
+  {
+    id: 46,
+    content: "Trong thế giới tự nhiên, hình ảnh nào sau đây là ví dụ điển hình về trục đối xứng?",
+    correct: "Một con bướm đang xòe cánh",
+    wrong1: "Một hòn đá cuội ven suối",
+    wrong2: "Một đám mây trên bầu trời",
+    wrong3: "Một cái cây bị gió thổi nghiêng"
+  },
+  {
+    id: 47,
+    content: "Người ta thường sử dụng các họa tiết trang trí có tính đối xứng (như hình vuông, hình tròn, lục giác đều...) trong xây dựng và kiến trúc chủ yếu để",
+    correct: "tạo sự cân bằng, hài hòa và vững chắc",
+    wrong1: "tạo sự mất cân đối, phá cách",
+    wrong2: "tạo cảm giác không an toàn",
+    wrong3: "tiết kiệm nguyên vật liệu"
+  },
+  {
+    id: 48,
+    content: "Hình dạng của tổ ong là một ví dụ tuyệt vời về tính đối xứng trong tự nhiên. Các ngăn của tổ ong có hình gì?",
+    correct: "Hình lục giác đều",
+    wrong1: "Hình tam giác đều",
+    wrong2: "Hình vuông",
+    wrong3: "Hình ngũ giác đều"
+  },
+  {
+    id: 49,
+    content: "Bông tuyết (tinh thể tuyết) thường có dạng hình gì và có tính chất đối xứng nào?",
+    correct: "Hình lục giác, vừa có tâm đối xứng vừa có trục đối xứng",
+    wrong1: "Hình ngũ giác, chỉ có trục đối xứng",
+    wrong2: "Hình tròn, không có tính đối xứng",
+    wrong3: "Hình tam giác, chỉ có tâm đối xứng"
+  },
+  {
+    id: 50,
+    content: "Mặt trống đồng Đông Sơn của Việt Nam là một tác phẩm nghệ thuật có tính đối xứng cao. Ngôi sao nhiều cánh ở giữa mặt trống gọi là những cái gì?",
+    correct: "Có tâm đối xứng (tâm ngôi sao) và nhiều trục đối xứng",
+    wrong1: "Chỉ có trục đối xứng, không có tâm đối xứng",
+    wrong2: "Không có trục đối xứng, chỉ có tâm đối xứng",
+    wrong3: "Không có tính đối xứng nào"
+  },
+  {
+    id: 51,
+    content: "Cách ký hiệu \"Điểm A thuộc đường thẳng d\" nào sau đây là đúng?",
+    correct: "\\(A \\in d\\)",
+    wrong1: "\\(A \\notin d\\)",
+    wrong2: "\\(d \\in A\\)",
+    wrong3: "\\(A \\notin d\\)"
+  },
+  {
+    id: 52,
+    content: "Có bao nhiêu đường thẳng đi qua hai điểm phân biệt A và B cho trước?",
+    correct: "1",
+    wrong1: "2",
+    wrong2: "Vô số",
+    wrong3: "Không có đường thẳng nào"
+  },
+  {
+    id: 53,
+    content: "Cho ba điểm M, N, P thẳng hàng. Khẳng định nào sau đây đúng?",
+    correct: "Ba điểm M, N, P cùng nằm trên một đường thẳng",
+    wrong1: "Ba điểm M, N, P tạo thành một tam giác",
+    wrong2: "Ba điểm M, N, P không cùng nằm trên một đường thẳng",
+    wrong3: "Đường thẳng đi qua M và N không đi qua P"
+  },
+  {
+    id: 54,
+    content: "Tập hợp các số tự nhiên \\( x \\) thoả mãn \\(\\frac{-21}{7} \\leq x \\leq \\frac{-21}{-7}\\) là",
+    correct: "\\(\\{0; 1; 2; 3\\}\\)",
+    wrong1: "\\(\\{-3; -2; -1; 0; 1; 2\\}\\)",
+    wrong2: "\\(\\{-2; -1; 0; 1; 2\\}\\)",
+    wrong3: "\\(\\{-3; -2; -1; 0; 1; 2; 3\\}\\)"
+  },
+  {
+    id: 55,
+    content: "Phân số lớn nhất trong các phân số \\(-29; \\frac{2022}{2023}; \\frac{1}{2}; \\frac{2023}{2024}\\) là:",
+    correct: "\\(\\frac{2023}{2024}\\)",
+    wrong1: "\\(\\frac{2022}{2023}\\)",
+    wrong2: "\\(\\frac{1}{2}\\)",
+    wrong3: "\\(-29\\)"
+  },
+  {
+    id: 56,
+    content: "Trong một cuộc thi chạy 200m nữ, có ba vận động viên đạt thành tích cao nhất là Mai: 22,42 giây; Nga: 21,40 giây; Phương: 22,30 giây. Các vận động viên đã về Nhất, Nhì, Ba lần lượt là",
+    correct: "Nga, Phương, Mai",
+    wrong1: "Mai, Phương, Nga",
+    wrong2: "Nga, Mai, Phương",
+    wrong3: "Mai, Nga, Phương"
+  },
+  {
+    id: 57,
+    content: "Trong các cách viết sau đây, cách viết nào cho ta phân số:",
+    correct: "\\(-\\frac{0}{2024}\\)",
+    wrong1: "\\(-\\frac{7}{1,5}\\)",
+    wrong2: "\\(\\frac{20}{0}\\)",
+    wrong3: "\\(\\frac{2,5}{3}\\)"
+  },
+  {
+    id: 58,
+    content: "Đoạn thẳng \\(AB\\) có độ dài 12 cm, lấy điểm \\(M\\) là trung điểm \\(AB\\). Độ dài đoạn \\(MA\\) là",
+    correct: "6cm",
+    wrong1: "12cm",
+    wrong2: "24cm",
+    wrong3: "3cm"
+  },
+  {
+    id: 59,
+    content: "Kết quả của phép tính \\(\\left(\\frac{2024}{2023} - \\frac{1}{2023} + 2022\\right) \\cdot \\left(\\frac{1}{2} - \\frac{1}{3} - \\frac{1}{6}\\right) + 1\\) là:",
+    correct: "1",
+    wrong1: "2023",
+    wrong2: "0",
+    wrong3: "2024"
+  },
+  {
+    id: 60,
+    content: "Cho \\(x = -\\frac{1}{2} + 0,3\\). Giá trị của \\(x\\) là",
+    correct: "\\(-\\frac{1}{5}\\)",
+    wrong1: "\\(-\\frac{4}{5}\\)",
+    wrong2: "\\(\\frac{1}{5}\\)",
+    wrong3: "\\(\\frac{4}{5}\\)"
+  },
+  {
+    id: 61,
+    content: "Lớp 6A có \\(\\frac{5}{6}\\) số học sinh thích học môn Toán, \\(\\frac{4}{5}\\) số học sinh thích học môn Ngữ Văn, \\(\\frac{7}{10}\\) số học sinh thích môn Ngoại ngữ và \\(\\frac{14}{15}\\) số học sinh thích môn Hoạt động trải nghiệm. Môn học được các bạn lớp 6A yêu thích nhất là",
+    correct: "Môn Hoạt động trải nghiệm",
+    wrong1: "Môn Toán",
+    wrong2: "Môn Ngữ Văn",
+    wrong3: "Môn Ngoại ngữ"
+  },
+  {
+    id: 62,
+    content: "Kết quả của phép tính \\(2{,}8 + 7{,}2 : 4\\) là",
+    correct: "4,6",
+    wrong1: "2,5",
+    wrong2: "31,6",
+    wrong3: "40"
+  },
+  {
+    id: 63,
+    content: "Bạn Thiện cao 1,51m, bạn Hằng cao 1,46m. Bạn Thiện cao hơn bạn Hằng số mét là",
+    correct: "0,05m",
+    wrong1: "-0,5m",
+    wrong2: "0,5m",
+    wrong3: "-0,05m"
+  },
+  {
+    id: 64,
+    content: "Số nghịch đảo của \\(2 \\frac{4}{7}\\) là:",
+    correct: "\\(\\frac{7}{18}\\)",
+    wrong1: "\\(-2 \\frac{4}{7}\\)",
+    wrong2: "\\(\\frac{18}{7}\\)",
+    wrong3: "\\(\\frac{7}{4}\\)"
+  },
+  {
+    id: 65,
+    content: "Rút gọn phân số \\(\\frac{-12}{32}\\) về tối giản ta được",
+    correct: "\\(\\frac{-3}{8}\\)",
+    wrong1: "\\(\\frac{6}{16}\\)",
+    wrong2: "\\(\\frac{3}{8}\\)",
+    wrong3: "\\(\\frac{-3}{-8}\\)"
+  },
+  {
+    id: 66,
+    content: "Chọn cặp phân số bằng nhau trong các cặp dưới đây",
+    correct: "\\(\\frac{-5}{3}\\) và \\(\\frac{10}{-6}\\)",
+    wrong1: "\\(\\frac{3}{7}\\) và \\(\\frac{4}{9}\\)",
+    wrong2: "\\(-\\frac{4}{5}\\) và \\(\\frac{8}{10}\\)",
+    wrong3: "\\(\\frac{-7}{-2}\\) và \\(\\frac{14}{-4}\\)"
+  },
+  {
+    id: 67,
+    content: "Trong các phân số \\(\\frac{1}{7}\\), \\(\\frac{1}{6}\\), \\(\\frac{1}{5}\\), \\(\\frac{1}{4}\\), phân số lớn nhất là",
+    correct: "\\(\\frac{1}{4}\\)",
+    wrong1: "\\(\\frac{1}{7}\\)",
+    wrong2: "\\(\\frac{1}{6}\\)",
+    wrong3: "\\(\\frac{1}{5}\\)"
+  },
+  {
+    id: 68,
+    content: "Cho biết \\(\\frac{12}{18} = \\frac{2}{x}\\), giá trị của \\(x\\) là",
+    correct: "3",
+    wrong1: "12",
+    wrong2: "2",
+    wrong3: "18"
+  },
+  {
+    id: 69,
+    content: "Số nhỏ nhất trong các phân số \\(\\frac{-3}{4}\\); \\(\\frac{10}{9}\\); \\(\\frac{-5}{-6}\\); \\(\\frac{-7}{-8}\\) là",
+    correct: "\\(\\frac{-3}{4}\\)",
+    wrong1: "\\(\\frac{10}{9}\\)",
+    wrong2: "\\(\\frac{7}{8}\\)",
+    wrong3: "\\(\\frac{5}{6}\\)"
+  },
+  {
+    id: 70,
+    content: "Cho \\(\\frac{x}{12} = \\frac{-2}{12}\\). Số \\(x\\) thích hợp là",
+    correct: "-2",
+    wrong1: "8",
+    wrong2: "-8",
+    wrong3: "2"
+  },
+  {
+    id: 71,
+    content: "Làm tròn số 0,5764 đến hàng phần nghìn ta được số",
+    correct: "0,576",
+    wrong1: "0,577",
+    wrong2: "0,5764",
+    wrong3: "0,5765"
+  },
+  {
+    id: 72,
+    content: "Kết quả của phép tính \\(\\frac{1}{30} + \\frac{1}{5} + \\frac{1}{6}\\) là",
+    correct: "\\(\\frac{2}{5}\\)",
+    wrong1: "\\(\\frac{1}{30}\\)",
+    wrong2: "\\(-\\frac{1}{10}\\)",
+    wrong3: "0"
+  },
+  {
+    id: 73,
+    content: "Trong các phân số sau, phân số tối giản là",
+    correct: "\\(\\frac{31}{-11}\\)",
+    wrong1: "\\(-\\frac{5}{10}\\)",
+    wrong2: "\\(\\frac{4}{6}\\)",
+    wrong3: "\\(-\\frac{18}{-3}\\)"
+  },
+  {
+    id: 74,
+    content: "Hỗn số \\(2\\frac{3}{4}\\) viết dưới dạng phân số là",
+    correct: "\\(\\frac{11}{4}\\)",
+    wrong1: "\\(\\frac{13}{4}\\)",
+    wrong2: "\\(\\frac{3}{4}\\)",
+    wrong3: "1"
+  },
+  {
+    id: 75,
+    content: "Giá trị của \\(x\\) để \\(\\frac{9}{-21} = \\frac{3}{x}\\) là",
+    correct: "-7",
+    wrong1: "-3",
+    wrong2: "7",
+    wrong3: "3"
+  },
+  {
+    id: 76,
+    content: "Trong các phân số sau: \\(-\\frac{5}{4}\\); \\(-\\frac{4}{5}\\); \\(-\\frac{1}{2}\\). Phân số nhỏ nhất là",
+    correct: "\\(-\\frac{5}{4}\\)",
+    wrong1: "\\(-\\frac{4}{5}\\)",
+    wrong2: "\\(\\frac{4}{5}\\)",
+    wrong3: "\\(-\\frac{1}{2}\\)"
+  },
+  {
+    id: 77,
+    content: "Hai đường thẳng song song có số điểm chung là",
+    correct: "0",
+    wrong1: "1",
+    wrong2: "2",
+    wrong3: "Vô số"
+  },
+  {
+    id: 78,
+    content: "Cho điểm M nằm giữa hai điểm B và E. Khẳng định nào sau đây Đúng?",
+    correct: "ME = BE - BM",
+    wrong1: "Điểm M và E nằm khác phía đối với điểm B",
+    wrong2: "BM + BE = ME",
+    wrong3: "Ba điểm M, B, E không thẳng hàng"
+  },
+  {
+    id: 79,
+    content: "Trong các cách viết sau, cách viết nào cho ta phân số?",
+    correct: "\\(\\frac{0}{13}\\)",
+    wrong1: "\\(-\\frac{79}{34,5}\\)",
+    wrong2: "\\(\\frac{17}{-3,2}\\)",
+    wrong3: "\\(\\frac{3}{0}\\)"
+  },
+  {
+    id: 80,
+    content: "Phân số nghịch đảo của phân số \\(\\frac{3}{-2}\\) là?",
+    correct: "\\(-\\frac{2}{3}\\)",
+    wrong1: "\\(\\frac{3}{2}\\)",
+    wrong2: "\\(-\\frac{3}{2}\\)",
+    wrong3: "\\(\\frac{2}{3}\\)"
+  },
+  {
+    id: 81,
+    content: "Hỗn số \\(1\\frac{2}{3}\\) viết dưới dạng phân số là",
+    correct: "\\(\\frac{5}{3}\\)",
+    wrong1: "\\(\\frac{2}{3}\\)",
+    wrong2: "\\(\\frac{7}{2}\\)",
+    wrong3: "\\(\\frac{7}{3}\\)"
+  },
+  {
+    id: 82,
+    content: "Phép so sánh nào sau đây là **đúng**?",
+    correct: "\\(-\\frac{3}{5} = -\\frac{9}{15}\\)",
+    wrong1: "\\(-\\frac{73}{68} > 0\\)",
+    wrong2: "\\(-\\frac{9}{43} > \\frac{8}{43}\\)",
+    wrong3: "\\(-\\frac{7}{-11} > \\frac{7}{11}\\)"
+  },
+  {
+    id: 83,
+    content: "Biết rằng \\(\\frac{1}{5}\\) của một số \\(a\\) là 40. Số \\(a\\) đó là",
+    correct: "200",
+    wrong1: "8",
+    wrong2: "20",
+    wrong3: "50"
+  },
+  {
+    id: 84,
+    content: "Phân số nào sau đây bằng phân số \\(\\frac{3}{4}\\)?",
+    correct: "\\(\\frac{6}{8}\\)",
+    wrong1: "\\(\\frac{12}{20}\\)",
+    wrong2: "\\(\\frac{3}{9}\\)",
+    wrong3: "\\(\\frac{40}{75}\\)"
+  },
+  {
+    id: 85,
+    content: "Hỗn số \\(3\\frac{2}{7}\\) được viết dưới dạng phân số là",
+    correct: "\\(\\frac{23}{7}\\)",
+    wrong1: "\\(\\frac{33}{7}\\)",
+    wrong2: "\\(\\frac{27}{7}\\)",
+    wrong3: "\\(\\frac{24}{7}\\)"
+  },
+  {
+    id: 86,
+    content: "Kết quả của phép tính \\(\\frac{-4}{5} + \\frac{2}{-10}\\) là",
+    correct: "-1",
+    wrong1: "1",
+    wrong2: "\\(\\frac{3}{4}\\)",
+    wrong3: "\\(-\\frac{1}{5}\\)"
+  },
+  {
+    id: 87,
+    content: "\\(\\frac{1}{4}\\) của \\(-36\\) là",
+    correct: "-9",
+    wrong1: "9",
+    wrong2: "-18",
+    wrong3: "-144"
+  },
+  {
+    id: 88,
+    content: "Số thập phân \\(0,32\\) được đổi ra phân số thập phân là",
+    correct: "\\(\\frac{32}{100}\\)",
+    wrong1: "\\(\\frac{320}{100}\\)",
+    wrong2: "\\(\\frac{32}{10}\\)",
+    wrong3: "\\(\\frac{32}{1000}\\)"
+  },
+  {
+    id: 89,
+    content: "Tính một cách hợp lí: \\(89,45 + (-3,28) + 0,55 + (-6,72)\\) ta được kết quả bằng",
+    correct: "80",
+    wrong1: "-80",
+    wrong2: "100",
+    wrong3: "-100"
+  },
+  {
+    id: 90,
+    content: "Làm tròn số \\(0,158\\) đến chữ số hàng phần trăm ta được",
+    correct: "0,16",
+    wrong1: "0,17",
+    wrong2: "0,159",
+    wrong3: "0,2"
+  },
+{
+    id: 91,
+    content: "Biết \\(\\frac{7}{11}\\) tấm vải là \\(7m\\). Tấm vải dài bao nhiêu mét?",
+    correct: "11",
+    wrong1: "18",
+    wrong2: "22",
+    wrong3: "\\(\\frac{88}{7}\\)"
+  },
+  {
+    id: 92,
+    content: "Trong các cách viết sau đây, cách viết nào cho ta phân số?",
+    correct: "\\(\\frac{2}{-5}\\)",
+    wrong1: "\\(\\frac{1,2}{5}\\)",
+    wrong2: "\\(\\frac{3}{2,5}\\)",
+    wrong3: "\\(\\frac{2}{0}\\)"
+  },
+  {
+    id: 93,
+    content: "Tìm phân số bằng với phân số \\(\\frac{2}{-3}\\)",
+    correct: "\\(-\\frac{6}{9}\\)",
+    wrong1: "\\(-\\frac{1}{6}\\)",
+    wrong2: "\\(\\frac{2}{3}\\)",
+    wrong3: "\\(-\\frac{4}{-9}\\)"
+  },
+  {
+    id: 94,
+    content: "Tìm số đối của phân số \\(\\frac{3}{5}\\)",
+    correct: "\\(-\\frac{3}{5}\\)",
+    wrong1: "\\(\\frac{5}{3}\\)",
+    wrong2: "\\(-\\frac{5}{3}\\)",
+    wrong3: "\\(\\frac{3}{-5}\\)"
+  },
+  {
+    id: 95,
+    content: "So sánh hai phân số \\(\\frac{-3}{4}\\) và \\(\\frac{2}{-3}\\)",
+    correct: "\\(\\frac{-3}{4} < \\frac{2}{-3}\\)",
+    wrong1: "\\(\\frac{-3}{4} = \\frac{2}{-3}\\)",
+    wrong2: "\\(\\frac{-3}{4} > \\frac{2}{-3}\\)",
+    wrong3: "\\(\\frac{-3}{4} \\geq \\frac{2}{-3}\\)"
+  },
+  {
+    id: 96,
+    content: "Cho \\(b = -20\\). \\(\\frac{2}{5}\\) của \\(b\\) bằng",
+    correct: "-8",
+    wrong1: "8",
+    wrong2: "-50",
+    wrong3: "50"
+  },
+  {
+    id: 97,
+    content: "Phân số \\(\\frac{-3}{5}\\) có tử là",
+    correct: "-3",
+    wrong1: "-5",
+    wrong2: "5",
+    wrong3: "3"
+  }
+
+],
+    
+P2: [
+{
+    "id": 1,
+    "content": "Với hai phân số có cùng mẫu dương, phân số nào có tử bé hơn thì phân số đó bé hơn.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 2,
+    "content": "Nếu \\( a < b \\) và \\( b < c \\) thì \\( a < c \\).",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 3,
+    "content": "Tổng của hai phân số đối nhau luôn bằng 1.",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 4,
+    "content": "Muốn trừ phân số \\(\\frac{a}{b}\\) cho phân số \\(\\frac{c}{d}\\), ta cộng \\(\\frac{a}{b}\\) với số đối của \\(\\frac{c}{d}\\).",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 5,
+    "content": "Phép cộng phân số cũng có các tính chất giao hoán và kết hợp giống như phép cộng số nguyên.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 6,
+    "content": "Muốn chia một phân số cho một phân số khác 0, ta nhân phân số bị chia với số nghịch đảo của phân số chia.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 7,
+    "content": "Tích của một phân số với số nghịch đảo của nó luôn bằng 0.",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 8,
+    "content": "\\(\\frac{a}{b} \\cdot 0 = a\\) (với \\( b \\neq 0 \\)).",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 9,
+    "content": "Phép nhân phân số có tính chất phân phối đối với phép cộng: \\( a(b + c) = ab + ac \\).",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 10,
+    "content": "Muốn tìm một số biết \\(\\frac{m}{n}\\) của nó bằng \\(a\\), ta tính \\(a : \\frac{m}{n}\\).",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 11,
+    "content": "25% của 100 là 400.",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 12,
+    "content": "Giờ bằng 30 phút.",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 13,
+    "content": "Nếu \\(\\frac{3}{7}\\) của \\(x\\) là \\(-9\\) thì \\(x = -21\\).",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 14,
+    "content": "Hỗn số \\(\\frac{4}{1}\\) có nghĩa là \\(4 \\times \\frac{1}{2}\\).",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 15,
+    "content": "Để viết phân số âm \\(\\frac{-17}{3}\\) sang hỗn số, ta chia 17 cho 3 được thương là 5, dư 2 rồi đặt đầu \"\\(-\\)\" đằng trước, kết quả là \\(\\frac{-5}{3}\\).",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 16,
+    "content": "Phần phân số của một hỗn số luôn luôn nhỏ hơn 1.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 17,
+    "content": "\\(2 \\frac{5}{4}\\) là một cách viết đúng của hỗn số.",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 18,
+    "content": "Đường thẳng đi qua hai đáy của hình thang cân là trục đối xứng của hình đó.",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 19,
+    "content": "Hình tròn có vô số trục đối xứng.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 20,
+    "content": "Hình vuông chỉ có 2 trục đối xứng.",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 21,
+    "content": "Chữ cái S in hoa có một trục đối xứng thẳng đứng.",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 22,
+    "content": "Nếu quay hình H quanh điểm O một góc 180° mà hình thu được chồng khít lên hình H ban đầu thì O là tâm đối xứng của hình H.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 23,
+    "content": "Hình vuông vừa có tâm đối xứng, vừa có trục đối xứng.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 24,
+    "content": "Chữ cái H in hoa có tâm đối xứng nhưng không có trục đối xứng.",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 25,
+    "content": "Biển báo \"Cấm đi ngược chiều\" (Hình tròn nền đỏ, gạch ngang trắng ở giữa) là hình có tâm đối xứng.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 26,
+    "content": "Trong tự nhiên, tính đối xứng giúp các loài vật (như chim, chuồn chuồn) giữ thăng bằng tốt hơn khi di chuyển hoặc bay lượn.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 27,
+    "content": "Tất cả các bông hoa trong tự nhiên đều có đúng 5 trục đối xứng.",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 28,
+    "content": "Tính đối xứng xuất hiện trong công nghệ chế tạo (như bánh răng, vỏ lăng ô tô, máy bay) giúp máy móc hoạt động ổn định và chính xác.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 29,
+    "content": "Tính đối xứng chỉ tồn tại trong các vật thể nhân tạo (do con người làm ra), không tồn tại trong thể giới tự nhiên.",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 30,
+    "content": "Người ta thường dùng các chữ cái in hoa (A, B, C...) để đặt tên cho đường thẳng.",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 31,
+    "content": "Đường thẳng không bị giới hạn về hai phía.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 32,
+    "content": "Nếu ba điểm A, B, C cùng thuộc một đường thẳng thì ta nói ba điểm đó thẳng hàng.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 33,
+    "content": "Qua ba điểm bất kỳ, ta luôn vẽ được một và chỉ một đường thẳng.",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 34,
+    "content": "Để kiểm tra ba điểm có thẳng hàng hay không, ta có thể sử dụng thước thẳng.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 35,
+    "content": "Trong ba điểm thẳng hàng, có thể có hai điểm cùng nằm giữa hai điểm còn lại.",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 36,
+    "content": "Nếu ba điểm A, B, C thẳng hàng thì ba điểm đó cùng thuộc một đường thẳng.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 37,
+    "content": "Ba điểm phân biệt bất kỳ luôn luôn thẳng hàng.",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 38,
+    "content": "Số 0 là số nhỏ nhất trong các số tự nhiên đã học.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 39,
+    "content": "Số 5 lớn hơn số 9.",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 40,
+    "content": "Kết quả của 2 + 3 bằng 5.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 41,
+    "content": "Hình vuông có 3 cạnh.",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 42,
+    "content": "Số tiếp theo của số 8 là số 10.",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 43,
+    "content": "6 + 0 = 6.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 44,
+    "content": "Số 9 nằm giữa số 8 và số 10.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 45,
+    "content": "5 - 2 = 3.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 46,
+    "content": "Số 7 nhỏ hơn số 4.",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 47,
+    "content": "Một chục có 10 đơn vị.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+{
+    "id": 48,
+    "content": "Tổng hai số nguyên khác dấu luôn là một số nguyên dương.",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 49,
+    "content": "Góc bẹt bằng hai lần góc vuông.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 50,
+    "content": "Số đối của số âm là một số dương.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 51,
+    "content": "Hai đường thẳng song song thì không có điểm chung.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 52,
+    "content": "Mọi số nguyên đều là số tự nhiên.",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 53,
+    "content": "Phân số \\(\\frac{7}{9}\\) nhỏ hơn phân số \\(\\frac{5}{9}\\).",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 54,
+    "content": "Hai tia chung gốc và đối nhau tạo thành một đường thẳng.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 55,
+    "content": "Số 0 không có giá trị tuyệt đối.",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 56,
+    "content": "Nếu \\(\\widehat{A}\\) và \\(\\widehat{B}\\) là hai góc phụ nhau thì \\(\\widehat{A} + \\widehat{B} = 90^\\circ\\).",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 57,
+    "content": "Kết quả của phép tính \\((-5) \\cdot (-3)\\) là \\(-15\\).",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 58,
+    "content": "Một giờ bằng 3600 giây.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 59,
+    "content": "Trong một tam giác, tổng ba góc luôn bằng \\(180^\\circ\\).",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 60,
+    "content": "Số nghịch đảo của \\(\\frac{-2}{3}\\) là \\(\\frac{3}{2}\\).",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 61,
+    "content": "Hai góc kề bù có tổng bằng \\(180^\\circ\\).",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 62,
+    "content": "Số nguyên tố nhỏ nhất là số 1.",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 63,
+    "content": "Nếu một số chia hết cho 9 thì cũng chia hết cho 3.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 64,
+    "content": "Hình bình hành có hai đường chéo bằng nhau.",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 65,
+    "content": "Tích của hai số nguyên âm là một số nguyên dương.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 66,
+    "content": "Đường tròn có tâm là trung điểm của mọi đường kính.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 67,
+    "content": "Số \\(-5\\) lớn hơn số \\(-3\\).",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 68,
+    "content": "Hai phân số \\(\\frac{a}{b}\\) và \\(\\frac{c}{d}\\) bằng nhau nếu \\(a \\cdot d = b \\cdot c\\).",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 69,
+    "content": "Một năm nhuận có 366 ngày.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 70,
+    "content": "Góc nhọn là góc có số đo lớn hơn \\(90^\\circ\\).",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 71,
+    "content": "Số chẵn lớn nhất có một chữ số là 8.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 72,
+    "content": "Hình thoi có bốn góc vuông.",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 73,
+    "content": "Phép trừ các số nguyên luôn thực hiện được.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 74,
+    "content": "Nếu \\(x\\) là số nguyên dương thì \\(-x\\) là số nguyên âm.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 75,
+    "content": "Đoạn thẳng là hình gồm hai điểm và tất cả các điểm nằm giữa hai điểm đó.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 76,
+    "content": "Hai số nguyên đối nhau có tổng bằng 0.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 77,
+    "content": "Một kilôgam bằng 1000 gam.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 78,
+    "content": "Số 0 là bội của mọi số nguyên.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 79,
+    "content": "Hình chữ nhật là một hình thang cân đặc biệt.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 80,
+    "content": "Số nguyên tố là số chỉ có hai ước là 1 và chính nó.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 81,
+    "content": "Nếu \\(a\\) chia hết cho \\(b\\) thì \\(a\\) là bội của \\(b\\).",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 82,
+    "content": "Góc tù là góc lớn hơn góc vuông và nhỏ hơn góc bẹt.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 83,
+    "content": "Số \\(\\pi\\) (pi) là một số hữu tỉ.",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 84,
+    "content": "Một mét vuông bằng 10000 xăng-ti-mét vuông.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 85,
+    "content": "Tập hợp các số nguyên bao gồm số nguyên dương, số nguyên âm và số 0.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 86,
+    "content": "Hai góc đối đỉnh thì bằng nhau.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 87,
+    "content": "Một số chia hết cho 2 và 3 thì chia hết cho 6.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 88,
+    "content": "Đường cao của tam giác là đoạn thẳng vuông góc kẻ từ một đỉnh đến cạnh đối diện.",
+    "correct": "Đúng",
+    "wrong1": "Sai"
+  },
+  {
+    "id": 89,
+    "content": "Số 1 là số nguyên tố.",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  },
+  {
+    "id": 90,
+    "content": "Hai đường thẳng cắt nhau thì vuông góc.",
+    "correct": "Sai",
+    "wrong1": "Đúng"
+  }
+
+
+],
+    
+P3: [
+{
+    "id": 1,
+    "content": "Người ta gọi \\( \\frac{a}{b} \\) với \\( a, b \\in \\mathbb{Z}, b \\neq 0 \\) là một:……",
+    "correct": "phân số",
+    "wrong1": "số nguyên",
+    "wrong2": "tỉ số",
+    "wrong3": "thương số"
+  },
+  {
+    "id": 2,
+    "content": "Trong phân số \\( \\frac{a}{b} \\), điều kiện bất buộc của mẫu số \\( b \\) là:……",
+    "correct": "\\( b \\neq 0 \\)",
+    "wrong1": "\\( b > 0 \\)",
+    "wrong2": "\\( b < 0 \\)",
+    "wrong3": "\\( b = 0 \\)"
+  },
+  {
+    "id": 3,
+    "content": "Viết số nguyên -15 dưới dạng phân số có mẫu số bằng 1:……",
+    "correct": "\\( \\frac{-15}{1} \\)",
+    "wrong1": "\\( \\frac{15}{1} \\)",
+    "wrong2": "\\( \\frac{-15}{-1} \\)",
+    "wrong3": "\\( \\frac{15}{-1} \\)"
+  },
+  {
+    "id": 4,
+    "content": "Dùng hai số nguyên -4 và 9 để viết thành một phân số (với mẫu số dương) là:……",
+    "correct": "\\( \\frac{-4}{9} \\)",
+    "wrong1": "\\( \\frac{4}{9} \\)",
+    "wrong2": "\\( \\frac{4}{-9} \\)",
+    "wrong3": "\\( \\frac{9}{4} \\)"
+  },
+  {
+    "id": 5,
+    "content": "Điền số thích hợp vào ô trống: \\( \\frac{3}{4} = \\frac{3 \\cdot (\\cdots)}{4 \\cdot 5} = \\frac{\\cdots}{20} \\). Tử số mới là:……",
+    "correct": "15",
+    "wrong1": "12",
+    "wrong2": "10",
+    "wrong3": "18"
+  },
+  {
+    "id": 6,
+    "content": "Nếu chia cả tử và mẫu của một phân số cho một ...... của chúng thì ta được một phân số bằng phân số đã cho.",
+    "correct": "ước chung",
+    "wrong1": "bội chung",
+    "wrong2": "ước riêng",
+    "wrong3": "số nguyên"
+  },
+  {
+    "id": 7,
+    "content": "Phân số tối giản của phân số \\( \\frac{25}{-35} \\) (có mẫu dương) là:",
+    "correct": "\\( \\frac{-5}{7} \\)",
+    "wrong1": "\\( \\frac{5}{7} \\)",
+    "wrong2": "\\( \\frac{-25}{35} \\)",
+    "wrong3": "\\( \\frac{25}{35} \\)"
+  },
+  {
+    "id": 8,
+    "content": "Tìm số nguyên \\( y \\), biết \\( \\frac{y}{7} = \\frac{21}{-49} \\). Giá trị của \\( y \\) là:",
+    "correct": "-3",
+    "wrong1": "3",
+    "wrong2": "-4",
+    "wrong3": "4"
+  },
+  {
+    "id": 9,
+    "content": "Điền dấu thích hợp (\\( >, <, = \\)) vào chỗ trống: \\( \\frac{-5}{9} \\ldots \\frac{-7}{9} \\)",
+    "correct": "\\( > \\)",
+    "wrong1": "\\( < \\)",
+    "wrong2": "\\( = \\)",
+    "wrong3": "không so sánh được"
+  },
+  {
+    "id": 10,
+    "content": "Số nguyên \\( x \\) thỏa mãn \\( \\frac{3}{x} < \\frac{5}{7} \\) là:",
+    "correct": "5",
+    "wrong1": "4",
+    "wrong2": "3",
+    "wrong3": "2"
+  },
+  {
+    "id": 11,
+    "content": "Để so sánh hai phân số khác mẫu, bước đầu tiên ta thường làm là viết chúng dưới dạng hai phân số có cùng một ...... dương.",
+    "correct": "mẫu số",
+    "wrong1": "tử số",
+    "wrong2": "mẫu số âm",
+    "wrong3": "tử số chung"
+  },
+  {
+    "id": 12,
+    "content": "Cho \\( A = \\frac{-15}{30} \\) và \\( B = \\frac{2}{-5} \\). So sánh \\( A \\) và \\( B \\) ta thấy \\( A \\ldots B \\)",
+    "correct": "\\( < \\)",
+    "wrong1": "\\( > \\)",
+    "wrong2": "\\( = \\)",
+    "wrong3": "không so sánh được"
+  },
+  {
+    "id": 13,
+    "content": "Điền từ thích hợp vào chỗ trống: \"Muốn cộng hai phân số không cùng mẫu, ta viết chúng dưới dạng hai phân số có cùng một mẫu rồi cộng các ...... và giữ nguyên ...... chung.\"",
+    "correct": "tử số, mẫu số",
+    "wrong1": "mẫu số, tử số",
+    "wrong2": "số hạng, mẫu số",
+    "wrong3": "tử số, tử số"
+  },
+  {
+    "id": 14,
+    "content": "Tính nhanh tổng sau: \\( M = \\frac{3}{7} + \\frac{4}{9} + \\frac{5}{9} + \\frac{5}{9} \\). Kết quả là:",
+    "correct": "\\( \\frac{125}{63} \\)",
+    "wrong1": "\\( \\frac{122}{63} \\)",
+    "wrong2": "\\( \\frac{120}{63} \\)",
+    "wrong3": "\\( \\frac{127}{63} \\)"
+  },
+  {
+    "id": 15,
+    "content": "Tìm số nguyên \\( x \\), biết: \\( \\frac{x}{15} = \\frac{7}{15} + \\frac{-2}{15} \\). Giá trị của \\( x \\) là:",
+    "correct": "5",
+    "wrong1": "7",
+    "wrong2": "-2",
+    "wrong3": "1"
+  },
+  {
+    "id": 16,
+    "content": "Kết quả của phép tính \\( \\frac{5}{12} - \\frac{7}{12} \\) (viết dưới dạng tối giản) là:",
+    "correct": "\\( \\frac{-1}{6} \\)",
+    "wrong1": "\\( \\frac{1}{6} \\)",
+    "wrong2": "\\( \\frac{-2}{12} \\)",
+    "wrong3": "\\( \\frac{2}{12} \\)"
+  },
+  {
+    "id": 17,
+    "content": "Điền số thích hợp vào chỗ trống: \\( \\frac{-3}{8} + \\ldots = 1 \\)",
+    "correct": "\\( \\frac{11}{8} \\)",
+    "wrong1": "\\( \\frac{8}{3} \\)",
+    "wrong2": "\\( \\frac{-11}{8} \\)",
+    "wrong3": "\\( \\frac{3}{8} \\)"
+  },
+  {
+    "id": 18,
+    "content": "Áp dụng tính chất phân phối để tính: \\( \\frac{7}{11} \\cdot \\frac{-3}{5} + \\frac{7}{11} \\cdot \\frac{-2}{5} = \\frac{7}{11} \\cdot \\left(\\frac{-3}{5} + \\frac{-2}{5}\\right) = \\)",
+    "correct": "\\( \\frac{-7}{11} \\)",
+    "wrong1": "\\( \\frac{7}{11} \\)",
+    "wrong2": "\\( \\frac{-5}{11} \\)",
+    "wrong3": "\\( \\frac{5}{11} \\)"
+  },
+{
+    "id": 19,
+    "content": "Tìm \\( x \\), biết: \\( x = \\frac{3}{4} - \\frac{9}{20} \\). Giá trị của \\( x \\) (ở dạng tối giản) là:",
+    "correct": "\\( \\frac{3}{10} \\)",
+    "wrong1": "\\( \\frac{6}{20} \\)",
+    "wrong2": "\\( \\frac{1}{2} \\)",
+    "wrong3": "\\( \\frac{1}{5} \\)"
+  },
+  {
+    "id": 20,
+    "content": "Một hình chữ nhật có chiều dài \\( \\frac{5}{2} \\) cm và chiều rộng \\( \\frac{3}{4} \\) cm. Diện tích của hình chữ nhật đó là:",
+    "correct": "\\( \\frac{15}{8} \\) cm²",
+    "wrong1": "\\( \\frac{8}{15} \\) cm²",
+    "wrong2": "\\( \\frac{10}{8} \\) cm²",
+    "wrong3": "\\( \\frac{15}{4} \\) cm²"
+  },
+  {
+    "id": 21,
+    "content": "Kết quả của phép tính: Tìm \\( \\frac{4}{9} \\) của 27. Đáp án là:",
+    "correct": "12",
+    "wrong1": "9",
+    "wrong2": "24",
+    "wrong3": "6"
+  },
+  {
+    "id": 22,
+    "content": "Một quả đu đủ nặng 3 kg. Vậy \\( \\frac{2}{3} \\) quả đu đủ đó nặng bao nhiêu kg? Đáp án là:",
+    "correct": "2 kg",
+    "wrong1": "1 kg",
+    "wrong2": "2.5 kg",
+    "wrong3": "3 kg"
+  },
+  {
+    "id": 23,
+    "content": "Tìm số \\( x \\), biết \\( \\frac{7}{11} \\) của \\( x \\) bằng \\(-14\\). Giá trị của \\( x \\) là:",
+    "correct": "\\(-22\\)",
+    "wrong1": "22",
+    "wrong2": "\\(-11\\)",
+    "wrong3": "\\(-14\\)"
+  },
+  {
+    "id": 24,
+    "content": "Một cửa hàng có 500kg gạo. Buổi sáng họ bán được \\( \\frac{2}{5} \\) số gạo đó. Hỏi cửa hàng còn lại bao nhiêu kg gạo? Đáp án là:",
+    "correct": "300 kg",
+    "wrong1": "200 kg",
+    "wrong2": "250 kg",
+    "wrong3": "350 kg"
+  },
+  {
+    "id": 25,
+    "content": "Một hỗn số gồm hai phần là: Phần nguyên và ......",
+    "correct": "phần phân số",
+    "wrong1": "phần thập phân",
+    "wrong2": "phần số nguyên",
+    "wrong3": "phần mẫu số"
+  },
+  {
+    "id": 26,
+    "content": "Chuyển hỗn số \\(-3\\frac{1}{4}\\) sang phân số ta được kết quả là:",
+    "correct": "\\( \\frac{-13}{4} \\)",
+    "wrong1": "\\( \\frac{-7}{4} \\)",
+    "wrong2": "\\( \\frac{-11}{4} \\)",
+    "wrong3": "\\( \\frac{-5}{4} \\)"
+  },
+  {
+    "id": 27,
+    "content": "Tìm \\( x \\), biết: \\( x = \\frac{7}{2} + \\frac{1}{2} \\). Giá trị của \\( x \\) là:",
+    "correct": "4",
+    "wrong1": "\\( 3\\frac{1}{2} \\)",
+    "wrong2": "\\( 4\\frac{1}{2} \\)",
+    "wrong3": "\\( 8 \\)"
+  },
+  {
+    "id": 28,
+    "content": "So sánh hai phân số: \\( \\frac{3}{5} \\) và \\( \\frac{3}{4} \\). Điền dấu \\( (<, =, >) \\) thích hợp: \\( \\frac{3}{5} \\) ...... \\( \\frac{3}{4} \\)",
+    "correct": "\\( < \\)",
+    "wrong1": "\\( > \\)",
+    "wrong2": "\\( = \\)",
+    "wrong3": "không so sánh được"
+  },
+  {
+    "id": 29,
+    "content": "Có một đường thẳng đi chia hình H thành hai phần mà khi ta gấp hình theo đường thẳng d, hai phần đó ...... lên nhau thì d gọi là trục đối xứng của hình H.",
+    "correct": "trùng khít",
+    "wrong1": "chồng",
+    "wrong2": "bằng nhau",
+    "wrong3": "đối xứng"
+  },
+  {
+    "id": 30,
+    "content": "Hình thoi có ...... trục đối xứng, đó là các đường thẳng chứa hai đường chéo của nó.",
+    "correct": "2",
+    "wrong1": "1",
+    "wrong2": "3",
+    "wrong3": "4"
+  },
+  {
+    "id": 31,
+    "content": "Trong các chữ cái in hoa: A, P, L, T. Các chữ cái có trục đối xứng là:",
+    "correct": "A, T",
+    "wrong1": "A, P",
+    "wrong2": "P, L",
+    "wrong3": "L, T"
+  },
+  {
+    "id": 32,
+    "content": "Hình lục giác đều có tất cả ...... trục đối xứng.",
+    "correct": "6",
+    "wrong1": "3",
+    "wrong2": "4",
+    "wrong3": "5"
+  },
+  {
+    "id": 33,
+    "content": "Điểm O gọi là tâm đối xứng của hình H nếu điểm O là ...... của đoạn thẳng nối hai điểm tương ứng bất kỳ trên hình H.",
+    "correct": "trung điểm",
+    "wrong1": "điểm chính giữa",
+    "wrong2": "giao điểm",
+    "wrong3": "tâm điểm"
+  },
+  {
+    "id": 34,
+    "content": "Kể từ ba hình tứ giác đã học có tâm đối xứng:",
+    "correct": "hình bình hành, hình chữ nhật, hình vuông",
+    "wrong1": "hình thang, hình tam giác, hình tròn",
+    "wrong2": "hình thoi, hình thang cân, hình bình hành",
+    "wrong3": "hình chữ nhật, hình thoi, hình tam giác đều"
+  },
+  {
+    "id": 35,
+    "content": "Tìm 3 chữ cái in hoa trong bảng chữ cái tiếng Việt (hoặc tiếng Anh) có tâm đối xứng:",
+    "correct": "H, I, O",
+    "wrong1": "A, B, C",
+    "wrong2": "D, E, F",
+    "wrong3": "M, N, P"
+  },
+  {
+    "id": 36,
+    "content": "Hình tam giác đều, hình ngũ giác đều, hình trái tim. Trong ba hình trên, hình có tâm đối xứng là:",
+    "correct": "Không có",
+    "wrong1": "hình tam giác đều",
+    "wrong2": "hình ngũ giác đều",
+    "wrong3": "hình trái tim"
+  },
+  {
+    "id": 37,
+    "content": "Con người học tập tính đối xứng của con chim, con chuồn chuồn để chế tạo ra phương tiện giao thông nào?",
+    "correct": "máy bay",
+    "wrong1": "ô tô",
+    "wrong2": "tàu thủy",
+    "wrong3": "tàu hỏa"
+  },
+  {
+    "id": 38,
+    "content": "Trong các dải trang trí đường diềm, người ta thường lặp lại một họa tiết giống nhau. Việc này tạo ra vẻ đẹp ...... và cân đối cho sản phẩm.",
+    "correct": "hài hòa",
+    "wrong1": "đơn điệu",
+    "wrong2": "phong phú",
+    "wrong3": "lộng lẫy"
+  },
+{
+    "id": 39,
+    "content": "Tháp Rùa (Hồ Gươm) hay Tháp Eiffel (Pháp) là những công trình kiến trúc nổi tiếng. Nhìn tổng thể, các công trình này có ...... trục đối xứng thẳng đứng.",
+    "correct": "một",
+    "wrong1": "hai",
+    "wrong2": "ba",
+    "wrong3": "không có"
+  },
+  {
+    "id": 40,
+    "content": "Điền từ còn thiếu: \"Tính đối xứng trong tự nhiên không chỉ tạo nên vẻ đẹp thẩm mỹ mà còn giúp tạo nên sự ...... cho các vật thể.\"",
+    "correct": "cân bằng",
+    "wrong1": "bền vững",
+    "wrong2": "chắc chắn",
+    "wrong3": "hài hòa"
+  },
+  {
+    "id": 41,
+    "content": "Điền kí hiệu thích hợp (\\( \\in \\) hoặc \\( \\notin \\)) vào chỗ trống: Cho đường thẳng \\( m \\) chứa điểm \\( E \\) và không chứa điểm \\( F \\). Ta viết: \\( E \\quad ....... \\quad m; \\quad F \\quad ....... \\quad m. \\)",
+    "correct": "\\( \\in, \\notin \\)",
+    "wrong1": "\\( \\notin, \\in \\)",
+    "wrong2": "\\( \\in, \\in \\)",
+    "wrong3": "\\( \\notin, \\notin \\)"
+  },
+  {
+    "id": 42,
+    "content": "Khi hai đường thẳng a và b có duy nhất một điểm chung O, ta nói hai đường thẳng đó ...... và O được gọi là ......",
+    "correct": "cắt nhau, giao điểm",
+    "wrong1": "song song, giao điểm",
+    "wrong2": "trùng nhau, điểm chung",
+    "wrong3": "cắt nhau, điểm chung"
+  },
+  {
+    "id": 43,
+    "content": "Cho 3 điểm A, B, C không thẳng hàng. Có bao nhiêu đường thẳng đi qua các cặp điểm? Trả lời: Có ...... đường thẳng.",
+    "correct": "3",
+    "wrong1": "1",
+    "wrong2": "2",
+    "wrong3": "vô số"
+  },
+  {
+    "id": 44,
+    "content": "Hình ảnh sợi chỉ căng thẳng, mép bảng, mép thước kẻ cho ta hình ảnh của ......",
+    "correct": "đường thẳng",
+    "wrong1": "đoạn thẳng",
+    "wrong2": "tia",
+    "wrong3": "mặt phẳng"
+  },
+  {
+    "id": 45,
+    "content": "Khi ba điểm A, C, D cùng thuộc một đường thẳng, ta nói chúng là ba điểm ......",
+    "correct": "thẳng hàng",
+    "wrong1": "không thẳng hàng",
+    "wrong2": "phân biệt",
+    "wrong3": "trùng nhau"
+  },
+  {
+    "id": 46,
+    "content": "Cho ba điểm M, N, P thẳng hàng, biết M nằm giữa N và P. Hai điểm nằm khác phía đối với điểm M là ......",
+    "correct": "N và P",
+    "wrong1": "M và N",
+    "wrong2": "M và P",
+    "wrong3": "không có"
+  },
+  {
+    "id": 47,
+    "content": "Trong ba điểm thẳng hàng, có ...... điểm nằm giữa hai điểm còn lại.",
+    "correct": "một và chỉ một",
+    "wrong1": "hai",
+    "wrong2": "ba",
+    "wrong3": "không có"
+  },
+  {
+    "id": 48,
+    "content": "Nếu ta không thể vẽ được bất kỳ đường thẳng nào đi qua đồng thời cả 3 điểm A, B, C thì ta nói 3 điểm A, B, C là ......",
+    "correct": "không thẳng hàng",
+    "wrong1": "thẳng hàng",
+    "wrong2": "phân biệt",
+    "wrong3": "trùng nhau"
+  },
+{
+    "id": 49,
+    "content": "Số đối của phân số \\(\\frac{-5}{9}\\) là:",
+    "correct": "\\(\\frac{5}{9}\\)",
+    "wrong1": "\\(\\frac{-5}{9}\\)",
+    "wrong2": "\\(\\frac{9}{-5}\\)",
+    "wrong3": "\\(\\frac{-9}{5}\\)"
+  },
+  {
+    "id": 50,
+    "content": "Kết quả của phép tính \\(\\frac{-2}{3} + \\frac{1}{6}\\) là:",
+    "correct": "\\(\\frac{-1}{2}\\)",
+    "wrong1": "\\(\\frac{-1}{6}\\)",
+    "wrong2": "\\(\\frac{1}{2}\\)",
+    "wrong3": "\\(\\frac{-3}{6}\\)"
+  },
+  {
+    "id": 51,
+    "content": "Thực hiện phép nhân \\(\\frac{4}{7} \\cdot \\frac{-21}{8}\\), kết quả rút gọn là:",
+    "correct": "\\(\\frac{-3}{2}\\)",
+    "wrong1": "\\(\\frac{3}{2}\\)",
+    "wrong2": "\\(\\frac{-84}{56}\\)",
+    "wrong3": "\\(\\frac{84}{56}\\)"
+  },
+  {
+    "id": 52,
+    "content": "Tính: \\(\\frac{5}{12} : \\frac{10}{3}\\). Kết quả là:",
+    "correct": "\\(\\frac{1}{8}\\)",
+    "wrong1": "\\(\\frac{1}{4}\\)",
+    "wrong2": "\\(\\frac{50}{36}\\)",
+    "wrong3": "\\(\\frac{36}{50}\\)"
+  },
+  {
+    "id": 53,
+    "content": "Tìm \\(x\\), biết \\(x - \\frac{2}{5} = \\frac{1}{3}\\). Giá trị của \\(x\\) là:",
+    "correct": "\\(\\frac{11}{15}\\)",
+    "wrong1": "\\(\\frac{1}{15}\\)",
+    "wrong2": "\\(\\frac{3}{8}\\)",
+    "wrong3": "\\(\\frac{7}{15}\\)"
+  },
+  {
+    "id": 54,
+    "content": "Số nghịch đảo của \\(-\\frac{7}{3}\\) là:",
+    "correct": "\\(-\\frac{3}{7}\\)",
+    "wrong1": "\\(\\frac{7}{3}\\)",
+    "wrong2": "\\(\\frac{3}{7}\\)",
+    "wrong3": "\\(-\\frac{-3}{7}\\)"
+  },
+  {
+    "id": 55,
+    "content": "Điền dấu thích hợp (\\(<, >, =\\)): \\(\\frac{-3}{4} \\quad \\frac{-5}{6}\\).",
+    "correct": "\\(>\\)",
+    "wrong1": "\\(<\\)",
+    "wrong2": "\\(=\\)",
+    "wrong3": "không so sánh được"
+  },
+  {
+    "id": 56,
+    "content": "Tìm \\(x\\) biết \\(\\frac{x}{-4} = \\frac{3}{8}\\). Giá trị của \\(x\\) là:",
+    "correct": "\\(-1.5\\) hoặc \\(-\\frac{3}{2}\\)",
+    "wrong1": "\\(1.5\\)",
+    "wrong2": "\\(-6\\)",
+    "wrong3": "\\(6\\)"
+  },
+  {
+    "id": 57,
+    "content": "Chuyển phân số \\(\\frac{17}{4}\\) thành hỗn số:",
+    "correct": "\\(4\\frac{1}{4}\\)",
+    "wrong1": "\\(3\\frac{5}{4}\\)",
+    "wrong2": "\\(4\\frac{3}{4}\\)",
+    "wrong3": "\\(5\\frac{1}{4}\\)"
+  },
+  {
+    "id": 58,
+    "content": "Trong các hình sau, hình nào có cả trục đối xứng và tâm đối xứng?",
+    "correct": "hình vuông",
+    "wrong1": "hình tam giác đều",
+    "wrong2": "hình trái tim",
+    "wrong3": "hình ngũ giác đều"
+  },
+  {
+    "id": 59,
+    "content": "Điểm \\(M\\) là trung điểm của đoạn thẳng \\(AB\\) nếu:",
+    "correct": "\\(M\\) nằm giữa \\(A, B\\) và \\(MA = MB\\)",
+    "wrong1": "\\(M\\) nằm giữa \\(A, B\\)",
+    "wrong2": "\\(MA = MB\\)",
+    "wrong3": "\\(M\\) cách đều \\(A\\) và \\(B\\)"
+  },
+  {
+    "id": 60,
+    "content": "Cho đoạn thẳng \\(AB = 8cm\\). Điểm \\(M\\) là trung điểm của \\(AB\\). Độ dài \\(AM\\) là:",
+    "correct": "\\(4cm\\)",
+    "wrong1": "\\(8cm\\)",
+    "wrong2": "\\(16cm\\)",
+    "wrong3": "\\(2cm\\)"
+  },
+  {
+    "id": 61,
+    "content": "Góc vuông có số đo là:",
+    "correct": "\\(90^\\circ\\)",
+    "wrong1": "\\(180^\\circ\\)",
+    "wrong2": "\\(0^\\circ\\)",
+    "wrong3": "\\(45^\\circ\\)"
+  },
+  {
+    "id": 62,
+    "content": "Hai góc phụ nhau là hai góc có tổng số đo bằng:",
+    "correct": "\\(90^\\circ\\)",
+    "wrong1": "\\(180^\\circ\\)",
+    "wrong2": "\\(360^\\circ\\)",
+    "wrong3": "\\(0^\\circ\\)"
+  },
+  {
+    "id": 63,
+    "content": "Cho \\(\\widehat{xOy} = 70^\\circ\\) và \\(\\widehat{yOz} = 110^\\circ\\). Hai góc \\(xOy\\) và \\(yOz\\) là hai góc:",
+    "correct": "kề bù",
+    "wrong1": "phụ nhau",
+    "wrong2": "đối đỉnh",
+    "wrong3": "bằng nhau"
+  },
+  {
+    "id": 64,
+    "content": "Tia phân giác của một góc là tia nằm giữa hai cạnh của góc và tạo với hai cạnh ấy hai góc ......",
+    "correct": "bằng nhau",
+    "wrong1": "phụ nhau",
+    "wrong2": "kề nhau",
+    "wrong3": "bù nhau"
+  },
+  {
+    "id": 65,
+    "content": "Tính \\(\\frac{3}{5}\\) của \\(-20\\):",
+    "correct": "\\(-12\\)",
+    "wrong1": "\\(12\\)",
+    "wrong2": "\\(-15\\)",
+    "wrong3": "\\(15\\)"
+  },
+  {
+    "id": 66,
+    "content": "Giá trị của biểu thức \\(\\frac{2}{3} + \\frac{4}{5} - \\frac{1}{2}\\) là:",
+    "correct": "\\(\\frac{29}{30}\\)",
+    "wrong1": "\\(\\frac{19}{30}\\)",
+    "wrong2": "\\(\\frac{9}{10}\\)",
+    "wrong3": "\\(\\frac{11}{15}\\)"
+  },
+  {
+    "id": 67,
+    "content": "Số nguyên \\(x\\) thỏa mãn \\(\\frac{x}{6} = \\frac{-2}{3}\\) là:",
+    "correct": "\\(-4\\)",
+    "wrong1": "\\(4\\)",
+    "wrong2": "\\(-9\\)",
+    "wrong3": "\\(9\\)"
+  },
+  {
+    "id": 68,
+    "content": "Hai đường thẳng cắt nhau tạo thành bao nhiêu góc?",
+    "correct": "4 góc",
+    "wrong1": "2 góc",
+    "wrong2": "3 góc",
+    "wrong3": "1 góc"
+  },
+  {
+    "id": 69,
+    "content": "Tổng số đo các góc của một tam giác bằng:",
+    "correct": "\\(180^\\circ\\)",
+    "wrong1": "\\(90^\\circ\\)",
+    "wrong2": "\\(360^\\circ\\)",
+    "wrong3": "\\(270^\\circ\\)"
+  },
+  {
+    "id": 70,
+    "content": "Tính chất nào sau đây là đúng cho phép cộng phân số?",
+    "correct": "Giao hoán và kết hợp",
+    "wrong1": "Chỉ có giao hoán",
+    "wrong2": "Chỉ có kết hợp",
+    "wrong3": "Không có tính chất nào"
+  }
+
+]
 },
+
 'T6HK2': {
     P1: [{ id: 1, content: "Diện tích hình tròn r=5 (π≈3,14):", correct: "78,5", wrong1: "31,4", wrong2: "15,7", wrong3: "25" }],
     P2: [{ id: 1, content: "Mọi hình thang đều là hình tứ giác.", correct: "Đúng", wrong1: "Sai" }],
@@ -678,7 +2561,7 @@ const questionBanks = {
 'T8GK1': {
     P1: [{ id: 1, content: "\\(2^3 + 3^2\\) = ?", correct: "17", wrong1: "13", wrong2: "15", wrong3: "19" }],
     P2: [{ id: 1, content: "Căn bậc hai của một số không âm luôn không âm.", correct: "Đúng", wrong1: "Sai" }],
-    P3: [{ id: 1, content: "\\(x^2 = 16\\) thì x = ...", correct: "4", wrong1: "8", wrong2: "2", wrong3: "-4" }] // Chọn nghiệm dương ở mức cơ bản hoặc cả 2, đây là ví dụ
+    P3: [{ id: 1, content: "\\(x^2 = 16\\) thì x = ...", correct: "4", wrong1: "8", wrong2: "2", wrong3: "-4" }]
 },
 'T8HK1': {
     P1: [{ id: 1, content: "Hình thang (8,12,5) Diện tích:", correct: "50", wrong1: "100", wrong2: "40", wrong3: "60" }],
@@ -692,7 +2575,7 @@ const questionBanks = {
 },
 'T8HK2': {
     P1: [{ id: 1, content: "Đường trung bình bằng:", correct: "1/2 cạnh tương ứng", wrong1: "Bằng cạnh", wrong2: "Gấp đôi", wrong3: "1/3 cạnh" }],
-    P2: [{ id: 1, content: "Hình thang vuông có một góc bằng 90 độ.", correct: "Sai", wrong1: "Đúng" }], // Có 2 góc 90 độ
+    P2: [{ id: 1, content: "Hình thang vuông có một góc bằng 90 độ.", correct: "Sai", wrong1: "Đúng" }],
     P3: [{ id: 1, content: "Trong hình thang, đường thẳng đi qua trung điểm 2腰 là đường trung bình.", correct: "cạnh bên", wrong1: "đáy", wrong2: "đường chéo", wrong3: "đường cao" }]
 },
 'T9GK1': {
@@ -706,9 +2589,1356 @@ const questionBanks = {
     P3: [{ id: 1, content: "Nghiệm của phương trình 2x - 4 = 0 là x = ...", correct: "2", wrong1: "-2", wrong2: "4", wrong3: "-4" }]
 },
 'T9GK2': {
-    P1: [{ id: 1, content: "M(2;-3) thuộc đường:", correct: "y=-x-1", wrong1: "y=x+1", wrong2: "y=2x-1", wrong3: "y=-2x+1" }],
-    P2: [{ id: 1, content: "Hàm số bậc nhất y = ax + b (a!=0) là parabol.", correct: "Sai", wrong1: "Đúng" }],
-    P3: [{ id: 1, content: "Đồ thị hàm số y = -x đi qua điểm ...", correct: "(1;-1)", wrong1: "(1;1)", wrong2: "(-1;-1)", wrong3: "(0;1)" }]
+    P1: [
+{
+    "id": 1,
+    "content": "Cho hàm số \\( y = -2x^2 \\). Kết luận nào sau đây đúng?",
+    "correct": "Đồ thị hàm số là parabol có đỉnh tại gốc tọa độ và bề lõm quay xuống dưới.",
+    "wrong1": "Khi x tăng thì y cũng tăng.",
+    "wrong2": "Hàm số luôn dương với mọi \\( x \\neq 0 \\).",
+    "wrong3": "Đồ thị hàm số đối xứng qua trục hoành."
+  },
+  {
+    "id": 2,
+    "content": "Điểm nào sau đây thuộc đồ thị hàm số \\( y = 0,5x^2 \\)?",
+    "correct": "\\( M(1;0,5) \\)",
+    "wrong1": "\\( N(-1;-0,5) \\)",
+    "wrong2": "\\( P(2;1) \\)",
+    "wrong3": "\\( Q(0,5;1) \\)"
+  },
+  {
+    "id": 3,
+    "content": "Đồ thị hàm số \\( y = ax^2 (a \\neq 0) \\) có đặc điểm gì?",
+    "correct": "Là một đường cong (parabol) có đỉnh tại gốc tọa độ \\( O(0;0) \\) và nhận trục tung Oy làm trục đối xứng.",
+    "wrong1": "Là một đường thẳng đi qua gốc tọa độ.",
+    "wrong2": "Luôn nằm phía trên trục hoành.",
+    "wrong3": "Luôn nằm phía dưới trục hoành."
+  },
+  {
+    "id": 4,
+    "content": "Cho hàm số \\( y = ax^2 (a > 0) \\). Khi giá trị tuyệt đối của x tăng thì y?",
+    "correct": "Tăng.",
+    "wrong1": "Giảm.",
+    "wrong2": "Không đổi.",
+    "wrong3": "Vừa tăng vừa giảm."
+  },
+  {
+    "id": 5,
+    "content": "Đồ thị hàm số \\( y = 3x^2 \\) đi qua điểm nào trong các điểm sau?",
+    "correct": "\\( (-2;12) \\)",
+    "wrong1": "\\( (1;2) \\)",
+    "wrong2": "\\( (-1;-3) \\)",
+    "wrong3": "\\( (2;6) \\)"
+  },
+  {
+    "id": 6,
+    "content": "Phương trình nào sau đây là phương trình bậc hai một ẩn?",
+    "correct": "\\( x^2 + 5x - 6 = 0 \\)",
+    "wrong1": "\\( 2x + 1 = 0 \\)",
+    "wrong2": "\\( x^3 - 4x^2 + 1 = 0 \\)",
+    "wrong3": "\\( \\frac{1}{x} + 2x = 0 \\)"
+  },
+  {
+    "id": 7,
+    "content": "Trong phương trình \\( 3x^2 - 4x + 1 = 0 \\), các hệ số a, b, c là bao nhiêu?",
+    "correct": "\\( a = 3, b = -4, c = 1 \\)",
+    "wrong1": "\\( a = 3, b = 4, c = 1 \\)",
+    "wrong2": "\\( a = 3, b = -4, c = -1 \\)",
+    "wrong3": "\\( a = -3, b = 4, c = -1 \\)"
+  },
+  {
+    "id": 8,
+    "content": "Điều kiện để phương trình \\( ax^2 + bx + c = 0 \\) là phương trình bậc hai một ẩn là gì?",
+    "correct": "\\( a \\neq 0 \\)",
+    "wrong1": "\\( b \\neq 0 \\)",
+    "wrong2": "\\( c \\neq 0 \\)",
+    "wrong3": "\\( a \\neq 0 \\) và \\( b \\neq 0 \\)"
+  },
+  {
+    "id": 9,
+    "content": "Khi giải phương trình \\( x^2 - 7x - 8 = 0 \\) bằng công thức nghiệm, giá trị của biệt thức \\( \\Delta \\) là bao nhiêu?",
+    "correct": "\\( \\Delta = 81 \\)",
+    "wrong1": "\\( \\Delta = 15 \\)",
+    "wrong2": "\\( \\Delta = 113 \\)",
+    "wrong3": "\\( \\Delta = -15 \\)"
+  },
+  {
+    "id": 10,
+    "content": "Phương trình \\( x^2 + x + 1 = 0 \\) có bao nhiêu nghiệm thực?",
+    "correct": "Vô nghiệm",
+    "wrong1": "Vô số nghiệm",
+    "wrong2": "Hai nghiệm phân biệt",
+    "wrong3": "Một nghiệm kép"
+  },
+  {
+    "id": 11,
+    "content": "Tâm của đường tròn ngoại tiếp một tam giác là giao điểm của các đường nào trong tam giác đó?",
+    "correct": "Các đường trung trực của các cạnh",
+    "wrong1": "Các đường cao",
+    "wrong2": "Các đường trung tuyến",
+    "wrong3": "Các đường phân giác trong"
+  },
+  {
+    "id": 12,
+    "content": "Cho tam giác ABC vuông tại A. Tâm O của đường tròn ngoại tiếp tam giác ABC nằm ở đâu?",
+    "correct": "Trung điểm của cạnh huyền BC",
+    "wrong1": "Trực tâm của tam giác",
+    "wrong2": "Trung điểm của cạnh AB",
+    "wrong3": "Trung điểm của cạnh AC"
+  },
+  {
+    "id": 13,
+    "content": "Bán kính R của đường tròn ngoại tiếp tam giác đều cạnh a được tính bằng công thức nào?",
+    "correct": "\\( R = \\frac{a\\sqrt{3}}{3} \\)",
+    "wrong1": "\\( R = \\frac{a\\sqrt{3}}{2} \\)",
+    "wrong2": "\\( R = \\frac{a}{3} \\)",
+    "wrong3": "\\( R = a \\)"
+  },
+  {
+    "id": 14,
+    "content": "Tâm của đường tròn nội tiếp một tam giác là giao điểm của các đường nào trong tam giác đó?",
+    "correct": "Các đường phân giác trong",
+    "wrong1": "Các đường cao",
+    "wrong2": "Các đường trung tuyến",
+    "wrong3": "Các đường trung trực của các cạnh"
+  },
+  {
+    "id": 15,
+    "content": "Cho tam giác ABC vuông tại A có \\( AB = 6 \\, \\text{cm}, \\, AC = 8 \\, \\text{cm} \\). Bán kính đường tròn ngoại tiếp tam giác này là bao nhiêu?",
+    "correct": "5 cm",
+    "wrong1": "3 cm",
+    "wrong2": "4 cm",
+    "wrong3": "10 cm"
+  },
+  {
+    "id": 16,
+    "content": "Một tứ giác được gọi là nội tiếp đường tròn nếu:",
+    "correct": "Có 4 đỉnh cùng nằm trên một đường tròn.",
+    "wrong1": "Có 4 cạnh bằng nhau.",
+    "wrong2": "Có tổng hai cặp cạnh đối bằng nhau.",
+    "wrong3": "Có hai đường chéo vuông góc với nhau."
+  },
+  {
+    "id": 17,
+    "content": "Cho tứ giác MNPQ nội tiếp đường tròn. Biết \\( \\widehat{M} = 70^\\circ \\), số đo góc đối diện với góc M là bao nhiêu?",
+    "correct": "\\( 110^\\circ \\)",
+    "wrong1": "\\( 70^\\circ \\)",
+    "wrong2": "\\( 20^\\circ \\)",
+    "wrong3": "\\( 90^\\circ \\)"
+  },
+  {
+    "id": 18,
+    "content": "Trong các hình sau đây, hình nào luôn luôn là tứ giác nội tiếp?",
+    "correct": "Hình chữ nhật",
+    "wrong1": "Hình bình hành",
+    "wrong2": "Hình thoi",
+    "wrong3": "Hình thang vuông"
+  },
+  {
+    "id": 19,
+    "content": "Cho tứ giác MNPQ nội tiếp đường tròn đường kính MQ. Khi đó khẳng định nào sau đây là đúng?",
+    "correct": "\\( \\widehat{MNQ} = 90^\\circ \\)",
+    "wrong1": "\\( \\widehat{MNP} = 90^\\circ \\)",
+    "wrong2": "\\( \\widehat{MQP} = 90^\\circ \\)",
+    "wrong3": "\\( \\widehat{NPQ} = 90^\\circ \\)"
+  },
+  {
+    "id": 20,
+    "content": "Cho tứ giác ABCD có \\( \\widehat{DAB} = 80^\\circ \\) và \\( \\widehat{ABC} = 70^\\circ \\). Để ABCD là tứ giác nội tiếp thì số đo góc BCD và CDA lần lượt là:",
+    "correct": "\\( 100^\\circ \\) và \\( 110^\\circ \\)",
+    "wrong1": "\\( 110^\\circ \\) và \\( 100^\\circ \\)",
+    "wrong2": "\\( 80^\\circ \\) và \\( 70^\\circ \\)",
+    "wrong3": "\\( 100^\\circ \\) và \\( 80^\\circ \\)"
+  },
+  {
+    "id": 21,
+    "content": "Đa giác đều là đa giác có:",
+    "correct": "Tất cả các cạnh bằng nhau và tất cả các góc bằng nhau.",
+    "wrong1": "Tất cả các cạnh bằng nhau.",
+    "wrong2": "Tất cả các góc bằng nhau.",
+    "wrong3": "Các đường chéo bằng nhau."
+  },
+  {
+    "id": 22,
+    "content": "Trong các hình sau đây, hình nào là đa giác đều?",
+    "correct": "Hình vuông",
+    "wrong1": "Hình thoi",
+    "wrong2": "Hình chữ nhật",
+    "wrong3": "Hình tam giác cân"
+  },
+  {
+    "id": 23,
+    "content": "Số đo mỗi góc của một lục giác đều (n = 6) là:",
+    "correct": "\\( 120^\\circ \\)",
+    "wrong1": "\\( 60^\\circ \\)",
+    "wrong2": "\\( 108^\\circ \\)",
+    "wrong3": "\\( 90^\\circ \\)"
+  },
+  {
+    "id": 24,
+    "content": "Cho tam giác đều ABC có tâm O. Phép quay tâm O với góc quay nào dưới đây biến tam giác ABC thành chính nó?",
+    "correct": "\\( 120^\\circ \\)",
+    "wrong1": "\\( 60^\\circ \\)",
+    "wrong2": "\\( 90^\\circ \\)",
+    "wrong3": "\\( 180^\\circ \\)"
+  },
+  {
+    "id": 25,
+    "content": "Phép quay tâm O góc quay α biến điểm M thành điểm M'. Khẳng định nào sau đây là sai?",
+    "correct": "M và M' luôn nằm trên một đường thẳng đi qua O.",
+    "wrong1": "\\( OM = OM' \\)",
+    "wrong2": "Góc lượng giác \\( (\\widehat{OM}, \\widehat{OM'} ) = \\alpha \\)",
+    "wrong3": "Phép quay bảo toàn khoảng cách giữa hai điểm bất kỳ."
+  },
+{
+    "id": 26,
+    "content": "Hàm số \\( y = (1 - \\sqrt{2021})x^2 \\) đồng biến khi",
+    "correct": "\\( x < 0 \\)",
+    "wrong1": "\\( x > 0 \\)",
+    "wrong2": "\\( x \\in \\mathbb{R} \\)",
+    "wrong3": "\\( x \\neq 0 \\)"
+  },
+  {
+    "id": 27,
+    "content": "Với giá trị nào của tham số \\( m \\) thì phương trình \\( x^2 - 2x + 3m - 1 = 0 \\) có hai nghiệm \\( x_1; x_2 \\) thoả mãn \\( x_1^2 + x_2^2 = 10 \\)?",
+    "correct": "\\( m = -\\frac{2}{3} \\)",
+    "wrong1": "\\( m = \\frac{2}{3} \\)",
+    "wrong2": "\\( m = -\\frac{4}{3} \\)",
+    "wrong3": "\\( m = \\frac{4}{3} \\)"
+  },
+  {
+    "id": 28,
+    "content": "Với giá trị nào của \\( m \\) thì phương trình \\( x^2 - (3m + 1)x + m - 5 = 0 \\) có nghiệm \\( x = -1 \\)?",
+    "correct": "\\( m = \\frac{3}{4} \\)",
+    "wrong1": "\\( m = \\frac{5}{2} \\)",
+    "wrong2": "\\( m = -\\frac{5}{2} \\)",
+    "wrong3": "\\( m = 1 \\)"
+  },
+  {
+    "id": 29,
+    "content": "Phương trình nào sau đây có hai nghiệm phân biệt?",
+    "correct": "\\( 371x^2 + 5x - 1 = 0 \\)",
+    "wrong1": "\\( x^2 + x + 1 = 0 \\)",
+    "wrong2": "\\( 4x^2 - 4x + 1 = 0 \\)",
+    "wrong3": "\\( 4x^2 = 0 \\)"
+  },
+  {
+    "id": 30,
+    "content": "Cho đường tròn \\( (O) \\) có \\( MA, MB \\) là hai tiếp tuyến \\( (A, B) \\) là các tiếp điểm. Biết \\( \\widehat{AMB} = 35^\\circ \\) thì số đo của cung lớn \\( AB \\) là",
+    "correct": "\\( 215^\\circ \\)",
+    "wrong1": "\\( 255^\\circ \\)",
+    "wrong2": "\\( 145^\\circ \\)",
+    "wrong3": "\\( 315^\\circ \\)"
+  },
+  {
+    "id": 31,
+    "content": "Trên đường tròn \\( (O; 3\\,cm) \\) lấy hai điểm \\( A \\) và \\( B \\) sao cho số đo cung \\( AB \\) lớn bằng \\( 300^\\circ \\). Khi đó diện tích hình quạt tạo bởi hai bán kính \\( OA, OB \\) và cung nhỏ \\( AB \\) là",
+    "correct": "\\( \\frac{3\\pi}{2}\\,(cm^2) \\)",
+    "wrong1": "\\( \\frac{15\\pi}{2}\\,(cm^2) \\)",
+    "wrong2": "\\( \\frac{5\\pi}{2}\\,(cm^2) \\)",
+    "wrong3": "\\( \\frac{\\pi}{2}\\,(cm^2) \\)"
+  },
+  {
+    "id": 32,
+    "content": "Cặp số \\( (a; b) \\) là nghiệm của hệ phương trình \\[ \\begin{cases} x + 3y = 5 \\\\ x + y = 1 \\end{cases} \\] Khi đó giá trị của biểu thức \\( 3a^2 - b^3 \\) bằng",
+    "correct": "\\( -5 \\)",
+    "wrong1": "\\( -11 \\)",
+    "wrong2": "\\( -1 \\)",
+    "wrong3": "\\( 13 \\)"
+  },
+  {
+    "id": 33,
+    "content": "Tích hai nghiệm của phương trình \\( -2x^2 - 5x + 16 = 0 \\) bằng",
+    "correct": "\\( -8 \\)",
+    "wrong1": "\\( -16 \\)",
+    "wrong2": "\\( 8 \\)",
+    "wrong3": "\\( 16 \\)"
+  },
+  {
+    "id": 34,
+    "content": "Hệ phương trình \\[ \\begin{cases} x + 2y = 1 \\\\ 2x - ay = 3 \\end{cases} \\] vô nghiệm khi \\( a \\) bằng",
+    "correct": "\\( -4 \\)",
+    "wrong1": "\\( 6 \\)",
+    "wrong2": "\\( -6 \\)",
+    "wrong3": "\\( 4 \\)"
+  },
+  {
+    "id": 35,
+    "content": "Cho phương trình: \\( ax^2 + bx + c = 0 \\), với \\( a, b, c \\in \\mathbb{R} \\) và \\( a \\neq 0 \\). Nếu \\( b^2 - 4ac = 0 \\) thì phương trình có nghiệm là",
+    "correct": "\\( x_1 = x_2 = \\frac{-b}{2a} \\)",
+    "wrong1": "\\( x_1 = x_2 = -\\frac{b}{a} \\)",
+    "wrong2": "\\( x_1 = x_2 = \\frac{-a}{2b} \\)",
+    "wrong3": "\\( x_1 = x_2 = \\frac{b}{2a} \\)"
+  },
+  {
+    "id": 36,
+    "content": "Phương trình nào dưới đây là phương trình bậc hai một ẩn?",
+    "correct": "\\( (3 - \\sqrt{2})x^2 = 0 \\)",
+    "wrong1": "\\( (\\sqrt{27} - 3\\sqrt{3})x^2 - 2x + 4 = 0 \\)",
+    "wrong2": "\\( 5 + y - y^3 = 0 \\)",
+    "wrong3": "\\( (\\sqrt{12} - 2\\sqrt{3})t + 1 = 0 \\)"
+  },
+  {
+    "id": 37,
+    "content": "Cho tam giác \\( ABC \\) nội tiếp đường tròn \\( (O) \\). Biết \\( \\widehat{ACB} = 110^\\circ \\) thì số đo \\( \\widehat{BOA} \\) là",
+    "correct": "\\( 140^\\circ \\)",
+    "wrong1": "\\( 70^\\circ \\)",
+    "wrong2": "\\( 220^\\circ \\)",
+    "wrong3": "\\( 305^\\circ \\)"
+  },
+  {
+    "id": 38,
+    "content": "Tam giác \\( ABC \\) đều ngoại tiếp đường tròn có bán kính \\( 1\\,cm \\). Diện tích tam giác \\( ABC \\) là",
+    "correct": "\\( 3\\sqrt{3}\\,(cm^2) \\)",
+    "wrong1": "\\( \\frac{3\\sqrt{3}}{4}\\,(cm^2) \\)",
+    "wrong2": "\\( 6\\sqrt{3}\\,(cm^2) \\)",
+    "wrong3": "\\( \\frac{3\\sqrt{3}}{2}\\,(cm^2) \\)"
+  },
+{
+    "id": 39,
+    "content": "Tìm tất cả các giá trị của tham số \\( m \\) để phương trình \\( 2x^2 - x + m + 1 = 0 \\) có hai nghiệm phân biệt?",
+    "correct": "\\( m < -\\frac{7}{8} \\)",
+    "wrong1": "\\( m \\geq -\\frac{7}{8} \\)",
+    "wrong2": "\\( m > -\\frac{7}{8} \\)",
+    "wrong3": "\\( m \\leq -\\frac{7}{8} \\)"
+  },
+  {
+  "id": 40,
+  "content": "Phương trình \\( 2x^2 - (m-1)x - m - 1 = 0 \\) (với \\( m \\) là tham số) có một nghiệm là",
+  "correct": "\\( \\frac{m+1}{2} \\)",
+  "wrong1": "\\( \\frac{m-1}{2} \\)",
+  "wrong2": "\\( \\frac{-m-1}{2} \\)",
+  "wrong3": "\\( \\frac{-m+1}{2} \\)"
+},
+  {
+    "id": 41,
+    "content": "Phương trình \\( x^2 + 3x + 2 = 0 \\) có hai nghiệm là khi đó \\( x_1^2 + x_2^2 \\) bằng",
+    "correct": "5",
+    "wrong1": "-5",
+    "wrong2": "-3",
+    "wrong3": "3"
+  },
+  {
+    "id": 42,
+    "content": "Đường tròn \\( (O; R) \\) có số đo cung lớn \\( AB \\) là \\( 310^\\circ \\). Số đo cung nhỏ \\( AB \\) là:",
+    "correct": "\\( 50^\\circ \\)",
+    "wrong1": "\\( 25^\\circ \\)",
+    "wrong2": "\\( 310^\\circ \\)",
+    "wrong3": "\\( 160^\\circ \\)"
+  },
+  {
+    "id": 43,
+    "content": "Cho hàm số \\( y = -(m^2 + 1)x^2 \\) (với m là tham số). Hàm số nghịch biến khi",
+    "correct": "\\( x > 0 \\)",
+    "wrong1": "\\( x \\geq 0 \\)",
+    "wrong2": "\\( x < 0 \\)",
+    "wrong3": "\\( x \\leq 0 \\)"
+  },
+  {
+    "id": 44,
+    "content": "Cho \\( (x; y) \\) là nghiệm của hệ phương trình \\[ \\begin{cases} x + 2y = 1 \\\\ 3x - 2y = 7 \\end{cases} \\], khi đó \\( \\frac{1}{2}x^2 - 2y \\) có giá trị bằng",
+    "correct": "3",
+    "wrong1": "-4",
+    "wrong2": "\\( -\\frac{1}{2} \\)",
+    "wrong3": "-3"
+  },
+  {
+    "id": 45,
+    "content": "Góc nội tiếp chắn nửa đường tròn có số đo bằng:",
+    "correct": "\\( 90^\\circ \\)",
+    "wrong1": "\\( 180^\\circ \\)",
+    "wrong2": "\\( 360^\\circ \\)",
+    "wrong3": "\\( 45^\\circ \\)"
+  },
+  {
+    "id": 46,
+    "content": "Tìm \\( m \\) để phương trình \\( 2x^2 + mx + 3m + 2 = 0 \\) có nghiệm \\( x = -1 \\).",
+    "correct": "\\( m = -2 \\)",
+    "wrong1": "\\( m = 2 \\)",
+    "wrong2": "\\( m = -1 \\)",
+    "wrong3": "\\( m = 0 \\)"
+  },
+  {
+    "id": 47,
+    "content": "Tam giác \\( ABC \\) có ba góc nhọn nội tiếp đường tròn tâm \\( O \\). Biết \\( \\widehat{AC} = 150^\\circ \\) (ý là cung AC có số đo 150°). Số đo \\( \\widehat{ABC} \\) bằng:",
+    "correct": "\\( 75^\\circ \\)",
+    "wrong1": "\\( 300^\\circ \\)",
+    "wrong2": "\\( 50^\\circ \\)",
+    "wrong3": "\\( 90^\\circ \\)"
+  },
+  {
+    "id": 48,
+    "content": "Đồ thị của hàm số \\( y = (m - 2)x^2 \\) đi qua điểm \\( P(-1; -2) \\) khi:",
+    "correct": "\\( m = 0 \\)",
+    "wrong1": "\\( m = 4 \\)",
+    "wrong2": "\\( m = -4 \\)",
+    "wrong3": "\\( m = 2 \\)"
+  },
+  {
+    "id": 49,
+    "content": "Phương trình \\( x^2 + mx + 9 = 0 \\) (ẩn x, tham số m) có nghiệm kép khi",
+    "correct": "\\( m = \\pm 6 \\)",
+    "wrong1": "\\( m = \\pm 3 \\)",
+    "wrong2": "\\( m = 6 \\)",
+    "wrong3": "\\( m = -6 \\)"
+  },
+  {
+    "id": 50,
+    "content": "Cho tứ giác ABCD nội tiếp đường tròn tâm O sao cho \\( \\widehat{BAD} = 100^\\circ \\), khi đó số đo của góc ở tâm \\( \\widehat{BOD} \\) bằng",
+    "correct": "\\( 200^\\circ \\)",
+    "wrong1": "\\( 160^\\circ \\)",
+    "wrong2": "\\( 60^\\circ \\)",
+    "wrong3": "\\( 240^\\circ \\)"
+  },
+  {
+    "id": 51,
+    "content": "Phương trình nào sau đây có tích hai nghiệm bằng 3?",
+    "correct": "\\( x^2 + 5x + 3 = 0 \\)",
+    "wrong1": "\\( x^2 + x + 3 = 0 \\)",
+    "wrong2": "\\( x^2 + x - 3 = 0 \\)",
+    "wrong3": "\\( x^2 + 3x + 1 = 0 \\)"
+  },
+  {
+    "id": 52,
+    "content": "Công thức nghiệm tổng quát của phương trình \\( 2x - y = 3 \\)?",
+    "correct": "\\[ \\begin{cases} y = 2x - 3 \\\\ x \\in \\mathbb{R} \\end{cases} \\]",
+    "wrong1": "\\[ \\begin{cases} y = 2x + 3 \\\\ x \\in \\mathbb{R} \\end{cases} \\]",
+    "wrong2": "\\[ \\begin{cases} x = \\frac{y}{2} + 3 \\\\ y \\in \\mathbb{R} \\end{cases} \\]",
+    "wrong3": "\\[ \\begin{cases} x = \\frac{y - 3}{2} \\\\ y \\in \\mathbb{R} \\end{cases} \\]"
+  },
+  {
+    "id": 53,
+    "content": "Phương trình nào sau đây không là phương trình bậc hai một ẩn?",
+    "correct": "\\( (\\sqrt{9} - 3)x^2 + 2x + 3 = 0 \\)",
+    "wrong1": "\\( x^2 + x + 3 = 0 \\)",
+    "wrong2": "\\( \\sqrt{3}x^2 - x + 5 = 0 \\)",
+    "wrong3": "\\( (\\sqrt{2} + 1)x^2 + (1 - \\sqrt{2})(x^2 + x) - 1 = 0 \\)"
+  },
+  {
+    "id": 54,
+    "content": "Cho A nằm ngoài đường tròn \\( (O, 6\\,cm) \\), từ A kẻ tiếp tuyến AM và cát tuyến ABC đi qua tâm O. Biết \\( AM = 8\\,cm \\). Khi đó AB bằng",
+    "correct": "\\( 4\\,cm \\)",
+    "wrong1": "\\( 6\\,cm \\)",
+    "wrong2": "\\( 10\\,cm \\)",
+    "wrong3": "\\( 8\\,cm \\)"
+  },
+  {
+    "id": 55,
+    "content": "Phương trình nào sau đây là phương trình bậc nhất hai ẩn?",
+    "correct": "\\( 0x + y = 3 \\)",
+    "wrong1": "\\( 2x + y + z = 0 \\)",
+    "wrong2": "\\( 0x + 0y = -2 \\)",
+    "wrong3": "\\( x^2 + 3x - 4 = 0 \\)"
+  },
+{
+    "id": 56,
+    "content": "Cho hàm số \\( y = x^2 \\). Khi \\( x = 1 \\) thì",
+    "correct": "\\( y = 1 \\)",
+    "wrong1": "\\( y = 2 \\)",
+    "wrong2": "\\( y = -1 \\)",
+    "wrong3": "\\( y = -2 \\)"
+  },
+  {
+    "id": 57,
+    "content": "Đồ thị hàm số \\( y = 3x^2 \\) đi qua điểm có tọa độ là",
+    "correct": "\\( (1; 3) \\)",
+    "wrong1": "\\( (-1; -3) \\)",
+    "wrong2": "\\( (3; 1) \\)",
+    "wrong3": "\\( (-3; -1) \\)"
+  },
+  {
+    "id": 58,
+    "content": "Phương trình bậc hai một ẩn là",
+    "correct": "\\( 2x^2 + 5x + 3 = 0 \\)",
+    "wrong1": "\\( 3x - 5y = 1 \\)",
+    "wrong2": "\\( 2x^2 - 5x^3 + 3 = 0 \\)",
+    "wrong3": "\\( 2x - 5 = 0 \\)"
+  },
+  {
+    "id": 59,
+    "content": "Nghiệm của phương trình \\( 2x^2 - 5x + 3 = 0 \\) là",
+    "correct": "\\( x_1 = 1; x_2 = \\frac{3}{2} \\)",
+    "wrong1": "\\( x_1 = 1; x_2 = \\frac{2}{3} \\)",
+    "wrong2": "\\( x_1 = -1; x_2 = \\frac{3}{2} \\)",
+    "wrong3": "\\( x_1 = 1; x_2 = -\\frac{3}{2} \\)"
+  },
+  {
+    "id": 60,
+    "content": "Gọi \\( x_1; x_2 \\) là hai nghiệm của phương trình \\( x^2 + 3x - 5 = 0 \\) thì",
+    "correct": "\\( x_1 + x_2 = -3 \\)",
+    "wrong1": "\\( x_1 + x_2 = 3 \\)",
+    "wrong2": "\\( x_1 + x_2 = 5 \\)",
+    "wrong3": "\\( x_1 + x_2 = -5 \\)"
+  },
+  {
+    "id": 61,
+    "content": "Nếu \\( u + v = 5 \\) và \\( u \\cdot v = 6 \\) thì \\( u, v \\) là hai nghiệm của phương trình",
+    "correct": "\\( x^2 - 5x + 6 = 0 \\)",
+    "wrong1": "\\( x^2 + 5x - 6 = 0 \\)",
+    "wrong2": "\\( x^2 + 5x + 6 = 0 \\)",
+    "wrong3": "\\( x^2 - 5x - 6 = 0 \\)"
+  },
+  {
+    "id": 62,
+    "content": "Đường tròn tiếp xúc với ba cạnh của một tam giác là đường tròn",
+    "correct": "nội tiếp tam giác",
+    "wrong1": "ngoại tiếp tam giác",
+    "wrong2": "đi qua ba đỉnh của tam giác",
+    "wrong3": "bàng tiếp tam giác"
+  },
+  {
+    "id": 63,
+    "content": "Đường tròn ngoại tiếp tứ giác là đường tròn",
+    "correct": "đi qua bốn đỉnh của tứ giác",
+    "wrong1": "đi qua ba đỉnh của tứ giác",
+    "wrong2": "tiếp xúc với bốn cạnh của tứ giác",
+    "wrong3": "không đi qua đỉnh nào của tứ giác"
+  },
+  {
+    "id": 64,
+    "content": "Bán kính đường tròn nội tiếp tam giác đều có cạnh bằng \\( 12\\,cm \\) là",
+    "correct": "\\( 2\\sqrt{3}\\,cm \\)",
+    "wrong1": "\\( 4\\sqrt{3}\\,cm \\)",
+    "wrong2": "\\( 6\\sqrt{3}\\,cm \\)",
+    "wrong3": "\\( 12\\sqrt{3}\\,cm \\)"
+  },
+  {
+    "id": 65,
+    "content": "Tứ giác \\( ABCD \\) nội tiếp đường tròn, có \\( \\hat{B} = 100^0 \\) thì số đo góc \\( D \\) bằng",
+    "correct": "\\( 80^0 \\)",
+    "wrong1": "\\( 50^0 \\)",
+    "wrong2": "\\( 100^0 \\)",
+    "wrong3": "\\( 40^0 \\)"
+  },
+  {
+    "id": 66,
+    "content": "Điều kiện xác định của biểu thức \\( \\frac{2024}{\\sqrt{x - 2025}} \\) là",
+    "correct": "\\( x > 2025 \\)",
+    "wrong1": "\\( x = 2025 \\)",
+    "wrong2": "\\( x \\geq 2025 \\)",
+    "wrong3": "\\( x < 2025 \\)"
+  },
+  {
+    "id": 67,
+    "content": "Phương trình \\( x^2 - 2025x + 2024 = 0 \\) có tập nghiệm là",
+    "correct": "\\( \\{1; 2024\\} \\)",
+    "wrong1": "\\( \\{204; 2025\\} \\)",
+    "wrong2": "\\( \\{-1; -2024\\} \\)",
+    "wrong3": "\\( \\{1; -2024\\} \\)"
+  },
+  {
+    "id": 68,
+    "content": "Bất phương trình \\( 5x - 30 < 0 \\) có nghiệm là",
+    "correct": "\\( x < 6 \\)",
+    "wrong1": "\\( x > 6 \\)",
+    "wrong2": "\\( x \\leq 6 \\)",
+    "wrong3": "\\( x \\geq 6 \\)"
+  },
+  {
+    "id": 69,
+    "content": "Một mảnh vườn hình chữ nhật có nửa chu vi bằng \\( 50 \\, \\text{m} \\) và diện tích \\( 600 \\, \\text{m}^2 \\). Kích thước của mảnh vườn đó là",
+    "correct": "\\( 20 \\, \\text{m} \\) và \\( 30 \\, \\text{m} \\)",
+    "wrong1": "\\( 20 \\, \\text{m} \\) và \\( 80 \\, \\text{m} \\)",
+    "wrong2": "\\( 40 \\, \\text{m} \\) và \\( 60 \\, \\text{m} \\)",
+    "wrong3": "\\( 30 \\, \\text{m} \\) và \\( 70 \\, \\text{m} \\)"
+  },
+  {
+    "id": 70,
+    "content": "Điểm nào sau đây thuộc đồ thị của hàm số \\( y = \\frac{1}{2}x^2 \\)?",
+    "correct": "\\( (1; \\frac{1}{2}) \\)",
+    "wrong1": "\\( (1; 2) \\)",
+    "wrong2": "\\( (2; 1) \\)",
+    "wrong3": "\\( (-1; 2) \\)"
+  },
+  {
+    "id": 71,
+    "content": "Các nghiệm của phương trình \\( x^2 + 7x + 12 = 0 \\) là",
+    "correct": "\\( x_1 = -3; \\, x_2 = -4 \\)",
+    "wrong1": "\\( x_1 = 3; \\, x_2 = 4 \\)",
+    "wrong2": "\\( x_1 = 3; \\, x_2 = -4 \\)",
+    "wrong3": "\\( x_1 = -3; \\, x_2 = 4 \\)"
+  },
+  {
+    "id": 72,
+    "content": "Cho tứ giác \\( ABCD \\) nội tiếp đường tròn có \\( \\widehat{B} = \\widehat{D} = 100^\\circ \\). Khẳng định nào dưới đây đúng?",
+    "correct": "\\( \\widehat{D} = 100^\\circ \\)",
+    "wrong1": "\\( \\widehat{B} = 40^\\circ \\)",
+    "wrong2": "\\( \\widehat{D} = 40^\\circ \\)",
+    "wrong3": "\\( \\widehat{A} + \\widehat{C} = 100^\\circ \\)"
+  },
+  {
+    "id": 73,
+    "content": "Điều kiện xác định của căn thức \\( \\sqrt{1 - 2x} \\) là",
+    "correct": "\\( x \\leq \\frac{1}{2} \\)",
+    "wrong1": "\\( x \\geq \\frac{1}{2} \\)",
+    "wrong2": "\\( x \\geq -\\frac{1}{2} \\)",
+    "wrong3": "\\( x < \\frac{1}{2} \\)"
+  },
+  {
+    "id": 74,
+    "content": "Điểm nào sau đây thuộc đồ thị hàm số \\( y = 2x^2 \\)?",
+    "correct": "\\( (-1; 2) \\)",
+    "wrong1": "\\( (1; -2) \\)",
+    "wrong2": "\\( (2; 1) \\)",
+    "wrong3": "\\( (1; 1) \\)"
+  },
+  {
+    "id": 75,
+    "content": "Các nghiệm của phương trình \\( x^2 + 7x + 6 = 0 \\) là",
+    "correct": "\\( x_1 = -1; x_2 = -6 \\)",
+    "wrong1": "\\( x_1 = 1; x_2 = 6 \\)",
+    "wrong2": "\\( x_1 = 1; x_2 = -6 \\)",
+    "wrong3": "\\( x_1 = -1; x_2 = 6 \\)"
+  },
+  {
+    "id": 76,
+    "content": "Lớp 9A có 45 học sinh, số học sinh nam bằng \\( \\frac{4}{5} \\) số học sinh nữ. Số học sinh nam, nữ của lớp 9A lần lượt là",
+    "correct": "20 và 25",
+    "wrong1": "4 và 5",
+    "wrong2": "25 và 20",
+    "wrong3": "5 và 4"
+  },
+  {
+    "id": 77,
+    "content": "Một vật rơi tự do từ độ cao 369,9 m. Biết quãng đường chuyển động \\( S \\) (mét) của vật phụ thuộc vào thời gian \\( t \\) (giây) bởi công thức \\( S = 4,9t^2 \\). Thời gian vật chạm đất là bao nhiêu giây? (làm tròn đến hàng đơn vị)",
+    "correct": "9 giây",
+    "wrong1": "8 giây",
+    "wrong2": "5 giây",
+    "wrong3": "11 giây"
+  },
+  {
+    "id": 78,
+    "content": "Cho tam giác \\( ABC \\) vuông tại \\( B \\), biết \\( AB = 3 \\, \\text{cm} \\) và \\( \\widehat{BAC} = 60^\\circ \\). Bán kính đường tròn ngoại tiếp tam giác \\( ABC \\) là",
+    "correct": "\\( 3 \\, \\text{cm} \\)",
+    "wrong1": "\\( 2\\sqrt{3} \\, \\text{cm} \\)",
+    "wrong2": "\\( \\sqrt{3} \\, \\text{cm} \\)",
+    "wrong3": "\\( 4 \\, \\text{cm} \\)"
+  },
+{
+    "id": 79,
+    "content": "Hệ số a của đồ thị hàm số \\( y = 2x^2 \\) là",
+    "correct": "2",
+    "wrong1": "3",
+    "wrong2": "-2",
+    "wrong3": "-3"
+  },
+  {
+    "id": 80,
+    "content": "Đồ thị hàm số \\( y = -5x^2 \\) là",
+    "correct": "Là một Parabol đi qua gốc tọa độ",
+    "wrong1": "Là một đường thẳng đi qua gốc tọa độ",
+    "wrong2": "Là một đường thẳng song song với Ox",
+    "wrong3": "Là một đường thẳng song song với Oy"
+  },
+  {
+    "id": 81,
+    "content": "Điểm nào thuộc đồ thị hàm số \\( y = x^2 \\)?",
+    "correct": "\\( Q(2;4) \\)",
+    "wrong1": "\\( M(0;2) \\)",
+    "wrong2": "\\( P(-2; -4) \\)",
+    "wrong3": "\\( N(1;12) \\)"
+  },
+  {
+    "id": 82,
+    "content": "Phương trình \\( 5x^2 - 2x + 3 = 0 \\) có hệ số b bằng",
+    "correct": "-2",
+    "wrong1": "5",
+    "wrong2": "0",
+    "wrong3": "-3"
+  },
+  {
+    "id": 83,
+    "content": "Trong các phương trình sau, phương trình nào là phương trình bậc hai một ẩn?",
+    "correct": "\\( x^2 - 2x = 0 \\)",
+    "wrong1": "\\( -2x + 3 = 0 \\)",
+    "wrong2": "\\( x^2 - 2x^3 + 3 = 0 \\)",
+    "wrong3": "\\( 2x + 3y = 6 \\)"
+  },
+  {
+    "id": 84,
+    "content": "Một mảnh vườn hình chữ nhật có diện tích bằng \\( 36 \\, \\text{m}^2 \\), biết chiều dài hơn chiều rộng \\( 5 \\, \\text{m} \\). Gọi \\( x \\, (\\text{m}, x > 0) \\) là chiều rộng của khu vườn. Phương trình biểu thị diện tích của khu vườn theo \\( x \\) là:",
+    "correct": "\\( x(x + 5) = 36 \\)",
+    "wrong1": "\\( (x + 5)(x - 5) = 36 \\)",
+    "wrong2": "\\( x(x - 5) = 36 \\)",
+    "wrong3": "\\( x \\cdot 5 = 36 \\)"
+  },
+  {
+    "id": 85,
+    "content": "Cho phương trình \\( x^2 - 5x + 6 = 0 \\). Theo định lý Vi-et, tích 2 nghiệm của phương trình là:",
+    "correct": "6",
+    "wrong1": "5",
+    "wrong2": "-6",
+    "wrong3": "-5"
+  },
+  {
+    "id": 86,
+    "content": "Một phương trình bậc hai có hai nghiệm \\( x_1, x_2 \\) thỏa mãn \\( x_1 + x_2 = 6 \\) và \\( x_1 \\cdot x_2 = 9 \\). Phương trình đó là:",
+    "correct": "\\( x^2 - 6x + 9 = 0 \\)",
+    "wrong1": "\\( x^2 + 6x + 9 = 0 \\)",
+    "wrong2": "\\( x^2 - 9x + 6 = 0 \\)",
+    "wrong3": "\\( x^2 + 9x + 6 = 0 \\)"
+  },
+  {
+    "id": 87,
+    "content": "Tam giác vuông có hai cạnh góc vuông là \\( 12 \\, \\text{cm} \\) và \\( 9 \\, \\text{cm} \\). Bán kính của đường tròn ngoại tiếp tam giác vuông đó là:",
+    "correct": "\\( 7,5 \\, \\text{cm} \\)",
+    "wrong1": "\\( 6 \\, \\text{cm} \\)",
+    "wrong2": "\\( 3 \\, \\text{cm} \\)",
+    "wrong3": "\\( 9 \\, \\text{cm} \\)"
+  },
+  {
+    "id": 88,
+    "content": "Tâm của đường tròn nội tiếp tam giác đều ABC là:",
+    "correct": "Giao của 3 đường cao",
+    "wrong1": "Trung điểm của AB",
+    "wrong2": "Đỉnh A",
+    "wrong3": "Đỉnh C"
+  },
+  {
+    "id": 89,
+    "content": "Cho tứ giác MNPQ nội tiếp đường tròn, biết số đo góc M bằng \\( 50^0 \\). Số đo góc P là:",
+    "correct": "\\( 130^0 \\)",
+    "wrong1": "\\( 90^0 \\)",
+    "wrong2": "\\( 100^0 \\)",
+    "wrong3": "\\( 50^0 \\)"
+  },
+{
+    "id": 90,
+    "content": "Phương trình nào sau đây là phương trình bậc hai một ẩn?",
+    "correct": "\\( x^2 + 2x - 9 = 0 \\)",
+    "wrong1": "\\( x^2 - x + y = 0 \\)",
+    "wrong2": "\\( x^2 + \\frac{1}{x} + 4 = 0 \\)",
+    "wrong3": "\\( x - 2 = 0 \\)"
+  },
+  {
+    "id": 91,
+    "content": "Điểm nào sau đây thuộc đồ thị của hàm số \\( y = \\frac{1}{2}x^2 \\)?",
+    "correct": "\\( (-4; 8) \\)",
+    "wrong1": "\\( (4; 4) \\)",
+    "wrong2": "\\( (-4; -8) \\)",
+    "wrong3": "\\( (4; -4) \\)"
+  },
+  {
+    "id": 92,
+    "content": "Giá trị của \\( m \\) để phương trình \\( x^2 + (m-1)x + 3m - 4 = 0 \\) có nghiệm \\( x = 1 \\) là",
+    "correct": "\\( m = 1 \\)",
+    "wrong1": "\\( m = -\\frac{4}{3} \\)",
+    "wrong2": "\\( m = -1 \\)",
+    "wrong3": "\\( m = \\frac{4}{3} \\)"
+  },
+  {
+    "id": 93,
+    "content": "Phương trình nào dưới đây là phương trình bậc hai một ẩn?",
+    "correct": "\\( x^2 - 2025 = 0 \\)",
+    "wrong1": "\\( x^2 + 5\\sqrt{x} - 6 = 0 \\)",
+    "wrong2": "\\( 3x + y - 1 = 0 \\)",
+    "wrong3": "\\( 2x + 3 = 0 \\)"
+  },
+  {
+    "id": 94,
+    "content": "Điểm \\( M(-1; 4) \\) thuộc đồ thị hàm số \\( y = ax^2 \\) (\\( a \\neq 0 \\)) khi \\( a \\) bằng",
+    "correct": "\\( a = 4 \\)",
+    "wrong1": "\\( a = -4 \\)",
+    "wrong2": "\\( a = 16 \\)",
+    "wrong3": "\\( a = -2 \\)"
+  },
+  {
+    "id": 95,
+    "content": "Đồ thị hàm số \\( y = (m - 5)x^2 \\) nằm phía dưới trục hoành khi",
+    "correct": "\\( m < 5 \\)",
+    "wrong1": "\\( m \\leq 5 \\)",
+    "wrong2": "\\( m > 5 \\)",
+    "wrong3": "\\( m \\geq 5 \\)"
+  },
+  {
+    "id": 96,
+    "content": "Giả sử \\( x_1, x_2 \\) là hai nghiệm của phương trình \\( 2x^2 - x - 6 = 0 \\). Khi đó tích \\( x_1 \\cdot x_2 \\) bằng",
+    "correct": "\\( -3 \\)",
+    "wrong1": "\\( -12 \\)",
+    "wrong2": "\\( \\frac{1}{2} \\)",
+    "wrong3": "\\( 3 \\)"
+  },
+  {
+    "id": 97,
+    "content": "Trong các khẳng định sau: (1) Mỗi tam giác luôn có một đường tròn ngoại tiếp và một đường tròn nội tiếp. (2) Mỗi tứ giác luôn nội tiếp được trong một đường tròn. (3) Giao điểm ba đường phân giác trong của một tam giác là tâm đường tròn ngoại tiếp tam giác ấy. (4) Đường tròn nội tiếp tam giác đều cạnh a có bán kính bằng \\( \\frac{\\sqrt{3}}{3}a \\). Số khẳng định **SAI** là",
+    "correct": "3",
+    "wrong1": "0",
+    "wrong2": "1",
+    "wrong3": "2"
+  },
+  {
+    "id": 98,
+    "content": "Cho tứ giác \\( MNPQ \\) nội tiếp đường tròn, tổng số đo hai góc \\( \\widehat{M} \\) và \\( \\widehat{P} \\) bằng",
+    "correct": "\\( 180^\\circ \\)",
+    "wrong1": "\\( 120^\\circ \\)",
+    "wrong2": "\\( 90^\\circ \\)",
+    "wrong3": "\\( 360^\\circ \\)"
+  },
+  {
+    "id": 99,
+    "content": "Phương trình \\( x^2 + 2x - 3 = 0 \\) có hai nghiệm là:",
+    "correct": "\\( x_1 = 1, x_2 = -3 \\)",
+    "wrong1": "\\( x_1 = -1, x_2 = 3 \\)",
+    "wrong2": "\\( x_1 = -1, x_2 = -3 \\)",
+    "wrong3": "\\( x_1 = 1, x_2 = 3 \\)"
+  },
+  {
+    "id": 100,
+    "content": "Điểm nào sau đây thuộc đồ thị hàm số \\( y = -2x^2 \\)?",
+    "correct": "\\( (-1; -2) \\)",
+    "wrong1": "\\( (-1; 2) \\)",
+    "wrong2": "\\( (2; -1) \\)",
+    "wrong3": "\\( (-2; -1) \\)"
+  },
+  {
+    "id": 101,
+    "content": "Giả sử \\( x_1 \\) và \\( x_2 \\) là hai nghiệm của phương trình \\( 3x^2 - 7x + 4 = 0 \\). Giá trị của tổng \\( x_1 + x_2 \\) là:",
+    "correct": "\\( \\frac{7}{3} \\)",
+    "wrong1": "\\( \\frac{4}{3} \\)",
+    "wrong2": "\\( -\\frac{7}{3} \\)",
+    "wrong3": "\\( \\frac{3}{7} \\)"
+  },
+  {
+    "id": 102,
+    "content": "Phương trình \\( x^2 - 6x + 1 - 3m = 0 \\) (với \\( m \\) là tham số) có nghiệm là \\( -1 \\) khi",
+    "correct": "\\( m = \\frac{8}{3} \\)",
+    "wrong1": "\\( m = \\frac{-4}{3} \\)",
+    "wrong2": "\\( m = \\frac{4}{3} \\)",
+    "wrong3": "\\( m = \\frac{-8}{3} \\)"
+  },
+  {
+    "id": 103,
+    "content": "Cho đa giác đều 11 cạnh có độ dài mỗi cạnh là \\( 5\\,cm \\). Chu vi của đa giác là:",
+    "correct": "\\( 55\\,cm \\)",
+    "wrong1": "\\( 50\\,cm \\)",
+    "wrong2": "\\( 55\\,m \\)",
+    "wrong3": "\\( 16\\,cm \\)"
+  },
+  {
+    "id": 104,
+    "content": "Một hình chữ nhật có chiều dài hơn chiều rộng \\( 4\\,m \\). Nếu gọi chiều dài của hình chữ nhật là \\( x \\, (m) \\) (\\( x > 4 \\)) thì chiều rộng của hình chữ nhật là:",
+    "correct": "\\( x - 4 \\, (m) \\)",
+    "wrong1": "\\( x + 4 \\, (m) \\)",
+    "wrong2": "\\( 4 - x \\, (m) \\)",
+    "wrong3": "\\( 4x \\, (m) \\)"
+  },
+  {
+    "id": 105,
+    "content": "Phương trình \\( x^2 - 4x - 2 = 0 \\) có biệt thức \\( \\Delta \\) bằng:",
+    "correct": "\\( 24 \\)",
+    "wrong1": "\\( 2 \\)",
+    "wrong2": "\\( 6 \\)",
+    "wrong3": "\\( 8 \\)"
+  }
+],
+    
+P2: [
+{ "id": 1, "content": "Đồ thị hàm số \\( y = ax^2 \\) (a \u2260 0) luôn là một đường parabol.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 2, "content": "Đối với hàm số \\( y = ax^2 \\) (a < 0), gốc tọa độ O là điểm cao nhất của đồ thị.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 3, "content": "Hàm số \\( y = 0.5x^2 \\) là hàm số đồng biến khi \\( x < 0 \\), và nghịch biến khi \\( x > 0 \\).", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 4, "content": "Hai điểm \\( M(x_0; y_0) \\) và \\( N(-x_0; y_0) \\) trên đồ thị hàm số \\( y = ax^2 \\) đối xứng nhau qua trục tung Oy.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 5, "content": "Phương trình \\( x^2 + 2x = 0 \\) không phải là phương trình bậc hai một ẩn vì thiếu hệ số c.", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 6, "content": "Phương trình bậc hai \\( ax^2 + bx + c = 0 \\) (a \u2260 0) vô nghiệm khi và chỉ khi \\( \\Delta < 0 \\).", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 7, "content": "Phương trình \\( (m - 1)x^2 + 2x + 1 = 0 \\) là phương trình bậc hai một ẩn với mọi giá trị của m.", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 8, "content": "Nếu \\( \\Delta > 0 \\), phương trình bậc hai có hai nghiệm phân biệt, một nghiệm dương và một nghiệm âm.", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 9, "content": "Có duy nhất một đường tròn đi qua ba đỉnh của một tam giác bất kì.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 10, "content": "Tâm đường tròn ngoại tiếp tam giác luôn nằm bên trong tam giác đó.", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 11, "content": "Đường tròn tiếp xúc với ba cạnh của tam giác gọi là đường tròn nội tiếp tam giác đó.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 12, "content": "Trong tam giác vuông, tâm đường tròn nội tiếp trùng với đỉnh góc vuông.", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 13, "content": "Hình chữ nhật luôn là tứ giác nội tiếp.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 14, "content": "Tứ giác ABCD nội tiếp đường tròn thì \\( \\widehat{A} + \\widehat{C} = \\widehat{B} + \\widehat{D} = 90^\\circ \\).", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 15, "content": "Nếu tứ giác có tổng hai góc bằng \\( 180^\\circ \\) thì tứ giác đó nội tiếp đường tròn.", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 16, "content": "Tâm đường tròn ngoại tiếp hình vuông là giao điểm hai đường chéo của hình vuông đó.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 17, "content": "Ngũ giác đều có 5 trục đối xứng.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 18, "content": "Mọi hình thoi đều là đa giác đều.", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 19, "content": "Tâm đối xứng của một đa giác đều (nếu có) chính là tâm đường tròn ngoại tiếp đa giác đó.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 20, "content": "Phép quay tâm O góc quay \\( 90^\\circ \\) biến đường thẳng thành đường thẳng song song với nó.", "correct": "Sai", "wrong1": "Đúng" },
+{ "id": 21, "content": "Đồ thị hàm số \\( y = ax^2 \\) (a > 0) luôn nằm phía trên trục hoành.", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 22, "content": "Hàm số \\( y = -3x^2 \\) đồng biến khi \\( x < 0 \\).", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 23, "content": "Phương trình \\( x^2 - 5x + 6 = 0 \\) có hai nghiệm trái dấu.", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 24, "content": "Phương trình \\( ax^2 + bx + c = 0 \\) (a ≠ 0) luôn có ít nhất một nghiệm.", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 25, "content": "Trong tam giác đều, tâm đường tròn ngoại tiếp trùng với tâm đường tròn nội tiếp.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 26, "content": "Hình thang cân luôn là tứ giác nội tiếp.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 27, "content": "Tứ giác có hai góc đối bằng nhau thì nội tiếp được đường tròn.", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 28, "content": "Phép quay tâm O góc \\( 180^\\circ \\) chính là phép đối xứng tâm O.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 29, "content": "Lục giác đều có 6 trục đối xứng.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 30, "content": "Mọi hình vuông đều là đa giác đều.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 31, "content": "Phương trình \\( x^2 + 1 = 0 \\) vô nghiệm trên tập số thực.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 32, "content": "Nếu \\( \\Delta = 0 \\), phương trình bậc hai có nghiệm kép \\( x = -\\frac{b}{2a} \\).", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 33, "content": "Đường tròn ngoại tiếp tam giác vuông có tâm là trung điểm cạnh huyền.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 34, "content": "Hình bình hành luôn có một đường tròn ngoại tiếp.", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 35, "content": "Tam giác có tâm đường tròn ngoại tiếp nằm ngoài tam giác đó là tam giác tù.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 36, "content": "Phép quay bảo toàn khoảng cách giữa hai điểm bất kì.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 37, "content": "Tứ giác nội tiếp có tổng hai góc đối bằng \\( 180^\\circ \\).", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 38, "content": "Hàm số \\( y = 2x^2 \\) có giá trị nhỏ nhất bằng 0.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 39, "content": "Phương trình \\( 0x^2 + 3x - 2 = 0 \\) là phương trình bậc hai.", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 40, "content": "Trong tam giác cân, tâm đường tròn nội tiếp nằm trên đường cao ứng với đáy.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 41, "content": "Hình chữ nhật có tâm đối xứng là giao điểm hai đường chéo.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 42, "content": "Đa giác đều có số cạnh chẵn thì có tâm đối xứng.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 43, "content": "Phép quay góc \\( 90^\\circ \\) biến đường thẳng thành đường thẳng vuông góc với nó.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 44, "content": "Nếu \\( ac < 0 \\) thì phương trình \\( ax^2 + bx + c = 0 \\) có hai nghiệm phân biệt.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 45, "content": "Đồ thị hàm số \\( y = ax^2 \\) đi qua gốc tọa độ O(0;0).", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 46, "content": "Tâm đường tròn nội tiếp tam giác cách đều ba cạnh của tam giác.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 47, "content": "Tứ giác có bốn đỉnh nằm trên một đường tròn là tứ giác nội tiếp.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 48, "content": "Phương trình \\( x^2 - 2x + 1 = 0 \\) có nghiệm kép \\( x = 1 \\).", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 49, "content": "Hình thoi luôn có đường tròn nội tiếp.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 50, "content": "Phép quay tâm O góc \\( 360^\\circ \\) là phép đồng nhất.", "correct": "Đúng", "wrong1": "Sai" },
+{ "id": 51, "content": "Hàm số \\( y = -x^2 \\) có đồ thị là parabol quay bề lõm xuống dưới.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 52, "content": "Phương trình \\( x^2 - 4 = 0 \\) có hai nghiệm phân biệt là 2 và -2.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 53, "content": "Trong tam giác nhọn, tâm đường tròn ngoại tiếp nằm bên trong tam giác.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 54, "content": "Hình vuông là trường hợp đặc biệt của hình thoi và hình chữ nhật.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 55, "content": "Phép quay góc \\( 45^\\circ \\) bảo toàn độ dài đoạn thẳng.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 56, "content": "Nếu \\( a > 0 \\) thì hàm số \\( y = ax^2 \\) nghịch biến khi \\( x < 0 \\).", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 57, "content": "Phương trình \\( 2x^2 + 3x + 4 = 0 \\) có \\( \\Delta = 9 - 32 = -23 \\), nên vô nghiệm.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 58, "content": "Đường tròn nội tiếp tam giác tiếp xúc với ba cạnh tại trung điểm của mỗi cạnh.", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 59, "content": "Mọi tứ giác nội tiếp đều là tứ giác cân.", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 60, "content": "Phép quay góc \\( 180^\\circ \\) còn được gọi là phép đối xứng tâm.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 61, "content": "Tam giác đều có ba trục đối xứng.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 62, "content": "Phương trình \\( (x-1)^2 = 0 \\) có nghiệm kép \\( x = 1 \\).", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 63, "content": "Điểm \\( A(1,1) \\) thuộc đồ thị hàm số \\( y = x^2 \\).", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 64, "content": "Tâm đường tròn ngoại tiếp tam giác vuông là trung điểm cạnh góc vuông.", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 65, "content": "Hình thang vuông luôn nội tiếp được đường tròn.", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 66, "content": "Phép quay góc \\( 90^\\circ \\) biến một đường thẳng thành đường thẳng song song hoặc trùng với nó.", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 67, "content": "Nếu phương trình \\( ax^2 + bx + c = 0 \\) có \\( a \\) và \\( c \\) trái dấu thì luôn có hai nghiệm phân biệt.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 68, "content": "Hàm số \\( y = \\frac{1}{2}x^2 \\) có giá trị nhỏ nhất là 0.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 69, "content": "Đường tròn ngoại tiếp tam giác đều có tâm trùng với trọng tâm của tam giác.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 70, "content": "Tứ giác có tổng hai góc đối bằng \\( 180^\\circ \\) thì nội tiếp được đường tròn.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 71, "content": "Phép quay góc \\( 0^\\circ \\) là phép đồng nhất.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 72, "content": "Phương trình \\( x^2 + 2x + 1 = 0 \\) có nghiệm kép \\( x = -1 \\).", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 73, "content": "Đồ thị hàm số \\( y = ax^2 \\) luôn cắt trục tung tại điểm có tung độ bằng 0.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 74, "content": "Tam giác cân luôn có đường tròn nội tiếp và ngoại tiếp.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 75, "content": "Hình bình hành nội tiếp được đường tròn khi và chỉ khi nó là hình chữ nhật.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 76, "content": "Phép quay góc \\( -90^\\circ \\) tương đương với phép quay góc \\( 270^\\circ \\).", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 77, "content": "Nếu \\( \\Delta = b^2 - 4ac = 0 \\), phương trình có nghiệm duy nhất \\( x = -\\frac{b}{a} \\).", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 78, "content": "Hàm số \\( y = -2x^2 \\) đồng biến khi \\( x < 0 \\) và nghịch biến khi \\( x > 0 \\).", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 79, "content": "Tâm đường tròn nội tiếp tam giác là giao điểm ba đường trung trực.", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 80, "content": "Tứ giác nội tiếp có một góc vuông thì góc đối diện cũng vuông.", "correct": "Đúng", "wrong1": "Sai" },
+{ "id": 81, "content": "Đồ thị hàm số \\( y = ax^2 \\) luôn đi qua gốc tọa độ, với mọi \\( a \\neq 0 \\).", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 82, "content": "Nếu \\( a > 0 \\), đồ thị hàm số \\( y = ax^2 \\) nằm hoàn toàn phía trên trục hoành.", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 83, "content": "Phương trình \\( x^2 = 0 \\) có nghiệm duy nhất \\( x = 0 \\).", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 84, "content": "Trong tam giác vuông, tâm đường tròn ngoại tiếp là trung điểm của cạnh huyền.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 85, "content": "Hình thang cân có hai cạnh bên bằng nhau và hai đường chéo bằng nhau.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 86, "content": "Phép quay góc \\( 0^{\\circ} \\) không làm thay đổi vị trí của hình.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 87, "content": "Nếu \\( \\Delta = 0 \\), phương trình bậc hai có hai nghiệm phân biệt.", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 88, "content": "Hàm số \\( y = -\\frac{1}{3}x^2 \\) có giá trị lớn nhất bằng 0.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 89, "content": "Tâm đường tròn nội tiếp tam giác là giao điểm ba đường phân giác trong.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 90, "content": "Tứ giác có bốn góc bằng nhau là tứ giác nội tiếp.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 91, "content": "Phép quay góc \\( 360^{\\circ} \\) biến mọi điểm thành chính nó.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 92, "content": "Phương trình \\( x^2 + 2x + 2 = 0 \\) vô nghiệm trên tập số thực.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 93, "content": "Đồ thị hàm số \\( y = 3x^2 \\) đối xứng qua trục tung.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 94, "content": "Tam giác đều có ba đường trung trực đồng thời là ba đường phân giác.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 95, "content": "Hình chữ nhật có hai trục đối xứng là hai đường trung trực của các cạnh.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 96, "content": "Đường tròn nội tiếp tam giác vuông có tâm nằm trên cạnh huyền.", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 97, "content": "Nếu \\( a \\cdot c < 0 \\), phương trình \\( ax^2 + bx + c = 0 \\) luôn có hai nghiệm phân biệt.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 98, "content": "Hàm số \\( y = x^2 \\) đồng biến trên \\( (0, +\\infty) \\).", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 99, "content": "Đường tròn ngoại tiếp tam giác có tâm là giao điểm ba đường trung trực.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 100, "content": "Hình vuông có bốn trục đối xứng.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 101, "content": "Phép quay góc \\( 180^{\\circ} \\) còn gọi là phép đối xứng tâm.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 102, "content": "Phương trình \\( 3x^2 - 2x = 0 \\) có hai nghiệm là \\( x = 0 \\) và \\( x = \\frac{2}{3} \\).", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 103, "content": "Điểm \\( (-2, 4) \\) thuộc đồ thị hàm số \\( y = x^2 \\).", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 104, "content": "Trong tam giác cân, đường cao xuất phát từ đỉnh cân cũng là đường trung trực.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 105, "content": "Hình thoi có hai đường chéo bằng nhau.", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 106, "content": "Phép quay góc \\( 270^{\\circ} \\) ngược chiều với phép quay góc \\( -90^{\\circ} \\).", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 107, "content": "Nếu \\( \\Delta > 0 \\), phương trình bậc hai có hai nghiệm phân biệt.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 108, "content": "Hàm số \\( y = -x^2 \\) có giá trị lớn nhất tại \\( x = 0 \\).", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 109, "content": "Tâm đường tròn nội tiếp tam giác cách đều ba đỉnh của tam giác.", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 110, "content": "Tứ giác có tổng hai góc đối bằng \\( 90^{\\circ} \\) thì nội tiếp được đường tròn.", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 111, "content": "Phép quay góc \\( 45^{\\circ} \\) bảo toàn khoảng cách giữa hai điểm bất kì.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 112, "content": "Phương trình \\( x^2 - 5x + 6 = 0 \\) có hai nghiệm dương.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 113, "content": "Đồ thị hàm số \\( y = -2x^2 \\) nằm hoàn toàn phía dưới trục hoành.", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 114, "content": "Tam giác vuông cân có tâm đường tròn ngoại tiếp nằm trên cạnh huyền.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 115, "content": "Hình bình hành có hai đường chéo vuông góc là hình thoi.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 116, "content": "Phép quay góc \\( 120^{\\circ} \\) bảo toàn hình dạng và kích thước của hình.", "correct": "Đúng", "wrong1": "Sai" },
+    { "id": 117, "content": "Nếu phương trình \\( ax^2 + bx + c = 0 \\) có \\( a \\) và \\( c \\) cùng dấu thì luôn có nghiệm.", "correct": "Sai", "wrong1": "Đúng" },
+    { "id": 118, "content": "Hàm số \\( y = \\frac{1}{4}x^2 \\) nghịch biến trên \\( (-\\infty, 0) \\).", "correct": "Đúng", "wrong1": "Sai" }
+],
+    
+P3: [
+{
+    "id": 1,
+    "content": "Khi \\( a > 0 \\), đồ thị hàm số \\( y = ax^2 \\) nằm hoàn toàn phía ...... trục hoành (trừ điểm gốc tọa độ).",
+    "correct": "trên",
+    "wrong1": "dưới",
+    "wrong2": "trái",
+    "wrong3": "phải"
+  },
+  {
+    "id": 2,
+    "content": "Đồ thị hàm số \\( y = ax^2 \\) nhận trục tung Oy làm trục .......",
+    "correct": "đối xứng",
+    "wrong1": "tung",
+    "wrong2": "hoành",
+    "wrong3": "gốc tọa độ"
+  },
+  {
+    "id": 3,
+    "content": "Để vẽ đồ thị hàm số \\( y = ax^2 \\), ta cần xác định ít nhất ...... điểm thuộc đồ thị, trong đó có gốc tọa độ \\( O(0;0) \\) và hai điểm đối xứng nhau qua Oy.",
+    "correct": "3",
+    "wrong1": "2",
+    "wrong2": "4",
+    "wrong3": "5"
+  },
+  {
+    "id": 4,
+    "content": "Trong công thức \\( y = ax^2 \\), điều kiện để nó là một hàm số bậc hai là ...... .",
+    "correct": "\\( a \\neq 0 \\)",
+    "wrong1": "\\( a > 0 \\)",
+    "wrong2": "\\( a < 0 \\)",
+    "wrong3": "\\( a = 0 \\)"
+  },
+  {
+    "id": 5,
+    "content": "Phương trình \\( 5x^2 - 20 = 0 \\) có hai nghiệm là ...... và ...... .",
+    "correct": "2 và -2",
+    "wrong1": "0 và 2",
+    "wrong2": "1 và -1",
+    "wrong3": "4 và -4"
+  },
+  {
+    "id": 6,
+    "content": "Trong phương trình \\( ax^2 + bx + c = 0 \\) (\\( a \\neq 0 \\)), công thức tính biệt thức \\( \\Delta \\) là ...... .",
+    "correct": "\\( b^2 - 4ac \\)",
+    "wrong1": "\\( b^2 + 4ac \\)",
+    "wrong2": "\\( b - 4ac \\)",
+    "wrong3": "\\( 4ac - b^2 \\)"
+  },
+  {
+    "id": 7,
+    "content": "Nếu \\( \\Delta = 0 \\), phương trình bậc hai có ...... nghiệm kép.",
+    "correct": "một",
+    "wrong1": "hai",
+    "wrong2": "vô số",
+    "wrong3": "không có"
+  },
+  {
+    "id": 8,
+    "content": "Để phương trình \\( ax^2 + bx + c = 0 \\) (\\( a \\neq 0 \\)) có hai nghiệm phân biệt, điều kiện của biệt thức là ...... .",
+    "correct": "\\( \\Delta > 0 \\)",
+    "wrong1": "\\( \\Delta < 0 \\)",
+    "wrong2": "\\( \\Delta = 0 \\)",
+    "wrong3": "\\( \\Delta \\geq 0 \\)"
+  },
+  {
+    "id": 9,
+    "content": "Đường tròn đi qua ba đỉnh A, B, C của tam giác ABC gọi là đường tròn ...... tam giác ABC.",
+    "correct": "ngoại tiếp",
+    "wrong1": "nội tiếp",
+    "wrong2": "bàng tiếp",
+    "wrong3": "trung tuyến"
+  },
+  {
+    "id": 10,
+    "content": "Bán kính đường tròn ngoại tiếp tam giác vuông bằng nửa độ dài ...... .",
+    "correct": "cạnh huyền",
+    "wrong1": "cạnh góc vuông",
+    "wrong2": "đường cao",
+    "wrong3": "trung tuyến"
+  },
+  {
+    "id": 11,
+    "content": "Gọi r là khoảng cách từ tâm đường tròn nội tiếp đến một cạnh của tam giác. Khi đó khoảng cách từ tâm đường tròn này đến hai cạnh còn lại đều bằng ...... .",
+    "correct": "r",
+    "wrong1": "2r",
+    "wrong2": "\\( \\frac{r}{2} \\)",
+    "wrong3": "0"
+  },
+  {
+    "id": 12,
+    "content": "Trong một tam giác cân (không đều), tâm đường tròn ngoại tiếp và tâm đường tròn nội tiếp cùng nằm trên đường ...... của cạnh đáy.",
+    "correct": "trung trực",
+    "wrong1": "phân giác",
+    "wrong2": "trung tuyến",
+    "wrong3": "cao"
+  },
+  {
+    "id": 13,
+    "content": "Tứ giác ABCD nội tiếp đường tròn thì tổng số đo hai góc đối diện bằng ...... độ.",
+    "correct": "180",
+    "wrong1": "90",
+    "wrong2": "360",
+    "wrong3": "0"
+  },
+  {
+    "id": 14,
+    "content": "Cho tứ giác ABCD nội tiếp đường tròn tâm O. Nếu \\( \\widehat{BOD} = 100^\\circ \\) (góc ở tâm chắn cung nhỏ BD) thì số đo góc nội tiếp \\( \\widehat{BAD} \\) cùng chắn cung BD đó là ...... độ.",
+    "correct": "50",
+    "wrong1": "100",
+    "wrong2": "200",
+    "wrong3": "25"
+  },
+  {
+    "id": 15,
+    "content": "Cho hình thang ABCD (AB // CD). Để ABCD là tứ giác nội tiếp thì ABCD phải là hình ...... .",
+    "correct": "thang cân",
+    "wrong1": "bình hành",
+    "wrong2": "chữ nhật",
+    "wrong3": "vuông"
+  },
+  {
+    "id": 16,
+    "content": "Biết tứ giác ABCD nội tiếp một đường tròn và có \\( \\widehat{A} = 2\\widehat{C} \\). Khi đó số đo góc A bằng ...... độ.",
+    "correct": "120",
+    "wrong1": "60",
+    "wrong2": "90",
+    "wrong3": "180"
+  },
+  {
+    "id": 17,
+    "content": "Một đa giác đều có n cạnh thì số đo góc ở tâm chắn một cạnh của đa giác đó bằng ...... .",
+    "correct": "\\( \\frac{360^\\circ}{n} \\)",
+    "wrong1": "\\( \\frac{180^\\circ}{n} \\)",
+    "wrong2": "\\( \\frac{360^\\circ}{n-1} \\)",
+    "wrong3": "\\( \\frac{180^\\circ(n-2)}{n} \\)"
+  },
+  {
+    "id": 18,
+    "content": "Hình vuông có ...... tâm đối xứng và ...... trục đối xứng.",
+    "correct": "1 và 4",
+    "wrong1": "0 và 4",
+    "wrong2": "1 và 2",
+    "wrong3": "2 và 4"
+  },
+  {
+    "id": 19,
+    "content": "Cho điểm A(2;0) trong hệ trục tọa độ Oxy. Phép quay tâm O, góc quay 90° theo chiều dương (ngược chiều kim đồng hồ) biến điểm A thành điểm A' có tọa độ là ...... .",
+    "correct": "(0;2)",
+    "wrong1": "(0;-2)",
+    "wrong2": "(-2;0)",
+    "wrong3": "(2;0)"
+  },
+  {
+    "id": 20,
+    "content": "Để biến một ngũ giác đều thành hình chữ nhật (bằng cách cắt ghép) thì diện tích hình chữ nhật bằng ...... .",
+    "correct": "diện tích ngũ giác đều",
+    "wrong1": "chu vi ngũ giác đều",
+    "wrong2": "nửa diện tích ngũ giác đều",
+    "wrong3": "diện tích hình vuông"
+  },
+{
+    "id": 21,
+    "content": "Nghiệm của phương trình \\( x^2 - 5x + 6 = 0 \\) là ...... và ...... .",
+    "correct": "2 và 3",
+    "wrong1": "1 và 6",
+    "wrong2": "-2 và -3",
+    "wrong3": "0 và 6"
+  },
+  {
+    "id": 22,
+    "content": "Điểm \\( M(1; 2) \\) thuộc đồ thị hàm số \\( y = ax^2 \\) khi \\( a = \\) ...... .",
+    "correct": "2",
+    "wrong1": "1",
+    "wrong2": "0.5",
+    "wrong3": "-2"
+  },
+  {
+    "id": 23,
+    "content": "Phương trình \\( x^2 - 4 = 0 \\) có hai nghiệm là ...... và ...... .",
+    "correct": "2 và -2",
+    "wrong1": "0 và 4",
+    "wrong2": "4 và -4",
+    "wrong3": "1 và -1"
+  },
+  {
+    "id": 24,
+    "content": "Trong tam giác đều, tâm đường tròn ngoại tiếp và tâm đường tròn nội tiếp ...... .",
+    "correct": "trùng nhau",
+    "wrong1": "đối xứng nhau",
+    "wrong2": "cách nhau một khoảng",
+    "wrong3": "vuông góc với nhau"
+  },
+  {
+    "id": 25,
+    "content": "Nếu \\( \\Delta < 0 \\), phương trình bậc hai \\( ax^2 + bx + c = 0 \\) (a khác 0) có ...... nghiệm thực.",
+    "correct": "không có",
+    "wrong1": "một",
+    "wrong2": "hai",
+    "wrong3": "vô số"
+  },
+  {
+    "id": 26,
+    "content": "Góc nội tiếp chắn nửa đường tròn có số đo bằng ...... độ.",
+    "correct": "90",
+    "wrong1": "180",
+    "wrong2": "360",
+    "wrong3": "45"
+  },
+  {
+    "id": 27,
+    "content": "Hàm số \\( y = (m-1)x^2 \\) đồng biến khi \\( x > 0 \\) nếu \\( m \\) ...... .",
+    "correct": "> 1",
+    "wrong1": "< 1",
+    "wrong2": "= 1",
+    "wrong3": "= 0"
+  },
+  {
+    "id": 28,
+    "content": "Cho phương trình \\( 2x^2 - 3x + 1 = 0 \\). Tổng hai nghiệm của nó bằng ...... .",
+    "correct": "1.5",
+    "wrong1": "-1.5",
+    "wrong2": "0.5",
+    "wrong3": "1"
+  },
+  {
+    "id": 29,
+    "content": "Tứ giác có tổng hai góc đối bằng \\( 180^\\circ \\) thì tứ giác đó ...... đường tròn.",
+    "correct": "nội tiếp được",
+    "wrong1": "không nội tiếp được",
+    "wrong2": "là hình bình hành",
+    "wrong3": "là hình thang"
+  },
+  {
+    "id": 30,
+    "content": "Đường kính vuông góc với một dây cung thì ...... dây cung ấy.",
+    "correct": "đi qua trung điểm của",
+    "wrong1": "song song với",
+    "wrong2": "bằng",
+    "wrong3": "chia đôi góc ở tâm"
+  },
+  {
+    "id": 31,
+    "content": "Cho hình vuông cạnh a. Bán kính đường tròn ngoại tiếp hình vuông đó bằng ...... .",
+    "correct": "\\( \\frac{a\\sqrt{2}}{2} \\)",
+    "wrong1": "\\( \\frac{a}{2} \\)",
+    "wrong2": "\\( a \\sqrt{2} \\)",
+    "wrong3": "\\( a \\)"
+  },
+  {
+    "id": 32,
+    "content": "Trong hình tròn, góc ở tâm và góc nội tiếp cùng chắn một cung thì góc ở tâm ...... góc nội tiếp đó.",
+    "correct": "bằng hai lần",
+    "wrong1": "bằng",
+    "wrong2": "bằng nửa",
+    "wrong3": "phụ với"
+  },
+  {
+    "id": 33,
+    "content": "Đồ thị hàm số \\( y = -3x^2 \\) có bề lõm hướng ...... .",
+    "correct": "xuống dưới",
+    "wrong1": "lên trên",
+    "wrong2": "sang trái",
+    "wrong3": "sang phải"
+  },
+  {
+    "id": 34,
+    "content": "Bán kính đường tròn nội tiếp tam giác đều cạnh \\( a \\) là ...... .",
+    "correct": "\\( \\frac{a\\sqrt{3}}{6} \\)",
+    "wrong1": "\\( \\frac{a}{2} \\)",
+    "wrong2": "\\( a\\sqrt{3} \\)",
+    "wrong3": "\\( \\frac{a\\sqrt{3}}{3} \\)"
+  },
+  {
+    "id": 35,
+    "content": "Phương trình \\( mx^2 - 2x + 1 = 0 \\) là phương trình bậc hai khi \\( m \\) ...... .",
+    "correct": "\\( \\neq 0 \\)",
+    "wrong1": "\\( > 0 \\)",
+    "wrong2": "\\( = 0 \\)",
+    "wrong3": "\\( < 0 \\)"
+  },
+  {
+    "id": 36,
+    "content": "Hệ thức Vi-ét: Nếu \\( x_1, x_2 \\) là nghiệm của \\( ax^2 + bx + c = 0 \\) (a khác 0) thì \\( x_1 + x_2 = \\) ...... .",
+    "correct": "\\( -\\frac{b}{a} \\)",
+    "wrong1": "\\( \\frac{b}{a} \\)",
+    "wrong2": "\\( \\frac{c}{a} \\)",
+    "wrong3": "\\( -\\frac{c}{a} \\)"
+  },
+  {
+    "id": 37,
+    "content": "Điểm \\( N(-2; 4) \\) thuộc đồ thị hàm số \\( y = ax^2 \\). Khi đó \\( a = \\) ...... .",
+    "correct": "1",
+    "wrong1": "-1",
+    "wrong2": "2",
+    "wrong3": "0.5"
+  },
+  {
+    "id": 38,
+    "content": "Tổng bình phương hai nghiệm của phương trình \\( x^2 - 5x + 6 = 0 \\) là ...... .",
+    "correct": "13",
+    "wrong1": "25",
+    "wrong2": "11",
+    "wrong3": "5"
+  },
+  {
+    "id": 39,
+    "content": "Trong một đường tròn, các góc nội tiếp bằng nhau thì chắn các cung ...... .",
+    "correct": "bằng nhau",
+    "wrong1": "không bằng nhau",
+    "wrong2": "đối nhau",
+    "wrong3": "kề bù"
+  },
+  {
+    "id": 40,
+    "content": "Hàm số \\( y = (k+2)x^2 \\) nghịch biến khi \\( x > 0 \\) nếu \\( k \\) ...... .",
+    "correct": "< -2",
+    "wrong1": "> -2",
+    "wrong2": "= -2",
+    "wrong3": "= 0"
+  },
+  {
+    "id": 41,
+    "content": "Cho tam giác ABC vuông tại A, đường cao AH. Khi đó \\( AB^2 = \\) ...... .",
+    "correct": "\\( BH \\cdot BC \\)",
+    "wrong1": "\\( AH \\cdot BC \\)",
+    "wrong2": "\\( CH \\cdot BC \\)",
+    "wrong3": "\\( AC \\cdot BC \\)"
+  },
+  {
+    "id": 42,
+    "content": "Phương trình \\( 3x^2 - 4x + 1 = 0 \\) có tích hai nghiệm bằng ...... .",
+    "correct": "\\( \\frac{1}{3} \\)",
+    "wrong1": "\\( \\frac{4}{3} \\)",
+    "wrong2": "1",
+    "wrong3": "3"
+  },
+  {
+    "id": 43,
+    "content": "Hình chữ nhật có tâm đối xứng là giao điểm của ...... .",
+    "correct": "hai đường chéo",
+    "wrong1": "hai đường trung trực",
+    "wrong2": "hai đường phân giác",
+    "wrong3": "hai đường cao"
+  },
+  {
+    "id": 44,
+    "content": "Số giao điểm của đồ thị hàm số \\( y = 2x^2 \\) và đường thẳng \\( y = -3 \\) là ...... .",
+    "correct": "0",
+    "wrong1": "1",
+    "wrong2": "2",
+    "wrong3": "vô số"
+  },
+  {
+    "id": 45,
+    "content": "Đa giác đều có số đo mỗi góc trong bằng \\( 135^\\circ \\) thì số cạnh là ...... .",
+    "correct": "8",
+    "wrong1": "6",
+    "wrong2": "10",
+    "wrong3": "12"
+  },
+  {
+    "id": 46,
+    "content": "Cho \\( \\sin \\alpha = \\frac{1}{2} \\). Khi đó \\( \\alpha = \\) ...... độ (với \\( 0^\\circ < \\alpha < 90^\\circ \\)).",
+    "correct": "30",
+    "wrong1": "45",
+    "wrong2": "60",
+    "wrong3": "90"
+  },
+  {
+    "id": 47,
+    "content": "Phương trình đường thẳng đi qua gốc tọa độ và điểm \\( A(1; 3) \\) là \\( y = \\) ...... .",
+    "correct": "3x",
+    "wrong1": "\\( \\frac{1}{3}x \\)",
+    "wrong2": "x",
+    "wrong3": "x + 2"
+  },
+  {
+    "id": 48,
+    "content": "Tâm đường tròn ngoại tiếp tam giác vuông là trung điểm của ...... .",
+    "correct": "cạnh huyền",
+    "wrong1": "cạnh góc vuông",
+    "wrong2": "đường cao",
+    "wrong3": "đường trung tuyến"
+  }
+]
 },
 'T9HK2': {
     P1: [{ id: 1, content: "Hệ \\(\\begin{cases} 2x - y = -5 \\\\ x - y = -3 \\end{cases}\\) nghiệm", correct: "(-2;1)", wrong1: "(2;-1)", wrong2: "(2;1)", wrong3: "(-2;-1)" }],
@@ -722,7 +3952,7 @@ let userAnswers = {};
 let testStartTime = null;
 let testSubmitTime = null;
 let timerInterval = null;
-let timeLeft = 600; // 10 phút
+let timeLeft = 1200; // 20 phút (Cập nhật từ 600 lên 1200)
 let currentTestCode = '';
 let currentQuestions = [];
 let studentName = '';
@@ -756,16 +3986,12 @@ const j = Math.floor(Math.random() * (i + 1));
 return array;
 }
 
-// Hàm chuyển đổi dữ liệu thô sang định dạng hiển thị
 function convertQuestionToDisplayFormat(question, partType) {
     const labels = ['A', 'B', 'C', 'D'];
     let options = [];
     let correctAnswer = '';
 
-    // Xử lý P2 (Đúng/Sai)
     if (partType === 'P2') {
-        // Câu hỏi Đúng/Sai luôn có 2 đáp án cố định là A: Đúng, B: Sai
-        // Dữ liệu đầu vào: correct = "Đúng" hoặc "Sai"
         const isTrue = question.correct === "Đúng";
         
         options = [
@@ -773,17 +3999,15 @@ function convertQuestionToDisplayFormat(question, partType) {
             { id: 'B', text: 'Sai' }
         ];
         
-        // Đáp án đúng là A nếu nội dung là Đúng, ngược lại là B
         correctAnswer = isTrue ? 'A' : 'B';
     } 
-    // Xử lý P1 và P3 (Trắc nghiệm & Điền khuyết - cấu trúc giống nhau)
     else {
         const allChoices = [
             { text: question.correct, isCorrect: true },
             { text: question.wrong1, isCorrect: false },
             { text: question.wrong2, isCorrect: false },
             { text: question.wrong3, isCorrect: false }
-        ].filter(c => c.text && c.text.trim() !== ""); // Lọc bỏ đáp án rỗng nếu có
+        ].filter(c => c.text && c.text.trim() !== "");
 
         const shuffledChoices = shuffleArray([...allChoices]);
         const correctChoice = shuffledChoices.find(choice => choice.isCorrect);
@@ -796,12 +4020,11 @@ function convertQuestionToDisplayFormat(question, partType) {
         });
     }
 
-    // Tạo ID duy nhất để tránh trùng lặp giữa các phần (Ví dụ: P1-1, P2-1)
     const uniqueId = `${partType}-${question.id}`;
 
     return {
         id: uniqueId,
-        originalId: question.id, // Giữ lại ID gốc để hiển thị nếu cần
+        originalId: question.id, 
         partType: partType,
         content: question.content,
         options: options,
@@ -809,38 +4032,28 @@ function convertQuestionToDisplayFormat(question, partType) {
     };
 }
 
-// Hàm lấy câu hỏi ngẫu nhiên theo logic mới
 function getRandomQuestions(code) {
     const bank = questionBanks[code];
     if (!bank) return [];
 
     let finalQuestions = [];
     
-    // Hàm con để xử lý từng phần
     const processPart = (partData, countNeeded, partType) => {
         if (!partData || partData.length === 0) return [];
         
-        // Xáo trộn và lấy số lượng cần thiết (hoặc tất cả nếu ít hơn)
         const shuffled = shuffleArray([...partData]);
         const selected = shuffled.slice(0, Math.min(countNeeded, shuffled.length));
         
-        // Chuyển đổi định dạng
         return selected.map(q => convertQuestionToDisplayFormat(q, partType));
     };
 
-    // 1. Lấy 4 câu từ P1
-    const p1Questions = processPart(bank.P1, 4, 'P1');
-    
-    // 2. Lấy 4 câu từ P2
-    const p2Questions = processPart(bank.P2, 4, 'P2');
-    
-    // 3. Lấy 2 câu từ P3
-    const p3Questions = processPart(bank.P3, 2, 'P3');
+    // CẤU HÌNH MỚI: 8 câu P1, 8 câu P2, 4 câu P3
+    const p1Questions = processPart(bank.P1, 8, 'P1');
+    const p2Questions = processPart(bank.P2, 8, 'P2');
+    const p3Questions = processPart(bank.P3, 4, 'P3');
 
-    // Ghép lại theo thứ tự: P1 -> P2 -> P3
     finalQuestions = [...p1Questions, ...p2Questions, ...p3Questions];
 
-    // Gán số thứ tự hiển thị (Display Order)
     finalQuestions.forEach((q, index) => {
         q.displayOrder = index + 1;
     });
@@ -856,7 +4069,6 @@ if (!studentName) { alert('Vui lòng nhập họ và tên!'); return; }
 if (!grade || !term) { alert('Vui lòng chọn lớp và kỳ ôn tập!'); return; }
 if (studentName.length > 40) { alert('Họ và tên không được vượt quá 40 ký tự!'); return; }
 
-// Lấy câu hỏi theo logic mới
 currentQuestions = getRandomQuestions(currentTestCode);
 
 if (currentQuestions.length === 0) {
@@ -865,7 +4077,7 @@ if (currentQuestions.length === 0) {
 }
 
 userAnswers = {};
-timeLeft = 600;
+timeLeft = 1200; // Reset thời gian về 20 phút
 testStartTime = new Date();
 currentQuestionIndex = 0;
 isTransitioning = false;
@@ -898,6 +4110,10 @@ document.getElementById('timer').textContent = `${minutes.toString().padStart(2,
 if (timeLeft <= 60) {
 document.getElementById('timer').style.color = '#e74c3c';
 document.getElementById('timer').style.backgroundColor = '#ffebee';
+} else {
+    // Reset màu khi còn nhiều thời gian
+    document.getElementById('timer').style.color = '#e74c3c';
+    document.getElementById('timer').style.backgroundColor = '#f9f9f9';
 }
 }
 
@@ -920,12 +4136,10 @@ const container = document.getElementById('current-question-container');
 const question = currentQuestions[currentQuestionIndex];
 let optionsHTML = '';
 
-// Hiển thị các đáp án
 question.options.forEach(option => {
 optionsHTML += `<li class="option" data-question="${question.id}" data-option="${option.id}"><div class="math-container"><strong>${option.id}.</strong> ${option.text}</div></li>`;
 });
 
-// Tạo badge tên phần
 const partLabel = question.partType === 'P1' ? 'Phần 1' : (question.partType === 'P2' ? 'Phần 2 (Đ/S)' : 'Phần 3 (Điền)');
 
 container.innerHTML = `
@@ -986,7 +4200,6 @@ const scoreChart = document.getElementById('score-chart');
 const color = getScoreColor(percentage);
 scoreChart.style.background = `conic-gradient(${color} ${percentage}%, #eee ${percentage}% 100%)`;
 document.getElementById('score-percentage').textContent = `${percentage}%`;
-// Sử dụng currentQuestions.length làm mẫu số (số câu thực tế lấy được)
 document.getElementById('score-detail').textContent = `${correctCount}/${currentQuestions.length}`;
 document.getElementById('result-date').textContent = `${testSubmitTime.getDate().toString().padStart(2, '0')}/${(testSubmitTime.getMonth() + 1).toString().padStart(2, '0')}/${testSubmitTime.getFullYear()}`;
 document.getElementById('start-time-hms').textContent = formatTimeHMS(testStartTime);
@@ -1020,8 +4233,12 @@ const container = document.getElementById('review-list');
 container.innerHTML = '';
 currentQuestions.forEach(question => {
 const userAnswer = userAnswers[question.id];
+
+// Ẩn các câu chưa làm
+if (!userAnswer) return;
+
 const isCorrect = userAnswer === question.correctAnswer;
-const isUnanswered = !userAnswer;
+const isUnanswered = !userAnswer; 
 let statusClass = isUnanswered ? 'unanswered' : (isCorrect ? 'correct' : 'incorrect');
 let optionsHTML = '';
 question.options.forEach(option => {
@@ -1038,7 +4255,6 @@ if (window.MathJax) setTimeout(() => MathJax.typesetPromise(), 300);
 }
 
 function retryTest() {
-// Gọi lại hàm lấy câu hỏi ngẫu nhiên mới
 currentQuestions = getRandomQuestions(currentTestCode);
 if (currentQuestions.length === 0) {
     alert('Kho đề này hiện đang trống.');
@@ -1046,7 +4262,7 @@ if (currentQuestions.length === 0) {
     return;
 }
 userAnswers = {};
-timeLeft = 600;
+timeLeft = 1200; // Reset 20 phút
 testStartTime = new Date();
 currentQuestionIndex = 0;
 isTransitioning = false;
