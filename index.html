@@ -201,13 +201,11 @@
 
         /* --- Report Screen Styles (REDESIGNED) --- */
         #reportScreen .main-title {
-            /* Giảm 20% kích thước font so với gốc (22px -> ~18px) */
             font-size: 18px;
             margin-bottom: 5px;
         }
 
         #reportScreen .sub-title {
-            /* Giảm 20% kích thước font so với gốc (18px -> ~14px) */
             font-size: 14px;
             margin-bottom: 5px;
         }
@@ -217,22 +215,23 @@
             margin-bottom: 15px;
         }
 
-        /* Container chính cho 2 ô lớn */
+        /* Container chính cho 2 ô lớn - Đảm bảo nằm 1 hàng */
         .report-top-section {
             display: flex;
-            flex-wrap: wrap; /* Cho phép xuống dòng nếu màn hình quá nhỏ */
-            gap: 15px;
+            flex-wrap: nowrap; /* QUAN TRỌNG: Không cho xuống dòng */
+            gap: 10px;
             margin-bottom: 20px;
+            overflow-x: hidden; /* Ẩn thanh cuộn nếu nội dung quá dài, ép co nội dung */
         }
 
-        /* Ô 1: Biểu đồ tròn và thông tin chính */
+        /* Ô 1: Biểu đồ tròn & Thông tin */
         .report-box-1 {
             flex: 1;
-            min-width: 250px;
+            min-width: 0; /* Cho phép flexbox co nhỏ nội dung bên trong */
             background-color: #f8f9fa;
             border: 1px solid #e9ecef;
             border-radius: 10px;
-            padding: 15px;
+            padding: 10px; /* Giảm padding trên mobile */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -244,23 +243,27 @@
         .report-student-name {
             font-weight: bold;
             color: #5b21b6; /* Xanh tím */
-            font-size: 16px;
-            margin-bottom: 10px;
+            font-size: 14px; /* Giảm nhẹ font */
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
         }
 
         /* Biểu đồ tròn */
         .pie-chart-container {
             position: relative;
-            width: 140px;
-            height: 140px;
-            margin-bottom: 10px;
+            width: 120px; /* Giảm kích thước biểu đồ cho mobile */
+            height: 120px;
+            margin-bottom: 5px;
+            flex-shrink: 0; /* Giữ tỷ lệ hình tròn */
         }
 
         .pie-chart {
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            /* Gradient sẽ được set bằng JS */
             background: conic-gradient(var(--chart-color, #ddd) 0% 0%, #eee 0% 100%);
             display: flex;
             align-items: center;
@@ -279,15 +282,15 @@
         }
 
         .pie-percentage {
-            font-size: 24px;
+            font-size: 20px; /* Giảm font */
             font-weight: bold;
             color: #333;
             line-height: 1;
         }
 
         .pie-score {
-            margin-top: 4px;
-            font-size: 14px; /* 60% của 24px */
+            margin-top: 2px;
+            font-size: 12px; /* 60% của 20px */
             color: #555;
         }
 
@@ -295,25 +298,25 @@
         .report-date {
             font-weight: bold;
             color: #000;
-            font-size: 14px; /* Bằng kích thước số câu làm đúng */
-            margin-top: 5px;
+            font-size: 12px; 
+            margin-top: 2px;
         }
 
         /* Ô 2: Lưới 2x2 */
         .report-box-2 {
             flex: 1;
-            min-width: 250px;
+            min-width: 0; /* Cho phép co nhỏ */
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-rows: 1fr 1fr;
-            gap: 10px;
+            gap: 5px; /* Giảm khoảng cách */
         }
 
         .stat-mini-box {
             background-color: #fff;
             border: 1px solid #e9ecef;
             border-radius: 8px;
-            padding: 10px;
+            padding: 5px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -322,15 +325,16 @@
         }
 
         .stat-label {
-            font-size: 12px;
+            font-size: 10px; /* Giảm font chữ tiêu đề để vừa ô nhỏ */
             color: #666;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             text-transform: uppercase;
+            white-space: nowrap; /* Không xuống dòng */
         }
 
         .stat-value {
             font-weight: bold;
-            font-size: 16px;
+            font-size: 13px; /* Giảm font giá trị */
         }
 
         .stat-time-start { color: #16a34a; } /* Xanh lá */
@@ -338,8 +342,14 @@
         .stat-total-time { color: #2563eb; } /* Blue */
 
         /* Styling cho chuỗi Số câu sai / chưa làm / tổng */
+        .detailed-count {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
         .detailed-count span {
-            margin: 0 2px;
+            margin: 0;
+            font-size: 12px;
         }
         .count-wrong { color: #dc2626; }
         .count-unanswered { color: #f97316; } /* Cam */
@@ -565,15 +575,20 @@
         .contact-link { color: #0066cc; text-decoration: none; }
         .contact-link:hover { text-decoration: underline; }
         
-        /* Responsive Report Grid */
-        @media (max-width: 500px) {
-            .report-top-section {
-                flex-direction: column;
-            }
-            .report-box-2 {
-                grid-template-columns: 1fr; /* Stack 2x2 to 1x4 on very small screens if needed, but user asked for 2x2 layout inside box 2. Let's keep 2x2 but ensure it fits. */
-                /* Force 2x2 even on mobile as requested "chia làm 4 ô nhỏ (2x2)" */
-            }
+        /* Responsive điều chỉnh lại cho màn hình lớn hơn để đẹp hơn */
+        @media (min-width: 481px) {
+            .pie-chart-container { width: 140px; height: 140px; }
+            .pie-percentage { font-size: 24px; }
+            .pie-score { font-size: 14px; }
+            .report-date { font-size: 14px; }
+            .report-student-name { font-size: 16px; }
+            
+            .stat-label { font-size: 12px; }
+            .stat-value { font-size: 16px; }
+            .detailed-count span { font-size: 14px; }
+            
+            .report-box-1 { padding: 15px; }
+            .stat-mini-box { padding: 10px; }
         }
     </style>
 </head>
@@ -748,9 +763,9 @@
                         <div class="stat-value stat-time-end" id="statEndTime">00:00:00</div>
                     </div>
                     
-                    <!-- Cột 2, Ô trên: Tổng thời gian -->
+                    <!-- Cột 2, Ô trên: Thời gian (Đổi tên từ Tổng thời gian) -->
                     <div class="stat-mini-box">
-                        <div class="stat-label">Tổng thời gian</div>
+                        <div class="stat-label">Thời gian</div>
                         <div class="stat-value stat-total-time" id="statTotalTime">0p 0s</div>
                     </div>
                     
@@ -1620,7 +1635,7 @@
             const endS = String(endTime.getSeconds()).padStart(2, '0');
             document.getElementById('statEndTime').textContent = `${endH}:${endM}:${endS}`;
             
-            // Tổng thời gian - Blue
+            // Thời gian (Đổi tên) - Blue
             const totalTimeInSeconds = Math.floor((endTime - startTime) / 1000);
             const totalMinutes = Math.floor(totalTimeInSeconds / 60);
             const totalSeconds = totalTimeInSeconds % 60;
