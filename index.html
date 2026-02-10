@@ -215,10 +215,10 @@
             margin-bottom: 15px;
         }
 
-        /* Container chính cho 2 ô lớn - Đảm bảo nằm 1 hàng */
+        /* Container chính cho 2 ô lớn */
         .report-top-section {
             display: flex;
-            flex-wrap: nowrap; /* QUAN TRỌNG: Không cho xuống dòng */
+            flex-wrap: nowrap;
             gap: 10px;
             margin-bottom: 20px;
             overflow-x: hidden;
@@ -239,12 +239,11 @@
             text-align: center;
         }
 
-        /* Tên người làm bài - Tăng 30% */
+        /* Tên người làm bài */
         .report-student-name {
             font-weight: bold;
             color: #5b21b6;
-            /* Desktop: 16px * 1.3 = 21px */
-            font-size: 21px;
+            font-size: 21px; /* Desktop size */
             margin-bottom: 5px;
             white-space: nowrap;
             overflow: hidden;
@@ -277,23 +276,41 @@
             background-color: #fff;
             border-radius: 50%;
             display: flex;
-            flex-direction: column;
+            flex-direction: column; /* Chia cột dọc */
+            overflow: hidden; /* Đảm bảo nội dung không tràn khỏi hình tròn */
+        }
+
+        /* Khu vực trên: Khoảng trắng */
+        .pie-top-section {
+            flex: 1; /* Chiếm 1/3 chiều cao */
+        }
+
+        /* Khu vực giữa: Phần trăm */
+        .pie-middle-section {
+            flex: 1; /* Chiếm 1/3 chiều cao */
+            display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        /* Phần trăm - Tăng 30% và đổi màu theo biểu đồ */
+        /* Khu vực dưới: Điểm số */
+        .pie-bottom-section {
+            flex: 1; /* Chiếm 1/3 chiều cao */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Phần trăm */
         .pie-percentage {
-            /* Desktop: 24px * 1.3 = 31.2px */
-            font-size: 31px;
+            font-size: 31px; /* Desktop size */
             font-weight: bold;
-            color: #333; /* Màu mặc định, sẽ bị JS ghi đè */
+            color: #333;
             line-height: 1;
         }
 
-        /* Điểm số - Đổi màu xanh lá cây đậm */
+        /* Điểm số */
         .pie-score {
-            margin-top: 2px;
             font-size: 14px;
             color: #006400; /* Xanh lá cây đậm */
             font-weight: bold;
@@ -359,7 +376,7 @@
         .count-unanswered { color: #f97316; }
         .count-total { color: #000000; }
 
-        /* --- Report Chart & List (UPDATED) --- */
+        /* --- Report Chart & List --- */
         .chart-container {
             margin-bottom: 15px;
         }
@@ -405,7 +422,6 @@
         .part-progress-bar.excellent { background-color: #1890ff; }
         .part-progress-bar.perfect { background-color: #722ed1; }
 
-        /* Hàng thông số cho biểu đồ nhỏ */
         .part-stats-row {
             display: flex;
             justify-content: space-between;
@@ -594,7 +610,6 @@
         /* Responsive điều chỉnh lại cho màn hình lớn hơn để đẹp hơn */
         @media (min-width: 481px) {
             .pie-chart-container { width: 140px; height: 140px; }
-            /* Desktop: 24px * 1.3 = 31px */
             .pie-percentage { font-size: 31px; }
             .pie-score { font-size: 14px; }
             .report-date { font-size: 14px; }
@@ -609,12 +624,8 @@
 
         /* Mobile Responsive (dưới 480px) */
         @media (max-width: 480px) {
-            /* Mobile: 14px * 1.3 = 18.2px -> 18px */
             .report-student-name { font-size: 18px; }
-            
-            /* Mobile: 20px * 1.3 = 26px */
             .pie-percentage { font-size: 26px; }
-            
             .part-stats-row { font-size: 12px; }
         }
     </style>
@@ -757,7 +768,7 @@
                 <p id="cheatingWarning" style="color: #f5222d; font-weight: bold; display: none; text-align: center; margin-bottom: 15px;">⚠️ Đã phát hiện hành vi gian lận!</p>
             </div>
             
-            <!-- KHU VỰC BÁO CÁO MỚI -->
+            <!-- KHU VỰC BÁO CÁO -->
             <div class="report-top-section">
                 
                 <!-- Ô 1: Biểu đồ tròn & Thông tin -->
@@ -767,8 +778,18 @@
                     <div class="pie-chart-container">
                         <div class="pie-chart" id="resultPieChart">
                             <div class="pie-inner">
-                                <div class="pie-percentage" id="piePercentage">0%</div>
-                                <div class="pie-score" id="pieScore">0/0</div>
+                                <!-- Phần trên: Khoảng trắng (1/3) -->
+                                <div class="pie-top-section"></div>
+                                
+                                <!-- Phần giữa: Phần trăm (1/3) -->
+                                <div class="pie-middle-section">
+                                    <div class="pie-percentage" id="piePercentage">0%</div>
+                                </div>
+                                
+                                <!-- Phần dưới: Điểm số (1/3) -->
+                                <div class="pie-bottom-section">
+                                    <div class="pie-score" id="pieScore">0/0</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -808,7 +829,7 @@
                 </div>
                 
             </div>
-            <!-- KẾT THÚC KHU VỰC BÁO CÁO MỚI -->
+            <!-- KẾT THÚC KHU VỰC BÁO CÁO -->
 
             
             <div class="chart-container">
@@ -1626,8 +1647,6 @@
             
             const result = calculateResult();
             
-            // --- CẬP NHẬ GIAO DIỆN MỚI ---
-            
             // 1. Biểu đồ tròn (Ô 1)
             const pieChart = document.getElementById('resultPieChart');
             const percentage = result.correctPercentage;
@@ -1682,8 +1701,6 @@
             document.getElementById('countUnanswered').textContent = unansweredCount;
             document.getElementById('countTotal').textContent = result.totalCount;
             
-            // --- KẾT THÚC CẬP NHẬT GIAO DIỆN MỚI ---
-
             displayResultChart(result.partResults);
             displayQuestionList(result.partResults);
         }
@@ -1742,8 +1759,6 @@
                 else if (result.percentage >= 50) progressClass = 'medium';
                 else progressClass = 'low';
                 
-                // Hiển thị: Tên -> Thanh tiến trình -> Hàng thông số (Số câu | %)
-                // Đã bỏ chữ "câu" theo yêu cầu
                 partDiv.innerHTML = `
                     <div class="part-name">Phần ${partNumber}</div>
                     <div class="part-progress">
