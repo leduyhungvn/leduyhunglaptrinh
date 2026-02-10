@@ -1626,7 +1626,7 @@
             
             const result = calculateResult();
             
-            // --- CẬP NHẬT GIAO DIỆN MỚI ---
+            // --- CẬP NHẬ GIAO DIỆN MỚI ---
             
             // 1. Biểu đồ tròn (Ô 1)
             const pieChart = document.getElementById('resultPieChart');
@@ -1743,13 +1743,14 @@
                 else progressClass = 'low';
                 
                 // Hiển thị: Tên -> Thanh tiến trình -> Hàng thông số (Số câu | %)
+                // Đã bỏ chữ "câu" theo yêu cầu
                 partDiv.innerHTML = `
                     <div class="part-name">Phần ${partNumber}</div>
                     <div class="part-progress">
                         <div class="part-progress-bar ${progressClass}" style="width: ${result.percentage}%"></div>
                     </div>
                     <div class="part-stats-row">
-                        <span class="part-count">${result.totalCount} câu</span>
+                        <span class="part-count">${result.totalCount}</span>
                         <span class="part-percentage">${result.percentage}%</span>
                     </div>
                 `;
