@@ -301,9 +301,9 @@
             justify-content: center;
         }
 
-        /* Phần trăm */
+        /* Phần trăm - Đã tăng 10% (31px -> 34.1px) */
         .pie-percentage {
-            font-size: 31px; /* Desktop size */
+            font-size: 34.1px;
             font-weight: bold;
             color: #333;
             line-height: 1;
@@ -610,7 +610,7 @@
         /* Responsive điều chỉnh lại cho màn hình lớn hơn để đẹp hơn */
         @media (min-width: 481px) {
             .pie-chart-container { width: 140px; height: 140px; }
-            .pie-percentage { font-size: 31px; }
+            .pie-percentage { font-size: 34.1px; } /* Desktop: 31px + 10% */
             .pie-score { font-size: 14px; }
             .report-date { font-size: 14px; }
             
@@ -625,7 +625,8 @@
         /* Mobile Responsive (dưới 480px) */
         @media (max-width: 480px) {
             .report-student-name { font-size: 18px; }
-            .pie-percentage { font-size: 26px; }
+            /* Mobile: 26px + 10% = 28.6px */
+            .pie-percentage { font-size: 28.6px; }
             .part-stats-row { font-size: 12px; }
         }
     </style>
