@@ -199,7 +199,7 @@
             margin-top: 15px;
         }
 
-        /* --- Report Screen Styles (REDESIGNED) --- */
+        /* --- Report Screen Styles (UPDATED) --- */
         #reportScreen .main-title {
             font-size: 18px;
             margin-bottom: 5px;
@@ -221,17 +221,17 @@
             flex-wrap: nowrap; /* QUAN TRỌNG: Không cho xuống dòng */
             gap: 10px;
             margin-bottom: 20px;
-            overflow-x: hidden; /* Ẩn thanh cuộn nếu nội dung quá dài, ép co nội dung */
+            overflow-x: hidden;
         }
 
         /* Ô 1: Biểu đồ tròn & Thông tin */
         .report-box-1 {
             flex: 1;
-            min-width: 0; /* Cho phép flexbox co nhỏ nội dung bên trong */
+            min-width: 0;
             background-color: #f8f9fa;
             border: 1px solid #e9ecef;
             border-radius: 10px;
-            padding: 10px; /* Giảm padding trên mobile */
+            padding: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -239,11 +239,12 @@
             text-align: center;
         }
 
-        /* Tên người làm bài */
+        /* Tên người làm bài - Tăng 30% */
         .report-student-name {
             font-weight: bold;
-            color: #5b21b6; /* Xanh tím */
-            font-size: 14px; /* Giảm nhẹ font */
+            color: #5b21b6;
+            /* Desktop: 16px * 1.3 = 21px */
+            font-size: 21px;
             margin-bottom: 5px;
             white-space: nowrap;
             overflow: hidden;
@@ -254,10 +255,10 @@
         /* Biểu đồ tròn */
         .pie-chart-container {
             position: relative;
-            width: 120px; /* Giảm kích thước biểu đồ cho mobile */
+            width: 120px;
             height: 120px;
             margin-bottom: 5px;
-            flex-shrink: 0; /* Giữ tỷ lệ hình tròn */
+            flex-shrink: 0;
         }
 
         .pie-chart {
@@ -276,40 +277,44 @@
             background-color: #fff;
             border-radius: 50%;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            flex-direction: column;
         }
 
+        /* Phần trăm - Tăng 30% và đổi màu theo biểu đồ */
         .pie-percentage {
-            font-size: 20px; /* Giảm font */
+            /* Desktop: 24px * 1.3 = 31.2px */
+            font-size: 31px;
             font-weight: bold;
-            color: #333;
+            color: #333; /* Màu mặc định, sẽ bị JS ghi đè */
             line-height: 1;
         }
 
+        /* Điểm số - Đổi màu xanh lá cây đậm */
         .pie-score {
             margin-top: 2px;
-            font-size: 12px; /* 60% của 20px */
-            color: #555;
+            font-size: 14px;
+            color: #006400; /* Xanh lá cây đậm */
+            font-weight: bold;
         }
 
         /* Ngày tháng năm */
         .report-date {
             font-weight: bold;
             color: #000;
-            font-size: 12px; 
+            font-size: 12px;
             margin-top: 2px;
         }
 
         /* Ô 2: Lưới 2x2 */
         .report-box-2 {
             flex: 1;
-            min-width: 0; /* Cho phép co nhỏ */
+            min-width: 0;
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-rows: 1fr 1fr;
-            gap: 5px; /* Giảm khoảng cách */
+            gap: 5px;
         }
 
         .stat-mini-box {
@@ -325,23 +330,22 @@
         }
 
         .stat-label {
-            font-size: 10px; /* Giảm font chữ tiêu đề để vừa ô nhỏ */
+            font-size: 10px;
             color: #666;
             margin-bottom: 2px;
             text-transform: uppercase;
-            white-space: nowrap; /* Không xuống dòng */
+            white-space: nowrap;
         }
 
         .stat-value {
             font-weight: bold;
-            font-size: 13px; /* Giảm font giá trị */
+            font-size: 13px;
         }
 
-        .stat-time-start { color: #16a34a; } /* Xanh lá */
-        .stat-time-end { color: #dc2626; } /* Đỏ */
-        .stat-total-time { color: #2563eb; } /* Blue */
+        .stat-time-start { color: #16a34a; }
+        .stat-time-end { color: #dc2626; }
+        .stat-total-time { color: #2563eb; }
 
-        /* Styling cho chuỗi Số câu sai / chưa làm / tổng */
         .detailed-count {
             display: flex;
             align-items: center;
@@ -352,10 +356,10 @@
             font-size: 12px;
         }
         .count-wrong { color: #dc2626; }
-        .count-unanswered { color: #f97316; } /* Cam */
+        .count-unanswered { color: #f97316; }
         .count-total { color: #000000; }
 
-        /* --- Report Chart & List (Styles giữ nguyên) --- */
+        /* --- Report Chart & List (UPDATED) --- */
         .chart-container {
             margin-bottom: 15px;
         }
@@ -401,11 +405,23 @@
         .part-progress-bar.excellent { background-color: #1890ff; }
         .part-progress-bar.perfect { background-color: #722ed1; }
 
-        .part-percentage {
-            text-align: center;
-            margin-top: 3px;
-            font-weight: bold;
+        /* Hàng thông số cho biểu đồ nhỏ */
+        .part-stats-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
             font-size: 13px;
+            font-weight: bold;
+        }
+
+        .part-count {
+            text-align: left;
+            color: #555;
+        }
+
+        .part-percentage {
+            text-align: right;
         }
 
         .question-list {
@@ -578,10 +594,10 @@
         /* Responsive điều chỉnh lại cho màn hình lớn hơn để đẹp hơn */
         @media (min-width: 481px) {
             .pie-chart-container { width: 140px; height: 140px; }
-            .pie-percentage { font-size: 24px; }
+            /* Desktop: 24px * 1.3 = 31px */
+            .pie-percentage { font-size: 31px; }
             .pie-score { font-size: 14px; }
             .report-date { font-size: 14px; }
-            .report-student-name { font-size: 16px; }
             
             .stat-label { font-size: 12px; }
             .stat-value { font-size: 16px; }
@@ -589,6 +605,17 @@
             
             .report-box-1 { padding: 15px; }
             .stat-mini-box { padding: 10px; }
+        }
+
+        /* Mobile Responsive (dưới 480px) */
+        @media (max-width: 480px) {
+            /* Mobile: 14px * 1.3 = 18.2px -> 18px */
+            .report-student-name { font-size: 18px; }
+            
+            /* Mobile: 20px * 1.3 = 26px */
+            .pie-percentage { font-size: 26px; }
+            
+            .part-stats-row { font-size: 12px; }
         }
     </style>
 </head>
@@ -718,7 +745,7 @@
         </div>
     </div>
 
-    <!-- Giao diện báo cáo (ĐÃ THIẾT KẾ LẠI) -->
+    <!-- Giao diện báo cáo -->
     <div id="reportScreen" class="screen" style="display: none;">
         <div class="container">
             <div class="report-header">
@@ -763,7 +790,7 @@
                         <div class="stat-value stat-time-end" id="statEndTime">00:00:00</div>
                     </div>
                     
-                    <!-- Cột 2, Ô trên: Thời gian (Đổi tên từ Tổng thời gian) -->
+                    <!-- Cột 2, Ô trên: Thời gian -->
                     <div class="stat-mini-box">
                         <div class="stat-label">Thời gian</div>
                         <div class="stat-value stat-total-time" id="statTotalTime">0p 0s</div>
@@ -1614,7 +1641,11 @@
             pieChart.style.setProperty('--percent', `${percentage}%`);
             pieChart.style.background = `conic-gradient(${color} 0% ${percentage}%, #eee ${percentage}% 100%)`;
             
-            document.getElementById('piePercentage').textContent = `${percentage}%`;
+            // Áp dụng màu cho phần trăm
+            const piePercentageEl = document.getElementById('piePercentage');
+            piePercentageEl.textContent = `${percentage}%`;
+            piePercentageEl.style.color = color;
+            
             document.getElementById('pieScore').textContent = `${result.correctCount}/${result.totalCount}`;
             
             // Format ngày tháng: DD/MM/YYYY
@@ -1635,14 +1666,13 @@
             const endS = String(endTime.getSeconds()).padStart(2, '0');
             document.getElementById('statEndTime').textContent = `${endH}:${endM}:${endS}`;
             
-            // Thời gian (Đổi tên) - Blue
+            // Thời gian - Blue
             const totalTimeInSeconds = Math.floor((endTime - startTime) / 1000);
             const totalMinutes = Math.floor(totalTimeInSeconds / 60);
             const totalSeconds = totalTimeInSeconds % 60;
             document.getElementById('statTotalTime').textContent = `${totalMinutes}p ${totalSeconds}s`;
             
             // Chi tiết: Sai / Chưa làm / Tổng
-            // Tính toán số câu sai và chưa làm
             let answeredCount = 0;
             for (let key in selectedAnswers) { if (selectedAnswers[key] !== undefined) answeredCount++; }
             const wrongCount = answeredCount - result.correctCount;
@@ -1703,6 +1733,7 @@
                 const partName = getPartName(partKey);
                 const partDiv = document.createElement('div');
                 partDiv.className = 'part-result';
+                
                 let progressClass = '';
                 if (result.percentage === 100) progressClass = 'perfect';
                 else if (result.percentage >= 90) progressClass = 'excellent';
@@ -1710,12 +1741,17 @@
                 else if (result.percentage >= 70) progressClass = 'high';
                 else if (result.percentage >= 50) progressClass = 'medium';
                 else progressClass = 'low';
+                
+                // Hiển thị: Tên -> Thanh tiến trình -> Hàng thông số (Số câu | %)
                 partDiv.innerHTML = `
                     <div class="part-name">Phần ${partNumber}</div>
                     <div class="part-progress">
                         <div class="part-progress-bar ${progressClass}" style="width: ${result.percentage}%"></div>
                     </div>
-                    <div class="part-percentage">${result.percentage}%</div>
+                    <div class="part-stats-row">
+                        <span class="part-count">${result.totalCount} câu</span>
+                        <span class="part-percentage">${result.percentage}%</span>
+                    </div>
                 `;
                 chartContainer.appendChild(partDiv);
             }
