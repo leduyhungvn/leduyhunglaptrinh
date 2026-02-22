@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>ÔN TẬP GS TỪ VỰNG & DỊCH CÂU (LỚP 4 - 9)</title>
+    <title>ÔN TẬP GS TỪ VỰNG, DỊCH CÂU & NGỮ PHÁP (LỚP 4 - 9)</title>
     <style>
         :root {
             --primary-color: #4CAF50;
@@ -23,17 +23,17 @@
             --grammar-color: #FF9800;
             --grammar-blue: #1890ff;
             --vocab-dark-green: #004d00;
+            --translation-color: #E91E63;
             
-            /* Màu sắc cho các lớp mới */
-            --grade4-color: #00BCD4; /* Cyan */
-            --grade5-color: #FF9800; /* Orange */
+            --grade4-color: #00BCD4;
+            --grade5-color: #FF9800;
         }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             max-width: 800px;
             margin: 0 auto;
-            padding: 10px; /* Giảm padding body trên mobile */
+            padding: 10px;
             background-color: var(--light-bg);
             color: #333;
             -webkit-text-size-adjust: 100%;
@@ -46,17 +46,16 @@
             align-items: center;
         }
         
-        /* --- Header Styles --- */
         .header {
             width: 100%;
             text-align: center;
-            margin-bottom: 15px; /* Giảm margin */
+            margin-bottom: 15px;
             color: var(--secondary-color);
         }
         
         .header h1 {
             margin: 0;
-            font-size: 22px; /* Giảm chút font tiêu đề */
+            font-size: 22px;
             font-weight: 700;
             color: var(--primary-color);
             line-height: 1.2;
@@ -64,29 +63,27 @@
         
         .header h2 {
             margin: 5px 0 0;
-            font-size: 18px; /* Giảm font phụ đề */
+            font-size: 18px;
             font-weight: 600;
             color: var(--secondary-color);
             padding-bottom: 8px;
             border-bottom: 2px solid var(--primary-color);
         }
 
-        /* --- Common Screen Styles --- */
         .login-screen, .quiz-screen, .result-screen, .main-menu, .review-menu, .vocabulary-list, .grade-selection, .auto-review-screen {
             width: 100%;
             background-color: var(--white);
-            padding: 15px; /* Giảm padding chung để tiết kiệm không gian */
+            padding: 15px;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
             margin-bottom: 20px;
             box-sizing: border-box;
         }
 
-        /* --- Form Elements --- */
-        .form-group { margin-bottom: 10px; } /* Giảm khoảng cách giữa các nhóm form */
+        .form-group { margin-bottom: 10px; }
         .form-group label {
             display: block;
-            margin-bottom: 5px; /* Giảm margin label */
+            margin-bottom: 5px;
             font-weight: 600;
             color: var(--secondary-color);
             font-size: 14px;
@@ -94,8 +91,8 @@
         
         input, button, select {
             width: 100%;
-            padding: 10px 12px; /* Giảm padding input */
-            margin: 5px 0; /* Giảm margin input */
+            padding: 10px 12px;
+            margin: 5px 0;
             border: 1px solid #ddd;
             border-radius: var(--border-radius);
             font-size: 16px;
@@ -125,7 +122,7 @@
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
-            padding: 10px; /* Giảm padding nút */
+            padding: 10px;
         }
         
         button:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
@@ -141,10 +138,12 @@
         .btn-grammar { background-color: var(--grammar-color); }
         .btn-grammar:hover { background-color: #F57C00; }
 
+        .btn-translation { background-color: var(--translation-color); }
+        .btn-translation:hover { background-color: #C2185B; }
+
         .back-button { background-color: #6c757d; margin-top: 10px; }
         .back-button:hover { background-color: #5a6268; }
 
-        /* --- NÚT LEVEL --- */
         #grade4-btn { background-color: var(--grade4-color); } #grade4-btn:hover { background-color: #0097A7; }
         #grade5-btn { background-color: var(--grade5-color); } #grade5-btn:hover { background-color: #F57C00; }
         #grade6-btn { background-color: #1890ff; } #grade6-btn:hover { background-color: #096dd9; }
@@ -152,11 +151,10 @@
         #grade8-btn { background-color: #52c41a; } #grade8-btn:hover { background-color: #389e0d; }
         #grade9-btn { background-color: #f5222d; } #grade9-btn:hover { background-color: #cf1322; }
 
-        /* --- Range Tests Styles --- */
         .range-tests-container { 
             display: flex; 
             flex-direction: column; 
-            gap: 8px; /* Giảm gap */
+            gap: 8px;
             margin: 10px 0; 
         }
         
@@ -164,21 +162,20 @@
             display: flex; 
             gap: 8px; 
             flex-wrap: wrap; 
-            justify-content: center; /* Căn giữa nếu thiếu nút */
+            justify-content: center;
         }
         
         .range-tests-row button { 
             flex: 1; 
-            min-width: 45%; /* Đảm bảo 2 nút mỗi hàng ngay cả trên mobile nhỏ */
-            font-size: 13px; /* Giảm font chữ cho vừa khung */
-            padding: 10px 5px; /* Giảm padding */
+            min-width: 45%;
+            font-size: 13px;
+            padding: 10px 5px;
             text-align: center; 
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
         
-        /* Màu sắc cho các nút Range Test */
         .btn-range-u1-u5 { background-color: #00BCD4; } .btn-range-u1-u5:hover { background-color: #0097A7; }
         .btn-range-u6-u10 { background-color: #FF5722; } .btn-range-u6-u10:hover { background-color: #E64A19; }
         .btn-range-u1-u10 { background-color: #E91E63; } .btn-range-u1-u10:hover { background-color: #C2185B; }
@@ -186,7 +183,13 @@
         .btn-range-u16-u20 { background-color: #795548; } .btn-range-u16-u20:hover { background-color: #5D4037; }
         .btn-range-u11-u20 { background-color: #FF9800; } .btn-range-u11-u20:hover { background-color: #F57C00; }
 
-        /* --- Quiz Screen Styles --- */
+        .btn-range-u1-u3 { background-color: #00BCD4; } .btn-range-u1-u3:hover { background-color: #0097A7; }
+        .btn-range-u4-u6 { background-color: #FF5722; } .btn-range-u4-u6:hover { background-color: #E64A19; }
+        .btn-range-u1-u6 { background-color: #E91E63; } .btn-range-u1-u6:hover { background-color: #C2185B; }
+        .btn-range-u7-u9 { background-color: #3F51B5; } .btn-range-u7-u9:hover { background-color: #303F9F; }
+        .btn-range-u10-u12 { background-color: #795548; } .btn-range-u10-u12:hover { background-color: #5D4037; }
+        .btn-range-u7-u12 { background-color: #FF9800; } .btn-range-u7-u12:hover { background-color: #F57C00; }
+
         .timer-container { width: 100%; background-color: #f1f1f1; border-radius: var(--border-radius); margin-bottom: 15px; overflow: hidden; height: 10px; }
         .timer-bar { height: 100%; background-color: var(--accent-color); border-radius: var(--border-radius); width: 100%; transition: width 0.1s linear; }
         
@@ -202,7 +205,7 @@
         }
         
         .word {
-            font-size: 24px; /* Giảm font chữ câu hỏi trên mobile */
+            font-size: 24px;
             font-weight: bold;
             color: var(--secondary-color);
             text-align: center;
@@ -224,7 +227,7 @@
         
         .options { display: flex; flex-direction: column; gap: 8px; }
         .option {
-            padding: 12px; /* Giảm padding option */
+            padding: 12px;
             background-color: #f9f9f9; border: 1px solid #ddd; border-radius: var(--border-radius);
             cursor: pointer; text-align: left; transition: all 0.2s ease; word-wrap: break-word;
             font-size: 16px; 
@@ -238,10 +241,9 @@
         .stats-container { display: flex; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; font-size: 14px; }
         .question-counter, .streak { font-weight: bold; color: var(--secondary-color); margin: 2px 0; }
 
-        /* --- RESULT SCREEN DASHBOARD (DESKTOP DEFAULT) --- */
         .dashboard-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* Mặc định 2 cột (Desktop) */
+            grid-template-columns: 1fr 1fr;
             gap: 10px; 
             margin-bottom: 10px; 
         }
@@ -250,7 +252,7 @@
             background: #fff;
             border: 1px solid #eee;
             border-radius: 12px;
-            padding: 14px; /* CHỈNH SỬA: Tăng padding từ 10px lên 14px */
+            padding: 14px;
             box-shadow: var(--card-shadow);
             display: flex;
             flex-direction: column;
@@ -262,7 +264,7 @@
         .main-result-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
 
         .result-user-name { 
-            font-size: 32px; /* CHỈNH SỬA: Tăng từ 28px lên 32px */
+            font-size: 32px;
             font-weight: 800; 
             margin-bottom: 5px; 
             text-transform: capitalize; 
@@ -270,7 +272,7 @@
 
         .chart-container-wrapper {
             position: relative;
-            width: 192px; /* CHỈNH SỬA: Tăng từ 160px lên 192px (tăng 20%) */
+            width: 192px;
             height: 192px;
             margin: 10px 0;
             display: flex;
@@ -295,7 +297,6 @@
         }
         .score-mini-text { 
             display: block; 
-            /* CHỈNH SỬA MỚI: TĂNG KÍCH THƯỚC FONT TỪ 14px LÊN 18px (TĂNG ~30%) */
             font-size: 18px; 
             color: #888; 
             font-weight: 600; 
@@ -316,12 +317,12 @@
             background: #fff;
             border: 1px solid #eee;
             border-radius: 12px;
-            padding: 14px; /* CHỈNH SỬA: Tăng padding từ 10px lên 14px */
+            padding: 14px;
             box-shadow: var(--card-shadow);
             display: grid;
             grid-template-columns: 1fr 1fr; 
             grid-template-rows: 1fr 1fr;
-            gap: 10px; /* CHỈNH SỬA: Tăng gap từ 8px lên 10px cho thoáng hơn */
+            gap: 10px;
         }
 
         .mini-stat-card {
@@ -337,18 +338,18 @@
         }
 
         .mini-stat-icon { 
-            width: 38px; /* CHỈNH SỬA: Tăng từ 32px lên 38px */
+            width: 38px;
             height: 38px; 
             margin-bottom: 4px; 
         } 
         .mini-stat-label { 
-            font-size: 13px; /* CHỈNH SỬA: Tăng từ 11px lên 13px */
+            font-size: 13px;
             text-transform: uppercase; 
             color: #999; 
             margin-bottom: 2px; 
         } 
         .mini-stat-value { 
-            font-size: 22px; /* CHỈNH SỬA: Tăng từ 18px lên 22px */
+            font-size: 22px;
             font-weight: 700; 
             color: var(--secondary-color); 
         } 
@@ -360,7 +361,6 @@
         .mini-stat-card.total-time .mini-stat-icon { fill: var(--warning-color); }
         .mini-stat-card.total-time .mini-stat-value { color: var(--warning-color); }
 
-        /* --- Cheat Warning Box --- */
         .cheating-alert {
             width: 100%;
             background-color: #ffebee;
@@ -394,7 +394,6 @@
             100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(244, 67, 54, 0); }
         }
 
-        /* --- List/History Styles --- */
         .result-section-title { margin-top: 10px; margin-bottom: 6px; color: var(--secondary-color); font-size: 16px; border-left: 4px solid var(--primary-color); padding-left: 8px; }
         .wrong-questions-list { list-style-type: none; padding: 0; margin-top: 5px; }
         .wrong-questions-list li { background-color: #fff5f5; border-left: 3px solid var(--error-color); padding: 6px; margin-bottom: 4px; font-size: 13px; color: #555; }
@@ -407,20 +406,17 @@
         .result-buttons button { flex: 1; min-width: 100px; }
         .hidden { display: none !important; }
         
-        /* --- Other Screens --- */
         .progress-container { width: 100%; background-color: #f1f1f1; border-radius: var(--border-radius); margin: 10px 0; overflow: hidden; height: 8px; }
         .progress-bar { height: 100%; background-color: var(--primary-color); border-radius: var(--border-radius); transition: width 0.3s ease, background-color 0.3s ease; }
         .progress-text { text-align: center; font-size: 14px; color: var(--secondary-color); margin-bottom: 5px; }
         .menu-buttons { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
         .grade-buttons { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
 
-        /* --- Vocabulary List --- */
         .vocabulary-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 13px; }
         .vocabulary-table th, .vocabulary-table td { border: 1px solid #ddd; padding: 6px; text-align: left; }
         .vocabulary-table th { background-color: #f2f2f2; font-weight: 600; font-size: 12px; }
         .vocabulary-word { display: flex; align-items: center; gap: 5px; }
 
-        /* --- Contact & Auto Review --- */
         .contact-info { background-color: var(--white); padding: 12px; border-radius: var(--border-radius); margin-bottom: 12px; box-shadow: var(--card-shadow); }
         .contact-info h3 { color: var(--primary-color); border-bottom: 1px solid #eee; padding-bottom: 5px; margin-top: 0; font-size: 16px;}
         .contact-info p { margin: 5px 0; line-height: 1.4; font-size: 13px;}
@@ -431,7 +427,6 @@
         .auto-review-meaning { font-size: 18px; text-align: center; margin-bottom: 20px; color: var(--secondary-color); }
         .auto-review-buttons { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
         
-        /* --- Toast Notification Styles --- */
         #toast-container {
             position: fixed;
             top: 20px;
@@ -467,18 +462,15 @@
             to { opacity: 0; transform: translateY(-20px); }
         }
 
-        /* Responsive cho Mobile */
         @media (max-width: 480px) {
             .header h1 { font-size: 18px; }
             .header h2 { font-size: 16px; }
             
-            /* --- GIỮ NGUYÊN 1 CỘT TRÊN MOBILE --- */
             .dashboard-grid { 
-                grid-template-columns: 1fr; /* Chỉ còn 1 cột */
-                gap: 8px; /* Giảm gap trên mobile */
+                grid-template-columns: 1fr;
+                gap: 8px;
             }
 
-            /* --- GIỮ NGUYÊN KÍCH THƯỚC BIỂU ĐỒ TRÊN MOBILE (Ghi đè desktop) --- */
             .chart-container-wrapper {
                 width: 200px !important; 
                 height: 200px !important;
@@ -487,25 +479,21 @@
 
             .circular-chart { width: 100%; height: 100%; }
             
-            /* --- GIỮ NGUYÊN FONT SIZE PHẦN TRĂM TRÊN MOBILE --- */
             .percentage-text { 
                 font-size: 0.6em !important; 
             } 
 
-            /* --- GIỮ NGUYÊN PADDING TRÊN MOBILE --- */
             .main-result-card { padding: 8px !important; }
             .result-user-name { font-size: 24px !important; margin-bottom: 2px; }
             
-            /* --- GIỮ NGUYÊN PADDING CHA --- */
             .stats-grid-card {
                 padding: 8px !important; 
                 gap: 5px !important; 
             }
             
-            /* --- CHỈNH SỬA LỖI MOBILE: TRỞ LẠI HIỂN THỊ DỌC (COLUMN) --- */
             .mini-stat-card {
                 padding: 6px !important; 
-                flex-direction: column !important; /* Quan trọng: Dùng layout dọc để tránh bị ép ngang */
+                flex-direction: column !important;
                 align-items: center !important;
                 justify-content: center !important;
                 gap: 2px;
@@ -514,19 +502,18 @@
             .mini-stat-label { 
                 font-size: 10px !important; 
                 margin-bottom: 0; 
-                text-align: center !important; /* Căn giữa khi hiển thị dọc */
+                text-align: center !important;
             } 
             .mini-stat-value { 
                 font-size: 16px !important; 
-                text-align: center !important; /* Căn giữa khi hiển thị dọc */
+                text-align: center !important;
             } 
             .mini-stat-sub { 
                 font-size: 9px; 
-                text-align: center !important; /* Căn giữa khi hiển thị dọc */
+                text-align: center !important;
                 display: block; 
             }
             
-            /* CHỈNH SỬA MỚI MOBILE: TĂNG FONT SIZE SCORE MINI TEXT TỪ 12px LÊN 16px */
             .score-mini-text { font-size: 16px !important; font-weight: bold; }
             .score-mini-num { font-size: 1.1em; }
             
@@ -547,18 +534,17 @@
         <!-- Giao diện chọn lớp -->
         <div id="grade-selection" class="grade-selection">
             <div class="header">
-                <h1>ÔN TẬP GS TỪ VỰNG & DỊCH CÂU (LỚP 4 - 9)</h1>
+                <h1>ÔN TẬP GS TỪ VỰNG, DỊCH CÂU & NGỮ PHÁP (LỚP 4 - 9)</h1>
                 <h2 id="grade-title">Chọn lớp</h2>
             </div>
             
             <div class="grade-buttons">
-                <!-- Thêm lớp 4 và 5 ở trên -->
-                <button id="grade4-btn">ÔN TẬP GS TỪ VỰNG & DỊCH CÂU LỚP 4MAX</button>
-                <button id="grade5-btn">ÔN TẬP GS TỪ VỰNG & DỊCH CÂU LỚP 5MAX</button>
-                <button id="grade6-btn">ÔN TẬP GS TỪ VỰNG & DỊCH CÂU LỚP 6MAX</button>
-                <button id="grade7-btn">ÔN TẬP GS TỪ VỰNG & DỊCH CÂU LỚP 7MAX</button>
-                <button id="grade8-btn">ÔN TẬP GS TỪ VỰNG & DỊCH CÂU LỚP 8MAX</button>
-                <button id="grade9-btn">ÔN TẬP GS TỪ VỰNG & DỊCH CÂU LỚP 9MAX</button>
+                <button id="grade4-btn">ÔN TẬP GS TỪ VỰNG, DỊCH CÂU & NGỮ PHÁP LỚP 4</button>
+                <button id="grade5-btn">ÔN TẬP GS TỪ VỰNG, DỊCH CÂU & NGỮ PHÁP LỚP 5</button>
+                <button id="grade6-btn">ÔN TẬP GS TỪ VỰNG, DỊCH CÂU & NGỮ PHÁP LỚP 6</button>
+                <button id="grade7-btn">ÔN TẬP GS TỪ VỰNG, DỊCH CÂU & NGỮ PHÁP LỚP 7</button>
+                <button id="grade8-btn">ÔN TẬP GS TỪ VỰNG, DỊCH CÂU & NGỮ PHÁP LỚP 8</button>
+                <button id="grade9-btn">ÔN TẬP GS TỪ VỰNG, DỊCH CÂU & NGỮ PHÁP LỚP 9</button>
                 <button id="contact-btn" class="back-button">LIÊN HỆ</button>
             </div>
         </div>
@@ -601,7 +587,8 @@
             <div class="menu-buttons">
                 <button id="review-btn">ÔN TẬP TỪ VỰNG</button>
                 <button id="practice-btn">TRẮC NGHIỆM TỪ VỰNG</button>
-                <button id="grammar-btn" class="btn-grammar">TRẮC NGHIỆM DỊCH CÂU</button>
+                <button id="translation-btn" class="btn-translation">BÀI TẬP DỊCH CÂU</button>
+                <button id="grammar-btn" class="btn-grammar">BÀI TẬP NGỮ PHÁP</button>
                 <button id="back-to-grade-btn" class="back-button">Quay lại chọn lớp</button>
             </div>
         </div>
@@ -615,7 +602,6 @@
             
             <div class="form-group">
                 <label for="review-unit-select">Chọn đề bài:</label>
-                <!-- Sẽ được populate bằng JS -->
                 <select id="review-unit-select"></select>
             </div>
             
@@ -669,7 +655,7 @@
             </div>
         </div>
 
-        <!-- Màn hình đăng nhập (Dùng chung cho Vocab và Grammar) -->
+        <!-- Màn hình đăng nhập (Dùng chung cho Vocab, Translation và Grammar) -->
         <div id="login-screen" class="login-screen hidden">
             <div class="header">
                 <h1 id="login-grade-header"></h1>
@@ -683,7 +669,6 @@
             
             <div class="form-group">
                 <label for="unit-select">Chọn đề bài:</label>
-                <!-- Sẽ được populate bằng JS -->
                 <select id="unit-select">
                     <option value="" disabled selected>HÃY CHỌN UNIT</option>
                 </select>
@@ -691,9 +676,7 @@
             
             <div class="form-group">
                 <label for="question-count">Chọn số câu hỏi:</label>
-                <select id="question-count">
-                    <!-- Options sẽ được cập nhật động -->
-                </select>
+                <select id="question-count"></select>
             </div>
             
             <div class="progress-container hidden" id="loading-container">
@@ -704,18 +687,33 @@
             <button id="start-btn">Bắt đầu</button>
             
             <div class="range-tests-container">
-                <!-- Cập nhật lại các nút range test theo yêu cầu mới -->
-                <div class="range-tests-row">
-                    <button id="range-u1-u5-btn" class="btn-range-u1-u5">KIỂM TRA U1-U5</button>
-                    <button id="range-u6-u10-btn" class="btn-range-u6-u10">KIỂM TRA U6-U10</button>
+                <div id="range-buttons-20">
+                    <div class="range-tests-row">
+                        <button id="range-u1-u5-btn" class="btn-range-u1-u5">KIỂM TRA U1-U5</button>
+                        <button id="range-u6-u10-btn" class="btn-range-u6-u10">KIỂM TRA U6-U10</button>
+                    </div>
+                    <div class="range-tests-row">
+                        <button id="range-u1-u10-btn" class="btn-range-u1-u10">KIỂM TRA U1-U10</button>
+                        <button id="range-u11-u15-btn" class="btn-range-u11-u15">KIỂM TRA U11-U15</button>
+                    </div>
+                    <div class="range-tests-row">
+                        <button id="range-u16-u20-btn" class="btn-range-u16-u20">KIỂM TRA U16-U20</button>
+                        <button id="range-u11-u20-btn" class="btn-range-u11-u20">KIỂM TRA U11-U20</button>
+                    </div>
                 </div>
-                <div class="range-tests-row">
-                    <button id="range-u1-u10-btn" class="btn-range-u1-u10">KIỂM TRA U1-U10</button>
-                    <button id="range-u11-u15-btn" class="btn-range-u11-u15">KIỂM TRA U11-U15</button>
-                </div>
-                <div class="range-tests-row">
-                    <button id="range-u16-u20-btn" class="btn-range-u16-u20">KIỂM TRA U16-U20</button>
-                    <button id="range-u11-u20-btn" class="btn-range-u11-u20">KIỂM TRA U11-U20</button>
+                <div id="range-buttons-12" class="hidden">
+                    <div class="range-tests-row">
+                        <button id="range-u1-u3-btn" class="btn-range-u1-u3">KIỂM TRA U1-U3</button>
+                        <button id="range-u4-u6-btn" class="btn-range-u4-u6">KIỂM TRA U4-U6</button>
+                    </div>
+                    <div class="range-tests-row">
+                        <button id="range-u1-u6-btn" class="btn-range-u1-u6">KIỂM TRA U1-U6</button>
+                        <button id="range-u7-u9-btn" class="btn-range-u7-u9">KIỂM TRA U7-U9</button>
+                    </div>
+                    <div class="range-tests-row">
+                        <button id="range-u10-u12-btn" class="btn-range-u10-u12">KIỂM TRA U10-U12</button>
+                        <button id="range-u7-u12-btn" class="btn-range-u7-u12">KIỂM TRA U7-U12</button>
+                    </div>
                 </div>
             </div>
 
@@ -743,7 +741,6 @@
             
             <div class="word-container">
                 <div id="word" class="word"></div>
-                <!-- Nút loa: Ẩn trong chế độ Grammar -->
                 <button id="speaker-btn" class="speaker-btn" title="Nghe phát âm">
                     <svg class="speaker-icon" viewBox="0 0 24 24"><path d="M3,9v6h4l5,5V4L7,9H3z M16.5,12c0-1.77-1.02-3.29-2.5-4.03v8.05C15.48,15.29,16.5,13.77,16.5,12z M14,3.23v2.06c2.89,.86,5,3.54,5,6.71s-2.11,5.85-5,6.71v2.06c4.01-.91,7-4.49,7-8.77S18.01,4.14,14,3.23z"/></svg>
                 </button>
@@ -759,7 +756,6 @@
                 <h2>Báo cáo chi tiết - <span id="result-unit-title"></span></h2>
             </div>
 
-            <!-- Thông báo gian lận -->
             <div id="cheating-alert-box" class="cheating-alert">
                 <h3>⚠️ CẢNH BÁO GIAN LẬN</h3>
                 <p>Phát hiện bạn đã rời khỏi cửa sổ làm bài. Bài làm đã bị khóa và tự động nộp.</p>
@@ -777,7 +773,6 @@
                         </svg>
                         
                         <div class="score-mini-info">
-                            <!-- CHỈNH SỬA 3: XÓA CHỮ "ĐÚNG", CHỈ GIỮ LẠI SỐ -->
                             <span class="score-mini-text">
                                 <span id="result-score-correct" class="score-mini-num">0</span> / <span id="result-score-total" class="score-mini-num">0</span>
                             </span>
@@ -822,8 +817,7 @@
             </div>
             
             <h3 class="result-section-title">Các câu trả lời sai</h3>
-            <div id="wrong-questions" class="wrong-questions-list">
-            </div>
+            <div id="wrong-questions" class="wrong-questions-list"></div>
             
             <h3 class="result-section-title">Lịch sử chi tiết</h3>
             <table id="answer-history" class="answer-history">
@@ -835,8 +829,7 @@
                         <th>Đáp án đúng</th>
                     </tr>
                 </thead>
-                <tbody id="answer-history-body">
-                </tbody>
+                <tbody id="answer-history-body"></tbody>
             </table>
             
             <div class="result-buttons">
@@ -847,7 +840,6 @@
         </div>
     </div>
 
-    <!-- Toast Container -->
     <div id="toast-container"></div>
     
     <script>
@@ -905,7 +897,7 @@
         const L5_U19_VOCAB_DATA = [];
         const L5_U20_VOCAB_DATA = [];
 
-        // --- LEVEL 6 VOCABULARY (Giữ nguyên) ---
+        // --- LEVEL 6 VOCABULARY ---
         const L6_U1_VOCAB_DATA = [
             { id: 1, word: "special", correct: "(adj): đặc biệt", wrong1: "(v): đến", wrong2: "(n): vườn", wrong3: "(n): lời khuyên" },
             { id: 2, word: "ready", correct: "(adj): sẵn sàng", wrong1: "(n): làng quê", wrong2: "(n): trường trung học", wrong3: "(n): bí mật" },
@@ -989,7 +981,7 @@
 
 
         // ============================================================
-        // 2. KHAI BÁO DỮ LIỆU NGỮ PHÁP (GRAMMAR DATA) ĐỔI DỊCH CÂU VĂN
+        // 2. KHAI BÁO DỮ LIỆU NGỮ PHÁP (GRAMMAR DATA)
         // ============================================================
 
         // --- LEVEL 4 GRAMMAR (Unit 1 - 20) ---
@@ -1012,7 +1004,7 @@
         const L5_U11_GRAMMAR_DATA = []; const L5_U12_GRAMMAR_DATA = []; const L5_U13_GRAMMAR_DATA = []; const L5_U14_GRAMMAR_DATA = []; const L5_U15_GRAMMAR_DATA = [];
         const L5_U16_GRAMMAR_DATA = []; const L5_U17_GRAMMAR_DATA = []; const L5_U18_GRAMMAR_DATA = []; const L5_U19_GRAMMAR_DATA = []; const L5_U20_GRAMMAR_DATA = [];
 
-        // --- LEVEL 6 GRAMMAR (Giữ nguyên) ---
+        // --- LEVEL 6 GRAMMAR ---
         const L6_U1_GRAMMAR_DATA = [
             { id: 1, word: "I _____ a student.", correct: "am", wrong1: "is", wrong2: "are", wrong3: "be" },
             { id: 2, word: "She _____ my friend.", correct: "is", wrong1: "am", wrong2: "are", wrong3: "be" },
@@ -1096,108 +1088,83 @@
 
 
         // ============================================================
-        // 3. CẤU TRÚC DỮ LIỆU CHÍNH (DATA STRUCTURE)
+        // 3. KHAI BÁO DỮ LIỆU DỊCH CÂU (TRANSLATION DATA)
+        // ============================================================
+
+        // --- LEVEL 4 TRANSLATION (Unit 1 - 20) ---
+        const L4_U1_TRANSLATION_DATA = [
+            { id: 1, word: "This is my family.", correct: "Đây là gia đình của tôi.", wrong1: "Đó là trường của tôi.", wrong2: "Đây là bạn của tôi.", wrong3: "Kia là nhà của tôi." },
+            { id: 2, word: "My father is a doctor.", correct: "Bố tôi là một bác sĩ.", wrong1: "Mẹ tôi là một bác sĩ.", wrong2: "Bố tôi là một giáo viên.", wrong3: "Anh tôi là một bác sĩ." }
+        ];
+        const L4_U2_TRANSLATION_DATA = []; const L4_U3_TRANSLATION_DATA = []; const L4_U4_TRANSLATION_DATA = []; const L4_U5_TRANSLATION_DATA = [];
+        const L4_U6_TRANSLATION_DATA = []; const L4_U7_TRANSLATION_DATA = []; const L4_U8_TRANSLATION_DATA = []; const L4_U9_TRANSLATION_DATA = []; const L4_U10_TRANSLATION_DATA = [];
+        const L4_U11_TRANSLATION_DATA = []; const L4_U12_TRANSLATION_DATA = []; const L4_U13_TRANSLATION_DATA = []; const L4_U14_TRANSLATION_DATA = []; const L4_U15_TRANSLATION_DATA = [];
+        const L4_U16_TRANSLATION_DATA = []; const L4_U17_TRANSLATION_DATA = []; const L4_U18_TRANSLATION_DATA = []; const L4_U19_TRANSLATION_DATA = []; const L4_U20_TRANSLATION_DATA = [];
+
+        // --- LEVEL 5 TRANSLATION (Unit 1 - 20) ---
+        const L5_U1_TRANSLATION_DATA = [
+            { id: 1, word: "I go to school every day.", correct: "Tôi đi học mỗi ngày.", wrong1: "Tôi đi làm mỗi ngày.", wrong2: "Tôi đi học hàng tuần.", wrong3: "Tôi ở nhà mỗi ngày." },
+            { id: 2, word: "My teacher is very kind.", correct: "Giáo viên của tôi rất tốt bụng.", wrong1: "Giáo viên của tôi rất nghiêm.", wrong2: "Bạn của tôi rất tốt bụng.", wrong3: "Bố của tôi rất tốt bụng." }
+        ];
+        const L5_U2_TRANSLATION_DATA = []; const L5_U3_TRANSLATION_DATA = []; const L5_U4_TRANSLATION_DATA = []; const L5_U5_TRANSLATION_DATA = [];
+        const L5_U6_TRANSLATION_DATA = []; const L5_U7_TRANSLATION_DATA = []; const L5_U8_TRANSLATION_DATA = []; const L5_U9_TRANSLATION_DATA = []; const L5_U10_TRANSLATION_DATA = [];
+        const L5_U11_TRANSLATION_DATA = []; const L5_U12_TRANSLATION_DATA = []; const L5_U13_TRANSLATION_DATA = []; const L5_U14_TRANSLATION_DATA = []; const L5_U15_TRANSLATION_DATA = [];
+        const L5_U16_TRANSLATION_DATA = []; const L5_U17_TRANSLATION_DATA = []; const L5_U18_TRANSLATION_DATA = []; const L5_U19_TRANSLATION_DATA = []; const L5_U20_TRANSLATION_DATA = [];
+
+        // --- LEVEL 6 TRANSLATION (Unit 1 - 12) ---
+        const L6_U1_TRANSLATION_DATA = [
+            { id: 1, word: "I am a student.", correct: "Tôi là một học sinh.", wrong1: "Tôi là một giáo viên.", wrong2: "Anh ấy là một học sinh.", wrong3: "Tôi là một bác sĩ." },
+            { id: 2, word: "She is my friend.", correct: "Cô ấy là bạn của tôi.", wrong1: "Cô ấy là chị của tôi.", wrong2: "Anh ấy là bạn của tôi.", wrong3: "Cô ấy là giáo viên của tôi." },
+            { id: 3, word: "We are in the classroom.", correct: "Chúng tôi ở trong lớp học.", wrong1: "Chúng tôi ở trong thư viện.", wrong2: "Họ ở trong lớp học.", wrong3: "Chúng tôi ở ngoài sân." },
+            { id: 4, word: "The school is big and beautiful.", correct: "Trường học to và đẹp.", wrong1: "Trường học nhỏ và đẹp.", wrong2: "Ngôi nhà to và đẹp.", wrong3: "Trường học to và xấu." },
+            { id: 5, word: "I usually go to school by bike.", correct: "Tôi thường đi học bằng xe đạp.", wrong1: "Tôi thường đi học bằng xe buýt.", wrong2: "Tôi thỉnh thoảng đi học bằng xe đạp.", wrong3: "Anh ấy thường đi học bằng xe đạp." }
+        ];
+        const L6_U2_TRANSLATION_DATA = [{ id: 1, word: "There is a table in my room.", correct: "Có một cái bàn trong phòng của tôi.", wrong1: "Có hai cái bàn trong phòng của tôi.", wrong2: "Có một cái ghế trong phòng của tôi.", wrong3: "Không có cái bàn nào trong phòng." }];
+        const L6_U3_TRANSLATION_DATA = [{ id: 1, word: "I have a good idea.", correct: "Tôi có một ý tưởng hay.", wrong1: "Tôi có một ý tưởng tồi.", wrong2: "Anh ấy có một ý tưởng hay.", wrong3: "Tôi không có ý tưởng nào." }];
+        const L6_U4_TRANSLATION_DATA = []; const L6_U5_TRANSLATION_DATA = []; const L6_U6_TRANSLATION_DATA = []; const L6_U7_TRANSLATION_DATA = []; const L6_U8_TRANSLATION_DATA = []; const L6_U9_TRANSLATION_DATA = []; const L6_U10_TRANSLATION_DATA = []; const L6_U11_TRANSLATION_DATA = []; const L6_U12_TRANSLATION_DATA = [];
+
+        // --- LEVEL 7-9 TRANSLATION (PLACEHOLDERS) ---
+        const L7_U1_TRANSLATION_DATA = []; const L7_U2_TRANSLATION_DATA = []; const L7_U3_TRANSLATION_DATA = []; const L7_U4_TRANSLATION_DATA = []; const L7_U5_TRANSLATION_DATA = []; const L7_U6_TRANSLATION_DATA = []; const L7_U7_TRANSLATION_DATA = []; const L7_U8_TRANSLATION_DATA = []; const L7_U9_TRANSLATION_DATA = []; const L7_U10_TRANSLATION_DATA = []; const L7_U11_TRANSLATION_DATA = []; const L7_U12_TRANSLATION_DATA = [];
+        const L8_U1_TRANSLATION_DATA = []; const L8_U2_TRANSLATION_DATA = []; const L8_U3_TRANSLATION_DATA = []; const L8_U4_TRANSLATION_DATA = []; const L8_U5_TRANSLATION_DATA = []; const L8_U6_TRANSLATION_DATA = []; const L8_U7_TRANSLATION_DATA = []; const L8_U8_TRANSLATION_DATA = []; const L8_U9_TRANSLATION_DATA = []; const L8_U10_TRANSLATION_DATA = []; const L8_U11_TRANSLATION_DATA = []; const L8_U12_TRANSLATION_DATA = [];
+        const L9_U1_TRANSLATION_DATA = []; const L9_U2_TRANSLATION_DATA = []; const L9_U3_TRANSLATION_DATA = []; const L9_U4_TRANSLATION_DATA = []; const L9_U5_TRANSLATION_DATA = []; const L9_U6_TRANSLATION_DATA = []; const L9_U7_TRANSLATION_DATA = []; const L9_U8_TRANSLATION_DATA = []; const L9_U9_TRANSLATION_DATA = []; const L9_U10_TRANSLATION_DATA = []; const L9_U11_TRANSLATION_DATA = []; const L9_U12_TRANSLATION_DATA = [];
+
+
+        // ============================================================
+        // 4. CẤU TRÚC DỮ LIỆU CHÍNH (DATA STRUCTURE)
         // ============================================================
 
         const gradeData = {
-            "E4": {
-                units: {
-                    "UNIT 1": L4_U1_VOCAB_DATA, "UNIT 2": L4_U2_VOCAB_DATA, "UNIT 3": L4_U3_VOCAB_DATA, "UNIT 4": L4_U4_VOCAB_DATA, "UNIT 5": L4_U5_VOCAB_DATA,
-                    "UNIT 6": L4_U6_VOCAB_DATA, "UNIT 7": L4_U7_VOCAB_DATA, "UNIT 8": L4_U8_VOCAB_DATA, "UNIT 9": L4_U9_VOCAB_DATA, "UNIT 10": L4_U10_VOCAB_DATA,
-                    "UNIT 11": L4_U11_VOCAB_DATA, "UNIT 12": L4_U12_VOCAB_DATA, "UNIT 13": L4_U13_VOCAB_DATA, "UNIT 14": L4_U14_VOCAB_DATA, "UNIT 15": L4_U15_VOCAB_DATA,
-                    "UNIT 16": L4_U16_VOCAB_DATA, "UNIT 17": L4_U17_VOCAB_DATA, "UNIT 18": L4_U18_VOCAB_DATA, "UNIT 19": L4_U19_VOCAB_DATA, "UNIT 20": L4_U20_VOCAB_DATA
-                }
-            },
-            "E5": {
-                units: {
-                    "UNIT 1": L5_U1_VOCAB_DATA, "UNIT 2": L5_U2_VOCAB_DATA, "UNIT 3": L5_U3_VOCAB_DATA, "UNIT 4": L5_U4_VOCAB_DATA, "UNIT 5": L5_U5_VOCAB_DATA,
-                    "UNIT 6": L5_U6_VOCAB_DATA, "UNIT 7": L5_U7_VOCAB_DATA, "UNIT 8": L5_U8_VOCAB_DATA, "UNIT 9": L5_U9_VOCAB_DATA, "UNIT 10": L5_U10_VOCAB_DATA,
-                    "UNIT 11": L5_U11_VOCAB_DATA, "UNIT 12": L5_U12_VOCAB_DATA, "UNIT 13": L5_U13_VOCAB_DATA, "UNIT 14": L5_U14_VOCAB_DATA, "UNIT 15": L5_U15_VOCAB_DATA,
-                    "UNIT 16": L5_U16_VOCAB_DATA, "UNIT 17": L5_U17_VOCAB_DATA, "UNIT 18": L5_U18_VOCAB_DATA, "UNIT 19": L5_U19_VOCAB_DATA, "UNIT 20": L5_U20_VOCAB_DATA
-                }
-            },
-            "E6": {
-                units: {
-                    "UNIT 1": L6_U1_VOCAB_DATA, "UNIT 2": L6_U2_VOCAB_DATA, "UNIT 3": L6_U3_VOCAB_DATA, "UNIT 4": L6_U4_VOCAB_DATA, "UNIT 5": L6_U5_VOCAB_DATA,
-                    "UNIT 6": L6_U6_VOCAB_DATA, "UNIT 7": L6_U7_VOCAB_DATA, "UNIT 8": L6_U8_VOCAB_DATA, "UNIT 9": L6_U9_VOCAB_DATA, "UNIT 10": L6_U10_VOCAB_DATA,
-                    "UNIT 11": L6_U11_VOCAB_DATA, "UNIT 12": L6_U12_VOCAB_DATA
-                }
-            },
-            "E7": {
-                units: {
-                    "UNIT 1": L7_U1_VOCAB_DATA, "UNIT 2": L7_U2_VOCAB_DATA, "UNIT 3": L7_U3_VOCAB_DATA, "UNIT 4": L7_U4_VOCAB_DATA, "UNIT 5": L7_U5_VOCAB_DATA,
-                    "UNIT 6": L7_U6_VOCAB_DATA, "UNIT 7": L7_U7_VOCAB_DATA, "UNIT 8": L7_U8_VOCAB_DATA, "UNIT 9": L7_U9_VOCAB_DATA, "UNIT 10": L7_U10_VOCAB_DATA,
-                    "UNIT 11": L7_U11_VOCAB_DATA, "UNIT 12": L7_U12_VOCAB_DATA
-                }
-            },
-            "E8": {
-                units: {
-                    "UNIT 1": L8_U1_VOCAB_DATA, "UNIT 2": L8_U2_VOCAB_DATA, "UNIT 3": L8_U3_VOCAB_DATA, "UNIT 4": L8_U4_VOCAB_DATA, "UNIT 5": L8_U5_VOCAB_DATA,
-                    "UNIT 6": L8_U6_VOCAB_DATA, "UNIT 7": L8_U7_VOCAB_DATA, "UNIT 8": L8_U8_VOCAB_DATA, "UNIT 9": L8_U9_VOCAB_DATA, "UNIT 10": L8_U10_VOCAB_DATA,
-                    "UNIT 11": L8_U11_VOCAB_DATA, "UNIT 12": L8_U12_VOCAB_DATA
-                }
-            },
-            "E9": {
-                units: {
-                    "UNIT 1": L9_U1_VOCAB_DATA, "UNIT 2": L9_U2_VOCAB_DATA, "UNIT 3": L9_U3_VOCAB_DATA, "UNIT 4": L9_U4_VOCAB_DATA, "UNIT 5": L9_U5_VOCAB_DATA,
-                    "UNIT 6": L9_U6_VOCAB_DATA, "UNIT 7": L9_U7_VOCAB_DATA, "UNIT 8": L9_U8_VOCAB_DATA, "UNIT 9": L9_U9_VOCAB_DATA, "UNIT 10": L9_U10_VOCAB_DATA,
-                    "UNIT 11": L9_U11_VOCAB_DATA, "UNIT 12": L9_U12_VOCAB_DATA
-                }
-            }
+            "E4": { units: { "UNIT 1": L4_U1_VOCAB_DATA, "UNIT 2": L4_U2_VOCAB_DATA, "UNIT 3": L4_U3_VOCAB_DATA, "UNIT 4": L4_U4_VOCAB_DATA, "UNIT 5": L4_U5_VOCAB_DATA, "UNIT 6": L4_U6_VOCAB_DATA, "UNIT 7": L4_U7_VOCAB_DATA, "UNIT 8": L4_U8_VOCAB_DATA, "UNIT 9": L4_U9_VOCAB_DATA, "UNIT 10": L4_U10_VOCAB_DATA, "UNIT 11": L4_U11_VOCAB_DATA, "UNIT 12": L4_U12_VOCAB_DATA, "UNIT 13": L4_U13_VOCAB_DATA, "UNIT 14": L4_U14_VOCAB_DATA, "UNIT 15": L4_U15_VOCAB_DATA, "UNIT 16": L4_U16_VOCAB_DATA, "UNIT 17": L4_U17_VOCAB_DATA, "UNIT 18": L4_U18_VOCAB_DATA, "UNIT 19": L4_U19_VOCAB_DATA, "UNIT 20": L4_U20_VOCAB_DATA } },
+            "E5": { units: { "UNIT 1": L5_U1_VOCAB_DATA, "UNIT 2": L5_U2_VOCAB_DATA, "UNIT 3": L5_U3_VOCAB_DATA, "UNIT 4": L5_U4_VOCAB_DATA, "UNIT 5": L5_U5_VOCAB_DATA, "UNIT 6": L5_U6_VOCAB_DATA, "UNIT 7": L5_U7_VOCAB_DATA, "UNIT 8": L5_U8_VOCAB_DATA, "UNIT 9": L5_U9_VOCAB_DATA, "UNIT 10": L5_U10_VOCAB_DATA, "UNIT 11": L5_U11_VOCAB_DATA, "UNIT 12": L5_U12_VOCAB_DATA, "UNIT 13": L5_U13_VOCAB_DATA, "UNIT 14": L5_U14_VOCAB_DATA, "UNIT 15": L5_U15_VOCAB_DATA, "UNIT 16": L5_U16_VOCAB_DATA, "UNIT 17": L5_U17_VOCAB_DATA, "UNIT 18": L5_U18_VOCAB_DATA, "UNIT 19": L5_U19_VOCAB_DATA, "UNIT 20": L5_U20_VOCAB_DATA } },
+            "E6": { units: { "UNIT 1": L6_U1_VOCAB_DATA, "UNIT 2": L6_U2_VOCAB_DATA, "UNIT 3": L6_U3_VOCAB_DATA, "UNIT 4": L6_U4_VOCAB_DATA, "UNIT 5": L6_U5_VOCAB_DATA, "UNIT 6": L6_U6_VOCAB_DATA, "UNIT 7": L6_U7_VOCAB_DATA, "UNIT 8": L6_U8_VOCAB_DATA, "UNIT 9": L6_U9_VOCAB_DATA, "UNIT 10": L6_U10_VOCAB_DATA, "UNIT 11": L6_U11_VOCAB_DATA, "UNIT 12": L6_U12_VOCAB_DATA } },
+            "E7": { units: { "UNIT 1": L7_U1_VOCAB_DATA, "UNIT 2": L7_U2_VOCAB_DATA, "UNIT 3": L7_U3_VOCAB_DATA, "UNIT 4": L7_U4_VOCAB_DATA, "UNIT 5": L7_U5_VOCAB_DATA, "UNIT 6": L7_U6_VOCAB_DATA, "UNIT 7": L7_U7_VOCAB_DATA, "UNIT 8": L7_U8_VOCAB_DATA, "UNIT 9": L7_U9_VOCAB_DATA, "UNIT 10": L7_U10_VOCAB_DATA, "UNIT 11": L7_U11_VOCAB_DATA, "UNIT 12": L7_U12_VOCAB_DATA } },
+            "E8": { units: { "UNIT 1": L8_U1_VOCAB_DATA, "UNIT 2": L8_U2_VOCAB_DATA, "UNIT 3": L8_U3_VOCAB_DATA, "UNIT 4": L8_U4_VOCAB_DATA, "UNIT 5": L8_U5_VOCAB_DATA, "UNIT 6": L8_U6_VOCAB_DATA, "UNIT 7": L8_U7_VOCAB_DATA, "UNIT 8": L8_U8_VOCAB_DATA, "UNIT 9": L8_U9_VOCAB_DATA, "UNIT 10": L8_U10_VOCAB_DATA, "UNIT 11": L8_U11_VOCAB_DATA, "UNIT 12": L8_U12_VOCAB_DATA } },
+            "E9": { units: { "UNIT 1": L9_U1_VOCAB_DATA, "UNIT 2": L9_U2_VOCAB_DATA, "UNIT 3": L9_U3_VOCAB_DATA, "UNIT 4": L9_U4_VOCAB_DATA, "UNIT 5": L9_U5_VOCAB_DATA, "UNIT 6": L9_U6_VOCAB_DATA, "UNIT 7": L9_U7_VOCAB_DATA, "UNIT 8": L9_U8_VOCAB_DATA, "UNIT 9": L9_U9_VOCAB_DATA, "UNIT 10": L9_U10_VOCAB_DATA, "UNIT 11": L9_U11_VOCAB_DATA, "UNIT 12": L9_U12_VOCAB_DATA } }
         };
 
         const grammarData = {
-            "E4": {
-                units: {
-                    "UNIT 1": L4_U1_GRAMMAR_DATA, "UNIT 2": L4_U2_GRAMMAR_DATA, "UNIT 3": L4_U3_GRAMMAR_DATA, "UNIT 4": L4_U4_GRAMMAR_DATA, "UNIT 5": L4_U5_GRAMMAR_DATA,
-                    "UNIT 6": L4_U6_GRAMMAR_DATA, "UNIT 7": L4_U7_GRAMMAR_DATA, "UNIT 8": L4_U8_GRAMMAR_DATA, "UNIT 9": L4_U9_GRAMMAR_DATA, "UNIT 10": L4_U10_GRAMMAR_DATA,
-                    "UNIT 11": L4_U11_GRAMMAR_DATA, "UNIT 12": L4_U12_GRAMMAR_DATA, "UNIT 13": L4_U13_GRAMMAR_DATA, "UNIT 14": L4_U14_GRAMMAR_DATA, "UNIT 15": L4_U15_GRAMMAR_DATA,
-                    "UNIT 16": L4_U16_GRAMMAR_DATA, "UNIT 17": L4_U17_GRAMMAR_DATA, "UNIT 18": L4_U18_GRAMMAR_DATA, "UNIT 19": L4_U19_GRAMMAR_DATA, "UNIT 20": L4_U20_GRAMMAR_DATA
-                }
-            },
-            "E5": {
-                units: {
-                    "UNIT 1": L5_U1_GRAMMAR_DATA, "UNIT 2": L5_U2_GRAMMAR_DATA, "UNIT 3": L5_U3_GRAMMAR_DATA, "UNIT 4": L5_U4_GRAMMAR_DATA, "UNIT 5": L5_U5_GRAMMAR_DATA,
-                    "UNIT 6": L5_U6_GRAMMAR_DATA, "UNIT 7": L5_U7_GRAMMAR_DATA, "UNIT 8": L5_U8_GRAMMAR_DATA, "UNIT 9": L5_U9_GRAMMAR_DATA, "UNIT 10": L5_U10_GRAMMAR_DATA,
-                    "UNIT 11": L5_U11_GRAMMAR_DATA, "UNIT 12": L5_U12_GRAMMAR_DATA, "UNIT 13": L5_U13_GRAMMAR_DATA, "UNIT 14": L5_U14_GRAMMAR_DATA, "UNIT 15": L5_U15_GRAMMAR_DATA,
-                    "UNIT 16": L5_U16_GRAMMAR_DATA, "UNIT 17": L5_U17_GRAMMAR_DATA, "UNIT 18": L5_U18_GRAMMAR_DATA, "UNIT 19": L5_U19_GRAMMAR_DATA, "UNIT 20": L5_U20_GRAMMAR_DATA
-                }
-            },
-            "E6": {
-                units: {
-                    "UNIT 1": L6_U1_GRAMMAR_DATA, "UNIT 2": L6_U2_GRAMMAR_DATA, "UNIT 3": L6_U3_GRAMMAR_DATA, "UNIT 4": L6_U4_GRAMMAR_DATA, "UNIT 5": L6_U5_GRAMMAR_DATA,
-                    "UNIT 6": L6_U6_GRAMMAR_DATA, "UNIT 7": L6_U7_GRAMMAR_DATA, "UNIT 8": L6_U8_GRAMMAR_DATA, "UNIT 9": L6_U9_GRAMMAR_DATA, "UNIT 10": L6_U10_GRAMMAR_DATA,
-                    "UNIT 11": L6_U11_GRAMMAR_DATA, "UNIT 12": L6_U12_GRAMMAR_DATA
-                }
-            },
-            "E7": {
-                units: {
-                    "UNIT 1": L7_U1_GRAMMAR_DATA, "UNIT 2": L7_U2_GRAMMAR_DATA, "UNIT 3": L7_U3_GRAMMAR_DATA, "UNIT 4": L7_U4_GRAMMAR_DATA, "UNIT 5": L7_U5_GRAMMAR_DATA,
-                    "UNIT 6": L7_U6_GRAMMAR_DATA, "UNIT 7": L7_U7_GRAMMAR_DATA, "UNIT 8": L7_U8_GRAMMAR_DATA, "UNIT 9": L7_U9_GRAMMAR_DATA, "UNIT 10": L7_U10_GRAMMAR_DATA,
-                    "UNIT 11": L7_U11_GRAMMAR_DATA, "UNIT 12": L7_U12_GRAMMAR_DATA
-                }
-            },
-            "E8": {
-                units: {
-                    "UNIT 1": L8_U1_GRAMMAR_DATA, "UNIT 2": L8_U2_GRAMMAR_DATA, "UNIT 3": L8_U3_GRAMMAR_DATA, "UNIT 4": L8_U4_GRAMMAR_DATA, "UNIT 5": L8_U5_GRAMMAR_DATA,
-                    "UNIT 6": L8_U6_GRAMMAR_DATA, "UNIT 7": L8_U7_GRAMMAR_DATA, "UNIT 8": L8_U8_GRAMMAR_DATA, "UNIT 9": L8_U9_GRAMMAR_DATA, "UNIT 10": L8_U10_GRAMMAR_DATA,
-                    "UNIT 11": L8_U11_GRAMMAR_DATA, "UNIT 12": L8_U12_GRAMMAR_DATA
-                }
-            },
-            "E9": {
-                units: {
-                    "UNIT 1": L9_U1_GRAMMAR_DATA, "UNIT 2": L9_U2_GRAMMAR_DATA, "UNIT 3": L9_U3_GRAMMAR_DATA, "UNIT 4": L9_U4_GRAMMAR_DATA, "UNIT 5": L9_U5_GRAMMAR_DATA,
-                    "UNIT 6": L9_U6_GRAMMAR_DATA, "UNIT 7": L9_U7_GRAMMAR_DATA, "UNIT 8": L9_U8_GRAMMAR_DATA, "UNIT 9": L9_U9_GRAMMAR_DATA, "UNIT 10": L9_U10_GRAMMAR_DATA,
-                    "UNIT 11": L9_U11_GRAMMAR_DATA, "UNIT 12": L9_U12_GRAMMAR_DATA
-                }
-            }
+            "E4": { units: { "UNIT 1": L4_U1_GRAMMAR_DATA, "UNIT 2": L4_U2_GRAMMAR_DATA, "UNIT 3": L4_U3_GRAMMAR_DATA, "UNIT 4": L4_U4_GRAMMAR_DATA, "UNIT 5": L4_U5_GRAMMAR_DATA, "UNIT 6": L4_U6_GRAMMAR_DATA, "UNIT 7": L4_U7_GRAMMAR_DATA, "UNIT 8": L4_U8_GRAMMAR_DATA, "UNIT 9": L4_U9_GRAMMAR_DATA, "UNIT 10": L4_U10_GRAMMAR_DATA, "UNIT 11": L4_U11_GRAMMAR_DATA, "UNIT 12": L4_U12_GRAMMAR_DATA, "UNIT 13": L4_U13_GRAMMAR_DATA, "UNIT 14": L4_U14_GRAMMAR_DATA, "UNIT 15": L4_U15_GRAMMAR_DATA, "UNIT 16": L4_U16_GRAMMAR_DATA, "UNIT 17": L4_U17_GRAMMAR_DATA, "UNIT 18": L4_U18_GRAMMAR_DATA, "UNIT 19": L4_U19_GRAMMAR_DATA, "UNIT 20": L4_U20_GRAMMAR_DATA } },
+            "E5": { units: { "UNIT 1": L5_U1_GRAMMAR_DATA, "UNIT 2": L5_U2_GRAMMAR_DATA, "UNIT 3": L5_U3_GRAMMAR_DATA, "UNIT 4": L5_U4_GRAMMAR_DATA, "UNIT 5": L5_U5_GRAMMAR_DATA, "UNIT 6": L5_U6_GRAMMAR_DATA, "UNIT 7": L5_U7_GRAMMAR_DATA, "UNIT 8": L5_U8_GRAMMAR_DATA, "UNIT 9": L5_U9_GRAMMAR_DATA, "UNIT 10": L5_U10_GRAMMAR_DATA, "UNIT 11": L5_U11_GRAMMAR_DATA, "UNIT 12": L5_U12_GRAMMAR_DATA, "UNIT 13": L5_U13_GRAMMAR_DATA, "UNIT 14": L5_U14_GRAMMAR_DATA, "UNIT 15": L5_U15_GRAMMAR_DATA, "UNIT 16": L5_U16_GRAMMAR_DATA, "UNIT 17": L5_U17_GRAMMAR_DATA, "UNIT 18": L5_U18_GRAMMAR_DATA, "UNIT 19": L5_U19_GRAMMAR_DATA, "UNIT 20": L5_U20_GRAMMAR_DATA } },
+            "E6": { units: { "UNIT 1": L6_U1_GRAMMAR_DATA, "UNIT 2": L6_U2_GRAMMAR_DATA, "UNIT 3": L6_U3_GRAMMAR_DATA, "UNIT 4": L6_U4_GRAMMAR_DATA, "UNIT 5": L6_U5_GRAMMAR_DATA, "UNIT 6": L6_U6_GRAMMAR_DATA, "UNIT 7": L6_U7_GRAMMAR_DATA, "UNIT 8": L6_U8_GRAMMAR_DATA, "UNIT 9": L6_U9_GRAMMAR_DATA, "UNIT 10": L6_U10_GRAMMAR_DATA, "UNIT 11": L6_U11_GRAMMAR_DATA, "UNIT 12": L6_U12_GRAMMAR_DATA } },
+            "E7": { units: { "UNIT 1": L7_U1_GRAMMAR_DATA, "UNIT 2": L7_U2_GRAMMAR_DATA, "UNIT 3": L7_U3_GRAMMAR_DATA, "UNIT 4": L7_U4_GRAMMAR_DATA, "UNIT 5": L7_U5_GRAMMAR_DATA, "UNIT 6": L7_U6_GRAMMAR_DATA, "UNIT 7": L7_U7_GRAMMAR_DATA, "UNIT 8": L7_U8_GRAMMAR_DATA, "UNIT 9": L7_U9_GRAMMAR_DATA, "UNIT 10": L7_U10_GRAMMAR_DATA, "UNIT 11": L7_U11_GRAMMAR_DATA, "UNIT 12": L7_U12_GRAMMAR_DATA } },
+            "E8": { units: { "UNIT 1": L8_U1_GRAMMAR_DATA, "UNIT 2": L8_U2_GRAMMAR_DATA, "UNIT 3": L8_U3_GRAMMAR_DATA, "UNIT 4": L8_U4_GRAMMAR_DATA, "UNIT 5": L8_U5_GRAMMAR_DATA, "UNIT 6": L8_U6_GRAMMAR_DATA, "UNIT 7": L8_U7_GRAMMAR_DATA, "UNIT 8": L8_U8_GRAMMAR_DATA, "UNIT 9": L8_U9_GRAMMAR_DATA, "UNIT 10": L8_U10_GRAMMAR_DATA, "UNIT 11": L8_U11_GRAMMAR_DATA, "UNIT 12": L8_U12_GRAMMAR_DATA } },
+            "E9": { units: { "UNIT 1": L9_U1_GRAMMAR_DATA, "UNIT 2": L9_U2_GRAMMAR_DATA, "UNIT 3": L9_U3_GRAMMAR_DATA, "UNIT 4": L9_U4_GRAMMAR_DATA, "UNIT 5": L9_U5_GRAMMAR_DATA, "UNIT 6": L9_U6_GRAMMAR_DATA, "UNIT 7": L9_U7_GRAMMAR_DATA, "UNIT 8": L9_U8_GRAMMAR_DATA, "UNIT 9": L9_U9_GRAMMAR_DATA, "UNIT 10": L9_U10_GRAMMAR_DATA, "UNIT 11": L9_U11_GRAMMAR_DATA, "UNIT 12": L9_U12_GRAMMAR_DATA } }
         };
 
+        const translationData = {
+            "E4": { units: { "UNIT 1": L4_U1_TRANSLATION_DATA, "UNIT 2": L4_U2_TRANSLATION_DATA, "UNIT 3": L4_U3_TRANSLATION_DATA, "UNIT 4": L4_U4_TRANSLATION_DATA, "UNIT 5": L4_U5_TRANSLATION_DATA, "UNIT 6": L4_U6_TRANSLATION_DATA, "UNIT 7": L4_U7_TRANSLATION_DATA, "UNIT 8": L4_U8_TRANSLATION_DATA, "UNIT 9": L4_U9_TRANSLATION_DATA, "UNIT 10": L4_U10_TRANSLATION_DATA, "UNIT 11": L4_U11_TRANSLATION_DATA, "UNIT 12": L4_U12_TRANSLATION_DATA, "UNIT 13": L4_U13_TRANSLATION_DATA, "UNIT 14": L4_U14_TRANSLATION_DATA, "UNIT 15": L4_U15_TRANSLATION_DATA, "UNIT 16": L4_U16_TRANSLATION_DATA, "UNIT 17": L4_U17_TRANSLATION_DATA, "UNIT 18": L4_U18_TRANSLATION_DATA, "UNIT 19": L4_U19_TRANSLATION_DATA, "UNIT 20": L4_U20_TRANSLATION_DATA } },
+            "E5": { units: { "UNIT 1": L5_U1_TRANSLATION_DATA, "UNIT 2": L5_U2_TRANSLATION_DATA, "UNIT 3": L5_U3_TRANSLATION_DATA, "UNIT 4": L5_U4_TRANSLATION_DATA, "UNIT 5": L5_U5_TRANSLATION_DATA, "UNIT 6": L5_U6_TRANSLATION_DATA, "UNIT 7": L5_U7_TRANSLATION_DATA, "UNIT 8": L5_U8_TRANSLATION_DATA, "UNIT 9": L5_U9_TRANSLATION_DATA, "UNIT 10": L5_U10_TRANSLATION_DATA, "UNIT 11": L5_U11_TRANSLATION_DATA, "UNIT 12": L5_U12_TRANSLATION_DATA, "UNIT 13": L5_U13_TRANSLATION_DATA, "UNIT 14": L5_U14_TRANSLATION_DATA, "UNIT 15": L5_U15_TRANSLATION_DATA, "UNIT 16": L5_U16_TRANSLATION_DATA, "UNIT 17": L5_U17_TRANSLATION_DATA, "UNIT 18": L5_U18_TRANSLATION_DATA, "UNIT 19": L5_U19_TRANSLATION_DATA, "UNIT 20": L5_U20_TRANSLATION_DATA } },
+            "E6": { units: { "UNIT 1": L6_U1_TRANSLATION_DATA, "UNIT 2": L6_U2_TRANSLATION_DATA, "UNIT 3": L6_U3_TRANSLATION_DATA, "UNIT 4": L6_U4_TRANSLATION_DATA, "UNIT 5": L6_U5_TRANSLATION_DATA, "UNIT 6": L6_U6_TRANSLATION_DATA, "UNIT 7": L6_U7_TRANSLATION_DATA, "UNIT 8": L6_U8_TRANSLATION_DATA, "UNIT 9": L6_U9_TRANSLATION_DATA, "UNIT 10": L6_U10_TRANSLATION_DATA, "UNIT 11": L6_U11_TRANSLATION_DATA, "UNIT 12": L6_U12_TRANSLATION_DATA } },
+            "E7": { units: { "UNIT 1": L7_U1_TRANSLATION_DATA, "UNIT 2": L7_U2_TRANSLATION_DATA, "UNIT 3": L7_U3_TRANSLATION_DATA, "UNIT 4": L7_U4_TRANSLATION_DATA, "UNIT 5": L7_U5_TRANSLATION_DATA, "UNIT 6": L7_U6_TRANSLATION_DATA, "UNIT 7": L7_U7_TRANSLATION_DATA, "UNIT 8": L7_U8_TRANSLATION_DATA, "UNIT 9": L7_U9_TRANSLATION_DATA, "UNIT 10": L7_U10_TRANSLATION_DATA, "UNIT 11": L7_U11_TRANSLATION_DATA, "UNIT 12": L7_U12_TRANSLATION_DATA } },
+            "E8": { units: { "UNIT 1": L8_U1_TRANSLATION_DATA, "UNIT 2": L8_U2_TRANSLATION_DATA, "UNIT 3": L8_U3_TRANSLATION_DATA, "UNIT 4": L8_U4_TRANSLATION_DATA, "UNIT 5": L8_U5_TRANSLATION_DATA, "UNIT 6": L8_U6_TRANSLATION_DATA, "UNIT 7": L8_U7_TRANSLATION_DATA, "UNIT 8": L8_U8_TRANSLATION_DATA, "UNIT 9": L8_U9_TRANSLATION_DATA, "UNIT 10": L8_U10_TRANSLATION_DATA, "UNIT 11": L8_U11_TRANSLATION_DATA, "UNIT 12": L8_U12_TRANSLATION_DATA } },
+            "E9": { units: { "UNIT 1": L9_U1_TRANSLATION_DATA, "UNIT 2": L9_U2_TRANSLATION_DATA, "UNIT 3": L9_U3_TRANSLATION_DATA, "UNIT 4": L9_U4_TRANSLATION_DATA, "UNIT 5": L9_U5_TRANSLATION_DATA, "UNIT 6": L9_U6_TRANSLATION_DATA, "UNIT 7": L9_U7_TRANSLATION_DATA, "UNIT 8": L9_U8_TRANSLATION_DATA, "UNIT 9": L9_U9_TRANSLATION_DATA, "UNIT 10": L9_U10_TRANSLATION_DATA, "UNIT 11": L9_U11_TRANSLATION_DATA, "UNIT 12": L9_U12_TRANSLATION_DATA } }
+        };
+
+
         // ============================================================
-        // 4. LOGIC XỬ LÝ CHÍNH (GAME LOGIC)
+        // 5. LOGIC XỬ LÝ CHÍNH (GAME LOGIC)
         // ============================================================
         
-        // Biến toàn cục
         let currentQuestionIndex = 0;
         let score = 0;
         let streak = 0;
@@ -1218,27 +1185,22 @@
         let currentUnit = ""; 
         let currentGrade = "";
         let currentTestTitle = "";
-        let maxUnits = 12; // Mặc định (sẽ thay đổi khi chọn lớp 4,5)
+        let maxUnits = 12;
         
-        // Biến mode: 'vocab' hoặc 'grammar'
         let currentMode = 'vocab'; 
         
-        // Biến cho chức năng ôn bài tự động
         let autoReviewIndex = 0;
         let autoReviewTimer;
         let autoReviewQuestions = [];
         let autoReviewSpeakTimer1;
         let autoReviewSpeakTimer2;
         
-        // Biến cho chức năng kiểm tra tổng hợp
         let comprehensivePool = [];
         let isComprehensiveTest = false;
 
-        // --- BIẾN MỚI: CHỐNG GIAN LẬN ---
         let isCheatingDetected = false;
-        let transitionTimeout = null; // Để hủy delay chuyển câu nếu bị bắt gian lận
+        let transitionTimeout = null;
 
-        // DOM elements
         const gradeSelection = document.getElementById('grade-selection');
         const mainMenu = document.getElementById('main-menu');
         const contactBtn = document.getElementById('contact-btn');
@@ -1261,6 +1223,7 @@
         const reviewBtn = document.getElementById('review-btn');
         const practiceBtn = document.getElementById('practice-btn');
         const grammarBtn = document.getElementById('grammar-btn');
+        const translationBtn = document.getElementById('translation-btn');
         
         const showVocabularyBtn = document.getElementById('show-vocabulary-btn');
         const autoReviewBtn = document.getElementById('auto-review-btn');
@@ -1305,7 +1268,6 @@
         const autoReviewUnitTitle = document.getElementById('auto-review-unit-title');
         const questionTextLabel = document.getElementById('question-text-label');
         
-        // Các phần tử mới cho ôn bài tự động
         const autoReviewWord = document.getElementById('auto-review-word');
         const autoReviewMeaning = document.getElementById('auto-review-meaning');
         const autoReviewSpeakerBtn = document.getElementById('auto-review-speaker-btn');
@@ -1314,15 +1276,15 @@
         const autoReviewBackBtn = document.getElementById('auto-review-back-btn');
         const cheatingAlertBox = document.getElementById('cheating-alert-box');
 
-        // Toast function
+        const rangeButtons20 = document.getElementById('range-buttons-20');
+        const rangeButtons12 = document.getElementById('range-buttons-12');
+
         function showToast(message, type = 'warning') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
             toast.className = `toast ${type}`;
             toast.textContent = message;
-            
             container.appendChild(toast);
-            
             setTimeout(() => {
                 if (toast.parentNode) {
                     toast.parentNode.removeChild(toast);
@@ -1330,42 +1292,39 @@
             }, 3000);
         }
 
-        // --- CHỨC NĂNG CHỐNG GIAN LẬN (ANTI-CHEAT) ---
-        
-        // Hàm kích hoạt khi phát hiện gian lận
-        function triggerCheating() {
-            if (isCheatingDetected) return; // Đã kích hoạt rồi thì không làm gì nữa
-            
-            isCheatingDetected = true;
-            
-            // 1. Dừng ngay lập tức mọi hoạt động
+        function cleanupAll() {
             if (timer) clearInterval(timer);
-            speechSynthesis.cancel();
             if (transitionTimeout) clearTimeout(transitionTimeout);
-            
-            // 2. Chuyển thẳng sang màn hình kết quả
-            // Không cần alert để tránh người dùng mất tập trung hoặc tắt tab nhanh hơn
-            // Màn hình result sẽ hiện thông báo đỏ.
+            if (autoReviewTimer) clearTimeout(autoReviewTimer);
+            if (autoReviewSpeakTimer1) clearTimeout(autoReviewSpeakTimer1);
+            if (autoReviewSpeakTimer2) clearTimeout(autoReviewSpeakTimer2);
+            speechSynthesis.cancel();
+        }
+
+        // ===== CHỐNG GIAN LẬN – ĐÃ SỬA LỖI HIỂN THỊ =====
+        function triggerCheating() {
+            if (isCheatingDetected) return;
+            isCheatingDetected = true; // ĐÃ SỬA LỖI CHÍNH TẢ
+            // Đảm bảo cảnh báo hiển thị ngay lập tức
+            if (cheatingAlertBox) {
+                cheatingAlertBox.style.display = 'block';
+            }
+            cleanupAll();
             endGame();
         }
 
-        // Lắng nghe sự kiện chuyển tab hoặc ẩn trang
         document.addEventListener("visibilitychange", () => {
-            // Chỉ kích hoạt nếu đang ở màn hình làm bài VÀ chưa bị bắt gian lận trước đó
             if (document.hidden && !quizScreen.classList.contains('hidden') && !isCheatingDetected) {
                 triggerCheating();
             }
         });
 
-        // Lắng nghe sự kiện click ra ngoài trình duyệt (blur window)
         window.addEventListener("blur", () => {
-            // Chỉ kích hoạt nếu đang ở màn hình làm bài VÀ chưa bị bắt gian lận trước đó
             if (!quizScreen.classList.contains('hidden') && !isCheatingDetected) {
                 triggerCheating();
             }
         });
 
-        // Xử lý sự kiện chọn lớp
         grade4Btn.addEventListener('click', () => selectGrade('E4'));
         grade5Btn.addEventListener('click', () => selectGrade('E5'));
         grade6Btn.addEventListener('click', () => selectGrade('E6'));
@@ -1373,74 +1332,56 @@
         grade8Btn.addEventListener('click', () => selectGrade('E8'));
         grade9Btn.addEventListener('click', () => selectGrade('E9'));
 
-        // Xử lý sự kiện cho chức năng liên hệ
         contactBtn.addEventListener('click', showContactScreen);
         backFromContactBtn.addEventListener('click', backToGradeSelection);
 
         function showContactScreen() {
+            cleanupAll();
             gradeSelection.classList.add('hidden');
             contactScreen.classList.remove('hidden');
         }
 
         function selectGrade(grade) {
+            cleanupAll();
             currentGrade = grade;
             
-            // Xác định số lượng Unit tối đa cho lớp đã chọn
             if (grade === 'E4' || grade === 'E5') {
                 maxUnits = 20;
+                rangeButtons20.classList.remove('hidden');
+                rangeButtons12.classList.add('hidden');
             } else {
                 maxUnits = 12;
+                rangeButtons20.classList.add('hidden');
+                rangeButtons12.classList.remove('hidden');
             }
 
             gradeSelection.classList.add('hidden');
             mainMenu.classList.remove('hidden');
             
             updateHeaderTitles(grade);
-            
-            // Cập nhật danh sách Unit cho dropdowns
             populateUnitDropdowns();
-            
-            // Cập nhật trạng thái hiển thị các nút Range Test
-            updateRangeTestButtonsVisibility();
         }
 
         function populateUnitDropdowns() {
-            // Xóa các option cũ
             unitSelect.innerHTML = '<option value="" disabled selected>HÃY CHỌN UNIT</option>';
             reviewUnitSelect.innerHTML = '';
             
             for (let i = 1; i <= maxUnits; i++) {
                 const unitName = `UNIT ${i}`;
                 
-                // Thêm vào unitSelect (Màn hình Login)
                 const opt1 = document.createElement('option');
                 opt1.value = unitName;
                 opt1.textContent = unitName;
                 unitSelect.appendChild(opt1);
                 
-                // Thêm vào reviewUnitSelect (Màn hình Review)
                 const opt2 = document.createElement('option');
                 opt2.value = unitName;
                 opt2.textContent = unitName;
                 reviewUnitSelect.appendChild(opt2);
             }
-        }
-
-        function updateRangeTestButtonsVisibility() {
-            const btnU11U15 = document.getElementById('range-u11-u15-btn');
-            const btnU16U20 = document.getElementById('range-u16-u20-btn');
-            const btnU11U20 = document.getElementById('range-u11-u20-btn');
-            
-            // Nếu là lớp 4, 5 (có 20 unit) thì hiện hết các nút
-            if (maxUnits === 20) {
-                btnU11U15.classList.remove('hidden');
-                btnU16U20.classList.remove('hidden');
-                btnU11U20.classList.remove('hidden');
-            } else {
-                // Nếu là lớp 6-9 (chỉ 12 unit) thì ẩn các nút liên quan đến unit 13+
-                btnU11U15.classList.add('hidden');
-                btnU16U20.classList.add('hidden');
-                btnU11U20.classList.add('hidden');
+            if (reviewUnitSelect.options.length > 0) {
+                reviewUnitSelect.value = reviewUnitSelect.options[0].value;
+                currentUnit = reviewUnitSelect.value;
             }
         }
 
@@ -1456,35 +1397,44 @@
             autoReviewGradeHeader.textContent = `ÔN TẬP GS VOCA ${gradeNumber}`;
         }
 
-        // --- Chế độ Từ vựng ---
         reviewBtn.addEventListener('click', () => {
+            cleanupAll();
             mainMenu.classList.add('hidden');
             reviewMenu.classList.remove('hidden');
             reviewUnitTitle.textContent = "Chọn đề bài ôn tập";
+            if (reviewUnitSelect.value) {
+                currentUnit = reviewUnitSelect.value;
+            }
         });
 
         practiceBtn.addEventListener('click', () => {
             setModeAndOpenLogin('vocab');
         });
 
-        // --- Chế độ Ngữ pháp ---
+        translationBtn.addEventListener('click', () => {
+            setModeAndOpenLogin('translation');
+        });
+
         grammarBtn.addEventListener('click', () => {
             setModeAndOpenLogin('grammar');
         });
 
         function setModeAndOpenLogin(mode) {
+            cleanupAll();
             currentMode = mode;
             mainMenu.classList.add('hidden');
             loginScreen.classList.remove('hidden');
             
-            // Reset dropdowns khi entering login screen
             unitSelect.value = "";
             updateQuestionCountOptions();
+            currentUnit = "";
             
             if (mode === 'vocab') {
-                loginUnitTitle.textContent = "Chọn đề bài từ vựng";
-            } else {
+                loginUnitTitle.textContent = "Chọn đề bài trắc nghiệm từ vựng";
+            } else if (mode === 'translation') {
                 loginUnitTitle.textContent = "Chọn bài tập dịch câu";
+            } else {
+                loginUnitTitle.textContent = "Chọn bài tập ngữ pháp";
             }
         }
 
@@ -1499,13 +1449,19 @@
         startBtn.addEventListener('click', startGame);
         comprehensiveTestBtn.addEventListener('click', startComprehensiveTest);
         
-        // CẬP NHẬT CÁC NÚT RANGE TEST THEO YÊU CẦU MỚI (20 UNIT CHO LỚP 4,5)
         document.getElementById('range-u1-u5-btn').addEventListener('click', () => startRangeTest(1, 5, "KIỂM TRA U1-U5"));
         document.getElementById('range-u6-u10-btn').addEventListener('click', () => startRangeTest(6, 10, "KIỂM TRA U6-U10"));
         document.getElementById('range-u1-u10-btn').addEventListener('click', () => startRangeTest(1, 10, "KIỂM TRA U1-U10"));
         document.getElementById('range-u11-u15-btn').addEventListener('click', () => startRangeTest(11, 15, "KIỂM TRA U11-U15"));
         document.getElementById('range-u16-u20-btn').addEventListener('click', () => startRangeTest(16, 20, "KIỂM TRA U16-U20"));
         document.getElementById('range-u11-u20-btn').addEventListener('click', () => startRangeTest(11, 20, "KIỂM TRA U11-U20"));
+
+        document.getElementById('range-u1-u3-btn').addEventListener('click', () => startRangeTest(1, 3, "KIỂM TRA U1-U3"));
+        document.getElementById('range-u4-u6-btn').addEventListener('click', () => startRangeTest(4, 6, "KIỂM TRA U4-U6"));
+        document.getElementById('range-u1-u6-btn').addEventListener('click', () => startRangeTest(1, 6, "KIỂM TRA U1-U6"));
+        document.getElementById('range-u7-u9-btn').addEventListener('click', () => startRangeTest(7, 9, "KIỂM TRA U7-U9"));
+        document.getElementById('range-u10-u12-btn').addEventListener('click', () => startRangeTest(10, 12, "KIỂM TRA U10-U12"));
+        document.getElementById('range-u7-u12-btn').addEventListener('click', () => startRangeTest(7, 12, "KIỂM TRA U7-U12"));
 
         restartBtn.addEventListener('click', restartGame);
         newGameBtn.addEventListener('click', newGame);
@@ -1540,11 +1496,12 @@
             currentUnit = this.value;
         });
 
-        // Hàm lấy dữ liệu dựa trên Mode hiện tại
         function getQuestionBank() {
             let data = {};
             if (currentMode === 'vocab') {
                 data = gradeData;
+            } else if (currentMode === 'translation') {
+                data = translationData;
             } else {
                 data = grammarData;
             }
@@ -1556,6 +1513,9 @@
         }
 
         function showVocabularyList() {
+            if (!currentUnit && reviewUnitSelect.value) {
+                currentUnit = reviewUnitSelect.value;
+            }
             const questionBank = getQuestionBank();
             
             if (questionBank.length === 0) {
@@ -1603,6 +1563,9 @@
         }
 
         function startAutoReview() {
+            if (!currentUnit && reviewUnitSelect.value) {
+                currentUnit = reviewUnitSelect.value;
+            }
             autoReviewQuestions = getQuestionBank();
             
             if (autoReviewQuestions.length === 0) {
@@ -1676,10 +1639,10 @@
         }
 
         function backToFirstScreen() {
-            clearTimeout(autoReviewTimer);
-            clearTimeout(autoReviewSpeakTimer1);
-            clearTimeout(autoReviewSpeakTimer2);
-            autoReviewEndButtons.classList.remove('hidden');
+            cleanupAll();
+            isCheatingDetected = false;          // Reset cờ gian lận
+            cheatingAlertBox.style.display = 'none'; // Ẩn cảnh báo
+            autoReviewEndButtons.classList.add('hidden');
             
             loginScreen.classList.add('hidden');
             reviewMenu.classList.add('hidden');
@@ -1694,6 +1657,14 @@
         }
 
         function backToGradeSelection() {
+            cleanupAll();
+            isCheatingDetected = false;          // Reset cờ gian lận
+            cheatingAlertBox.style.display = 'none'; // Ẩn cảnh báo
+            currentGrade = '';
+            currentUnit = '';
+            comprehensivePool = [];
+            isComprehensiveTest = false;
+            
             contactScreen.classList.add('hidden');
             mainMenu.classList.add('hidden');
             reviewMenu.classList.add('hidden');
@@ -1704,16 +1675,13 @@
             resultScreen.classList.add('hidden');
             
             gradeSelection.classList.remove('hidden');
-            resetComprehensiveTestState();
         }
 
         function backToReviewMenu() {
-            clearTimeout(autoReviewTimer);
-            autoReviewEndButtons.classList.remove('hidden');
-            
-            clearTimeout(autoReviewSpeakTimer1);
-            clearTimeout(autoReviewSpeakTimer2);
-            speechSynthesis.cancel();
+            cleanupAll();
+            isCheatingDetected = false;          // Reset cờ gian lận
+            cheatingAlertBox.style.display = 'none'; // Ẩn cảnh báo
+            autoReviewEndButtons.classList.add('hidden');
             
             vocabularyList.classList.add('hidden');
             autoReviewScreen.classList.add('hidden');
@@ -1726,7 +1694,6 @@
             
             questionCountSelect.innerHTML = '';
             
-            // Thêm Option mặc định "HÃY CHỌN SỐ CÂU HỎI"
             const defaultOption = document.createElement('option');
             defaultOption.value = "";
             defaultOption.textContent = "HÃY CHỌN SỐ CÂU HỎI";
@@ -1758,7 +1725,6 @@
         }
 
         function startComprehensiveTest() {
-            // Lấy random 40 câu từ tất cả các Unit có sẵn (1 đến maxUnits)
             startRangeTest(1, maxUnits, "KIỂM TRA TỔNG HỢP");
         }
 
@@ -1769,7 +1735,14 @@
                 return;
             }
             
-            const dataSource = currentMode === 'vocab' ? gradeData : grammarData;
+            let dataSource;
+            if (currentMode === 'vocab') {
+                dataSource = gradeData;
+            } else if (currentMode === 'translation') {
+                dataSource = translationData;
+            } else {
+                dataSource = grammarData;
+            }
             
             comprehensivePool = [];
             const gradeUnits = dataSource[currentGrade].units;
@@ -1793,7 +1766,6 @@
             }
             
             isComprehensiveTest = true;
-            // Lấy ngẫu nhiên 40 câu như yêu cầu
             questionCount = Math.min(40, comprehensivePool.length);
             
             currentTestTitle = title;
@@ -1823,12 +1795,8 @@
         }
 
         function startQuizWithPool(pool, count, title) {
+            cleanupAll();
             startTime = new Date();
-            
-            // Reset cờ gian lận khi bắt đầu game mới (trừ trường hợp restart vẫn giữ cờ nếu muốn, 
-            // nhưng theo yêu cầu "làm lại/xóa ghi nhận" thì reset ở restartGame. 
-            // Tuy nhiên startQuizWithPool được gọi từ startGame và startRangeTest.
-            // Để an toàn, ta không reset cờ ở đây, mà reset ở các nút bấm menu.
             
             selectedQuestions = getRandomQuestions(pool, count);
             
@@ -1852,6 +1820,9 @@
             if (currentMode === 'grammar') {
                 speakerBtn.classList.add('hidden-speaker');
                 questionTextLabel.textContent = "Chọn đáp án đúng cho câu sau:";
+            } else if (currentMode === 'translation') {
+                speakerBtn.classList.remove('hidden-speaker');
+                questionTextLabel.textContent = "Chọn nghĩa đúng cho câu sau:";
             } else {
                 speakerBtn.classList.remove('hidden-speaker');
                 questionTextLabel.textContent = "Chọn nghĩa đúng cho từ sau:";
@@ -1917,7 +1888,6 @@
         }
 
         function showQuestion() {
-            // Nếu đã bị bắt gian lận rồi thì không hiển thị tiếp câu hỏi
             if (isCheatingDetected) return;
 
             if (currentQuestionIndex >= selectedQuestions.length) {
@@ -1964,7 +1934,7 @@
             const startTime = Date.now();
             
             let maxTime = 8; 
-            if (currentMode === 'grammar') {
+            if (currentMode === 'grammar' || currentMode === 'translation') {
                 maxTime = 20;
             }
             
@@ -1977,7 +1947,6 @@
             }
             
             timer = setInterval(() => {
-                // Nếu bị phát hiện gian lận, dừng timer ngay
                 if (isCheatingDetected) {
                     clearInterval(timer);
                     return;
@@ -2001,7 +1970,6 @@
         }
 
         function selectOption(selectedOption, correctAnswer, questionId, questionWord) {
-            // Nếu đã bị bắt gian lận thì không xử lý click
             if (isCheatingDetected) return;
 
             const endTime = Date.now();
@@ -2009,7 +1977,7 @@
             const isCorrect = selectedOption === correctAnswer;
             
             let timeTaken = 0;
-            if (currentMode === 'grammar') {
+            if (currentMode === 'grammar' || currentMode === 'translation') {
                  timeTaken = 20 - timeLeft;
             } else {
                  timeTaken = 8 - timeLeft;
@@ -2037,7 +2005,6 @@
         }
 
         function handleAnswer(isCorrect, questionId, questionWord, selectedOption) {
-            // Kiểm tra lại trạng thái gian lận trước khi xử lý (tránh race condition)
             if (isCheatingDetected) return;
 
             const currentQuestion = selectedQuestions[currentQuestionIndex];
@@ -2064,40 +2031,30 @@
             
             currentQuestionIndex++;
             
-            // Sử dụng transitionTimeout để có thể hủy nếu cần
             transitionTimeout = setTimeout(() => {
                 showQuestion();
             }, 400);
         }
 
         function endGame() {
-            // Dừng mọi thứ khi kết thúc
-            if (timer) clearInterval(timer);
-            if (transitionTimeout) clearTimeout(transitionTimeout);
-            speechSynthesis.cancel();
+            cleanupAll();
             
             quizScreen.classList.add('hidden');
             resultScreen.classList.remove('hidden');
             
             endTime = new Date();
             
-            // Tổng số câu ban đầu (Dù có làm hết hay không)
             const totalQuestions = selectedQuestions.length; 
             
-            // Phần trăm tính dựa trên tổng số câu đã chọn ban đầu
             const percentage = Math.round((score / totalQuestions) * 100);
 
             const resultName = document.getElementById('result-name');
             
-            // --- CHỈNH SỬA 1: HIỂN THỊ TÊN NGƯỜI DÙNG ---
-            // Nếu username rỗng thì hiển thị "Học sinh", ngược lại hiển thị username
             resultName.textContent = username.trim() ? username.trim() : "Học sinh";
-            // -----------------------------------------------
 
             const resultHeader = document.getElementById('result-grade-header');
             const resultScreenEl = document.getElementById('result-screen');
 
-            // Xử lý hiển thị thông báo gian lận
             if (isCheatingDetected) {
                 cheatingAlertBox.style.display = 'block';
             } else {
@@ -2108,11 +2065,19 @@
                 resultName.style.color = 'var(--grammar-blue)'; 
                 resultHeader.style.color = 'var(--grammar-blue)';
                 resultScreenEl.classList.remove('vocab-result-mode');
+                resultScreenEl.classList.remove('translation-result-mode');
                 resultScreenEl.classList.add('grammar-result-mode');
+            } else if (currentMode === 'translation') {
+                resultName.style.color = 'var(--translation-color)'; 
+                resultHeader.style.color = 'var(--translation-color)';
+                resultScreenEl.classList.remove('vocab-result-mode');
+                resultScreenEl.classList.remove('grammar-result-mode');
+                resultScreenEl.classList.add('translation-result-mode');
             } else {
                 resultName.style.color = 'var(--vocab-dark-green)'; 
                 resultHeader.style.color = 'var(--vocab-dark-green)';
                 resultScreenEl.classList.remove('grammar-result-mode');
+                resultScreenEl.classList.remove('translation-result-mode');
                 resultScreenEl.classList.add('vocab-result-mode');
             }
 
@@ -2132,7 +2097,6 @@
             else if (percentage >= 90 && percentage <= 99) { scoreColor = '#1890ff'; } 
             else if (percentage === 100) { scoreColor = '#722ed1'; }
             
-            // Nếu gian lận, ép màu đỏ cho biểu đồ
             if (isCheatingDetected) scoreColor = '#f44336';
             
             circlePath.style.stroke = scoreColor;
@@ -2140,25 +2104,27 @@
             const percentageText = document.getElementById('score-percentage-text');
             percentageText.style.fill = scoreColor;
 
-            // --- CHỈNH SỬA: THÊM GIÂY VÀO ĐỊNH DẠNG GIỜ ---
             const startOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
             const startDateOptions = { day: '2-digit', month: '2-digit' };
             
             document.getElementById('result-start-time').textContent = startTime.toLocaleTimeString('vi-VN', startOptions);
             document.getElementById('result-start-date').textContent = startTime.toLocaleDateString('vi-VN', startDateOptions);
 
-            // --- CHỈNH SỬA: THÊM GIÂY VÀO ĐỊNH DẠNG GIỜ ---
             const endOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
             const endDateOptions = { day: '2-digit', month: '2-digit' };
             
             document.getElementById('result-end-time').textContent = endTime.toLocaleTimeString('vi-VN', endOptions);
             document.getElementById('result-end-date').textContent = endTime.toLocaleDateString('vi-VN', endDateOptions);
-            // ---------------------------------------------
 
             document.getElementById('result-max-streak').textContent = maxStreak;
             document.getElementById('result-total-time').textContent = `${totalTime.toFixed(1)}s`;
 
-            const modeText = currentMode === 'vocab' ? "TỪ VỰNG MAX" : "DỊCH CÂU MAX";
+            let modeText = "TỪ VỰNG";
+            if (currentMode === 'grammar') {
+                modeText = "NGỮ PHÁP";
+            } else if (currentMode === 'translation') {
+                modeText = "DỊCH CÂU";
+            }
             document.getElementById('result-grade-header').textContent = `ÔN TẬP LỚP ${currentGrade.replace('E','')} – ${modeText}`;
 
             wrongQuestionsElement.innerHTML = '';
@@ -2176,9 +2142,6 @@
                 });
             }
             
-            // Hiển thị lịch sử chi tiết
-            // Ở đây answerHistory chỉ chứa các câu ĐÃ LÀM. 
-            // Nên sẽ tự động không hiển thị các câu chưa làm (yêu cầu 1.1)
             answerHistoryBody.innerHTML = '';
             answerHistory.forEach((item, index) => {
                 const row = document.createElement('tr');
@@ -2198,7 +2161,7 @@
                     wordSpan.textContent = item.word;
                 }
                 
-                if (currentMode === 'vocab') {
+                if (currentMode === 'vocab' || currentMode === 'translation') {
                     const speakerBtn = document.createElement('button');
                     speakerBtn.className = 'speaker-btn'; 
                     speakerBtn.title = 'Nghe phát âm';
@@ -2231,7 +2194,7 @@
         }
 
         function restartGame() {
-            // Yêu cầu 1.2: Nếu nhấp làm lại thì xóa ghi nhận phát hiện gian lận
+            cleanupAll();
             isCheatingDetected = false;
             
             let pool = [];
@@ -2258,6 +2221,9 @@
             if (currentMode === 'grammar') {
                 speakerBtn.classList.add('hidden-speaker');
                 questionTextLabel.textContent = "Chọn đáp án đúng cho câu sau:";
+            } else if (currentMode === 'translation') {
+                speakerBtn.classList.remove('hidden-speaker');
+                questionTextLabel.textContent = "Chọn nghĩa đúng cho câu sau:";
             } else {
                 speakerBtn.classList.remove('hidden-speaker');
                 questionTextLabel.textContent = "Chọn nghĩa đúng cho từ sau:";
@@ -2267,8 +2233,9 @@
         }
 
         function newGame() {
-            // Yêu cầu 1.2: Nếu nhấp chơi mới thì xóa ghi nhận phát hiện gian lận
+            cleanupAll();
             isCheatingDetected = false;
+            cheatingAlertBox.style.display = 'none'; // Ẩn cảnh báo
             resetComprehensiveTestState();
             resultScreen.classList.add('hidden');
             loginScreen.classList.remove('hidden');
@@ -2278,8 +2245,10 @@
             
             if (currentMode === 'vocab') {
                 loginUnitTitle.textContent = "Chọn đề bài trắc nghiệm từ vựng";
+            } else if (currentMode === 'translation') {
+                loginUnitTitle.textContent = "Chọn bài tập dịch câu";
             } else {
-                loginUnitTitle.textContent = "Chọn đề bài tập dịch câu";
+                loginUnitTitle.textContent = "Chọn đề bài tập ngữ pháp";
             }
         }
 
@@ -2316,7 +2285,6 @@
             questionCountSelect.disabled = false;
         }
         
-        // Khởi tạo ban đầu
         updateQuestionCountOptions();
     </script>
 </body>
