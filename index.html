@@ -264,7 +264,7 @@
         .explain-box.show {
             display: block;
         }
-        /* ========== GIAO DIỆN ÔN TẬP TỔNG HỢP (điều chỉnh theo yêu cầu) ========== */
+        /* ========== GIAO DIỆN ÔN TẬP TỔNG HỢP (giữ nguyên) ========== */
         #review-container {
             display: none;
         }
@@ -277,15 +277,13 @@
         .review-header .title-group {
             flex: 1;
         }
-        /* Điều chỉnh kích thước tiêu đề 1 và 2 bằng nhau */
         .review-header h1 {
-            font-size: 1.6rem;
+            font-size: 2.2rem;
             color: #0a2f44;
             margin: 0 0 5px;
             font-weight: 600;
         }
         .review-header h2 {
-            font-size: 1.6rem;
             color: #1e4a6f;
             font-weight: 400;
             border-left: 8px solid #f4b436;
@@ -293,12 +291,18 @@
             margin-top: 5px;
             margin-bottom: 0;
         }
-        /* Nút quay lại: desktop-only / mobile-only */
-        .desktop-only {
-            display: inline-block;
+        .review-header .btn-back {
+            margin-left: 20px;
+            align-self: center;
         }
-        .mobile-only {
+        /* Nút quay lại dành riêng cho mobile (ẩn trên desktop) */
+        .mobile-back-btn {
             display: none;
+            text-align: center;
+            margin: 15px 0;
+        }
+        .mobile-back-btn .btn-back {
+            display: inline-block;
         }
         .setup-form {
             max-width: 500px;
@@ -459,53 +463,48 @@
             justify-content: center;
             margin: 30px 0;
         }
-        /* ========== MEDIA QUERIES (mobile) ========== */
+        /* ========== ĐIỀU CHỈNH CHO MÀN HÌNH ĐIỆN THOẠI ========== */
         @media (max-width: 700px) {
-            /* Thu gọn 4 ô thống kê và đặt cạnh biểu đồ */
             .report-grid {
-                grid-template-columns: 1fr 1fr; /* giữ 2 cột trên mobile */
-                gap: 10px;
+                grid-template-columns: 1fr;
             }
-            .chart-container {
-                width: 130px;
-                height: 130px;
-            }
-            .chart-percent {
-                font-size: 1.8rem;
-            }
-            .student-name {
-                font-size: 1.4rem;
-            }
+            /* Giữ stats-grid 2 cột trên mobile */
             .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            /* Thu nhỏ các thẻ thống kê */
+            .stat-card {
+                padding: 12px;
                 gap: 8px;
             }
-            .stat-card {
-                padding: 8px;
-                gap: 5px;
-            }
             .stat-icon {
-                font-size: 1.3rem;
-            }
-            .stat-content {
-                font-size: 0.8rem;
+                font-size: 1.5rem;
             }
             .stat-content .big-number {
                 font-size: 1.2rem;
             }
-
-            /* Điều chỉnh nút quay lại: ẩn nút desktop, hiện nút mobile */
-            .desktop-only {
+            .stat-content div:first-child {
+                font-size: 0.75rem;
+            }
+            /* Điều chỉnh tiêu đề */
+            .review-header h1,
+            .review-header h2 {
+                font-size: 1.5rem;
+            }
+            /* Ẩn nút quay lại trên header, hiện nút mobile */
+            .review-header .btn-back {
                 display: none;
             }
-            .mobile-only {
+            .mobile-back-btn {
                 display: block;
-                margin: 20px 0 10px; /* cách trên và dưới */
-                text-align: center;
             }
-            /* Nút mobile căn giữa */
-            .mobile-only .btn-back {
-                display: inline-block;
-                margin: 0 auto;
+            /* Ẩn nút quay lại trong report-actions (chỉ giữ nút làm lại) */
+            .report-actions .btn-back {
+                display: none;
+            }
+            /* Điều chỉnh khoảng cách */
+            .report-actions {
+                margin-top: 20px;
             }
         }
     </style>
@@ -563,8 +562,7 @@
                 <h1>📚 ÔN TẬP TỔNG HỢP</h1>
                 <h2 id="reviewUnitTitle">Tiếng Anh 6 - Unit X</h2>
             </div>
-            <!-- Nút quay lại trên desktop (ẩn trên mobile) -->
-            <button class="btn-back desktop-only" id="backToMainBtn">← Quay lại</button>
+            <button class="btn-back" id="backToMainBtn">← Quay lại</button>
         </div>
 
         <!-- MÀN HÌNH THIẾT LẬP -->
@@ -644,9 +642,9 @@
                 </div>
             </div>
 
-            <!-- Nút quay lại trên mobile (chỉ hiện trên mobile) -->
-            <div class="mobile-only">
-                <button class="btn-back" id="backToMainBtnMobile">← Quay lại</button>
+            <!-- Nút quay lại dành riêng cho mobile (hiện ở đây) -->
+            <div class="mobile-back-btn">
+                <button class="btn-back" id="mobileBackBtn">← QUAY LẠI</button>
             </div>
 
             <h3>Chi tiết các câu đã làm</h3>
@@ -908,7 +906,7 @@
                     title: "CLOSER LOOK 2",
                     questions: [
                         { question: "This is _______ book.", options: ["Mi", "Mi's", "Mis", "Mis'"], correctText: "Mi's", explanation: "Dùng sở hữu cách cho danh từ riêng 'Mi' bằng cách thêm 's: Mi's.", translation: "Đây là sách _______. / ○ Mi ○ của Mi ○ (sai chính tả) ○ (sai ngữ pháp)" },
-                        { question: "_______ house is big and nice.", options: ["My parents", "My parents's", "My parents'", "My parent"], correctText: "My parents'", explanation: "Danh từ số nhiều \"parents\" (bố mẹ) đã kết thúc bằng 's', chỉ cần thêm dấu nháy đơn (') sau 's' để tạo sở hữu cách: parents'.", translation: "_______ nhà to và đẹp. / ○ Bố mẹ tôi (chưa phải sở hữu) ○ Bố mẹ tôi (sai sở hữu) ○ Của bố mẹ tôi ○ Bố/mẹ tôi" },
+                        { question: "_______ house is big and nice.", options: ["My parents", "My parents's", "My parents'", "My parent"], correctText: "My parents'", explanation: "Danh từ số nhiều \"parents\" (bố mẹ) đã kết thúc bằng 's, chỉ cần thêm dấu nháy đơn (') sau 's' để tạo sở hữu cách: parents'.", translation: "_______ nhà to và đẹp. / ○ Bố mẹ tôi (chưa phải sở hữu) ○ Bố mẹ tôi (sai sở hữu) ○ Của bố mẹ tôi ○ Bố/mẹ tôi" },
                         { question: "The cat is sleeping _______ the sofa.", options: ["on", "next", "under", "between"], correctText: "on", explanation: "\"On\" (ở trên) là giới từ chỉ vị trí trên bề mặt. Con mèo nằm trên ghế sofa.", translation: "Con mèo đang ngủ _______ ghế sô-pha. / ○ trên ○ bên cạnh (thiếu \"to\") ○ dưới ○ ở giữa" },
                         { question: "The picture is hanging _______ the wall.", options: ["in", "on", "at", "under"], correctText: "on", explanation: "Dùng \"on\" với \"wall\" (trên tường) để chỉ vật được treo trên bề mặt tường.", translation: "Bức tranh đang được treo _______ tường. / ○ trong ○ trên ○ tại ○ dưới" },
                         { question: "The books are _______ the shelf.", options: ["in", "on", "at", "under"], correctText: "on", explanation: "Sách thường được đặt \"on\" (trên) giá sách (shelf) - tức là trên bề mặt của kệ.", translation: "Những cuốn sách ở _______ giá. / ○ trong ○ trên ○ tại ○ dưới" },
@@ -1155,8 +1153,7 @@
             const streakInfo = document.getElementById('streakInfo');
             const totalTimeSpan = document.getElementById('totalTime');
             const answerTableBody = document.getElementById('answerTableBody');
-            // Nút quay lại trên mobile
-            const backToMainBtnMobile = document.getElementById('backToMainBtnMobile');
+            const mobileBackBtn = document.getElementById('mobileBackBtn');
 
             // ==================== HÀM HỖ TRỢ ====================
             function shuffleArray(arr) {
@@ -1517,15 +1514,6 @@
                 if (timerInterval) clearInterval(timerInterval);
             });
 
-            // Nút quay lại trên mobile
-            if (backToMainBtnMobile) {
-                backToMainBtnMobile.addEventListener('click', () => {
-                    reviewContainer.style.display = 'none';
-                    mainContainer.style.display = 'block';
-                    if (timerInterval) clearInterval(timerInterval);
-                });
-            }
-
             backFromSetupBtn.addEventListener('click', () => {
                 reviewContainer.style.display = 'none';
                 mainContainer.style.display = 'block';
@@ -1535,6 +1523,14 @@
                 reviewContainer.style.display = 'none';
                 mainContainer.style.display = 'block';
             });
+
+            // Sự kiện cho nút quay lại trên mobile
+            if (mobileBackBtn) {
+                mobileBackBtn.addEventListener('click', () => {
+                    reviewContainer.style.display = 'none';
+                    mainContainer.style.display = 'block';
+                });
+            }
 
             redoReviewBtn.addEventListener('click', () => {
                 showSetup();
