@@ -264,7 +264,7 @@
         .explain-box.show {
             display: block;
         }
-        /* ========== GIAO DIỆN ÔN TẬP TỔNG HỢP (giữ nguyên) ========== */
+        /* ========== GIAO DIỆN ÔN TẬP TỔNG HỢP (điều chỉnh theo yêu cầu) ========== */
         #review-container {
             display: none;
         }
@@ -277,13 +277,15 @@
         .review-header .title-group {
             flex: 1;
         }
+        /* Điều chỉnh kích thước tiêu đề 1 và 2 bằng nhau */
         .review-header h1 {
-            font-size: 2.2rem;
+            font-size: 1.6rem;
             color: #0a2f44;
             margin: 0 0 5px;
             font-weight: 600;
         }
         .review-header h2 {
+            font-size: 1.6rem;
             color: #1e4a6f;
             font-weight: 400;
             border-left: 8px solid #f4b436;
@@ -291,9 +293,12 @@
             margin-top: 5px;
             margin-bottom: 0;
         }
-        .review-header .btn-back {
-            margin-left: 20px;
-            align-self: center;
+        /* Nút quay lại: desktop-only / mobile-only */
+        .desktop-only {
+            display: inline-block;
+        }
+        .mobile-only {
+            display: none;
         }
         .setup-form {
             max-width: 500px;
@@ -454,20 +459,53 @@
             justify-content: center;
             margin: 30px 0;
         }
+        /* ========== MEDIA QUERIES (mobile) ========== */
         @media (max-width: 700px) {
+            /* Thu gọn 4 ô thống kê và đặt cạnh biểu đồ */
             .report-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr; /* giữ 2 cột trên mobile */
+                gap: 10px;
+            }
+            .chart-container {
+                width: 130px;
+                height: 130px;
+            }
+            .chart-percent {
+                font-size: 1.8rem;
+            }
+            .student-name {
+                font-size: 1.4rem;
             }
             .stats-grid {
-                grid-template-columns: 1fr;
+                gap: 8px;
             }
-            .review-header {
-                flex-direction: column;
-                align-items: flex-start;
+            .stat-card {
+                padding: 8px;
+                gap: 5px;
             }
-            .review-header .btn-back {
-                margin-left: 0;
-                margin-top: 10px;
+            .stat-icon {
+                font-size: 1.3rem;
+            }
+            .stat-content {
+                font-size: 0.8rem;
+            }
+            .stat-content .big-number {
+                font-size: 1.2rem;
+            }
+
+            /* Điều chỉnh nút quay lại: ẩn nút desktop, hiện nút mobile */
+            .desktop-only {
+                display: none;
+            }
+            .mobile-only {
+                display: block;
+                margin: 20px 0 10px; /* cách trên và dưới */
+                text-align: center;
+            }
+            /* Nút mobile căn giữa */
+            .mobile-only .btn-back {
+                display: inline-block;
+                margin: 0 auto;
             }
         }
     </style>
@@ -525,7 +563,8 @@
                 <h1>📚 ÔN TẬP TỔNG HỢP</h1>
                 <h2 id="reviewUnitTitle">Tiếng Anh 6 - Unit X</h2>
             </div>
-            <button class="btn-back" id="backToMainBtn">← Quay lại</button>
+            <!-- Nút quay lại trên desktop (ẩn trên mobile) -->
+            <button class="btn-back desktop-only" id="backToMainBtn">← Quay lại</button>
         </div>
 
         <!-- MÀN HÌNH THIẾT LẬP -->
@@ -604,6 +643,12 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Nút quay lại trên mobile (chỉ hiện trên mobile) -->
+            <div class="mobile-only">
+                <button class="btn-back" id="backToMainBtnMobile">← Quay lại</button>
+            </div>
+
             <h3>Chi tiết các câu đã làm</h3>
             <table class="answer-table">
                 <thead><tr><th>STT</th><th>Câu hỏi</th><th>Bạn chọn</th><th>Đáp án đúng</th></tr></thead>
@@ -1110,6 +1155,8 @@
             const streakInfo = document.getElementById('streakInfo');
             const totalTimeSpan = document.getElementById('totalTime');
             const answerTableBody = document.getElementById('answerTableBody');
+            // Nút quay lại trên mobile
+            const backToMainBtnMobile = document.getElementById('backToMainBtnMobile');
 
             // ==================== HÀM HỖ TRỢ ====================
             function shuffleArray(arr) {
@@ -1469,6 +1516,15 @@
                 mainContainer.style.display = 'block';
                 if (timerInterval) clearInterval(timerInterval);
             });
+
+            // Nút quay lại trên mobile
+            if (backToMainBtnMobile) {
+                backToMainBtnMobile.addEventListener('click', () => {
+                    reviewContainer.style.display = 'none';
+                    mainContainer.style.display = 'block';
+                    if (timerInterval) clearInterval(timerInterval);
+                });
+            }
 
             backFromSetupBtn.addEventListener('click', () => {
                 reviewContainer.style.display = 'none';
