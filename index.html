@@ -264,7 +264,7 @@
         .explain-box.show {
             display: block;
         }
-        /* ========== GIAO DIỆN ÔN TẬP TỔNG HỢP ========== */
+        /* ========== GIAO DIỆN ÔN TẬP TỔNG HỢP (giữ nguyên) ========== */
         #review-container {
             display: none;
         }
@@ -327,21 +327,27 @@
             border: 1px solid #ccdbe9;
             font-size: 1rem;
         }
-        /* Container cho hai nút LÀM BÀI và QUAY LẠI */
-        .setup-actions {
+        .setup-form button {
+            background: #1f3a5f;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .setup-form button.secondary {
+            background: #e9ecf3;
+            color: #1f3a5f;
+        }
+        /* Căn chỉnh 2 nút trong form thiết lập: LÀM BÀI bên trái, QUAY LẠI bên phải */
+        .setup-form > div:last-child {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        .setup-actions button {
-            flex: 0 1 auto;
-            margin: 0; /* loại bỏ margin-right mặc định */
-        }
-        .setup-actions .secondary {
-            background: #e9ecf3;
-            color: #1f3a5f;
+            flex-wrap: nowrap;      /* Giữ 2 nút trên cùng một dòng */
+            gap: 10px;               /* Khoảng cách tối thiểu giữa 2 nút */
         }
         .test-progress {
             display: flex;
@@ -470,9 +476,11 @@
             .report-grid {
                 grid-template-columns: 1fr;
             }
+            /* Giữ stats-grid 2 cột trên mobile */
             .stats-grid {
                 grid-template-columns: 1fr 1fr;
             }
+            /* Thu nhỏ các thẻ thống kê */
             .stat-card {
                 padding: 12px;
                 gap: 8px;
@@ -486,19 +494,23 @@
             .stat-content div:first-child {
                 font-size: 0.75rem;
             }
+            /* Điều chỉnh tiêu đề */
             .review-header h1,
             .review-header h2 {
                 font-size: 1.5rem;
             }
+            /* Ẩn nút quay lại trên header, hiện nút mobile */
             .review-header .btn-back {
                 display: none;
             }
             .mobile-back-btn {
                 display: block;
             }
+            /* Ẩn nút quay lại trong report-actions (chỉ giữ nút làm lại) */
             .report-actions .btn-back {
                 display: none;
             }
+            /* Điều chỉnh khoảng cách */
             .report-actions {
                 margin-top: 20px;
             }
@@ -577,8 +589,7 @@
                     <option value="999">Tất cả (140 câu)</option>
                 </select>
             </div>
-            <!-- Hai nút nằm trên cùng một dòng, trái và phải -->
-            <div class="setup-actions">
+            <div>
                 <button id="startReviewBtn">LÀM BÀI</button>
                 <button class="secondary" id="backFromSetupBtn">QUAY LẠI</button>
             </div>
