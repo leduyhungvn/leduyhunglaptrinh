@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bài tập trắc nghiệm Tiếng Anh 6 - Unit 1 (20 câu/part)</title>
+    <title>ÔN TẬP TIẾNG ANH E6 (U1-U12)</title>
     <!-- Chart.js cho biểu đồ tròn -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
@@ -20,6 +20,70 @@
             flex-direction: column;
             align-items: center;
         }
+        /* Master menu container */
+        #master-container {
+            max-width: 1000px;
+            width: 100%;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0,20,40,0.1);
+            padding: 30px 25px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        #master-container h1 {
+            font-size: 2.5rem;
+            color: #0a2f44;
+            margin: 0 0 20px;
+            font-weight: 700;
+        }
+        .unit-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+        .unit-btn {
+            border: none;
+            padding: 20px 10px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 8px 0 rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .unit-btn:nth-child(1) { background: #e34a2f; } /* U1 */
+        .unit-btn:nth-child(2) { background: #2f8fe3; } /* U2 */
+        .unit-btn:nth-child(3) { background: #2fe3a0; } /* U3 */
+        .unit-btn:nth-child(4) { background: #e3a02f; } /* U4 */
+        .unit-btn:nth-child(5) { background: #9b2fe3; } /* U5 */
+        .unit-btn:nth-child(6) { background: #e32f6b; } /* U6 */
+        .unit-btn:nth-child(7) { background: #2fe3d9; } /* U7 */
+        .unit-btn:nth-child(8) { background: #d9e32f; } /* U8 */
+        .unit-btn:nth-child(9) { background: #8b4513; } /* U9 */
+        .unit-btn:nth-child(10) { background: #2f8e8e; } /* U10 */
+        .unit-btn:nth-child(11) { background: #6b2fe3; } /* U11 */
+        .unit-btn:nth-child(12) { background: #e32f2f; } /* U12 */
+        .unit-btn:hover {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+        }
+        .footer-info {
+            margin-top: 45px;
+            border-top: 2px dashed #cbd6e4;
+            padding-top: 25px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+        .footer-info .name {
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: #0a2f44;
+        }
+        /* ========== GIAO DIỆN CHÍNH (Unit) ========== */
         .main-container, #review-container {
             max-width: 1000px;
             width: 100%;
@@ -28,6 +92,9 @@
             box-shadow: 0 20px 40px rgba(0,20,40,0.1);
             padding: 30px 25px;
             margin-bottom: 20px;
+        }
+        #main-container, #review-container {
+            display: none; /* Ẩn cho đến khi chọn Unit */
         }
         h1 {
             font-size: 2.2rem;
@@ -43,7 +110,6 @@
             margin-top: 5px;
             margin-bottom: 30px;
         }
-        /* ========== NÚT & TAB ========== */
         .part-tabs {
             display: flex;
             flex-wrap: wrap;
@@ -95,7 +161,6 @@
             flex-wrap: wrap;
             gap: 10px;
         }
-        /* ========== CÂU HỎI (phần cũ) ========== */
         .questions-area {
             display: flex;
             flex-direction: column;
@@ -131,7 +196,6 @@
             flex-direction: column;
             gap: 12px;
         }
-        /* Cải thiện vùng nhấp cho option-item */
         .option-item {
             display: flex;
             align-items: center;
@@ -158,11 +222,6 @@
             accent-color: #1f3a5f;
             margin: 0;
             flex-shrink: 0;
-        }
-        .option-text {
-            font-size: 1rem;
-            color: #102b3f;
-            line-height: 1.4;
         }
         .action-group {
             display: flex;
@@ -205,22 +264,7 @@
         .explain-box.show {
             display: block;
         }
-        .translation-line {
-            margin: 4px 0;
-        }
-        .footer-info {
-            margin-top: 45px;
-            border-top: 2px dashed #cbd6e4;
-            padding-top: 25px;
-            text-align: center;
-            font-size: 1.2rem;
-        }
-        .footer-info .name {
-            font-weight: 700;
-            font-size: 1.4rem;
-            color: #0a2f44;
-        }
-        /* ========== GIAO DIỆN ÔN TẬP TỔNG HỢP ========== */
+        /* ========== GIAO DIỆN ÔN TẬP TỔNG HỢP (giữ nguyên) ========== */
         #review-container {
             display: none;
         }
@@ -318,13 +362,11 @@
             margin-top: 20px;
             display: flex;
             flex-direction: column;
-            gap: 16px; /* Tăng khoảng cách giữa các lựa chọn */
+            gap: 16px;
         }
-        /* Kế thừa option-item từ phần cũ nhưng tùy chỉnh thêm cho test */
         .test-options .option-item label {
-            padding: 14px 20px; /* Tăng padding để dễ nhấp */
+            padding: 14px 20px;
         }
-        /* Không còn nút "Câu tiếp theo" */
         .report-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -431,13 +473,32 @@
     </style>
 </head>
 <body>
-    <!-- ========== GIAO DIỆN CHÍNH 7 PHẦN ========== -->
+    <!-- ========== GIAO DIỆN DANH SÁCH UNIT (MENU CHÍNH) ========== -->
+    <div id="master-container">
+        <h1>📚 ÔN TẬP TIẾNG ANH E6</h1>
+        <div class="unit-grid" id="unitGrid">
+            <!-- 12 nút được tạo bằng JavaScript -->
+        </div>
+        <div class="footer-info">
+            <p>👨🏫 Thông tin giáo viên:</p>
+            <p class="name">LÊ DUY HÙNG</p>
+            <p class="fb">Facebook: leduyhung.vietnam</p>
+            <p>Youtube: byleduyhung & approach1234</p>
+            <p>Tiktok: leduyhung.vietnam</p>
+            <p>Zalo: 0967095025</p>
+        </div>
+    </div>
+
+    <!-- ========== GIAO DIỆN CHÍNH CỦA MỘT UNIT ========== -->
     <div class="main-container" id="main-container">
         <div style="display: flex; align-items: center; justify-content: space-between;">
             <h1>📘 Bài tập trắc nghiệm</h1>
-            <button class="review-btn" id="gotoReviewBtn">🎯 ÔN TẬP TỔNG HỢP</button>
+            <div>
+                <button class="review-btn" id="gotoReviewBtn">🎯 ÔN TẬP TỔNG HỢP</button>
+                <button class="btn-back" id="backToMasterBtn">← Quay lại danh sách Unit</button>
+            </div>
         </div>
-        <h2>Tiếng Anh 6 - Unit 1 (20 câu/phần)</h2>
+        <h2 id="unitTitle">Tiếng Anh 6 - Unit X (20 câu/phần)</h2>
         <div class="part-tabs" id="partTabs"></div>
         <div class="action-bar">
             <span></span>
@@ -447,7 +508,7 @@
         <div class="reset-bottom">
             <button class="btn-reset" id="resetBottomBtn">🔄 LÀM LẠI (trộn câu)</button>
         </div>
-        <div class="footer-info">
+        <div class="footer-info" style="margin-top:30px;">
             <p>👨🏫 Thông tin giáo viên:</p>
             <p class="name">LÊ DUY HÙNG</p>
             <p class="fb">Facebook: leduyhung.vietnam</p>
@@ -462,7 +523,7 @@
         <div class="review-header">
             <div class="title-group">
                 <h1>📚 ÔN TẬP TỔNG HỢP</h1>
-                <h2>Tiếng Anh 6 - Unit 1</h2>
+                <h2 id="reviewUnitTitle">Tiếng Anh 6 - Unit X</h2>
             </div>
             <button class="btn-back" id="backToMainBtn">← Quay lại</button>
         </div>
@@ -471,7 +532,6 @@
         <div id="review-setup" class="setup-form">
             <div class="form-group">
                 <label>Tên người làm bài:</label>
-                <!-- Đã sửa: xóa value, thêm placeholder -->
                 <input type="text" id="studentName" placeholder="Nhập tên của bạn" value="">
             </div>
             <div class="form-group">
@@ -490,7 +550,7 @@
             </div>
         </div>
 
-        <!-- MÀN HÌNH LÀM BÀI (đã loại bỏ nút "Câu tiếp theo") -->
+        <!-- MÀN HÌNH LÀM BÀI -->
         <div id="review-test" style="display: none;">
             <div class="test-progress">
                 <span id="test-counter">Câu 1 / 10</span>
@@ -500,13 +560,11 @@
                 <div class="timer-fill" id="timer-fill" style="width: 100%;"></div>
             </div>
             <div id="test-question-container" class="test-question"></div>
-            <!-- Không còn nút chuyển câu -->
         </div>
 
         <!-- MÀN HÌNH BÁO CÁO -->
         <div id="review-report" style="display: none;">
             <div class="report-grid">
-                <!-- Ô biểu đồ tròn -->
                 <div class="chart-box">
                     <div class="chart-container">
                         <canvas id="resultChart" width="200" height="200"></canvas>
@@ -515,7 +573,6 @@
                     <div class="student-name" id="reportStudentName"></div>
                     <div class="date-info" id="reportDate"></div>
                 </div>
-                <!-- 4 ô thông tin -->
                 <div class="stats-grid">
                     <div class="stat-card" style="border-left-color: #f4b436;">
                         <div class="stat-icon">⏱️</div>
@@ -547,7 +604,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Bảng chi tiết câu hỏi -->
             <h3>Chi tiết các câu đã làm</h3>
             <table class="answer-table">
                 <thead><tr><th>STT</th><th>Câu hỏi</th><th>Bạn chọn</th><th>Đáp án đúng</th></tr></thead>
@@ -562,8 +618,8 @@
 
     <script>
         (function() {
-            // ==================== DỮ LIỆU ĐẦY ĐỦ 7 PHẦN (20 CÂU MỖI PHẦN) ====================
-            const fullPartsData = [
+            // ==================== DỮ LIỆU UNIT 1 (ĐẦY ĐỦ 7 PHẦN) ====================
+            const unit1Data = [
                 // PHẦN 1: GETTING STARTED
                 {
                     title: "GETTING STARTED",
@@ -748,41 +804,290 @@
                 }
             ];
 
-            // ==================== KHAI BÁO BIẾN TOÀN CỤC ====================
-            // Phần cũ (7 phần)
+            // ==================== DỮ LIỆU UNIT 2 (ĐẦY ĐỦ 7 PHẦN) ====================
+            const unit2Data = [
+                // PHẦN 1: GETTING STARTED
+                {
+                    title: "GETTING STARTED",
+                    questions: [
+                        { question: "What is the conversation mainly about?", options: ["Nick introducing his house to Mi", "Mi introducing her new flat to Nick", "Elena decorating her bedroom", "Nick and Mi talking about where they live"], correctText: "Nick and Mi talking about where they live", explanation: "Cuộc trò chuyện bắt đầu với việc Mi nhận xét về phòng của Nick, sau đó Nick giới thiệu đó là phòng của Elena. Họ tiếp tục hỏi nhau về nơi ở (loại nhà) và gia đình. Chủ đề chính là họ nói về nơi họ sống.", translation: "Đoạn hội thoại chủ yếu nói về điều gì? / ○ Nick giới thiệu nhà của mình với Mi ○ Mi giới thiệu căn hộ mới của mình với Nick ○ Elena trang trí phòng ngủ của cô ấy ○ Nick và Mi nói về nơi họ sống" },
+                        { question: "Who is Elena?", options: ["Mi's sister", "Nick's sister", "Mi's cousin", "Nick's mother"], correctText: "Nick's sister", explanation: "Nick nói: \"It's Elena's room. She's my sister.\"", translation: "Elena là ai? / ○ Chị/em gái của Mi ○ Chị/em gái của Nick ○ Em họ của Mi ○ Mẹ của Nick" },
+                        { question: "Where does Nick live?", options: ["In a town house", "In a flat", "In a country house", "In a villa"], correctText: "In a country house", explanation: "Nick trả lời: \"I live in a country house.\"", translation: "Nick sống ở đâu? / ○ Trong một ngôi nhà phố ○ Trong một căn hộ ○ Trong một ngôi nhà ở nông thôn ○ Trong một biệt thự" },
+                        { question: "Where does Mi live now?", options: ["In a town house", "In a flat", "In a country house", "In a villa"], correctText: "In a town house", explanation: "Mi nói: \"I live in a town house.\" và \"We're moving to a flat next month!\" => hiện tại cô ấy sống trong nhà phố.", translation: "Hiện tại Mi sống ở đâu? / ○ Trong một ngôi nhà phố ○ Trong một căn hộ ○ Trong một ngôi nhà ở nông thôn ○ Trong một biệt thự" },
+                        { question: "Where is Mi moving to next month?", options: ["A town house", "A flat", "A country house", "A villa"], correctText: "A flat", explanation: "Mi nói: \"We're moving to a flat next month!\"", translation: "Tháng tới Mi sẽ chuyển đến đâu? / ○ Một ngôi nhà phố ○ Một căn hộ ○ Một ngôi nhà ở nông thôn ○ Một biệt thự" },
+                        { question: "Who does Mi live with?", options: ["Her grandparents", "Her aunt and cousin", "Her parents and younger brother", "Her friends"], correctText: "Her parents and younger brother", explanation: "Mi trả lời: \"My parents and younger brother.\"", translation: "Mi sống với ai? / ○ Ông bà của cô ấy ○ Dì và em họ của cô ấy ○ Bố mẹ và em trai của cô ấy ○ Bạn bè của cô ấy" },
+                        { question: "Why does Mi like her new flat?", options: ["Because it is big.", "Because it is near her school.", "Because her aunt lives near there and she can play with her cousin.", "Because it has a big garden."], correctText: "Because her aunt lives near there and she can play with her cousin.", explanation: "Mi nói: \"My aunt lives near there, and I can play with my cousin.\"", translation: "Tại sao Mi thích căn hộ mới của mình? / ○ Bởi vì nó rộng. ○ Bởi vì nó gần trường học của cô ấy. ○ Bởi vì dì cô ấy sống gần đó và cô ấy có thể chơi với em họ. ○ Bởi vì nó có một khu vườn lớn." },
+                        { question: "How many rooms are there in Mi's new flat?", options: ["Four", "Five", "Six", "Seven"], correctText: "Seven", explanation: "Mi liệt kê: \"There's a living room, three bedrooms, a kitchen and two bathrooms.\" Tổng 1+3+1+2=7.", translation: "Có bao nhiêu phòng trong căn hộ mới của Mi? / ○ Bốn ○ Năm ○ Sáu ○ Bảy" },
+                        { question: "Which of the following is NOT a room in Mi's new flat?", options: ["A living room", "A bathroom", "A kitchen", "A garden"], correctText: "A garden", explanation: "Mi không nhắc đến garden. Căn hộ thường không có vườn.", translation: "Điều nào sau đây KHÔNG phải là một phòng trong căn hộ mới của Mi? / ○ Phòng khách ○ Phòng tắm ○ Phòng bếp ○ Khu vườn" },
+                        { question: "In Elena's room, there is a _______.", options: ["sofa", "television", "lamp", "cupboard"], correctText: "television", explanation: "Mi hỏi: \"Is there a TV behind you?\" Nick trả lời: \"Yes, there is.\"", translation: "Trong phòng của Elena, có một _______. / ○ ghế sô-pha ○ ti vi ○ cái đèn ○ tủ ly" },
+                        { question: "Mi says to Nick: \"Wow! Your room looks so big, Nick.\" What does Nick reply?", options: ["\"It's my room.\"", "\"It's Elena's room. She's my sister.\"", "\"Yes, it is. Thank you.\"", "\"Where do you live, Mi?\""], correctText: "\"It's Elena's room. She's my sister.\"", explanation: "Nick giải thích đó là phòng của em gái.", translation: "Mi nói với Nick: \"Chà! Phòng của cậu trông to quá, Nick ạ.\" Nick trả lời thế nào? / ○ \"Đó là phòng của tớ.\" ○ \"Đó là phòng của Elena. Cô ấy là chị/em gái tớ.\" ○ \"Ừ, đúng vậy. Cảm ơn cậu.\" ○ \"Cậu sống ở đâu vậy, Mi?\"" },
+                        { question: "What does Mi see behind Nick in the picture?", options: ["A window", "A sofa", "A TV", "A bookshelf"], correctText: "A TV", explanation: "Mi hỏi: \"Is there a TV behind you?\"", translation: "Mi nhìn thấy gì ở sau Nick trong bức ảnh? / ○ Một cửa sổ ○ Một ghế sô-pha ○ Một cái ti vi ○ Một giá sách" },
+                        { question: "The word \"flat\" in the conversation means a(n) _______.", options: ["house in the country", "apartment", "big house", "old house"], correctText: "apartment", explanation: "Trong tiếng Anh-Anh, \"flat\" có nghĩa là \"apartment\".", translation: "Từ \"flat\" trong đoạn hội thoại có nghĩa là một _______. / ○ ngôi nhà ở nông thôn ○ căn hộ chung cư ○ ngôi nhà lớn ○ ngôi nhà cổ" },
+                        { question: "Who does Mi want to play with in her new place?", options: ["Her brother", "Her new friends", "Her cousin", "Her sister"], correctText: "Her cousin", explanation: "Mi nói: \"... I can play with my cousin.\"", translation: "Mi muốn chơi với ai ở nơi ở mới của cô ấy? / ○ Anh/em trai cô ấy ○ Những người bạn mới của cô ấy ○ Em họ cô ấy ○ Chị/em gái cô ấy" },
+                        { question: "Which family member of Mi's is NOT mentioned in the conversation?", options: ["Mother", "Father", "Sister", "Brother"], correctText: "Sister", explanation: "Mi kể cô sống với bố mẹ và em trai, nhắc đến dì và em họ, không có chị/em gái.", translation: "Thành viên nào trong gia đình của Mi KHÔNG được nhắc đến trong đoạn hội thoại? / ○ Mẹ ○ Bố ○ Chị/em gái ○ Anh/em trai" },
+                        { question: "What type of house does Nick live in?", options: ["Town house", "Country house", "Flat", "Villa"], correctText: "Country house", explanation: "Nick nói: \"I live in a country house.\"", translation: "Nick sống trong loại nhà nào? / ○ Nhà phố ○ Nhà ở nông thôn ○ Căn hộ ○ Biệt thự" },
+                        { question: "What is behind Nick in the picture?", options: ["Elena", "A window", "A TV", "A door"], correctText: "A TV", explanation: "Mi hỏi về TV sau Nick.", translation: "Cái gì ở phía sau Nick trong bức ảnh? / ○ Elena ○ Một cửa sổ ○ Một cái ti vi ○ Một cái cửa ra vào" },
+                        { question: "Mi says: \"My aunt lives near there, and I can play with my cousin.\" The word \"there\" refers to _______.", options: ["Nick's house", "Mi's current house", "Mi's new flat", "the school"], correctText: "Mi's new flat", explanation: "\"there\" chỉ căn hộ mới của Mi vừa được nhắc đến.", translation: "Mi nói: \"Dì tớ sống gần đó, và tớ có thể chơi với em họ tớ.\" Từ \"đó\" chỉ _______. / ○ nhà của Nick ○ nhà hiện tại của Mi ○ căn hộ mới của Mi ○ trường học" },
+                        { question: "How many bathrooms are there in Mi's new flat?", options: ["One", "Two", "Three", "None"], correctText: "Two", explanation: "Mi nói: \"... two bathrooms.\"", translation: "Có bao nhiêu phòng tắm trong căn hộ mới của Mi? / ○ Một ○ Hai ○ Ba ○ Không có" },
+                        { question: "From the conversation, we know Mi's family is _______.", options: ["moving to a new house", "building a new house", "painting their house", "selling their house"], correctText: "moving to a new house", explanation: "Mi nói: \"We're moving to a flat next month!\"", translation: "Từ đoạn hội thoại, chúng ta biết gia đình Mi đang _______. / ○ chuyển đến một ngôi nhà mới ○ xây một ngôi nhà mới ○ sơn nhà của họ ○ bán nhà của họ" }
+                    ]
+                },
+                // PHẦN 2: CLOSER LOOK 1
+                {
+                    title: "CLOSER LOOK 1",
+                    questions: [
+                        { question: "Which room is used for cooking meals?", options: ["Living room", "Bedroom", "Kitchen", "Bathroom"], correctText: "Kitchen", explanation: "\"Kitchen\" (phòng bếp) là nơi dùng để nấu ăn.", translation: "Phòng nào được dùng để nấu ăn? / ○ Phòng khách ○ Phòng ngủ ○ Phòng bếp ○ Phòng tắm" },
+                        { question: "You usually sleep and relax in the _______.", options: ["living room", "bedroom", "kitchen", "bathroom"], correctText: "bedroom", explanation: "\"Bedroom\" (phòng ngủ) là nơi bạn thường ngủ và thư giãn.", translation: "Bạn thường ngủ và thư giãn trong _______. / ○ phòng khách ○ phòng ngủ ○ phòng bếp ○ phòng tắm" },
+                        { question: "Where can you take a shower or a bath?", options: ["Living room", "Bedroom", "Kitchen", "Bathroom"], correctText: "Bathroom", explanation: "\"Bathroom\" (phòng tắm) là nơi bạn có thể tắm vòi sen hoặc bồn tắm.", translation: "Bạn có thể tắm vòi sen hoặc bồn tắm ở đâu? / ○ Phòng khách ○ Phòng ngủ ○ Phòng bếp ○ Phòng tắm" },
+                        { question: "The room where a family gathers to watch TV is the _______.", options: ["living room", "bedroom", "kitchen", "hall"], correctText: "living room", explanation: "\"Living room\" (phòng khách) là nơi gia đình thường tụ tập để xem TV.", translation: "Căn phòng nơi gia đình tụ tập để xem TV là _______. / ○ phòng khách ○ phòng ngủ ○ phòng bếp ○ sảnh/hành lang" },
+                        { question: "A _______ is a piece of furniture you use to sit on, often with more than one seat.", options: ["chair", "table", "sofa", "bed"], correctText: "sofa", explanation: "\"Sofa\" (ghế sô-pha) là một món đồ nội thất bạn dùng để ngồi, thường có nhiều hơn một chỗ ngồi.", translation: "Một _______ là một món đồ nội thất bạn dùng để ngồi, thường có nhiều hơn một chỗ. / ○ cái ghế ○ cái bàn ○ ghế sô-pha ○ cái giường" },
+                        { question: "You use a _______ to wash your hands or dishes in the kitchen.", options: ["sink", "fridge", "cupboard", "shower"], correctText: "sink", explanation: "\"Sink\" (bồn rửa) bạn dùng để rửa tay hoặc rửa bát trong bếp.", translation: "Bạn dùng _______ để rửa tay hoặc rửa bát trong bếp. / ○ bồn rửa ○ tủ lạnh ○ tủ chén ○ vòi hoa sen" },
+                        { question: "A _______ is used for storing food and keeping it cold.", options: ["dishwasher", "fridge", "cupboard", "sink"], correctText: "fridge", explanation: "\"Fridge\" (tủ lạnh) được dùng để lưu trữ thức ăn và giữ lạnh.", translation: "Một _______ được dùng để lưu trữ thức ăn và giữ lạnh. / ○ máy rửa chén ○ tủ lạnh ○ tủ chén ○ bồn rửa" },
+                        { question: "You can keep your clothes in a _______.", options: ["chest of drawers", "desk", "sofa", "table"], correctText: "chest of drawers", explanation: "\"Chest of drawers\" (tủ có ngăn kéo) là nơi bạn có thể để quần áo.", translation: "Bạn có thể để quần áo trong một _______. / ○ tủ có ngăn kéo ○ bàn học ○ ghế sô-pha ○ cái bàn" },
+                        { question: "Which of these is usually found in a bathroom?", options: ["Cooker", "Fridge", "Shower", "Sofa"], correctText: "Shower", explanation: "\"Shower\" (vòi hoa sen) thường được tìm thấy trong phòng tắm (bathroom).", translation: "Cái nào sau đây thường được tìm thấy trong phòng tắm? / ○ Bếp nấu ○ Tủ lạnh ○ Vòi hoa sen ○ Ghế sô-pha" },
+                        { question: "A _______ is a piece of furniture with doors and shelves for storing things like cups, plates, or food.", options: ["sofa", "desk", "cupboard", "lamp"], correctText: "cupboard", explanation: "\"Cupboard\" (tủ ly, tủ chén) là đồ nội thất có cửa và kệ để đựng đồ như cốc, đĩa hoặc thức ăn.", translation: "Một _______ là một món đồ nội thất có cửa và kệ để đựng đồ như cốc, đĩa hoặc thức ăn. / ○ ghế sô-pha ○ bàn học ○ tủ ly ○ cái đèn" },
+                        { question: "You need a _______ to give light to a room.", options: ["picture", "lamp", "sofa", "cupboard"], correctText: "lamp", explanation: "Bạn cần một cái đèn (lamp) để chiếu sáng một căn phòng.", translation: "Bạn cần một _______ để chiếu sáng một căn phòng. / ○ bức tranh ○ cái đèn ○ ghế sô-pha ○ tủ ly" },
+                        { question: "A _______ is something you can hang on a wall, often a photo or a painting.", options: ["sink", "picture", "shower", "lamp"], correctText: "picture", explanation: "\"Picture\" (bức tranh/ảnh) là thứ bạn có thể treo trên tường.", translation: "Một _______ là thứ bạn có thể treo trên tường, thường là ảnh hoặc tranh vẽ. / ○ bồn rửa ○ bức tranh/ảnh ○ vòi hoa sen ○ cái đèn" },
+                        { question: "A _______ is a piece of furniture like a table that you sit at to write or work.", options: ["desk", "sofa", "bed", "cupboard"], correctText: "desk", explanation: "\"Desk\" (bàn học/bàn làm việc) là đồ nội thất giống cái bàn mà bạn ngồi để viết hoặc làm việc.", translation: "Một _______ là một món đồ nội thất giống cái bàn mà bạn ngồi để viết hoặc làm việc. / ○ bàn học ○ ghế sô-pha ○ cái giường ○ tủ ly" },
+                        { question: "Which word is a type of house?", options: ["Flat", "Kitchen", "Sofa", "Lamp"], correctText: "Flat", explanation: "\"Flat\" (căn hộ) là một loại nhà. Các từ còn lại là tên phòng (kitchen) hoặc đồ nội thất (sofa, lamp).", translation: "Từ nào là một loại nhà? / ○ Căn hộ ○ Phòng bếp ○ Ghế sô-pha ○ Cái đèn" },
+                        { question: "Which word is NOT a piece of furniture?", options: ["Cupboard", "Dishwasher", "Fridge", "Sink"], correctText: "Sink", explanation: "\"Sink\" (bồn rửa) thường là một vật dụng cố định trong nhà, nhưng trong danh sách từ vựng của bài, nó không được xếp vào nhóm \"Furniture\" (đồ nội thất) mà thường được coi là \"Fittings\" (thiết bị cố định). Các từ còn lại (cupboard, dishwasher, fridge) thường được coi là đồ nội thất hoặc thiết bị gia dụng.", translation: "Từ nào KHÔNG phải là một món đồ nội thất? / ○ Tủ ly ○ Máy rửa chén ○ Tủ lạnh ○ Bồn rửa" },
+                        { question: "In the bedroom, you might find a _______.", options: ["chest of drawers", "cooker", "sink", "dishwasher"], correctText: "chest of drawers", explanation: "\"Chest of drawers\" (tủ có ngăn kéo) là một món đồ thường thấy trong phòng ngủ (bedroom) để đựng quần áo.", translation: "Trong phòng ngủ, bạn có thể tìm thấy một _______. / ○ tủ có ngăn kéo ○ bếp nấu ○ bồn rửa ○ máy rửa chén" },
+                        { question: "In the living room, you might find a _______.", options: ["sofa and a TV", "bed and a lamp", "fridge and a sink", "shower and a toilet"], correctText: "sofa and a TV", explanation: "Trong phòng khách (living room), bạn thường thấy ghế sô-pha (sofa) và ti vi (TV).", translation: "Trong phòng khách, bạn có thể tìm thấy _______. / ○ ghế sô-pha và một cái ti vi ○ cái giường và một cái đèn ○ tủ lạnh và một bồn rửa ○ vòi hoa sen và một bồn cầu" },
+                        { question: "In the kitchen, you might find a _______.", options: ["sofa", "bed", "fridge", "shower"], correctText: "fridge", explanation: "Trong phòng bếp (kitchen), bạn chắc chắn có thể tìm thấy tủ lạnh (fridge).", translation: "Trong phòng bếp, bạn có thể tìm thấy một _______. / ○ ghế sô-pha ○ cái giường ○ tủ lạnh ○ vòi hoa sen" },
+                        { question: "A _______ is a room where you can study or do homework.", options: ["bathroom", "living room", "kitchen", "bedroom"], correctText: "bedroom", explanation: "\"Bedroom\" (phòng ngủ) là nơi bạn có thể có bàn học và học bài, nhưng câu hỏi chung nhất, bạn thường có bàn học (desk) trong phòng ngủ. Các phòng khác ít phù hợp hơn.", translation: "Một _______ là căn phòng nơi bạn có thể học hoặc làm bài tập về nhà. / ○ phòng tắm ○ phòng khách ○ phòng bếp ○ phòng ngủ" },
+                        { question: "What is in the picture? (Imagine a picture of a sink)", options: ["A fridge", "A cupboard", "A sink", "A sofa"], correctText: "A sink", explanation: "Dựa trên từ vựng, hình ảnh của một cái bồn rửa (sink) được cung cấp.", translation: "Có gì trong bức tranh? (Hãy tưởng tượng một bức tranh về cái bồn rửa) / ○ Một cái tủ lạnh ○ Một cái tủ ly ○ Một cái bồn rửa ○ Một cái ghế sô-pha" }
+                    ]
+                },
+                // PHẦN 3: CLOSER LOOK 2
+                {
+                    title: "CLOSER LOOK 2",
+                    questions: [
+                        { question: "This is _______ book.", options: ["Mi", "Mi's", "Mis", "Mis'"], correctText: "Mi's", explanation: "Dùng sở hữu cách cho danh từ riêng 'Mi' bằng cách thêm 's: Mi's.", translation: "Đây là sách _______. / ○ Mi ○ của Mi ○ (sai chính tả) ○ (sai ngữ pháp)" },
+                        { question: "_______ house is big and nice.", options: ["My parents", "My parents's", "My parents'", "My parent"], correctText: "My parents'", explanation: "Danh từ số nhiều \"parents\" (bố mẹ) đã kết thúc bằng 's', chỉ cần thêm dấu nháy đơn (') sau 's' để tạo sở hữu cách: parents'.", translation: "_______ nhà to và đẹp. / ○ Bố mẹ tôi (chưa phải sở hữu) ○ Bố mẹ tôi (sai sở hữu) ○ Của bố mẹ tôi ○ Bố/mẹ tôi" },
+                        { question: "The cat is sleeping _______ the sofa.", options: ["on", "next", "under", "between"], correctText: "on", explanation: "\"On\" (ở trên) là giới từ chỉ vị trí trên bề mặt. Con mèo nằm trên ghế sofa.", translation: "Con mèo đang ngủ _______ ghế sô-pha. / ○ trên ○ bên cạnh (thiếu \"to\") ○ dưới ○ ở giữa" },
+                        { question: "The picture is hanging _______ the wall.", options: ["in", "on", "at", "under"], correctText: "on", explanation: "Dùng \"on\" với \"wall\" (trên tường) để chỉ vật được treo trên bề mặt tường.", translation: "Bức tranh đang được treo _______ tường. / ○ trong ○ trên ○ tại ○ dưới" },
+                        { question: "The books are _______ the shelf.", options: ["in", "on", "at", "under"], correctText: "on", explanation: "Sách thường được đặt \"on\" (trên) giá sách (shelf) - tức là trên bề mặt của kệ.", translation: "Những cuốn sách ở _______ giá. / ○ trong ○ trên ○ tại ○ dưới" },
+                        { question: "The ball is _______ the table.", options: ["between", "next", "under", "in front"], correctText: "under", explanation: "\"Under\" (ở dưới) là giới từ phù hợp nhất cho vị trí quả bóng dưới gầm bàn.", translation: "Quả bóng ở _______ cái bàn. / ○ giữa ○ bên cạnh (thiếu \"to\") ○ dưới ○ phía trước (thiếu \"of\")" },
+                        { question: "The boy is sitting _______ his two friends.", options: ["on", "in", "between", "behind"], correctText: "between", explanation: "\"Between\" (ở giữa) được dùng khi ai đó/vật gì ở giữa hai người/vật.", translation: "Cậu bé đang ngồi _______ hai người bạn của cậu ấy. / ○ trên ○ trong ○ ở giữa ○ đằng sau" },
+                        { question: "The car is parked _______ the house.", options: ["in front of", "on", "next", "between"], correctText: "in front of", explanation: "\"In front of\" (ở phía trước) là cụm giới từ chỉ vị trí phía trước một vật/người khác.", translation: "Chiếc xe hơi đỗ _______ ngôi nhà. / ○ ở phía trước ○ trên ○ bên cạnh (thiếu \"to\") ○ giữa" },
+                        { question: "The lamp is _______ the bed.", options: ["next", "next to", "between", "on"], correctText: "next to", explanation: "\"Next to\" (bên cạnh) là cụm giới từ chỉ vị trí sát cạnh.", translation: "Cái đèn ở _______ giường. / ○ bên cạnh (thiếu \"to\") ○ bên cạnh ○ giữa ○ trên" },
+                        { question: "\"Where are my keys?\" - \"They are _______ the table.\"", options: ["at", "on", "between", "next"], correctText: "on", explanation: "\"On\" (trên) chỉ vị trí trên bề mặt của cái bàn. Chìa khóa thường được đặt trên bàn.", translation: "\"Chìa khóa của tớ đâu rồi?\" - \"Chúng ở _______ bàn.\" / ○ tại ○ trên ○ giữa ○ bên cạnh (thiếu \"to\")" },
+                        { question: "My school is _______ to a park.", options: ["near", "next", "between", "on"], correctText: "next", explanation: "\"Next to\" (bên cạnh) là cụm giới từ hoàn chỉnh. \"Next\" thường cần \"to\" theo sau.", translation: "Trường tôi ở _______ một công viên. / ○ gần (có thể dùng nhưng \"next to\" là cụ thể hơn, nhưng \"next\" ở đây cần \"to\") ○ bên cạnh ○ giữa ○ trên" },
+                        { question: "The students are _______ the classroom.", options: ["on", "at", "in", "next"], correctText: "in", explanation: "Dùng \"in\" với \"classroom\" (trong phòng học) để chỉ không gian bên trong.", translation: "Các học sinh đang ở _______ lớp học. / ○ trên ○ tại ○ trong ○ bên cạnh" },
+                        { question: "Is this _______ pen? - No, it's _______.", options: ["your / my", "you / mine", "your / mine", "you / my"], correctText: "your / mine", explanation: "Câu hỏi cần tính từ sở hữu \"your\" (của bạn). Câu trả lời \"It's mine.\" dùng đại từ sở hữu \"mine\" (của tôi) để tránh nhắc lại \"my pen\".", translation: "Đây có phải là bút _______ không? - Không, nó là _______. / ○ của bạn / của tôi (tính từ/ tính từ) ○ bạn / của tôi (sai) ○ của bạn / của tôi (tính từ/ đại từ - đúng) ○ bạn / của tôi (sai)" },
+                        { question: "The dog is hiding _______ the bed.", options: ["on", "under", "in front", "next"], correctText: "under", explanation: "\"Under\" (ở dưới) là giới từ phù hợp khi nói con chó trốn dưới gầm giường.", translation: "Con chó đang trốn _______ gầm giường. / ○ trên ○ dưới ○ phía trước (thiếu \"of\") ○ bên cạnh (thiếu \"to\")" },
+                        { question: "Ha Noi is _______ capital of Vietnam.", options: ["the", "a", "an", "to"], correctText: "the", explanation: "Dùng mạo từ xác định \"the\" trước \"capital\" vì đây là danh từ chỉ vật duy nhất và đã được xác định (thủ đô của Việt Nam chỉ có một).", translation: "Hà Nội là _______ thủ đô của Việt Nam. / ○ (mạo từ xác định) ○ một ○ một (dùng trước nguyên âm) ○ tới" },
+                        { question: "My sister's room is small, but _______ room is tidy.", options: ["she", "her", "hers", "my"], correctText: "her", explanation: "Cần một tính từ sở hữu (her) để bổ nghĩa cho danh từ \"room\" (phòng của cô ấy). \"Hers\" là đại từ sở hữu, không đứng trước danh từ.", translation: "Phòng của chị gái tôi thì nhỏ, nhưng _______ phòng thì ngăn nắp. / ○ cô ấy ○ của cô ấy (tính từ) ○ của cô ấy (đại từ) ○ của tôi" },
+                        { question: "The cat is sitting _______ the two chairs.", options: ["on", "in", "between", "behind"], correctText: "between", explanation: "\"Between\" (ở giữa) được dùng khi có hai vật (two chairs).", translation: "Con mèo đang ngồi _______ hai cái ghế. / ○ trên ○ trong ○ ở giữa ○ đằng sau" },
+                        { question: "\"Where's the cinema?\" - \"It's _______ the corner of the street.\"", options: ["on", "in", "at", "under"], correctText: "at", explanation: "Dùng \"at the corner\" (ở góc phố) khi nói về vị trí tại một điểm, thường là bên ngoài. \"On the corner\" cũng có thể dùng, nhưng \"at\" là phổ biến hơn cho địa điểm cụ thể.", translation: "\"Rạp chiếu phim ở đâu?\" - \"Nó ở _______ góc phố.\" / ○ trên ○ trong ○ tại ○ dưới" },
+                        { question: "This is my book. That is _______.", options: ["you", "your", "yours", "you're"], correctText: "yours", explanation: "Cần một đại từ sở hữu (yours) để thay thế cho \"your book\" (sách của bạn).", translation: "Đây là sách của tôi. Đó là _______. / ○ bạn ○ của bạn (tính từ) ○ của bạn (đại từ) ○ bạn là" },
+                        { question: "The children are playing _______ the garden.", options: ["on", "in", "at", "under"], correctText: "in", explanation: "Dùng \"in\" (trong) với \"garden\" (khu vườn) để chỉ không gian bên trong khuôn viên vườn.", translation: "Bọn trẻ đang chơi _______ vườn. / ○ trên ○ trong ○ tại ○ dưới" }
+                    ]
+                },
+                // PHẦN 4: COMMUNICATION
+                {
+                    title: "COMMUNICATION",
+                    questions: [
+                        { question: "Elena says: \"My bedroom isn't nice.\" Her mum suggests: \"How about _______ a picture on the wall?\"", options: ["put", "to put", "putting", "puts"], correctText: "putting", explanation: "Cấu trúc \"How about\" (còn lại) + V-ing (động từ thêm -ing).", translation: "Elena nói: \"Phòng ngủ của con không đẹp.\" Mẹ cô ấy gợi ý: \"Hay là _______ một bức tranh lên tường?\" / ○ đặt (nguyên mẫu) ○ để đặt ○ đặt (thêm -ing) ○ đặt (chia động từ)" },
+                        { question: "To make a suggestion, you can use \"Let's _______\".", options: ["go", "to go", "going", "goes"], correctText: "go", explanation: "Cấu trúc \"Let's\" (rủ rê) + V (động từ nguyên mẫu không \"to\").", translation: "Để đưa ra lời gợi ý, bạn có thể dùng \"Hãy _______\". / ○ đi ○ để đi ○ đi (V-ing) ○ đi (chia)" },
+                        { question: "\"How about _______ to the cinema?\" - \"Great idea!\"", options: ["go", "to go", "going", "goes"], correctText: "going", explanation: "\"How about\" + V-ing. \"Going\" là dạng V-ing của \"go\".", translation: "\"Hay là _______ đến rạp chiếu phim nhỉ?\" - \"Ý kiến hay!\" / ○ đi (nguyên mẫu) ○ để đi ○ đi (V-ing) ○ đi (chia)" },
+                        { question: "\"Let's _______ a break.\" - \"OK.\"", options: ["take", "to take", "taking", "takes"], correctText: "take", explanation: "\"Let's\" + V (nguyên mẫu). \"Take\" là động từ nguyên mẫu.", translation: "\"Hãy _______ nghỉ một chút.\" - \"Được thôi.\" / ○ nghỉ (nguyên mẫu) ○ để nghỉ ○ nghỉ (V-ing) ○ nghỉ (chia)" },
+                        { question: "Which sentence is a suggestion?", options: ["You are beautiful.", "How about playing football?", "I like your house.", "Where do you live?"], correctText: "How about playing football?", explanation: "Câu \"How about playing football?\" (Chơi bóng đá thì sao?) sử dụng cấu trúc gợi ý.", translation: "Câu nào là một lời gợi ý? / ○ Bạn thật đẹp. ○ Chơi bóng đá thì sao? ○ Tớ thích nhà của bạn. ○ Bạn sống ở đâu?" },
+                        { question: "\"The living room is so boring.\" - \"How about _______ a new sofa?\"", options: ["buy", "to buy", "buying", "buys"], correctText: "buying", explanation: "\"How about\" + V-ing. \"Buying\" là dạng V-ing của \"buy\".", translation: "\"Phòng khách thật nhàm chán.\" - \"Hay là _______ một cái ghế sô-pha mới?\" / ○ mua (nguyên mẫu) ○ để mua ○ mua (V-ing) ○ mua (chia)" },
+                        { question: "\"I'm hungry.\" - \"Let's _______ something to eat.\"", options: ["get", "to get", "getting", "gets"], correctText: "get", explanation: "\"Let's\" + V (nguyên mẫu). \"Get\" là động từ nguyên mẫu.", translation: "\"Tôi đói.\" - \"Hãy _______ thứ gì đó để ăn đi.\" / ○ lấy/mua (nguyên mẫu) ○ để lấy ○ lấy (V-ing) ○ lấy (chia)" },
+                        { question: "\"How about going swimming?\" - \"_______\"", options: ["Yes, I do.", "No, thank you.", "Sounds great!", "I'm fine."], correctText: "Sounds great!", explanation: "\"Sounds great!\" (Nghe hay đấy!) là một cách phản hồi tích cực cho một lời gợi ý.", translation: "\"Đi bơi thì sao?\" - \"_______\" / ○ Vâng, tôi có. ○ Không, cảm ơn. ○ Nghe hay đấy! ○ Tôi ổn." },
+                        { question: "\"Let's paint the room blue.\" - \"_______ I prefer white.\"", options: ["Great idea!", "How about", "Let's", "I don't think so."], correctText: "I don't think so.", explanation: "\"I don't think so.\" (Tôi không nghĩ vậy.) là cách từ chối lịch sự, phù hợp với việc đưa ra ý kiến trái ngược \"I prefer white.\"", translation: "\"Hãy sơn phòng màu xanh lam đi.\" - \"_______ Tôi thích màu trắng hơn.\" / ○ Ý kiến hay! ○ Hay là ○ Hãy ○ Tôi không nghĩ vậy." },
+                        { question: "The structure \"How about + V-ing?\" is used to _______.", options: ["give an order", "make a suggestion", "ask for help", "talk about the past"], correctText: "make a suggestion", explanation: "Cấu trúc \"How about + V-ing?\" được dùng để đưa ra một lời gợi ý (make a suggestion).", translation: "Cấu trúc \"How about + V-ing?\" được dùng để _______. / ○ ra lệnh ○ đưa ra lời gợi ý ○ yêu cầu giúp đỡ ○ nói về quá khứ" },
+                        { question: "\"Let's go to the department store.\" - \"_______\"", options: ["Good morning.", "You're welcome.", "OK, let's go.", "Nice to meet you."], correctText: "OK, let's go.", explanation: "\"OK, let's go.\" (Được thôi, đi nào.) là câu trả lời đồng ý phù hợp cho lời gợi ý \"Let's go...\"", translation: "\"Hãy đến cửa hàng bách hóa đi.\" - \"_______\" / ○ Chào buổi sáng. ○ Không có gì. ○ Được thôi, đi nào. ○ Rất vui được gặp bạn." },
+                        { question: "A: \"How about putting a shelf here?\" B: \"_______ That's a good place.\"", options: ["No.", "Great idea.", "I'm not sure.", "Let's not."], correctText: "Great idea.", explanation: "\"Great idea.\" (Ý kiến hay.) là phản hồi tích cực, phù hợp với phần giải thích \"That's a good place.\"", translation: "A: \"Đặt một cái kệ ở đây thì sao?\" B: \"_______ Đó là một chỗ tốt.\" / ○ Không. ○ Ý kiến hay. ○ Tôi không chắc. ○ Đừng." },
+                        { question: "Which word is missing? \"_______ go to the supermarket.\"", options: ["How about", "Let's", "Why don't", "What about"], correctText: "Let's", explanation: "\"Let's\" (Hãy) + động từ nguyên mẫu. \"How about\" và \"What about\" + V-ing. \"Why don't\" + we/you + V?", translation: "Từ nào bị thiếu? \"_______ đi siêu thị.\" / ○ How about ○ Hãy ○ Why don't (thiếu we) ○ What about" },
+                        { question: "\"My room is dark.\" - \"How about _______ a new lamp?\"", options: ["get", "to get", "getting", "gets"], correctText: "getting", explanation: "\"How about\" + V-ing. \"Getting\" là dạng V-ing của \"get\".", translation: "\"Phòng tôi tối quá.\" - \"Hay là _______ một cái đèn mới?\" / ○ lấy/mua (nguyên mẫu) ○ để lấy ○ lấy (V-ing) ○ lấy (chia)" },
+                        { question: "A: \"Let's have a party!\" B: \"_______ When?\"", options: ["That's terrible.", "I don't like it.", "Sounds fun!", "No, thanks."], correctText: "Sounds fun!", explanation: "\"Sounds fun!\" (Nghe vui đấy!) là phản hồi tích cực, và câu hỏi \"When?\" (Khi nào?) thể hiện sự quan tâm muốn tham gia.", translation: "A: \"Tổ chức tiệc đi!\" B: \"_______ Khi nào vậy?\" / ○ Thật tệ. ○ Tôi không thích nó. ○ Nghe vui đấy! ○ Không, cảm ơn." },
+                        { question: "\"What should we do this weekend?\" - \"How about _______ a picnic?\"", options: ["have", "to have", "having", "has"], correctText: "having", explanation: "\"How about\" + V-ing. \"Having\" là dạng V-ing của \"have\".", translation: "\"Cuối tuần này chúng ta nên làm gì?\" - \"Hay là _______ một buổi dã ngoại?\" / ○ có/tổ chức (nguyên mẫu) ○ để có ○ có (V-ing) ○ có (chia)" },
+                        { question: "The phrase \"Let's\" is the short form of _______.", options: ["Let us", "Let is", "Let has", "Let was"], correctText: "Let us", explanation: "\"Let's\" là dạng rút gọn của \"Let us\" (Hãy để chúng ta).", translation: "Cụm từ \"Let's\" là dạng rút gọn của _______. / ○ Hãy để chúng ta ○ (sai ngữ pháp) ○ (sai ngữ pháp) ○ (sai ngữ pháp)" },
+                        { question: "\"I'm bored.\" - \"Let's _______ a movie.\"", options: ["watch", "to watch", "watching", "watches"], correctText: "watch", explanation: "\"Let's\" + V (nguyên mẫu). \"Watch\" là động từ nguyên mẫu.", translation: "\"Tôi chán quá.\" - \"Hãy _______ một bộ phim đi.\" / ○ xem (nguyên mẫu) ○ để xem ○ xem (V-ing) ○ xem (chia)" },
+                        { question: "\"How about going to the beach?\" - \"_______ It's too hot.\"", options: ["Great idea!", "I'd love to, but", "OK, let's go.", "Sounds perfect."], correctText: "I'd love to, but", explanation: "\"I'd love to, but\" (Tôi rất thích, nhưng) là cách từ chối lịch sự một lời mời/gợi ý, và đưa ra lý do \"It's too hot.\"", translation: "\"Đi biển thì sao?\" - \"_______ Trời nóng quá.\" / ○ Ý kiến hay! ○ Tôi rất thích, nhưng ○ Được thôi, đi nào. ○ Nghe hoàn hảo." },
+                        { question: "Which of the following is NOT a way to make a suggestion?", options: ["How about + V-ing?", "Let's + V.", "What about + V-ing?", "Can you + V?"], correctText: "Can you + V?", explanation: "\"Can you + V?\" (Bạn có thể... không?) là câu yêu cầu giúp đỡ, không phải là một cách đưa ra lời gợi ý chung.", translation: "Cách nào sau đây KHÔNG phải là cách đưa ra lời gợi ý? / ○ How about + V-ing? ○ Let's + V. ○ What about + V-ing? ○ Bạn có thể + V?" }
+                    ]
+                },
+                // PHẦN 5: SKILL 1
+                {
+                    title: "SKILL 1",
+                    questions: [
+                        { question: "Mi's grandparents live in a _______ house in Nam Dinh.", options: ["town", "country", "flat", "villa"], correctText: "country", explanation: "Bài tập điền từ (trang 5) có câu: \"My grandparents live in a _______ house in Nam Dinh.\" Dựa vào ngữ cảnh (có vườn lớn) và từ vựng, đáp án là \"country\" (nhà ở nông thôn).", translation: "Ông bà của Mi sống trong một ngôi nhà _______ ở Nam Định. / ○ phố ○ nông thôn ○ căn hộ ○ biệt thự" },
+                        { question: "How many rooms are there in Mi's grandparents' house?", options: ["Two", "Three", "Four", "Five"], correctText: "Four", explanation: "Bài tập điền từ (trang 5) có câu: \"There _______ four rooms in the house and a big garden.\"", translation: "Có bao nhiêu phòng trong nhà ông bà của Mi? / ○ Hai ○ Ba ○ Bốn ○ Năm" },
+                        { question: "There is a big _______ in the living room.", options: ["window", "sofa", "TV", "cupboard"], correctText: "window", explanation: "Bài tập điền từ (trang 5) có câu: \"I like the living room. There _______ a big window in this room.\"", translation: "Có một _______ lớn trong phòng khách. / ○ cửa sổ ○ ghế sô-pha ○ ti vi ○ tủ ly" },
+                        { question: "There are four _______ and a table in the middle of the living room.", options: ["sofas", "chairs", "lamps", "pictures"], correctText: "chairs", explanation: "Bài tập điền từ (trang 5) có câu: \"There are four _______ and a table in the middle of the room.\" (Bốn cái ghế)", translation: "Có bốn _______ và một cái bàn ở giữa phòng khách. / ○ ghế sô-pha ○ cái ghế ○ cái đèn ○ bức tranh" },
+                        { question: "There are two family photos _______ the wall.", options: ["in", "on", "at", "under"], correctText: "on", explanation: "Bài tập điền từ (trang 5) có câu: \"There are two family photos _______ the wall.\" Dùng giới từ \"on\" (trên tường).", translation: "Có hai bức ảnh gia đình _______ tường. / ○ trong ○ trên ○ tại ○ dưới" },
+                        { question: "Where is Nick staying in Da Lat?", options: ["At a hotel", "At his friend's house", "At his grandparents' house", "At a hostel"], correctText: "At a hotel", explanation: "Trong email Nick viết: \"I'm in Da Lat with my parents. We're staying at the Crazy House Hotel.\"", translation: "Nick đang ở đâu tại Đà Lạt? / ○ Tại một khách sạn ○ Tại nhà bạn của anh ấy ○ Tại nhà ông bà của anh ấy ○ Tại một nhà trọ" },
+                        { question: "What is the name of the hotel Nick is staying at?", options: ["The Dalat Hotel", "The Crazy House Hotel", "The Tiger Hotel", "The Eagle Hotel"], correctText: "The Crazy House Hotel", explanation: "Nick viết: \"We're staying at the Crazy House Hotel.\"", translation: "Khách sạn Nick đang ở tên là gì? / ○ Khách sạn Đà Lạt ○ Khách sạn Crazy House ○ Phòng Hổ ○ Phòng Đại Bàng" },
+                        { question: "Which room is Nick staying in?", options: ["The Kangaroo Room", "The Eagle Room", "The Ant Room", "The Tiger Room"], correctText: "The Tiger Room", explanation: "Nick viết: \"I'm staying in the Tiger Room.\"", translation: "Nick đang ở phòng nào? / ○ Phòng Kangaroo ○ Phòng Đại Bàng ○ Phòng Kiến ○ Phòng Hổ" },
+                        { question: "Why is it called the Tiger Room?", options: ["Because there is a big tiger on the wall.", "Because there is a tiger in the room.", "Because the room is for tigers.", "Because the bed looks like a tiger."], correctText: "Because there is a big tiger on the wall.", explanation: "Nick giải thích: \"It's called the Tiger Room because there's a big tiger on the wall.\"", translation: "Tại sao nó được gọi là Phòng Hổ? / ○ Bởi vì có một con hổ lớn trên tường. ○ Bởi vì có một con hổ trong phòng. ○ Bởi vì căn phòng dành cho hổ. ○ Bởi vì cái giường trông giống con hổ." },
+                        { question: "Where is the big tiger in Nick's room?", options: ["Next to the bed", "On the wall between the bathroom door and the window", "Under the window", "Behind the door"], correctText: "On the wall between the bathroom door and the window", explanation: "Nick viết: \"The tiger is between the bathroom door and the window.\"", translation: "Con hổ lớn trong phòng Nick ở đâu? / ○ Cạnh giường ○ Trên tường giữa cửa phòng tắm và cửa sổ ○ Dưới cửa sổ ○ Sau cánh cửa" },
+                        { question: "Where is the bed in Nick's room?", options: ["Next to the door", "Next to the window", "Under the window", "In the middle of the room"], correctText: "Next to the window", explanation: "Nick viết: \"The bed is next to the window...\"", translation: "Cái giường trong phòng Nick ở đâu? / ○ Cạnh cửa ra vào ○ Cạnh cửa sổ ○ Dưới cửa sổ ○ Ở giữa phòng" },
+                        { question: "Where is Nick's bag?", options: ["On the bed", "Next to the desk", "Under the bed", "On the desk"], correctText: "Under the bed", explanation: "Nick viết: \"I put my bag under the bed.\"", translation: "Cặp sách của Nick ở đâu? / ○ Trên giường ○ Cạnh bàn học ○ Dưới gầm giường ○ Trên bàn học" },
+                        { question: "How many rooms are there in the Crazy House Hotel?", options: ["Five", "Eight", "Ten", "Twelve"], correctText: "Ten", explanation: "Nick viết: \"There are ten rooms in the hotel.\"", translation: "Có bao nhiêu phòng trong khách sạn Crazy House? / ○ Năm ○ Tám ○ Mười ○ Mười hai" },
+                        { question: "What is NOT in Nick's Tiger Room?", options: ["A lamp", "A wardrobe", "A desk", "A cooker"], correctText: "A cooker", explanation: "Nick kể: \"There's a lamp, a wardrobe and a desk.\" Anh ấy không nhắc đến \"a cooker\" (bếp nấu).", translation: "Vật gì KHÔNG có trong Phòng Hổ của Nick? / ○ Một cái đèn ○ Một tủ quần áo ○ Một bàn học ○ Một cái bếp nấu" },
+                        { question: "The window in Nick's room has a _______ shape.", options: ["round", "square", "strange", "normal"], correctText: "strange", explanation: "Nick viết: \"... the window is a strange shape.\" (cửa sổ có hình dạng kỳ lạ).", translation: "Cửa sổ trong phòng Nick có hình dạng _______. / ○ tròn ○ vuông ○ kỳ lạ ○ bình thường" },
+                        { question: "Nick writes an email to _______.", options: ["his parents", "Phong and Mi", "his teacher", "his sister"], correctText: "Phong and Mi", explanation: "Phần đầu email ghi \"To: phong@webmail.com; mi@webmail.com\". Anh ấy viết email cho Phong và Mi.", translation: "Nick viết email cho _______. / ○ bố mẹ anh ấy ○ Phong và Mi ○ giáo viên anh ấy ○ chị/em gái anh ấy" },
+                        { question: "Nick thinks the hotel is _______.", options: ["boring", "crazy but great", "small", "expensive"], correctText: "crazy but great", explanation: "Nick viết: \"Wow! It really is crazy.\" và \"It's great.\" Anh ấy thấy khách sạn điên rồ nhưng tuyệt vời.", translation: "Nick nghĩ khách sạn _______. / ○ chán ○ điên rồ nhưng tuyệt ○ nhỏ ○ đắt" },
+                        { question: "In the email, Nick suggests his friends _______ when they visit Da Lat.", options: ["stay at this hotel", "visit the market", "go to the park", "eat local food"], correctText: "stay at this hotel", explanation: "Nick viết: \"You should stay here when you visit Da Lat.\"", translation: "Trong email, Nick gợi ý bạn của anh ấy _______ khi họ đến thăm Đà Lạt. / ○ ở khách sạn này ○ đi chợ ○ đi công viên ○ ăn đồ địa phương" },
+                        { question: "The tiger in the room is between the _______.", options: ["bed and the window", "bathroom door and the window", "desk and the wardrobe", "door and the bed"], correctText: "bathroom door and the window", explanation: "Nick viết: \"The tiger is between the bathroom door and the window.\"", translation: "Con hổ trong phòng ở giữa _______. / ○ cái giường và cái cửa sổ ○ cửa phòng tắm và cái cửa sổ ○ cái bàn và cái tủ quần áo ○ cánh cửa và cái giường" },
+                        { question: "Which room is NOT mentioned in the email?", options: ["Kangaroo Room", "Eagle Room", "Ant Room", "Panda Room"], correctText: "Panda Room", explanation: "Nick liệt kê: \"There's a Kangaroo Room, an Eagle Room, and even an Ant Room.\" Anh ấy không nhắc đến \"Panda Room\".", translation: "Phòng nào KHÔNG được nhắc đến trong email? / ○ Phòng Kangaroo ○ Phòng Đại Bàng ○ Phòng Kiến ○ Phòng Gấu Trúc" }
+                    ]
+                },
+                // PHẦN 6: SKILL 2
+                {
+                    title: "SKILL 2",
+                    questions: [
+                        { question: "In the listening text, how many people are there in Mai's family?", options: ["Three", "Four", "Five", "Six"], correctText: "Four", explanation: "Bài nghe (trang 8) có câu hỏi True/False: \"There are four people in Mai's family.\" (Đúng/Sai). Đáp án là True.", translation: "Trong bài nghe, gia đình Mai có bao nhiêu người? / ○ Ba ○ Bốn ○ Năm ○ Sáu" },
+                        { question: "Mai's house has _______ rooms.", options: ["five", "six", "seven", "eight"], correctText: "seven", explanation: "Bài nghe (trang 8) có câu: \"Mai's house has seven rooms.\" (True).", translation: "Nhà Mai có _______ phòng. / ○ năm ○ sáu ○ bảy ○ tám" },
+                        { question: "The living room is _______ to the kitchen.", options: ["next", "near", "behind", "in front"], correctText: "next", explanation: "Bài nghe (trang 8) có câu: \"The living room is next to the kitchen.\" (True).", translation: "Phòng khách ở _______ phòng bếp. / ○ bên cạnh (cần \"to\") ○ gần ○ đằng sau ○ phía trước" },
+                        { question: "In Mai's bedroom, there is a _______ on the wall.", options: ["picture", "clock", "lamp", "shelf"], correctText: "clock", explanation: "Bài nghe (trang 8) có câu: \"In her bedroom, there's a clock on the wall.\" (True).", translation: "Trong phòng ngủ của Mai, có một _______ trên tường. / ○ bức tranh ○ cái đồng hồ ○ cái đèn ○ cái kệ" },
+                        { question: "Mai often _______ in her bedroom.", options: ["reads books", "does her homework", "listens to music", "plays games"], correctText: "listens to music", explanation: "Bài nghe (trang 8) có câu: \"She often listens to music in her bedroom.\" (True).", translation: "Mai thường _______ trong phòng ngủ của cô ấy. / ○ đọc sách ○ làm bài tập ○ nghe nhạc ○ chơi game" },
+                        { question: "Which room is Mai's favourite?", options: ["Living room", "Kitchen", "Bedroom", "Bathroom"], correctText: "Bedroom", explanation: "Bài nghe (trang 8) cho thấy phòng ngủ là phòng Mai thích, vì cô ấy nghe nhạc ở đó và có đồng hồ trên tường.", translation: "Phòng nào là phòng yêu thích của Mai? / ○ Phòng khách ○ Phòng bếp ○ Phòng ngủ ○ Phòng tắm" },
+                        { question: "The kitchen is described as _______.", options: ["big", "small", "modern", "old"], correctText: "big", explanation: "Thông tin này không được cung cấp trực tiếp trong bài tập nghe có trong tài liệu, nhưng có thể suy luận từ ngữ cảnh. Tuy nhiên, dựa trên các câu hỏi True/False, không có thông tin về kích thước phòng bếp.", translation: "Phòng bếp được miêu tả là _______. / ○ lớn ○ nhỏ ○ hiện đại ○ cũ" },
+                        { question: "Before writing an email about your house, you should _______ the questions in the textbook.", options: ["ignore", "answer", "write", "copy"], correctText: "answer", explanation: "Phần Writing (trang 8) hướng dẫn: \"Answer the questions.\" (Trả lời các câu hỏi) trước khi viết email.", translation: "Trước khi viết email về ngôi nhà của bạn, bạn nên _______ các câu hỏi trong sách giáo khoa. / ○ bỏ qua ○ trả lời ○ viết ○ chép lại" },
+                        { question: "In the writing section, you need to write an email to your pen friend, _______.", options: ["Nick", "Mira", "Mi", "Phong"], correctText: "Mira", explanation: "Phần Writing (trang 8) nêu: \"Write an email to Mira, your pen friend.\"", translation: "Trong phần Viết, bạn cần viết email cho bạn qua thư của mình, _______. / ○ Nick ○ Mira ○ Mi ○ Phong" },
+                        { question: "The subject of the email should be about _______.", options: ["your school", "your family", "your house", "your hobbies"], correctText: "your house", explanation: "Mẫu email (trang 8) có dòng Subject: \"My house\" (Nhà của tôi).", translation: "Chủ đề của email nên là về _______. / ○ trường học của bạn ○ gia đình bạn ○ ngôi nhà của bạn ○ sở thích của bạn" },
+                        { question: "Which question is NOT in the writing task?", options: ["Where do you live?", "How many rooms are there in your house?", "What is your favourite colour?", "Which room do you like the best?"], correctText: "What is your favourite colour?", explanation: "Phần 3 (trang 8) liệt kê các câu hỏi: 1. Where do you live? 2. How many rooms...? 3. Which room do you like the best...? Không có câu hỏi về màu sắc yêu thích (favourite colour).", translation: "Câu hỏi nào KHÔNG có trong bài tập viết? / ○ Bạn sống ở đâu? ○ Có bao nhiêu phòng trong nhà bạn? ○ Màu sắc yêu thích của bạn là gì? ○ Bạn thích phòng nào nhất?" },
+                        { question: "When you write an email to a friend, you can start with \"Hi Mira,\" and end with \"_______\".", options: ["Goodbye", "All the best", "The end", "Your friend"], correctText: "All the best", explanation: "Mẫu email (trang 8) kết thúc bằng \"All the best,\" (Thân ái).", translation: "Khi bạn viết email cho một người bạn, bạn có thể bắt đầu bằng \"Chào Mira,\" và kết thúc bằng \"_______\". / ○ Tạm biệt ○ Thân ái ○ Hết ○ Bạn của bạn" },
+                        { question: "In the listening, Mai lives in a _______.", options: ["town house", "country house", "flat", "villa"], correctText: "town house", explanation: "Câu hỏi này yêu cầu suy luận từ bài nghe, nhưng không có thông tin trực tiếp. Có thể Mai sống trong nhà phố (town house) vì đó là loại nhà phổ biến trong bài.", translation: "Trong bài nghe, Mai sống trong một _______. / ○ nhà phố ○ nhà ở nông thôn ○ căn hộ ○ biệt thự" },
+                        { question: "True or False: Mai's bedroom is next to the bathroom.", options: ["True", "False", "Not given", "Maybe"], correctText: "Not given", explanation: "Thông tin này không có trong bài nghe được cung cấp.", translation: "Đúng hay Sai: Phòng ngủ của Mai ở cạnh phòng tắm. / ○ Đúng ○ Sai ○ Không được đề cập ○ Có lẽ" },
+                        { question: "What is on Mai's desk?", options: ["A computer", "Some books", "A lamp", "Some flowers"], correctText: "A lamp", explanation: "Thông tin này không có trong bài nghe được cung cấp.", translation: "Có gì trên bàn học của Mai? / ○ Một máy vi tính ○ Vài cuốn sách ○ Một cái đèn ○ Vài bông hoa" },
+                        { question: "Mai's house has a garden with many _______.", options: ["flowers", "trees", "vegetables", "roses"], correctText: "flowers", explanation: "Thông tin này không có trong bài nghe được cung cấp.", translation: "Nhà Mai có một khu vườn với nhiều _______. / ○ hoa ○ cây ○ rau ○ hoa hồng" },
+                        { question: "The purpose of the listening task is to check your guesses about the _______.", options: ["pictures", "names", "rooms", "furniture"], correctText: "pictures", explanation: "Phần Listening (trang 8) hướng dẫn: \"Look at the pictures. Name each of them. Guess if they are mentioned in the listening text. Now listen and check your guesses.\" Mục đích là kiểm tra dự đoán về các bức tranh (pictures).", translation: "Mục đích của bài tập nghe là để kiểm tra dự đoán của bạn về _______. / ○ các bức tranh ○ tên ○ các căn phòng ○ đồ nội thất" },
+                        { question: "Before writing, you should answer the questions to _______ your ideas.", options: ["organize", "forget", "change", "copy"], correctText: "organize", explanation: "Trả lời câu hỏi trước khi viết giúp bạn sắp xếp ý tưởng (organize your ideas).", translation: "Trước khi viết, bạn nên trả lời các câu hỏi để _______ ý tưởng của mình. / ○ sắp xếp ○ quên ○ thay đổi ○ sao chép" },
+                        { question: "In her email, Mai should describe her _______ to Mira.", options: ["school", "family", "house", "pets"], correctText: "house", explanation: "Chủ đề của email là \"My house\" (Nhà của tôi).", translation: "Trong email của mình, Mai nên miêu tả _______ của cô ấy cho Mira. / ○ trường học ○ gia đình ○ ngôi nhà ○ thú cưng" },
+                        { question: "The structure of an email includes: To, Subject, and the _______.", options: ["letter", "message body", "picture", "attachment"], correctText: "message body", explanation: "Một email thường có: Người nhận (To), Chủ đề (Subject), và Nội dung (message body).", translation: "Cấu trúc của một email bao gồm: Người nhận, Chủ đề, và _______. / ○ lá thư ○ nội dung ○ bức tranh ○ tệp đính kèm" }
+                    ]
+                },
+                // PHẦN 7: LOOKING BACK
+                {
+                    title: "LOOKING BACK",
+                    questions: [
+                        { question: "A _______ is a type of house.", options: ["kitchen", "bathroom", "flat", "bedroom"], correctText: "flat", explanation: "\"Flat\" (căn hộ) là một loại nhà. Các từ còn lại là tên phòng.", translation: "Một _______ là một loại nhà. / ○ phòng bếp ○ phòng tắm ○ căn hộ ○ phòng ngủ" },
+                        { question: "Put the word \"dishwasher\" into the correct group: _______.", options: ["Types of house", "Rooms", "Furniture", ""], correctText: "Furniture", explanation: "Trong bài tập Vocabulary (trang 9), \"dishwasher\" (máy rửa chén) được xếp vào nhóm \"Furniture\" (Đồ nội thất) cùng với các từ như sink, cupboard,...", translation: "Xếp từ \"máy rửa chén\" vào nhóm đúng: _______. / ○ Loại nhà ○ Phòng ○ Đồ nội thất ○ (Thiếu nhóm)" },
+                        { question: "Which word is a room?", options: ["Sink", "Town house", "Country house", "Living room"], correctText: "Living room", explanation: "\"Living room\" (phòng khách) là tên một căn phòng.", translation: "Từ nào là một căn phòng? / ○ Bồn rửa ○ Nhà phố ○ Nhà ở nông thôn ○ Phòng khách" },
+                        { question: "Which word is furniture?", options: ["Fridge", "Kitchen", "Bathroom", "Flat"], correctText: "Fridge", explanation: "\"Fridge\" (tủ lạnh) là một món đồ nội thất/thiết bị gia dụng. Trong bài tập trang 9, nó được xếp vào nhóm \"Furniture\".", translation: "Từ nào là đồ nội thất? / ○ Tủ lạnh ○ Phòng bếp ○ Phòng tắm ○ Căn hộ" },
+                        { question: "The cat is sitting _______ the chair. (Use a preposition)", options: ["on", "in", "at", "next"], correctText: "on", explanation: "\"On\" (trên) là giới từ chỉ vị trí trên bề mặt của ghế.", translation: "Con mèo đang ngồi _______ cái ghế. / ○ trên ○ trong ○ tại ○ bên cạnh (thiếu \"to\")" },
+                        { question: "The dog is sleeping _______ the table. (under)", options: ["on", "in", "at", "under"], correctText: "under", explanation: "\"Under\" (dưới) là giới từ chỉ vị trí bên dưới gầm bàn.", translation: "Con chó đang ngủ _______ cái bàn. (dưới) / ○ trên ○ trong ○ tại ○ dưới" },
+                        { question: "The girl is standing _______ her mother and father. (between)", options: ["on", "in", "between", "behind"], correctText: "between", explanation: "\"Between\" (ở giữa) được dùng khi có hai người/vật (mother and father).", translation: "Cô gái đang đứng _______ mẹ và bố cô ấy. (ở giữa) / ○ trên ○ trong ○ ở giữa ○ đằng sau" },
+                        { question: "The boy is _______ the house. (in front of)", options: ["on", "in", "at", "in front of"], correctText: "in front of", explanation: "\"In front of\" (ở phía trước) là cụm giới từ chỉ vị trí.", translation: "Cậu bé ở _______ ngôi nhà. (phía trước) / ○ trên ○ trong ○ tại ○ phía trước" },
+                        { question: "The cat is _______ the box. (in)", options: ["on", "in", "at", "under"], correctText: "in", explanation: "\"In\" (trong) chỉ vị trí bên trong cái hộp.", translation: "Con mèo ở _______ cái hộp. (trong) / ○ trên ○ trong ○ tại ○ dưới" },
+                        { question: "The dog is _______ the tree. (behind)", options: ["on", "in", "behind", "next"], correctText: "behind", explanation: "\"Behind\" (đằng sau) chỉ vị trí phía sau cái cây.", translation: "Con chó ở _______ cái cây. (đằng sau) / ○ trên ○ trong ○ đằng sau ○ bên cạnh (thiếu \"to\")" },
+                        { question: "Complete the sentence: This is my brother's bike. → This bike is _______.", options: ["my brother", "my brothers", "my brother's", "of my brother"], correctText: "my brother's", explanation: "Câu gốc dùng sở hữu cách \"my brother's\". Câu viết lại dùng đại từ sở hữu nhưng ở đây chủ ngữ là \"This bike\", câu hoàn chỉnh phải là \"This bike is my brother's.\" (Chiếc xe đạp này là của anh trai tôi.)", translation: "Hoàn thành câu: Đây là xe đạp của anh trai tôi. → Chiếc xe đạp này là _______. / ○ anh trai tôi ○ các anh trai tôi ○ của anh trai tôi ○ của anh trai tôi (cách diễn đạt khác, ít dùng)" },
+                        { question: "My teacher has a house. → This is my _______ house.", options: ["teacher", "teacher's", "teachers", "teachers'"], correctText: "teacher's", explanation: "Cần dùng sở hữu cách cho danh từ \"teacher\" (giáo viên) bằng cách thêm 's: teacher's.", translation: "Giáo viên của tôi có một ngôi nhà. → Đây là nhà của _______ tôi. / ○ giáo viên ○ giáo viên (sở hữu) ○ các giáo viên ○ của các giáo viên" },
+                        { question: "Elena has a big bookshelf. → There's a big bookshelf in _______ bedroom.", options: ["Elena", "Elenas", "Elena's", "Elena'"], correctText: "Elena's", explanation: "Cần tính từ sở hữu cho tên riêng Elena: Elena's.", translation: "Elena có một giá sách lớn. → Có một giá sách lớn trong phòng ngủ _______. / ○ Elena ○ (sai) ○ của Elena ○ (sai)" },
+                        { question: "My grandfather likes the kitchen the best. → The kitchen is my _______ favourite room.", options: ["grandfather", "grandfathers", "grandfather's", "grandfather'"], correctText: "grandfather's", explanation: "Cần sở hữu cách cho \"my grandfather\": grandfather's.", translation: "Ông tôi thích phòng bếp nhất. → Phòng bếp là phòng yêu thích của _______ tôi. / ○ ông ○ các ông ○ ông (sở hữu) ○ (sai)" },
+                        { question: "My aunt has a daughter, Vy. → I'm _______ cousin.", options: ["Vy", "Vy's", "Vys", "Vy'"], correctText: "Vy's", explanation: "Cần sở hữu cách cho tên Vy: Vy's.", translation: "Dì tôi có một cô con gái, Vy. → Tôi là anh/em họ của _______. / ○ Vy ○ Vy (sở hữu) ○ (sai) ○ (sai)" },
+                        { question: "Write a sentence to describe your favourite room: There's a big bed _______ the door.", options: ["next", "next to", "between", "on"], correctText: "next to", explanation: "Cụm giới từ \"next to\" (bên cạnh) là đúng.", translation: "Viết một câu để miêu tả căn phòng yêu thích của bạn: Có một chiếc giường lớn _______ cửa ra vào. / ○ bên cạnh (thiếu \"to\") ○ bên cạnh ○ giữa ○ trên" },
+                        { question: "The picture is _______ the wall.", options: ["in", "on", "at", "under"], correctText: "on", explanation: "Dùng \"on\" với \"wall\".", translation: "Bức tranh ở _______ tường. / ○ trong ○ trên ○ tại ○ dưới" },
+                        { question: "The books are _______ the shelf.", options: ["in", "on", "at", "under"], correctText: "on", explanation: "Dùng \"on\" với \"shelf\".", translation: "Những cuốn sách ở _______ giá. / ○ trong ○ trên ○ tại ○ dưới" },
+                        { question: "Our house is next to my _______ house. (teacher)", options: ["teacher", "teacher's", "teachers", "teachers'"], correctText: "teacher's", explanation: "Cần sở hữu cách cho danh từ \"teacher\" (giáo viên): teacher's.", translation: "Nhà chúng tôi ở cạnh nhà của _______ tôi. (giáo viên) / ○ giáo viên ○ giáo viên (sở hữu) ○ các giáo viên ○ của các giáo viên" },
+                        { question: "The kitchen is my favourite room. There's a _______ and a _______.", options: ["sink / cooker", "bed / sofa", "shower / toilet", "lamp / picture"], correctText: "sink / cooker", explanation: "Trong phòng bếp (kitchen), thường có bồn rửa (sink) và bếp nấu (cooker).", translation: "Phòng bếp là phòng yêu thích của tôi. Có một _______ và một _______. / ○ bồn rửa / bếp nấu ○ cái giường / ghế sô-pha ○ vòi hoa sen / bồn cầu ○ cái đèn / bức tranh" }
+                    ]
+                }
+            ];
+
+            // ==================== DỮ LIỆU UNIT 3 -> UNIT 12 (PLACEHOLDER) ====================
+            function generatePlaceholderUnit(unitNumber) {
+                const partTitles = [
+                    "GETTING STARTED",
+                    "CLOSER LOOK 1",
+                    "CLOSER LOOK 2",
+                    "COMMUNICATION",
+                    "SKILL 1",
+                    "SKILL 2",
+                    "LOOKING BACK"
+                ];
+                const parts = [];
+                for (let p = 0; p < 7; p++) {
+                    const questions = [];
+                    for (let q = 1; q <= 20; q++) {
+                        questions.push({
+                            question: `[U${unitNumber} - Part ${p+1}] Câu hỏi số ${q} (tạm thời)`,
+                            options: ["Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D"],
+                            correctText: "Đáp án A",
+                            explanation: `Giải thích cho câu hỏi U${unitNumber} phần ${p+1} câu ${q} (sẽ cập nhật sau).`,
+                            translation: `Tạm dịch câu hỏi U${unitNumber} phần ${p+1} câu ${q} / ○ Đáp án A ○ Đáp án B ○ Đáp án C ○ Đáp án D`
+                        });
+                    }
+                    parts.push({
+                        title: partTitles[p],
+                        questions: questions
+                    });
+                }
+                return parts;
+            }
+
+            const unit3Data = generatePlaceholderUnit(3);
+            const unit4Data = generatePlaceholderUnit(4);
+            const unit5Data = generatePlaceholderUnit(5);
+            const unit6Data = generatePlaceholderUnit(6);
+            const unit7Data = generatePlaceholderUnit(7);
+            const unit8Data = generatePlaceholderUnit(8);
+            const unit9Data = generatePlaceholderUnit(9);
+            const unit10Data = generatePlaceholderUnit(10);
+            const unit11Data = generatePlaceholderUnit(11);
+            const unit12Data = generatePlaceholderUnit(12);
+
+            // ==================== OBJECT CHỨA TẤT CẢ DỮ LIỆU UNIT ====================
+            const unitData = {
+                U1: unit1Data,
+                U2: unit2Data,
+                U3: unit3Data,
+                U4: unit4Data,
+                U5: unit5Data,
+                U6: unit6Data,
+                U7: unit7Data,
+                U8: unit8Data,
+                U9: unit9Data,
+                U10: unit10Data,
+                U11: unit11Data,
+                U12: unit12Data
+            };
+
+            // ==================== BIẾN TOÀN CỤC ====================
+            let currentUnit = 'U1';
+            let fullPartsData = unitData.U1;
+            let allQuestions = []; // sẽ được cập nhật khi đổi unit
+
+            // Biến cho phần làm bài cũ (7 phần)
             let currentPartIndex = 0;
             let shuffledQuestions = [];
             let userAnswers = [];
             let confirmStatus = [];
             let showExplain = [];
 
-            // Phần ôn tập tổng hợp
-            let allQuestions = []; // tất cả câu hỏi từ fullPartsData
-            fullPartsData.forEach(part => allQuestions.push(...part.questions));
-            const TOTAL_QUESTIONS = allQuestions.length; // 140
-
-            let reviewQuestions = [];          // các câu hỏi đã chọn (đã xáo trộn)
-            let reviewAnswers = [];             // lưu chỉ số đáp án đã chọn (theo thứ tự reviewQuestions)
+            // Biến cho phần ôn tập tổng hợp
+            let reviewQuestions = [];
+            let reviewAnswers = [];
             let reviewCorrectCount = 0;
             let reviewCurrentIndex = 0;
-            let reviewStreak = 0;               // chuỗi đúng dài nhất
+            let reviewStreak = 0;
             let currentStreak = 0;
             let reviewStartTime, reviewEndTime;
-            let totalElapsedSeconds = 0;         // tổng thời gian thực tế đã dùng (cộng dồn)
+            let totalElapsedSeconds = 0;
             let timerInterval;
-            const TIME_PER_QUESTION = 20;        // giây
+            const TIME_PER_QUESTION = 20;
             let timeLeft = TIME_PER_QUESTION;
             let questionStartTime = null;
             let reviewChartInstance = null;
 
             // DOM elements
+            const masterContainer = document.getElementById('master-container');
             const mainContainer = document.getElementById('main-container');
             const reviewContainer = document.getElementById('review-container');
+            const unitGrid = document.getElementById('unitGrid');
+            const unitTitle = document.getElementById('unitTitle');
+            const reviewUnitTitle = document.getElementById('reviewUnitTitle');
             const partTabsEl = document.getElementById('partTabs');
             const questionsContainer = document.getElementById('questionsContainer');
             const resetTopBtn = document.getElementById('resetTopBtn');
             const resetBottomBtn = document.getElementById('resetBottomBtn');
             const gotoReviewBtn = document.getElementById('gotoReviewBtn');
+            const backToMasterBtn = document.getElementById('backToMasterBtn');
             const backToMainBtn = document.getElementById('backToMainBtn');
             const backFromSetupBtn = document.getElementById('backFromSetupBtn');
             const backFromReportBtn = document.getElementById('backFromReportBtn');
@@ -806,7 +1111,7 @@
             const totalTimeSpan = document.getElementById('totalTime');
             const answerTableBody = document.getElementById('answerTableBody');
 
-            // ==================== HÀM HỖ TRỢ CHUNG ====================
+            // ==================== HÀM HỖ TRỢ ====================
             function shuffleArray(arr) {
                 for (let i = arr.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
@@ -815,7 +1120,6 @@
                 return arr;
             }
 
-            // Xáo trộn options và trả về object kèm chỉ số đúng
             function prepareQuestion(q) {
                 const shuffledOpts = shuffleArray([...q.options]);
                 const correctIndex = shuffledOpts.indexOf(q.correctText);
@@ -824,6 +1128,11 @@
                     shuffledOptions: shuffledOpts,
                     correctIndex: correctIndex
                 };
+            }
+
+            function updateAllQuestions() {
+                allQuestions = [];
+                fullPartsData.forEach(part => allQuestions.push(...part.questions));
             }
 
             // ==================== PHẦN CŨ (7 PHẦN) ====================
@@ -918,11 +1227,9 @@
                 });
             }
 
-            // Hàm resetPart đã được sửa để thêm cuộn lên đầu trang
             function resetPart() {
                 reshufflePart();
                 renderQuestions();
-                // Cuộn mượt lên đầu trang
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
@@ -961,21 +1268,17 @@
                     timerFill.style.width = `${percent}%`;
                     if (timeLeft <= 0) {
                         clearInterval(timerInterval);
-                        // Hết giờ -> tự động chuyển câu
                         moveToNextQuestion(null);
                     }
                 }, 1000);
             }
 
-            // selectedIdx: chỉ số đáp án được chọn (nếu có), nếu null nghĩa là hết giờ không chọn
             function moveToNextQuestion(selectedIdx) {
-                // Lưu thời gian đã dùng cho câu hiện tại (nếu có)
                 if (questionStartTime) {
                     const timeSpent = Math.min(Math.floor((Date.now() - questionStartTime) / 1000), TIME_PER_QUESTION);
                     totalElapsedSeconds += timeSpent;
                 }
 
-                // Xử lý đáp án cho câu hiện tại (nếu chưa được lưu)
                 if (reviewCurrentIndex < reviewQuestions.length) {
                     const q = reviewQuestions[reviewCurrentIndex];
                     if (selectedIdx !== null && selectedIdx !== undefined) {
@@ -988,7 +1291,6 @@
                             currentStreak = 0;
                         }
                     } else {
-                        // Không chọn gì -> sai
                         currentStreak = 0;
                     }
                 }
@@ -999,7 +1301,6 @@
                     resetReviewTimer();
                     startReviewTimer();
                 } else {
-                    // Kết thúc
                     finishReview();
                 }
             }
@@ -1017,16 +1318,11 @@
                     <div class="test-options">${optionsHtml}</div>
                 `;
 
-                // Gắn sự kiện cho các radio: khi chọn tự động chuyển câu
                 document.querySelectorAll('input[name="review-opt"]').forEach(radio => {
                     radio.addEventListener('change', function(e) {
-                        // Ngăn chọn nhiều lần
                         const selectedVal = parseInt(e.target.value);
-                        // Vô hiệu hóa tất cả radio để không chọn lại
                         document.querySelectorAll('input[name="review-opt"]').forEach(r => r.disabled = true);
-                        // Dừng timer
                         clearInterval(timerInterval);
-                        // Chuyển câu
                         moveToNextQuestion(selectedVal);
                     });
                 });
@@ -1041,7 +1337,6 @@
                 endTimeSpan.textContent = reviewEndTime.toLocaleTimeString('vi-VN');
                 totalTimeSpan.textContent = totalElapsedSeconds + 's';
                 streakInfo.textContent = `${reviewStreak}/${reviewCorrectCount}/${reviewQuestions.length}`;
-                // Hiển thị báo cáo
                 showReport();
                 renderReport();
             }
@@ -1092,7 +1387,6 @@
                 answerTableBody.innerHTML = rows;
             }
 
-            // Bắt đầu bài ôn tập (đã thêm kiểm tra tên)
             function startReview() {
                 const name = studentNameInput.value.trim();
                 if (name === '') {
@@ -1102,7 +1396,6 @@
                 let count = parseInt(questionCountSelect.value);
                 if (count === 999) count = allQuestions.length;
                 else count = Math.min(count, allQuestions.length);
-                // Chọn ngẫu nhiên count câu từ tất cả câu hỏi
                 const shuffledAll = shuffleArray([...allQuestions]);
                 reviewQuestions = shuffledAll.slice(0, count).map(q => prepareQuestion(q));
                 reviewAnswers = new Array(reviewQuestions.length).fill(null);
@@ -1119,37 +1412,82 @@
                 startReviewTimer();
             }
 
+            // ==================== CHUYỂN UNIT ====================
+            function switchUnit(unitId) {
+                currentUnit = unitId;
+                fullPartsData = unitData[unitId];
+                updateAllQuestions();
+                unitTitle.textContent = `Tiếng Anh 6 - ${unitId} (20 câu/phần)`;
+                reviewUnitTitle.textContent = `Tiếng Anh 6 - ${unitId}`;
+
+                // Reset phần làm bài
+                currentPartIndex = 0;
+                renderPartTabs();
+                reshufflePart();
+                renderQuestions();
+
+                // Đưa về giao diện chính (ẩn review nếu đang hiện)
+                reviewContainer.style.display = 'none';
+                mainContainer.style.display = 'block';
+
+                // Dừng timer nếu có
+                if (timerInterval) clearInterval(timerInterval);
+            }
+
+            // ==================== TẠO CÁC NÚT UNIT ====================
+            for (let i = 1; i <= 12; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'unit-btn';
+                btn.textContent = `U${i}`;
+                btn.dataset.unit = `U${i}`;
+                btn.addEventListener('click', () => {
+                    masterContainer.style.display = 'none';
+                    switchUnit(btn.dataset.unit);
+                });
+                unitGrid.appendChild(btn);
+            }
+
             // ==================== SỰ KIỆN ====================
-            // Phần cũ
-            renderPartTabs();
-            reshufflePart();
-            renderQuestions();
             resetTopBtn.addEventListener('click', resetPart);
             resetBottomBtn.addEventListener('click', resetPart);
 
-            // Chuyển qua lại giữa main và review
             gotoReviewBtn.addEventListener('click', () => {
                 mainContainer.style.display = 'none';
                 reviewContainer.style.display = 'block';
                 showSetup();
             });
+
+            backToMasterBtn.addEventListener('click', () => {
+                if (timerInterval) clearInterval(timerInterval);
+                mainContainer.style.display = 'none';
+                reviewContainer.style.display = 'none';
+                masterContainer.style.display = 'block';
+            });
+
             backToMainBtn.addEventListener('click', () => {
                 reviewContainer.style.display = 'none';
                 mainContainer.style.display = 'block';
+                if (timerInterval) clearInterval(timerInterval);
             });
+
             backFromSetupBtn.addEventListener('click', () => {
                 reviewContainer.style.display = 'none';
                 mainContainer.style.display = 'block';
             });
+
             backFromReportBtn.addEventListener('click', () => {
                 reviewContainer.style.display = 'none';
                 mainContainer.style.display = 'block';
             });
+
             redoReviewBtn.addEventListener('click', () => {
                 showSetup();
             });
 
             startReviewBtn.addEventListener('click', startReview);
+
+            // Không gọi switchUnit mặc định để tránh hiện main-container ngay khi tải trang
+            // Dữ liệu unit 1 vẫn được load khi cần thông qua sự kiện click
         })();
     </script>
 </body>
