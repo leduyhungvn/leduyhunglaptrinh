@@ -14,91 +14,181 @@
             --accent: #2563eb;
             --card: #f8fafc;
             --border: #e2e8f0;
-            --danger: #ef4444;
-            --success: #22c55e;
-            --warning: #f59e0b;
-            --info: #0ea5e9;
         }
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Roboto', sans-serif;
             background: var(--bg);
             color: var(--fg);
             min-height: 100vh;
-            margin: 0;
-            padding: 0;
+            line-height: 1.5;
         }
-        .screen { display: none; min-height: 100vh; }
+        .screen { display: none; min-height: 100vh; padding: 16px; }
         .screen.active { display: block; }
+        
         .btn-main {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+            display: block;
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            color: white;
         }
         .btn-main:hover:not(:disabled) {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-        }
-        .btn-main:active:not(:disabled) {
-            transform: translateY(0) scale(0.98);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
         .btn-main:disabled {
             opacity: 0.5;
             cursor: not-allowed;
-            box-shadow: none;
         }
+        
+        .btn-emerald { background-color: #10b981; }
+        .btn-blue { background-color: #3b82f6; }
+        .btn-orange { background-color: #f97316; }
+        .btn-rose { background-color: #f43f5e; }
+        .btn-teal { background-color: #14b8a6; }
+        .btn-gray { background-color: #6b7280; }
+        
         .option-btn {
-            transition: all 0.2s ease;
-            border: 2px solid var(--border);
+            display: block;
+            width: 100%;
+            padding: 12px 16px;
+            margin-bottom: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            text-align: left;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
         }
         .option-btn:hover {
-            border-color: var(--accent);
-            background: #eff6ff;
+            border-color: #3b82f6;
+            background-color: #eff6ff;
         }
-        .option-btn.selected {
-            border-color: var(--accent);
-            background: #dbeafe;
+        
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 24px;
+            margin-bottom: 16px;
         }
-        .option-btn.correct {
-            border-color: var(--success);
-            background: #dcfce7;
-        }
-        .option-btn.wrong {
-            border-color: var(--danger);
-            background: #fee2e2;
-        }
-        .progress-bar {
-            transition: width 0.1s linear;
-        }
-        .vocabulary-table tr:hover {
-            background: #f1f5f9;
-        }
-        .speaker-btn {
-            transition: all 0.2s ease;
-        }
-        .speaker-btn:hover {
-            color: var(--accent);
-            transform: scale(1.1);
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        .animate-fade { animation: fadeIn 0.4s ease-out; }
-        .animate-pulse-custom { animation: pulse 2s infinite; }
+        
         .title-main {
             font-family: 'Roboto Condensed', sans-serif;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
+        
+        .progress-container {
+            width: 100%;
+            height: 12px;
+            background-color: #e5e7eb;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            border-radius: 999px;
+            transition: width 0.1s linear;
+        }
+        
         select {
             appearance: none;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: right 12px center;
-            padding-right: 36px;
+            padding: 12px 40px 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            width: 100%;
+            background-color: white;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            outline: none;
+        }
+        input[type="text"]:focus {
+            border-color: #3b82f6;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        th {
+            background-color: #f9fafb;
+            font-weight: 700;
+        }
+        
+        .speaker-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #3b82f6;
+            vertical-align: middle;
+        }
+        .speaker-btn:hover {
+            color: #1d4ed8;
+        }
+        
+        .report-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        @media (min-width: 768px) {
+            .report-grid {
+                flex-direction: row;
+                align-items: stretch;
+            }
+        }
+        
+        .chart-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .stats-container {
+            flex: 0 0 auto;
+            min-width: 200px;
+        }
+        @media (min-width: 768px) {
+            .stats-container {
+                width: 35%;
+            }
+        }
+        
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .stat-row:last-child {
+            border-bottom: none;
         }
     </style>
 </head>
@@ -106,43 +196,33 @@
 
 <!-- GIAO DIEN 1: TRANG CHU -->
 <div id="screen-home" class="screen active">
-    <div class="max-w-2xl mx-auto px-4 py-8">
-        <div class="text-center mb-8 animate-fade">
+    <div class="max-w-2xl mx-auto py-8">
+        <div class="text-center mb-8">
             <h1 class="text-3xl md:text-4xl font-black text-blue-600 title-main mb-2">ÔN TẬP TIẾNG ANH</h1>
             <h2 class="text-2xl md:text-3xl font-bold text-gray-700 title-main">E6U1</h2>
         </div>
         
-        <div class="bg-white rounded-2xl shadow-lg p-6 mb-6 border border-gray-100">
+        <div class="card">
             <label class="block text-gray-700 font-semibold mb-2">Họ và tên người làm bài:</label>
-            <input type="text" id="playerName" 
-                   class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none text-lg"
-                   placeholder="Nhập họ và tên của bạn...">
+            <input type="text" id="playerName" placeholder="Nhập họ và tên của bạn...">
         </div>
         
         <div class="space-y-4 mb-8">
-            <button onclick="goToScreen('screen-vocabulary')" 
-                    class="btn-main w-full py-4 bg-emerald-500 text-white font-bold text-lg rounded-xl disabled:opacity-50"
-                    disabled id="btn-vocab">
+            <button onclick="goToScreen('screen-vocabulary')" class="btn-main btn-emerald" disabled id="btn-vocab">
                 ÔN TẬP TỪ VỰNG
             </button>
-            <button onclick="goToScreen('screen-grammar')" 
-                    class="btn-main w-full py-4 bg-blue-500 text-white font-bold text-lg rounded-xl disabled:opacity-50"
-                    disabled id="btn-grammar">
+            <button onclick="goToScreen('screen-grammar')" class="btn-main btn-blue" disabled id="btn-grammar">
                 TRẮC NGHIỆM NGỮ PHÁP
             </button>
-            <button onclick="goToScreen('screen-translation')" 
-                    class="btn-main w-full py-4 bg-orange-500 text-white font-bold text-lg rounded-xl disabled:opacity-50"
-                    disabled id="btn-translation">
+            <button onclick="goToScreen('screen-translation')" class="btn-main btn-orange" disabled id="btn-translation">
                 TRẮC NGHIỆM DỊCH CÂU
             </button>
-            <button onclick="goToScreen('screen-comprehensive')" 
-                    class="btn-main w-full py-4 bg-rose-500 text-white font-bold text-lg rounded-xl disabled:opacity-50"
-                    disabled id="btn-comprehensive">
+            <button onclick="goToScreen('screen-comprehensive')" class="btn-main btn-rose" disabled id="btn-comprehensive">
                 TRẮC NGHIỆM TỔNG HỢP
             </button>
         </div>
         
-        <div class="bg-gray-50 rounded-xl p-5 border border-gray-200">
+        <div class="card" style="background-color: #f9fafb;">
             <h3 class="font-bold text-gray-800 mb-3 text-lg">THÔNG TIN LIÊN HỆ</h3>
             <p class="font-semibold text-blue-600 mb-2">Thầy Hùng</p>
             <ul class="text-gray-600 space-y-1 text-sm">
@@ -158,10 +238,9 @@
 
 <!-- GIAO DIEN 2: ON TAP TU VUNG -->
 <div id="screen-vocabulary" class="screen">
-    <div class="max-w-2xl mx-auto px-4 py-6">
+    <div class="max-w-2xl mx-auto py-6">
         <div class="flex items-center justify-between mb-6">
-            <button onclick="goToScreen('screen-home')" 
-                    class="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition">
+            <button onclick="goToScreen('screen-home')" class="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg">
                 QUAY LẠI
             </button>
             <h1 class="text-xl md:text-2xl font-bold text-emerald-600 title-main">TỪ VỰNG - E6U1</h1>
@@ -169,16 +248,13 @@
         </div>
         
         <div class="space-y-4">
-            <button onclick="goToScreen('screen-vocab-test')" 
-                    class="btn-main w-full py-5 bg-emerald-500 text-white font-bold text-xl rounded-xl">
+            <button onclick="goToScreen('screen-vocab-test')" class="btn-main btn-emerald">
                 KIỂM TRA TỪ VỰNG
             </button>
-            <button onclick="goToScreen('screen-vocab-list')" 
-                    class="btn-main w-full py-5 bg-teal-500 text-white font-bold text-xl rounded-xl">
+            <button onclick="goToScreen('screen-vocab-list')" class="btn-main btn-teal">
                 DANH SÁCH TỪ VỰNG
             </button>
-            <button onclick="goToScreen('screen-home')" 
-                    class="btn-main w-full py-4 bg-gray-400 text-white font-bold text-lg rounded-xl">
+            <button onclick="goToScreen('screen-home')" class="btn-main btn-gray">
                 QUAY LẠI
             </button>
         </div>
@@ -187,21 +263,19 @@
 
 <!-- GIAO DIEN 2.1: TRAC NGHIEM TU VUNG -->
 <div id="screen-vocab-test" class="screen">
-    <div class="max-w-2xl mx-auto px-4 py-6">
+    <div class="max-w-2xl mx-auto py-6">
         <div class="flex items-center justify-between mb-6">
-            <button onclick="goToScreen('screen-vocabulary')" 
-                    class="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition">
+            <button onclick="goToScreen('screen-vocabulary')" class="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg">
                 QUAY LẠI
             </button>
             <h1 class="text-xl font-bold text-emerald-600 title-main">TỪ VỰNG - E6U1</h1>
             <span id="vocab-test-player" class="text-blue-600 font-semibold text-sm"></span>
         </div>
         
-        <div id="vocab-test-setup" class="bg-white rounded-xl shadow-lg p-6">
+        <div id="vocab-test-setup" class="card">
             <div class="mb-6">
                 <label class="block text-gray-700 font-semibold mb-2">Chọn số câu hỏi:</label>
-                <select id="vocab-question-count" 
-                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-emerald-500 focus:outline-none text-lg">
+                <select id="vocab-question-count">
                     <option value="10">10 câu</option>
                     <option value="20">20 câu</option>
                     <option value="30">30 câu</option>
@@ -209,26 +283,23 @@
                     <option value="80">Tất Cả (80 câu)</option>
                 </select>
             </div>
-            <button onclick="startVocabTest()" 
-                    class="btn-main w-full py-4 bg-emerald-500 text-white font-bold text-lg rounded-xl">
-                LÀM BÀI
-            </button>
+            <button onclick="startVocabTest()" class="btn-main btn-emerald">LÀM BÀI</button>
         </div>
         
-        <div id="vocab-test-playing" class="hidden">
-            <div class="bg-white rounded-xl shadow-lg p-4 mb-4">
+        <div id="vocab-test-playing" style="display: none;">
+            <div class="card">
                 <div class="flex justify-between items-center mb-2">
                     <span class="font-semibold text-gray-700">Câu hỏi: <span id="vocab-current-q">1</span>/<span id="vocab-total-q">10</span></span>
                     <span class="font-bold text-lg text-emerald-600">ĐÚNG: <span id="vocab-correct-count">0</span></span>
                 </div>
-                <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-                    <div id="vocab-timer-bar" class="progress-bar h-full bg-emerald-500 rounded-full" style="width: 100%"></div>
+                <div class="progress-container">
+                    <div id="vocab-timer-bar" class="progress-bar" style="width: 100%; background-color: #10b981;"></div>
                 </div>
             </div>
             
-            <div class="bg-white rounded-xl shadow-lg p-6 mb-4">
+            <div class="card">
                 <h2 class="text-xl font-bold text-center text-gray-800 mb-6" id="vocab-question-text"></h2>
-                <div id="vocab-options" class="space-y-3"></div>
+                <div id="vocab-options"></div>
             </div>
         </div>
     </div>
@@ -236,29 +307,29 @@
 
 <!-- GIAO DIEN 2.2: DANH SACH TU VUNG -->
 <div id="screen-vocab-list" class="screen">
-    <div class="max-w-4xl mx-auto px-4 py-6">
-        <button onclick="goToScreen('screen-vocabulary')" 
-                class="mb-4 px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition">
+    <div class="max-w-4xl mx-auto py-6">
+        <button onclick="goToScreen('screen-vocabulary')" class="mb-4 px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg">
             QUAY LẠI
         </button>
         
         <h1 class="text-xl md:text-2xl font-bold text-center text-emerald-600 title-main mb-6">DANH SÁCH TỪ VỰNG - E6U1</h1>
         
         <div class="overflow-x-auto">
-            <table class="vocabulary-table w-full bg-white rounded-xl shadow-lg overflow-hidden">
-                <thead class="bg-emerald-500 text-white">
-                    <tr>
-                        <th class="px-4 py-3 text-left font-bold">STT</th>
-                        <th class="px-4 py-3 text-left font-bold">Từ vựng</th>
-                        <th class="px-4 py-3 text-left font-bold">Nghĩa</th>
-                    </tr>
-                </thead>
-                <tbody id="vocab-list-body"></tbody>
-            </table>
+            <div class="card" style="padding: 0;">
+                <table>
+                    <thead>
+                        <tr style="background-color: #10b981; color: white;">
+                            <th class="px-4 py-3">STT</th>
+                            <th class="px-4 py-3">Từ vựng</th>
+                            <th class="px-4 py-3">Nghĩa</th>
+                        </tr>
+                    </thead>
+                    <tbody id="vocab-list-body"></tbody>
+                </table>
+            </div>
         </div>
         
-        <button onclick="goToScreen('screen-vocabulary')" 
-                class="mt-6 w-full px-4 py-3 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition">
+        <button onclick="goToScreen('screen-vocabulary')" class="mt-6 btn-main btn-gray">
             QUAY LẠI
         </button>
     </div>
@@ -266,21 +337,19 @@
 
 <!-- GIAO DIEN 3: TRAC NGHIEM NGU PHAP -->
 <div id="screen-grammar" class="screen">
-    <div class="max-w-2xl mx-auto px-4 py-6">
+    <div class="max-w-2xl mx-auto py-6">
         <div class="flex items-center justify-between mb-6">
-            <button onclick="goToScreen('screen-home')" 
-                    class="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition">
+            <button onclick="goToScreen('screen-home')" class="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg">
                 QUAY LẠI
             </button>
             <h1 class="text-xl font-bold text-blue-600 title-main">NGỮ PHÁP - E6U1</h1>
             <span id="grammar-player" class="text-blue-600 font-semibold text-sm"></span>
         </div>
         
-        <div id="grammar-setup" class="bg-white rounded-xl shadow-lg p-6">
+        <div id="grammar-setup" class="card">
             <div class="mb-6">
                 <label class="block text-gray-700 font-semibold mb-2">Chọn số câu hỏi:</label>
-                <select id="grammar-question-count" 
-                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none text-lg">
+                <select id="grammar-question-count">
                     <option value="10">10 câu</option>
                     <option value="20">20 câu</option>
                     <option value="30">30 câu</option>
@@ -288,26 +357,23 @@
                     <option value="60">Tất Cả (60 câu)</option>
                 </select>
             </div>
-            <button onclick="startGrammarTest()" 
-                    class="btn-main w-full py-4 bg-blue-500 text-white font-bold text-lg rounded-xl">
-                LÀM BÀI
-            </button>
+            <button onclick="startGrammarTest()" class="btn-main btn-blue">LÀM BÀI</button>
         </div>
         
-        <div id="grammar-playing" class="hidden">
-            <div class="bg-white rounded-xl shadow-lg p-4 mb-4">
+        <div id="grammar-playing" style="display: none;">
+            <div class="card">
                 <div class="flex justify-between items-center mb-2">
                     <span class="font-semibold text-gray-700">Câu hỏi: <span id="grammar-current-q">1</span>/<span id="grammar-total-q">10</span></span>
                     <span class="font-bold text-lg text-blue-600">ĐÚNG: <span id="grammar-correct-count">0</span></span>
                 </div>
-                <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-                    <div id="grammar-timer-bar" class="progress-bar h-full bg-blue-500 rounded-full" style="width: 100%"></div>
+                <div class="progress-container">
+                    <div id="grammar-timer-bar" class="progress-bar" style="width: 100%; background-color: #3b82f6;"></div>
                 </div>
             </div>
             
-            <div class="bg-white rounded-xl shadow-lg p-6 mb-4">
+            <div class="card">
                 <h2 class="text-lg font-bold text-center text-gray-800 mb-6" id="grammar-question-text"></h2>
-                <div id="grammar-options" class="space-y-3"></div>
+                <div id="grammar-options"></div>
             </div>
         </div>
     </div>
@@ -315,21 +381,19 @@
 
 <!-- GIAO DIEN 4: TRAC NGHIEM DICH CAU -->
 <div id="screen-translation" class="screen">
-    <div class="max-w-2xl mx-auto px-4 py-6">
+    <div class="max-w-2xl mx-auto py-6">
         <div class="flex items-center justify-between mb-6">
-            <button onclick="goToScreen('screen-home')" 
-                    class="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition">
+            <button onclick="goToScreen('screen-home')" class="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg">
                 QUAY LẠI
             </button>
             <h1 class="text-xl font-bold text-orange-600 title-main">DỊCH CÂU - E6U1</h1>
             <span id="translation-player" class="text-blue-600 font-semibold text-sm"></span>
         </div>
         
-        <div id="translation-setup" class="bg-white rounded-xl shadow-lg p-6">
+        <div id="translation-setup" class="card">
             <div class="mb-6">
                 <label class="block text-gray-700 font-semibold mb-2">Chọn số câu hỏi:</label>
-                <select id="translation-question-count" 
-                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-orange-500 focus:outline-none text-lg">
+                <select id="translation-question-count">
                     <option value="10">10 câu</option>
                     <option value="20">20 câu</option>
                     <option value="30">30 câu</option>
@@ -337,26 +401,23 @@
                     <option value="60">Tất Cả (60 câu)</option>
                 </select>
             </div>
-            <button onclick="startTranslationTest()" 
-                    class="btn-main w-full py-4 bg-orange-500 text-white font-bold text-lg rounded-xl">
-                LÀM BÀI
-            </button>
+            <button onclick="startTranslationTest()" class="btn-main btn-orange">LÀM BÀI</button>
         </div>
         
-        <div id="translation-playing" class="hidden">
-            <div class="bg-white rounded-xl shadow-lg p-4 mb-4">
+        <div id="translation-playing" style="display: none;">
+            <div class="card">
                 <div class="flex justify-between items-center mb-2">
                     <span class="font-semibold text-gray-700">Câu hỏi: <span id="translation-current-q">1</span>/<span id="translation-total-q">10</span></span>
                     <span class="font-bold text-lg text-orange-600">ĐÚNG: <span id="translation-correct-count">0</span></span>
                 </div>
-                <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-                    <div id="translation-timer-bar" class="progress-bar h-full bg-orange-500 rounded-full" style="width: 100%"></div>
+                <div class="progress-container">
+                    <div id="translation-timer-bar" class="progress-bar" style="width: 100%; background-color: #f97316;"></div>
                 </div>
             </div>
             
-            <div class="bg-white rounded-xl shadow-lg p-6 mb-4">
+            <div class="card">
                 <h2 class="text-lg font-bold text-center text-gray-800 mb-6" id="translation-question-text"></h2>
-                <div id="translation-options" class="space-y-3"></div>
+                <div id="translation-options"></div>
             </div>
         </div>
     </div>
@@ -364,21 +425,19 @@
 
 <!-- GIAO DIEN 5: TRAC NGHIEM TONG HOP -->
 <div id="screen-comprehensive" class="screen">
-    <div class="max-w-2xl mx-auto px-4 py-6">
+    <div class="max-w-2xl mx-auto py-6">
         <div class="flex items-center justify-between mb-6">
-            <button onclick="goToScreen('screen-home')" 
-                    class="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition">
+            <button onclick="goToScreen('screen-home')" class="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg">
                 QUAY LẠI
             </button>
             <h1 class="text-xl font-bold text-rose-600 title-main">TỔNG HỢP - E6U1</h1>
             <span id="comprehensive-player" class="text-blue-600 font-semibold text-sm"></span>
         </div>
         
-        <div id="comprehensive-setup" class="bg-white rounded-xl shadow-lg p-6">
+        <div id="comprehensive-setup" class="card">
             <div class="mb-6">
                 <label class="block text-gray-700 font-semibold mb-2">Chọn số câu hỏi:</label>
-                <select id="comprehensive-question-count" 
-                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-rose-500 focus:outline-none text-lg">
+                <select id="comprehensive-question-count">
                     <option value="10">10 câu</option>
                     <option value="20">20 câu</option>
                     <option value="30">30 câu</option>
@@ -386,26 +445,23 @@
                     <option value="200">Tất Cả (200 câu)</option>
                 </select>
             </div>
-            <button onclick="startComprehensiveTest()" 
-                    class="btn-main w-full py-4 bg-rose-500 text-white font-bold text-lg rounded-xl">
-                LÀM BÀI
-            </button>
+            <button onclick="startComprehensiveTest()" class="btn-main btn-rose">LÀM BÀI</button>
         </div>
         
-        <div id="comprehensive-playing" class="hidden">
-            <div class="bg-white rounded-xl shadow-lg p-4 mb-4">
+        <div id="comprehensive-playing" style="display: none;">
+            <div class="card">
                 <div class="flex justify-between items-center mb-2">
                     <span class="font-semibold text-gray-700">Câu hỏi: <span id="comprehensive-current-q">1</span>/<span id="comprehensive-total-q">10</span></span>
                     <span class="font-bold text-lg text-rose-600">ĐÚNG: <span id="comprehensive-correct-count">0</span></span>
                 </div>
-                <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-                    <div id="comprehensive-timer-bar" class="progress-bar h-full bg-rose-500 rounded-full" style="width: 100%"></div>
+                <div class="progress-container">
+                    <div id="comprehensive-timer-bar" class="progress-bar" style="width: 100%; background-color: #f43f5e;"></div>
                 </div>
             </div>
             
-            <div class="bg-white rounded-xl shadow-lg p-6 mb-4">
+            <div class="card">
                 <h2 class="text-lg font-bold text-center text-gray-800 mb-6" id="comprehensive-question-text"></h2>
-                <div id="comprehensive-options" class="space-y-3"></div>
+                <div id="comprehensive-options"></div>
             </div>
         </div>
     </div>
@@ -413,69 +469,61 @@
 
 <!-- GIAO DIEN BAO CAO -->
 <div id="screen-report" class="screen">
-    <div class="max-w-3xl mx-auto px-4 py-6">
+    <div class="max-w-3xl mx-auto py-6">
         <h1 id="report-title" class="text-xl md:text-2xl font-bold text-center mb-6 title-main"></h1>
         
-        <div class="flex flex-col md:flex-row gap-4 mb-6">
-            <div class="flex-1 bg-white rounded-xl shadow-lg p-6 flex flex-col items-center justify-center">
-                <p id="report-player-name" class="font-bold text-blue-600 text-xl mb-2"></p>
-                <div class="relative w-48 h-48">
-                    <canvas id="report-chart" width="192" height="192"></canvas>
-                    <div class="absolute inset-0 flex items-center justify-center">
+        <div class="report-grid mb-6">
+            <div class="card chart-container">
+                <p id="report-player-name" class="font-bold text-blue-600 text-3xl mb-4"></p>
+                <div style="position: relative; width: 200px; height: 200px;">
+                    <canvas id="report-chart" width="200" height="200"></canvas>
+                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
                         <span id="report-percentage" class="text-4xl font-black"></span>
                     </div>
                 </div>
             </div>
             
-            <div class="md:w-48 bg-white rounded-xl shadow-lg p-4 flex flex-col justify-center">
-                <div class="space-y-3">
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-gray-500">NGÀY:</span>
-                        <span id="report-date" class="font-bold text-blue-600"></span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-emerald-600">START:</span>
-                        <span id="report-start" class="font-bold text-emerald-600"></span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-rose-600">END:</span>
-                        <span id="report-end" class="font-bold text-rose-600"></span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-orange-600">TỔNG TG:</span>
-                        <span id="report-duration" class="font-bold text-orange-600"></span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-purple-600">CHUỖI ĐÚNG:</span>
-                        <span id="report-streak" class="font-bold text-purple-600"></span>
-                    </div>
+            <div class="card stats-container">
+                <div class="stat-row">
+                    <span class="font-bold text-gray-500">NGÀY:</span>
+                    <span id="report-date" class="font-bold text-blue-600"></span>
+                </div>
+                <div class="stat-row">
+                    <span class="font-bold text-emerald-600">START:</span>
+                    <span id="report-start" class="font-bold text-emerald-600"></span>
+                </div>
+                <div class="stat-row">
+                    <span class="font-bold text-rose-600">END:</span>
+                    <span id="report-end" class="font-bold text-rose-600"></span>
+                </div>
+                <div class="stat-row">
+                    <span class="font-bold text-orange-600">TỔNG TG:</span>
+                    <span id="report-duration" class="font-bold text-orange-600"></span>
+                </div>
+                <div class="stat-row">
+                    <span class="font-bold text-purple-600">CHUỖI ĐÚNG:</span>
+                    <span id="report-streak" class="font-bold text-purple-600"></span>
                 </div>
             </div>
         </div>
         
-        <div class="bg-white rounded-xl shadow-lg p-4 mb-6 overflow-x-auto">
-            <table class="w-full">
-                <thead class="bg-gray-100">
-                    <tr>
-                        <th class="px-3 py-2 text-left font-bold">STT</th>
-                        <th class="px-3 py-2 text-left font-bold">Câu hỏi</th>
-                        <th class="px-3 py-2 text-left font-bold">Đáp án chọn</th>
-                        <th class="px-3 py-2 text-left font-bold">Đáp án đúng</th>
+        <div class="card" style="padding: 0; overflow-x: auto;">
+            <table>
+                <thead>
+                    <tr style="background-color: #f3f4f6;">
+                        <th class="px-3 py-2">STT</th>
+                        <th class="px-3 py-2">Câu hỏi</th>
+                        <th class="px-3 py-2">Đáp án chọn</th>
+                        <th class="px-3 py-2">Đáp án đúng</th>
                     </tr>
                 </thead>
                 <tbody id="report-table-body"></tbody>
             </table>
         </div>
         
-        <div class="flex gap-4">
-            <button onclick="retakeTest()" 
-                    class="flex-1 py-3 bg-blue-500 text-white font-bold rounded-xl hover:bg-blue-600 transition">
-                LÀM LẠI
-            </button>
-            <button onclick="goBackFromReport()" 
-                    class="flex-1 py-3 bg-gray-400 text-white font-bold rounded-xl hover:bg-gray-500 transition">
-                QUAY LẠI
-            </button>
+        <div class="flex gap-4 mt-6">
+            <button onclick="retakeTest()" class="btn-main btn-blue">LÀM LẠI</button>
+            <button onclick="goBackFromReport()" class="btn-main btn-gray">QUAY LẠI</button>
         </div>
     </div>
 </div>
@@ -697,7 +745,6 @@ const translationData = [
 
 // ==================== BIEN TOAN CUC ====================
 let playerName = "";
-let currentTest = null;
 let currentQuestions = [];
 let currentQuestionIndex = 0;
 let correctCount = 0;
@@ -714,116 +761,100 @@ let testType = "";
 
 // ==================== HAM CHINH ====================
 
-// Kiem tra ten nguoi choi
 function checkPlayerName() {
     playerName = document.getElementById("playerName").value.trim();
-    const buttons = ["btn-vocab", "btn-grammar", "btn-translation", "btn-comprehensive"];
-    buttons.forEach(function(id) {
-        document.getElementById(id).disabled = playerName === "";
-    });
+    document.getElementById("btn-vocab").disabled = playerName === "";
+    document.getElementById("btn-grammar").disabled = playerName === "";
+    document.getElementById("btn-translation").disabled = playerName === "";
+    document.getElementById("btn-comprehensive").disabled = playerName === "";
 }
 
-// Chuyen giao dien
 function goToScreen(screenId) {
-    const screens = document.querySelectorAll(".screen");
-    screens.forEach(function(s) { s.classList.remove("active"); });
+    var screens = document.querySelectorAll(".screen");
+    for (var i = 0; i < screens.length; i++) {
+        screens[i].classList.remove("active");
+    }
     document.getElementById(screenId).classList.add("active");
     
-    if (screenId === "screen-vocabulary" || screenId === "screen-vocab-test" || screenId === "screen-vocab-list") {
-        document.getElementById("vocab-player").textContent = playerName;
-        document.getElementById("vocab-test-player").textContent = playerName;
+    var playerDisplays = {
+        "screen-vocabulary": "vocab-player",
+        "screen-vocab-test": "vocab-test-player",
+        "screen-vocab-list": null,
+        "screen-grammar": "grammar-player",
+        "screen-translation": "translation-player",
+        "screen-comprehensive": "comprehensive-player"
+    };
+    
+    if (playerDisplays[screenId]) {
+        document.getElementById(playerDisplays[screenId]).textContent = playerName;
     }
-    if (screenId === "screen-grammar") {
-        document.getElementById("grammar-player").textContent = playerName;
-    }
-    if (screenId === "screen-translation") {
-        document.getElementById("translation-player").textContent = playerName;
-    }
-    if (screenId === "screen-comprehensive") {
-        document.getElementById("comprehensive-player").textContent = playerName;
-    }
+    
     if (screenId === "screen-vocab-list") {
         renderVocabularyList();
     }
-    if (screenId === "screen-vocab-test") {
-        document.getElementById("vocab-test-setup").classList.remove("hidden");
-        document.getElementById("vocab-test-playing").classList.add("hidden");
-    }
-    if (screenId === "screen-grammar") {
-        document.getElementById("grammar-setup").classList.remove("hidden");
-        document.getElementById("grammar-playing").classList.add("hidden");
-    }
-    if (screenId === "screen-translation") {
-        document.getElementById("translation-setup").classList.remove("hidden");
-        document.getElementById("translation-playing").classList.add("hidden");
-    }
-    if (screenId === "screen-comprehensive") {
-        document.getElementById("comprehensive-setup").classList.remove("hidden");
-        document.getElementById("comprehensive-playing").classList.add("hidden");
+    
+    var setupScreens = ["screen-vocab-test", "screen-grammar", "screen-translation", "screen-comprehensive"];
+    if (setupScreens.indexOf(screenId) !== -1) {
+        document.getElementById(screenId.replace("screen-", "") + "-setup").style.display = "block";
+        document.getElementById(screenId.replace("screen-", "") + "-playing").style.display = "none";
     }
 }
 
-// Random mang
 function shuffleArray(array) {
-    const newArray = array.slice();
-    for (let i = newArray.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        const temp = newArray[i];
+    var newArray = array.slice();
+    for (var i = newArray.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = newArray[i];
         newArray[i] = newArray[j];
         newArray[j] = temp;
     }
     return newArray;
 }
 
-// Bat dau kiem tra tu vung
 function startVocabTest() {
     testType = "vocab";
     previousScreen = "screen-vocabulary";
-    const count = parseInt(document.getElementById("vocab-question-count").value);
+    var count = parseInt(document.getElementById("vocab-question-count").value);
     currentQuestions = shuffleArray(vocabularyData).slice(0, count);
     startTest("vocab", 8);
 }
 
-// Bat dau kiem tra ngu phap
 function startGrammarTest() {
     testType = "grammar";
     previousScreen = "screen-home";
-    const count = parseInt(document.getElementById("grammar-question-count").value);
+    var count = parseInt(document.getElementById("grammar-question-count").value);
     currentQuestions = shuffleArray(grammarData).slice(0, count);
     startTest("grammar", 30);
 }
 
-// Bat dau kiem tra dich cau
 function startTranslationTest() {
     testType = "translation";
     previousScreen = "screen-home";
-    const count = parseInt(document.getElementById("translation-question-count").value);
+    var count = parseInt(document.getElementById("translation-question-count").value);
     currentQuestions = shuffleArray(translationData).slice(0, count);
     startTest("translation", 30);
 }
 
-// Bat dau kiem tra tong hop
 function startComprehensiveTest() {
     testType = "comprehensive";
     previousScreen = "screen-home";
-    const count = parseInt(document.getElementById("comprehensive-question-count").value);
+    var count = parseInt(document.getElementById("comprehensive-question-count").value);
     
-    const allQuestions = [];
-    vocabularyData.forEach(function(q) {
-        allQuestions.push(Object.assign({}, q, {type: "vocab", timeLimit: 8}));
-    });
-    grammarData.forEach(function(q) {
-        allQuestions.push(Object.assign({}, q, {type: "grammar", timeLimit: 30}));
-    });
-    translationData.forEach(function(q) {
-        allQuestions.push(Object.assign({}, q, {type: "translation", timeLimit: 30}));
-    });
+    var allQuestions = [];
+    for (var i = 0; i < vocabularyData.length; i++) {
+        allQuestions.push(Object.assign({}, vocabularyData[i], {type: "vocab", timeLimit: 8}));
+    }
+    for (var i = 0; i < grammarData.length; i++) {
+        allQuestions.push(Object.assign({}, grammarData[i], {type: "grammar", timeLimit: 30}));
+    }
+    for (var i = 0; i < translationData.length; i++) {
+        allQuestions.push(Object.assign({}, translationData[i], {type: "translation", timeLimit: 30}));
+    }
     
     currentQuestions = shuffleArray(allQuestions).slice(0, count);
     startComprehensiveTestRun();
 }
 
-// Bat dau test tong hop
 function startComprehensiveTestRun() {
     currentQuestionIndex = 0;
     correctCount = 0;
@@ -833,53 +864,53 @@ function startComprehensiveTestRun() {
     totalTimeSpent = 0;
     startTime = new Date();
     
-    document.getElementById("comprehensive-setup").classList.add("hidden");
-    document.getElementById("comprehensive-playing").classList.remove("hidden");
+    document.getElementById("comprehensive-setup").style.display = "none";
+    document.getElementById("comprehensive-playing").style.display = "block";
     document.getElementById("comprehensive-total-q").textContent = currentQuestions.length;
     
     showComprehensiveQuestion();
 }
 
-// Hien thi cau hoi tong hop
 function showComprehensiveQuestion() {
     if (currentQuestionIndex >= currentQuestions.length) {
         endComprehensiveTest();
         return;
     }
     
-    const q = currentQuestions[currentQuestionIndex];
+    var q = currentQuestions[currentQuestionIndex];
     document.getElementById("comprehensive-current-q").textContent = currentQuestionIndex + 1;
     document.getElementById("comprehensive-correct-count").textContent = correctCount;
     document.getElementById("comprehensive-question-text").textContent = q.question;
     
-    const options = shuffleArray([q.correct, q.wrong1, q.wrong2, q.wrong3]);
-    const optionsContainer = document.getElementById("comprehensive-options");
+    var options = shuffleArray([q.correct, q.wrong1, q.wrong2, q.wrong3]);
+    var optionsContainer = document.getElementById("comprehensive-options");
     optionsContainer.innerHTML = "";
     
-    options.forEach(function(opt) {
-        const btn = document.createElement("button");
-        btn.className = "option-btn w-full py-3 px-4 text-left rounded-lg font-medium";
-        btn.textContent = opt;
-        btn.onclick = function() { selectComprehensiveAnswer(opt, q.correct); };
-        optionsContainer.appendChild(btn);
-    });
+    for (var i = 0; i < options.length; i++) {
+        (function(opt, correct) {
+            var btn = document.createElement("button");
+            btn.className = "option-btn";
+            btn.textContent = opt;
+            btn.onclick = function() { selectComprehensiveAnswer(opt, correct); };
+            optionsContainer.appendChild(btn);
+        })(options[i], q.correct);
+    }
     
     questionStartTime = Date.now();
     startComprehensiveTimer(q.timeLimit);
 }
 
-// Timer tong hop
 function startComprehensiveTimer(seconds) {
     if (timerInterval) clearInterval(timerInterval);
     
-    let timeLeft = seconds;
-    const timerBar = document.getElementById("comprehensive-timer-bar");
+    var timeLeft = seconds;
+    var timerBar = document.getElementById("comprehensive-timer-bar");
     timerBar.style.width = "100%";
     timerBar.style.backgroundColor = seconds === 8 ? "#f43f5e" : "#f97316";
     
     timerInterval = setInterval(function() {
         timeLeft -= 0.1;
-        const percent = (timeLeft / seconds) * 100;
+        var percent = (timeLeft / seconds) * 100;
         timerBar.style.width = percent + "%";
         
         if (timeLeft <= 0) {
@@ -889,14 +920,13 @@ function startComprehensiveTimer(seconds) {
     }, 100);
 }
 
-// Chon dap an tong hop
 function selectComprehensiveAnswer(selected, correct) {
     if (timerInterval) clearInterval(timerInterval);
     
-    const timeSpent = (Date.now() - questionStartTime) / 1000;
+    var timeSpent = (Date.now() - questionStartTime) / 1000;
     totalTimeSpent += timeSpent;
     
-    const isCorrect = selected === correct;
+    var isCorrect = selected === correct;
     if (isCorrect) {
         correctCount++;
         currentStreak++;
@@ -916,13 +946,11 @@ function selectComprehensiveAnswer(selected, correct) {
     setTimeout(showComprehensiveQuestion, 300);
 }
 
-// Ket thuc test tong hop
 function endComprehensiveTest() {
     endTime = new Date();
-    showReport("TỔNG HỢP - E6U1", "rose");
+    showReport("TỔNG HỢP - E6U1", "#f43f5e");
 }
 
-// Bat dau test thong thuong
 function startTest(type, timeLimit) {
     currentQuestionIndex = 0;
     correctCount = 0;
@@ -932,50 +960,56 @@ function startTest(type, timeLimit) {
     totalTimeSpent = 0;
     startTime = new Date();
     
-    document.getElementById(type + "-setup").classList.add("hidden");
-    document.getElementById(type + "-playing").classList.remove("hidden");
+    document.getElementById(type + "-setup").style.display = "none";
+    document.getElementById(type + "-playing").style.display = "block";
     document.getElementById(type + "-total-q").textContent = currentQuestions.length;
     
     showQuestion(type, timeLimit);
 }
 
-// Hien thi cau hoi
 function showQuestion(type, timeLimit) {
     if (currentQuestionIndex >= currentQuestions.length) {
         endTest(type);
         return;
     }
     
-    const q = currentQuestions[currentQuestionIndex];
+    var q = currentQuestions[currentQuestionIndex];
     document.getElementById(type + "-current-q").textContent = currentQuestionIndex + 1;
     document.getElementById(type + "-correct-count").textContent = correctCount;
     document.getElementById(type + "-question-text").textContent = q.question;
     
-    const options = shuffleArray([q.correct, q.wrong1, q.wrong2, q.wrong3]);
-    const optionsContainer = document.getElementById(type + "-options");
+    var options = shuffleArray([q.correct, q.wrong1, q.wrong2, q.wrong3]);
+    var optionsContainer = document.getElementById(type + "-options");
     optionsContainer.innerHTML = "";
     
-    options.forEach(function(opt) {
-        const btn = document.createElement("button");
-        btn.className = "option-btn w-full py-3 px-4 text-left rounded-lg font-medium";
-        btn.textContent = opt;
-        btn.onclick = function() { selectAnswer(type, opt, q.correct, timeLimit); };
-        optionsContainer.appendChild(btn);
-    });
+    var colors = {
+        vocab: "#10b981",
+        grammar: "#3b82f6",
+        translation: "#f97316"
+    };
+    
+    for (var i = 0; i < options.length; i++) {
+        (function(opt, correct, tl, t) {
+            var btn = document.createElement("button");
+            btn.className = "option-btn";
+            btn.textContent = opt;
+            btn.onclick = function() { selectAnswer(t, opt, correct, tl); };
+            optionsContainer.appendChild(btn);
+        })(options[i], q.correct, timeLimit, type);
+    }
     
     questionStartTime = Date.now();
     startTimer(type, timeLimit);
 }
 
-// Timer
 function startTimer(type, seconds) {
     if (timerInterval) clearInterval(timerInterval);
     
-    let timeLeft = seconds;
-    const timerBar = document.getElementById(type + "-timer-bar");
+    var timeLeft = seconds;
+    var timerBar = document.getElementById(type + "-timer-bar");
     timerBar.style.width = "100%";
     
-    const colors = {
+    var colors = {
         vocab: "#10b981",
         grammar: "#3b82f6",
         translation: "#f97316"
@@ -984,7 +1018,7 @@ function startTimer(type, seconds) {
     
     timerInterval = setInterval(function() {
         timeLeft -= 0.1;
-        const percent = (timeLeft / seconds) * 100;
+        var percent = (timeLeft / seconds) * 100;
         timerBar.style.width = percent + "%";
         
         if (timeLeft <= 0) {
@@ -994,14 +1028,13 @@ function startTimer(type, seconds) {
     }, 100);
 }
 
-// Chon dap an
 function selectAnswer(type, selected, correct, timeLimit) {
     if (timerInterval) clearInterval(timerInterval);
     
-    const timeSpent = (Date.now() - questionStartTime) / 1000;
+    var timeSpent = (Date.now() - questionStartTime) / 1000;
     totalTimeSpent += timeSpent;
     
-    const isCorrect = selected === correct;
+    var isCorrect = selected === correct;
     if (isCorrect) {
         correctCount++;
         currentStreak++;
@@ -1021,115 +1054,114 @@ function selectAnswer(type, selected, correct, timeLimit) {
     setTimeout(function() { showQuestion(type, timeLimit); }, 300);
 }
 
-// Ket thuc test
 function endTest(type) {
     endTime = new Date();
-    const titles = {
+    var titles = {
         vocab: "TỪ VỰNG - E6U1",
         grammar: "NGỮ PHÁP - E6U1",
         translation: "DỊCH CÂU - E6U1"
     };
-    const colors = {
-        vocab: "emerald",
-        grammar: "blue",
-        translation: "orange"
+    var colors = {
+        vocab: "#10b981",
+        grammar: "#3b82f6",
+        translation: "#f97316"
     };
     showReport(titles[type], colors[type]);
 }
 
-// Hien thi bao cao
 function showReport(title, color) {
     goToScreen("screen-report");
-    document.getElementById("report-title").textContent = title;
-    document.getElementById("report-title").className = "text-xl md:text-2xl font-bold text-center mb-6 title-main text-" + color + "-600";
+    
+    var titleEl = document.getElementById("report-title");
+    titleEl.textContent = title;
+    titleEl.style.color = color;
+    
     document.getElementById("report-player-name").textContent = playerName;
     
-    const total = currentQuestions.length;
-    const percent = Math.round((correctCount / total) * 100);
+    var total = currentQuestions.length;
+    var percent = Math.round((correctCount / total) * 100);
     
-    let percentColor;
-    if (percent >= 0 && percent <= 49) {
+    var percentColor;
+    if (percent <= 49) {
         percentColor = "#ef4444";
-    } else if (percent >= 50 && percent <= 69) {
+    } else if (percent <= 69) {
         percentColor = "#f59e0b";
-    } else if (percent >= 70 && percent <= 79) {
+    } else if (percent <= 79) {
         percentColor = "#22c55e";
-    } else if (percent >= 80 && percent <= 89) {
+    } else if (percent <= 89) {
         percentColor = "#14b8a6";
-    } else if (percent >= 90 && percent <= 99) {
+    } else if (percent <= 99) {
         percentColor = "#3b82f6";
     } else {
         percentColor = "#8b5cf6";
     }
     
-    document.getElementById("report-percentage").textContent = percent + "%";
-    document.getElementById("report-percentage").style.color = percentColor;
+    var percentEl = document.getElementById("report-percentage");
+    percentEl.textContent = percent + "%";
+    percentEl.style.color = percentColor;
     
-    // Ngay gio
-    const now = new Date();
+    var now = new Date();
     document.getElementById("report-date").textContent = now.getDate() + "/" + (now.getMonth() + 1) + "/" + now.getFullYear();
     document.getElementById("report-start").textContent = formatTime(startTime);
     document.getElementById("report-end").textContent = formatTime(endTime);
     document.getElementById("report-duration").textContent = formatDuration(totalTimeSpent);
     document.getElementById("report-streak").textContent = maxStreak + "/" + total;
     
-    // Ve bieu do
     drawChart(percent, percentColor);
     
-    // Bang ket qua
-    const tbody = document.getElementById("report-table-body");
+    var tbody = document.getElementById("report-table-body");
     tbody.innerHTML = "";
     
-    answers.forEach(function(ans, i) {
-        const tr = document.createElement("tr");
-        tr.className = i % 2 === 0 ? "bg-gray-50" : "bg-white";
+    for (var i = 0; i < answers.length; i++) {
+        var ans = answers[i];
+        var tr = document.createElement("tr");
+        tr.style.backgroundColor = i % 2 === 0 ? "#f9fafb" : "white";
+        
+        var selectedStyle = ans.isCorrect ? "" : "color: #dc2626; background-color: #fef2f2;";
+        var correctStyle = "color: #16a34a; background-color: #f0fdf4;";
         
         tr.innerHTML = 
-            '<td class="px-3 py-2 border">' + (i + 1) + '</td>' +
-            '<td class="px-3 py-2 border">' + ans.question + '</td>' +
-            '<td class="px-3 py-2 border ' + (ans.isCorrect ? "" : "bg-red-100 text-red-600") + '">' + ans.selected + '</td>' +
-            '<td class="px-3 py-2 border bg-green-50 text-green-600">' + ans.correct + '</td>';
+            '<td style="padding: 8px 12px; border-bottom: 1px solid #e5e7eb;">' + (i + 1) + '</td>' +
+            '<td style="padding: 8px 12px; border-bottom: 1px solid #e5e7eb;">' + ans.question + '</td>' +
+            '<td style="padding: 8px 12px; border-bottom: 1px solid #e5e7eb; ' + selectedStyle + '">' + ans.selected + '</td>' +
+            '<td style="padding: 8px 12px; border-bottom: 1px solid #e5e7eb; ' + correctStyle + '">' + ans.correct + '</td>';
         
         tbody.appendChild(tr);
-    });
+    }
 }
 
-// Dinh dang thoi gian
 function formatTime(date) {
-    const h = date.getHours().toString().padStart(2, "0");
-    const m = date.getMinutes().toString().padStart(2, "0");
-    const s = date.getSeconds().toString().padStart(2, "0");
+    var h = date.getHours().toString().padStart(2, "0");
+    var m = date.getMinutes().toString().padStart(2, "0");
+    var s = date.getSeconds().toString().padStart(2, "0");
     return h + ":" + m + ":" + s;
 }
 
 function formatDuration(seconds) {
-    const m = Math.floor(seconds / 60);
-    const s = Math.floor(seconds % 60);
+    var m = Math.floor(seconds / 60);
+    var s = Math.floor(seconds % 60);
     return m + ":" + s.toString().padStart(2, "0");
 }
 
-// Ve bieu do
 function drawChart(percent, color) {
-    const canvas = document.getElementById("report-chart");
-    const ctx = canvas.getContext("2d");
-    const centerX = 96;
-    const centerY = 96;
-    const outerRadius = 90;
-    const innerRadius = 60;
+    var canvas = document.getElementById("report-chart");
+    var ctx = canvas.getContext("2d");
+    var centerX = 100;
+    var centerY = 100;
+    var outerRadius = 95;
+    var innerRadius = 65;
     
-    ctx.clearRect(0, 0, 192, 192);
+    ctx.clearRect(0, 0, 200, 200);
     
-    // Vong ngoai (background)
     ctx.beginPath();
     ctx.arc(centerX, centerY, outerRadius, 0, 2 * Math.PI);
     ctx.arc(centerX, centerY, innerRadius, 0, 2 * Math.PI, true);
     ctx.fillStyle = "#e5e7eb";
     ctx.fill();
     
-    // Vong phan tram
     if (percent > 0) {
-        const startAngle = -Math.PI / 2;
-        const endAngle = startAngle + (percent / 100) * 2 * Math.PI;
+        var startAngle = -Math.PI / 2;
+        var endAngle = startAngle + (percent / 100) * 2 * Math.PI;
         
         ctx.beginPath();
         ctx.arc(centerX, centerY, outerRadius, startAngle, endAngle);
@@ -1140,70 +1172,66 @@ function drawChart(percent, color) {
     }
 }
 
-// Lam lai bai test
 function retakeTest() {
     if (testType === "vocab") {
-        const count = parseInt(document.getElementById("vocab-question-count").value);
+        var count = parseInt(document.getElementById("vocab-question-count").value);
         currentQuestions = shuffleArray(vocabularyData).slice(0, count);
         startTest("vocab", 8);
         goToScreen("screen-vocab-test");
     } else if (testType === "grammar") {
-        const count = parseInt(document.getElementById("grammar-question-count").value);
+        var count = parseInt(document.getElementById("grammar-question-count").value);
         currentQuestions = shuffleArray(grammarData).slice(0, count);
         startTest("grammar", 30);
         goToScreen("screen-grammar");
     } else if (testType === "translation") {
-        const count = parseInt(document.getElementById("translation-question-count").value);
+        var count = parseInt(document.getElementById("translation-question-count").value);
         currentQuestions = shuffleArray(translationData).slice(0, count);
         startTest("translation", 30);
         goToScreen("screen-translation");
     } else if (testType === "comprehensive") {
-        const count = parseInt(document.getElementById("comprehensive-question-count").value);
-        const allQuestions = [];
-        vocabularyData.forEach(function(q) {
-            allQuestions.push(Object.assign({}, q, {type: "vocab", timeLimit: 8}));
-        });
-        grammarData.forEach(function(q) {
-            allQuestions.push(Object.assign({}, q, {type: "grammar", timeLimit: 30}));
-        });
-        translationData.forEach(function(q) {
-            allQuestions.push(Object.assign({}, q, {type: "translation", timeLimit: 30}));
-        });
+        var count = parseInt(document.getElementById("comprehensive-question-count").value);
+        var allQuestions = [];
+        for (var i = 0; i < vocabularyData.length; i++) {
+            allQuestions.push(Object.assign({}, vocabularyData[i], {type: "vocab", timeLimit: 8}));
+        }
+        for (var i = 0; i < grammarData.length; i++) {
+            allQuestions.push(Object.assign({}, grammarData[i], {type: "grammar", timeLimit: 30}));
+        }
+        for (var i = 0; i < translationData.length; i++) {
+            allQuestions.push(Object.assign({}, translationData[i], {type: "translation", timeLimit: 30}));
+        }
         currentQuestions = shuffleArray(allQuestions).slice(0, count);
         startComprehensiveTestRun();
         goToScreen("screen-comprehensive");
     }
 }
 
-// Quay lai tu bao cao
 function goBackFromReport() {
     goToScreen(previousScreen);
 }
 
-// Hien thi danh sach tu vung
 function renderVocabularyList() {
-    const tbody = document.getElementById("vocab-list-body");
+    var tbody = document.getElementById("vocab-list-body");
     tbody.innerHTML = "";
     
-    vocabularyData.forEach(function(vocab) {
-        const tr = document.createElement("tr");
-        tr.className = "border-b border-gray-200";
+    for (var i = 0; i < vocabularyData.length; i++) {
+        var vocab = vocabularyData[i];
+        var tr = document.createElement("tr");
         
-        const speakerBtn = '<button class="speaker-btn text-blue-500 mr-2" onclick="speakWord(\'' + vocab.question + '\')"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg></button>';
+        var speakerBtn = '<button class="speaker-btn" onclick="speakWord(\'' + vocab.question + '\')"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg></button>';
         
         tr.innerHTML = 
-            '<td class="px-4 py-3 font-semibold">' + vocab.id + '</td>' +
-            '<td class="px-4 py-3">' + speakerBtn + '<span class="font-medium">' + vocab.question + '</span></td>' +
-            '<td class="px-4 py-3 text-gray-700">' + vocab.correct + '</td>';
+            '<td style="padding: 12px 16px; font-weight: 600;">' + vocab.id + '</td>' +
+            '<td style="padding: 12px 16px;">' + speakerBtn + ' <span style="font-weight: 500;">' + vocab.question + '</span></td>' +
+            '<td style="padding: 12px 16px; color: #4b5563;">' + vocab.correct + '</td>';
         
         tbody.appendChild(tr);
-    });
+    }
 }
 
-// Phat am tu vung
 function speakWord(word) {
     if ('speechSynthesis' in window) {
-        const utterance = new SpeechSynthesisUtterance(word);
+        var utterance = new SpeechSynthesisUtterance(word);
         utterance.lang = 'en-US';
         utterance.rate = 0.8;
         speechSynthesis.speak(utterance);
@@ -1212,10 +1240,8 @@ function speakWord(word) {
     }
 }
 
-// Event listener
 document.getElementById("playerName").addEventListener("input", checkPlayerName);
 
-// Khoi tao
 checkPlayerName();
 </script>
 
