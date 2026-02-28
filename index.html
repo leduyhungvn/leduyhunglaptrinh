@@ -2,822 +2,744 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ÔN TẬP TIẾNG NGA – BÀI 1</title>
-    <!-- Font Awesome for speaker icon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>ÔN TẬP TIẾNG ANH – E6U1</title>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
-        * {
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            background: linear-gradient(145deg, #f0f4f8 0%, #d9e2ec 100%);
-            min-height: 100vh;
+        * { box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 0; }
+        body { background: #f0f3f8; min-height: 100vh; display: flex; justify-content: center; padding: 20px 10px; }
+        #app { max-width: 1200px; width: 100%; }
+        .screen { background: white; border-radius: 32px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); padding: 24px 20px; margin-bottom: 20px; display: none; }
+        .screen.active { display: block; }
+        h1 { font-size: 2.2rem; color: #1e2b3c; }
+        h2 { font-size: 1.8rem; margin-bottom: 20px; border-left: 8px solid #ff9100; padding-left: 16px; }
+        .label-e6 { color: #ff6b00; font-weight: 700; }
+        
+        /* Màn hình chính: 4 nút xếp dọc */
+        .btn-grid-vertical {
             display: flex;
-            justify-content: center;
-            padding: 16px;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            margin: 30px 0;
         }
-        #app {
-            max-width: 1200px;
-            width: 100%;
-            background: rgba(255,255,255,0.75);
-            backdrop-filter: blur(10px);
-            border-radius: 48px;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
-            padding: 32px;
-        }
-        .screen {
-            display: none;
-        }
-        .screen.active {
-            display: block;
-        }
-        h1, h2, h3 {
-            color: #1e3c72;
-            font-weight: 600;
-            margin-bottom: 24px;
-            text-align: center;
-        }
-        h1 i, h2 i {
-            margin-right: 12px;
-            color: #0a58ca;
-        }
-        .btn-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-            margin: 40px 0;
-        }
-        .btn {
-            border: none;
-            border-radius: 60px;
-            padding: 16px 36px;
-            font-size: 1.3rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 8px 0 rgba(0,0,0,0.1);
-            color: white;
-            min-width: 240px;
-        }
-        .btn:active {
-            transform: translateY(4px);
-            box-shadow: 0 4px 0 rgba(0,0,0,0.1);
-        }
-        .btn:disabled {
-            opacity: 0.5;
-            transform: none;
-            pointer-events: none;
-        }
-        .btn-vocab { background: #d44c2f; }        /* đỏ đất */
-        .btn-grammar { background: #2f6f9f; }      /* xanh dương đậm */
-        .btn-trans { background: #3b8b6e; }        /* xanh lá mạ */
-        .btn-mix { background: #8e44ad; }           /* tím */
-        .btn-back { background: #6c757d; font-size: 1rem; padding: 10px 24px; min-width: unset; }
-        .btn-sub { background: #ffae42; color: #1e3c72; } /* cam */
-
-        .name-input {
+        .btn-grid-vertical .btn {
+            min-width: 280px;
             width: 100%;
             max-width: 400px;
-            margin: 20px auto;
-            display: block;
-            padding: 16px 24px;
-            font-size: 1.3rem;
-            border: 3px solid #1e3c72;
-            border-radius: 60px;
-            outline: none;
-            text-align: center;
         }
-        .table-container {
-            max-height: 500px;
-            overflow-y: auto;
-            border-radius: 24px;
-            background: white;
-            padding: 8px;
-            box-shadow: inset 0 2px 10px rgba(0,0,0,0.05);
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            border-radius: 20px;
-        }
-        th {
-            background: #1e3c72;
-            color: white;
-            padding: 14px;
-            position: sticky;
-            top: 0;
-        }
-        td {
-            padding: 12px;
-            border-bottom: 1px solid #ccc;
-        }
-        .speaker {
-            cursor: pointer;
-            color: #0a58ca;
-            margin-right: 8px;
-            font-size: 1.2rem;
-        }
-        .test-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            background: white;
-            padding: 16px 24px;
-            border-radius: 60px;
-            margin-bottom: 24px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-        .timer-bar {
-            background: #e9ecef;
-            height: 16px;
-            border-radius: 30px;
-            margin: 20px 0;
-            overflow: hidden;
-        }
-        .timer-fill {
-            height: 100%;
-            width: 100%;
-            background: #f39c12;
-            transition: width 1s linear;
-        }
-        .question-area {
-            background: white;
-            border-radius: 48px;
-            padding: 40px;
-            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.15);
-            font-size: 2rem;
-            text-align: center;
-            margin: 20px 0;
-        }
-        .options {
+        .btn { border: none; border-radius: 60px; padding: 16px 32px; font-size: 1.2rem; font-weight: 600; cursor: pointer; box-shadow: 0 8px 12px rgba(0,0,0,0.1); color: white; transition: 0.2s; }
+        .btn:active { transform: scale(0.96); }
+        .btn:disabled { opacity: 0.4; pointer-events: none; }
+        .btn-vocab { background: #1e88e5; }
+        .btn-grammar { background: #43a047; }
+        .btn-trans { background: #e53935; }
+        .btn-mix { background: #8e24aa; }
+        .btn-back { background: #546e7a; padding: 12px 24px; font-size: 1rem; min-width: 120px; }
+        .btn-small { background: #ff9800; padding: 10px 20px; font-size: 1rem; min-width: 140px; }
+        
+        .name-input { width: 100%; max-width: 400px; padding: 16px 24px; font-size: 1.3rem; border: 3px solid #cfd8dc; border-radius: 60px; margin: 20px auto; display: block; text-align: center; }
+        .word-table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 24px; overflow: hidden; margin: 20px 0; }
+        .word-table th { background: #bbdefb; font-size: 1.1rem; padding: 12px; }
+        .word-table td { padding: 10px 8px; border-bottom: 1px solid #cfd8dc; }
+        .speaker { cursor: pointer; font-size: 1.3rem; margin-right: 8px; color: #1565c0; display: inline-block; }
+        .top-bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .quiz-info { font-size: 1.2rem; background: #eceff1; padding: 10px 20px; border-radius: 40px; }
+        .timer-bar { background: #ffecb3; height: 16px; border-radius: 20px; margin: 15px 0; width: 100%; overflow: hidden; }
+        .timer-fill { height: 100%; background: #ff9100; transition: width linear; }
+        .question-text { font-size: 1.8rem; font-weight: 600; background: #e3f2fd; padding: 20px; border-radius: 48px; margin: 20px 0; }
+        .option-grid { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
+        .option-item { background: #f5f5f5; border: 2px solid #b0bec5; border-radius: 60px; padding: 16px 24px; font-size: 1.3rem; cursor: pointer; transition: 0.1s; }
+        .option-item:hover { background: #ffe0b2; border-color: #ff9100; }
+        .correct-count { font-size: 1.4rem; background: #00acc1; color: white; display: inline-block; padding: 8px 24px; border-radius: 40px; margin: 10px 0; }
+        
+        /* Báo cáo */
+        .report-row { display: flex; flex-wrap: wrap; gap: 20px; margin: 30px 0; }
+        .chart-box {
+            flex: 2;
+            min-width: 300px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
-            margin-top: 30px;
+            align-items: center;
+            justify-content: center;
         }
-        .option {
-            background: #f8f9fa;
-            border-radius: 60px;
-            padding: 18px 28px;
-            font-size: 1.4rem;
-            border: 2px solid transparent;
-            cursor: pointer;
-            transition: 0.1s;
-            text-align: left;
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 340px;
+            margin: 15px 0;
         }
-        .option:hover {
-            background: #dfe7f5;
-            border-color: #1e3c72;
-        }
-        .correct-count {
-            font-size: 1.6rem;
+        .name-big {
+            font-size: 4rem;      /* giữ nguyên */
             font-weight: 700;
-            background: #27ae60;
-            color: white;
-            padding: 8px 28px;
-            border-radius: 60px;
+            color: #0d47a1;
+            line-height: 1.2;
+            text-align: center;
+            margin-bottom: 5px;
         }
-        .report-chart {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 40px 0;
-        }
-        canvas {
-            width: 220px;
-            height: 220px;
-            margin: 20px;
-        }
-        .report-name {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #1890ff;
+        .percent-center {
+            font-size: 4rem;       /* tăng gấp đôi so với trước (2rem -> 4rem) bằng với name-big */
+            font-weight: 800;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            text-shadow: 0 2px 8px white;
+            white-space: nowrap;
         }
         .report-date {
             font-size: 1.5rem;
-            color: #2c3e50;
+            font-weight: 700;
+            color: #003366;         /* xanh đen */
+            margin-top: 8px;
+            text-align: center;
         }
-        .answer-table {
-            max-height: 400px;
-            overflow-y: auto;
-            margin: 30px 0;
+        .stats-box {
+            flex: 1;
+            min-width: 250px;
+            background: #f8f9fa;
+            border-radius: 32px;
+            padding: 28px 24px;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.05);
+            font-size: 1.3rem;
         }
-        .wrong-answer {
-            background-color: #ffebee;
-            color: #c62828;
+        .stats-box div {
+            border-bottom: 1px dashed #aaa;
+            padding: 14px 0;
+            display: flex;
+            justify-content: space-between;
             font-weight: 600;
         }
-        .footer-buttons {
+        .stats-box div:last-child { border-bottom: none; }
+        /* Màu sắc khác nhau cho 4 dòng - tô màu trực tiếp vào .stat-label */
+        .stat-start .stat-label { color: #2e7d32; }  /* xanh lá đậm */
+        .stat-end .stat-label { color: #c62828; }    /* đỏ đậm */
+        .stat-total .stat-label { color: #e65100; }  /* cam đậm */
+        .stat-streak .stat-label { color: #6a1b9a; } /* tím đậm */
+        .stats-box .stat-value {
+            color: #1e2b3c;
+            font-weight: 700;
+            font-family: monospace;
+            font-size: 1.4rem;
+        }
+        .result-table { width: 100%; border-collapse: collapse; margin-top: 30px; }
+        .result-table th { background: #cfd8dc; }
+        .result-table td, .result-table th { border: 1px solid #b0bec5; padding: 10px; }
+        .wrong-answer { background: #ffcdd2; color: #b71c1c; font-weight: 600; }
+
+        /* Bố cục màn hình chọn số câu: 3 dòng canh giữa */
+        .quiz-setup {
             display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 24px;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            margin-top: 30px;
         }
-        select {
-            padding: 12px 24px;
-            font-size: 1.2rem;
+        .setup-name {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #0d47a1;
+        }
+        .setup-select {
+            font-size: 1.3rem;
+        }
+        .setup-select select {
+            font-size: 1.3rem;
+            padding: 8px 20px;
             border-radius: 40px;
-            border: 2px solid #1e3c72;
-            background: white;
+            border: 2px solid #b0bec5;
+            margin-left: 10px;
         }
-        .small-note {
-            color: #2c3e50;
-            margin: 20px;
-            font-style: italic;
+        /* Thông tin liên hệ */
+        .contact-info {
+            margin-top: 40px;
+            padding: 20px;
+            background: #e8eaf6;
+            border-radius: 40px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        .contact-info h3 {
+            color: #1e3a5f;
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+        }
+        .contact-info p {
+            margin: 8px 0;
+        }
+        .contact-info a {
+            color: #0d47a1;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .contact-info a:hover { text-decoration: underline; }
+        .contact-icon { margin-right: 8px; vertical-align: middle; }
+
+        @media (max-width: 700px) {
+            h1 { font-size: 1.8rem; }
+            .btn-grid-vertical .btn { min-width: 90%; }
+            .name-big { font-size: 3rem; }
+            .percent-center { font-size: 3rem; }
+            .report-date { font-size: 1.2rem; }
+            .stats-box { font-size: 1.1rem; }
         }
     </style>
 </head>
 <body>
 <div id="app">
 
-    <!-- SCREEN 1: GIAO DIỆN CHÍNH -->
+    <!-- GIAO DIỆN 1: NHẬP TÊN, 4 NÚT DỌC, THÊM THÔNG TIN LIÊN HỆ -->
     <div id="screen1" class="screen active">
-        <h1><i class="fas fa-language"></i>ÔN TẬP TIẾNG NGA – BÀI 1</h1>  <!-- Đổi thành BÀI 1 -->
-        <input type="text" id="student-name" class="name-input" placeholder="Nhập tên của bạn" autocomplete="off">
-        <div class="btn-grid">
-            <button class="btn btn-vocab" id="btn-to-vocab-main" disabled>📘 ÔN TẬP TỪ VỰNG</button>
-            <button class="btn btn-grammar" id="btn-to-grammar-main" disabled>📝 TRẮC NGHIỆM NGỮ PHÁP</button>
-            <button class="btn btn-trans" id="btn-to-trans-main" disabled>🌎 TRẮC NGHIỆM DỊCH CÂU</button>
-            <button class="btn btn-mix" id="btn-to-mix-main" disabled>🔀 TRẮC NGHIỆM TỔNG HỢP</button>
+        <h1 style="text-align:center;">🧑‍🎓 ÔN TẬP <span class="label-e6">E6U1</span></h1>
+        <p style="text-align:center; font-size:1.2rem;">MY NEW SCHOOL</p>
+        <input type="text" id="studentName" class="name-input" placeholder="Nhập tên của bạn" autocomplete="off">
+        <div class="btn-grid-vertical">
+            <button class="btn btn-vocab" id="gotoVocabMain" disabled>📘 ÔN TẬP TỪ VỰNG</button>
+            <button class="btn btn-grammar" id="gotoGrammarMain" disabled>📚 TRẮC NGHIỆM NGỮ PHÁP</button>
+            <button class="btn btn-trans" id="gotoTransMain" disabled>🌐 TRẮC NGHIỆM DỊCH CÂU</button>
+            <button class="btn btn-mix" id="gotoMixMain" disabled>🔀 TRẮC NGHIỆM TỔNG HỢP</button>
         </div>
+        <!-- THÔNG TIN LIÊN HỆ -->
+        <div class="contact-info">
+            <h3>📞 THÔNG TIN LIÊN HỆ</h3>
+            <p><span class="contact-icon">👨‍🏫</span> <strong>Thầy Hùng</strong></p>
+            <p><span class="contact-icon">📘</span> Giáo viên dạy kèm toán, tiếng anh.</p>
+            <p><span class="contact-icon">📱</span> Zalo: 0967.095.025</p>
+            <p><span class="contact-icon">📘</span> Facebook: <a href="#" target="_blank">leduyhung.vietnam</a></p>
+            <p><span class="contact-icon">🎵</span> Tiktok: <a href="#" target="_blank">leduyhungtiktok</a></p>
+            <p><span class="contact-icon">▶️</span> Youtube: byleduyhung & approach1234</p>
+        </div>
+        <p style="text-align:center;color:gray; margin-top:20px;">🔔 Nhập tên để kích hoạt nút</p>
     </div>
 
-    <!-- SCREEN 2: ÔN TẬP TỪ VỰNG (menu) -->
+    <!-- GIAO DIỆN 2: TỪ VỰNG MENU -->
     <div id="screen2" class="screen">
-        <h2><i class="fas fa-book-open"></i>TỪ VỰNG – BÀI 1</h2> <!-- Đổi thành BÀI 1 -->
-        <div class="btn-grid">
-            <button class="btn btn-vocab" id="btn-to-list">📋 DANH SÁCH TỪ VỰNG</button>
-            <button class="btn btn-vocab" id="btn-to-vocab-test">✏️ KIỂM TRA TỪ VỰNG</button>
-            <button class="btn btn-back" id="btn-back-from-vocab">⬅ QUAY LẠI</button>
+        <div class="top-bar"><h2>📖 TỪ VỰNG - E6U1</h2><button class="btn-back btn" id="backFromVocabMenu">QUAY LẠI</button></div>
+        <div style="text-align:center; margin:40px 0;">
+            <button class="btn btn-small" id="showWordList" style="background:#0288d1;">📋 DANH SÁCH TỪ VỰNG</button>
+            <button class="btn btn-small" id="startVocabQuiz" style="background:#f57c00;">📝 KIỂM TRA TỪ VỰNG</button>
         </div>
     </div>
 
-    <!-- SCREEN 2.1: DANH SÁCH TỪ VỰNG (bảng 60 từ) -->
-    <div id="screen2-1" class="screen">
-        <div class="footer-buttons">
-            <button class="btn btn-back" id="btn-back-from-list-top">⬅ QUAY LẠI</button>
-        </div>
-        <h2>📖 DANH SÁCH TỪ VỰNG (60 từ)</h2>
-        <div class="table-container" id="vocab-table-container"></div>
-        <div class="footer-buttons">
-            <button class="btn btn-back" id="btn-back-from-list-bottom">⬅ QUAY LẠI</button>
+    <!-- GIAO DIỆN 2.1: DANH SÁCH 60 TỪ (3 CỘT) -->
+    <div id="screen2_1" class="screen">
+        <div class="top-bar"><h2>📃 60 TỪ VỰNG E6U1</h2><button class="btn-back btn" id="backFromWordList">QUAY LẠI</button></div>
+        <table class="word-table" id="vocabTable"></table>
+        <div style="margin:20px 0; text-align:center;"><button class="btn-back btn" id="backFromWordListBottom">QUAY LẠI</button></div>
+    </div>
+
+    <!-- GIAO DIỆN 2.2: KIỂM TRA TỪ VỰNG (CHỌN SỐ CÂU) - BỐ CỤC 3 DÒNG -->
+    <div id="screen2_2" class="screen">
+        <div class="top-bar"><h2>🔤 TỪ VỰNG - E6U1</h2><button class="btn-back btn" id="backFromVocabQuiz">QUAY LẠI</button></div>
+        <div class="quiz-setup">
+            <div class="setup-name" id="displayNameVocab"></div>
+            <div class="setup-select">
+                <label for="vocabNumSelect">Chọn số câu:</label>
+                <select id="vocabNumSelect">
+                    <option value="10">10 câu</option><option value="20">20 câu</option><option value="30">30 câu</option><option value="40">40 câu</option><option value="all">Tất cả (60)</option>
+                </select>
+            </div>
+            <div class="setup-button">
+                <button class="btn btn-small" id="startVocabTest" style="background:#2e7d32;">🚀 LÀM BÀI</button>
+            </div>
         </div>
     </div>
 
-    <!-- SCREEN 2.2: KIỂM TRA TỪ VỰNG (lựa chọn số câu) -->
-    <div id="screen2-2" class="screen">
-        <h2>🔤 TỪ VỰNG – BÀI 1</h2> <!-- Đổi thành BÀI 1 -->
-        <div class="test-header">
-            <span><i class="fas fa-user-graduate"></i> <span id="vocab-test-name"></span></span>
-            <button class="btn btn-back" id="btn-back-from-vocab-test">⬅ QUAY LẠI</button>
-        </div>
-        <div style="text-align: center; margin: 40px;">
-            <label style="font-size: 1.5rem;">Chọn số câu: </label>
-            <select id="vocab-question-count">
-                <option value="10">10 câu</option>
-                <option value="20">20 câu</option>
-                <option value="30">30 câu</option>
-                <option value="40">40 câu</option>
-                <option value="all">Tất cả (60)</option>
-            </select>
-            <button class="btn btn-sub" id="btn-start-vocab-test" style="margin-left: 20px;">🚀 LÀM BÀI</button>
-        </div>
-    </div>
-
-    <!-- SCREEN 3: NGỮ PHÁP (lựa chọn số câu) -->
+    <!-- GIAO DIỆN 3: NGỮ PHÁP - BỐ CỤC 3 DÒNG -->
     <div id="screen3" class="screen">
-        <h2>📐 NGỮ PHÁP – BÀI 1</h2> <!-- Đổi thành BÀI 1 -->
-        <div class="test-header">
-            <span><i class="fas fa-user-graduate"></i> <span id="grammar-test-name"></span></span>
-            <button class="btn btn-back" id="btn-back-from-grammar">⬅ QUAY LẠI</button>
-        </div>
-        <div style="text-align: center; margin: 40px;">
-            <select id="grammar-question-count">
-                <option value="10">10 câu</option>
-                <option value="20">20 câu</option>
-                <option value="30">30 câu</option>
-                <option value="40">40 câu</option>
-                <option value="all">Tất cả (50)</option>
-            </select>
-            <button class="btn btn-sub" id="btn-start-grammar-test">🚀 LÀM BÀI</button>
+        <div class="top-bar"><h2>📐 NGỮ PHÁP - E6U1</h2><button class="btn-back btn" id="backFromGrammar">QUAY LẠI</button></div>
+        <div class="quiz-setup">
+            <div class="setup-name" id="displayNameGrammar"></div>
+            <div class="setup-select">
+                <label for="grammarNumSelect">Chọn số câu:</label>
+                <select id="grammarNumSelect">
+                    <option value="10">10 câu</option><option value="20">20 câu</option><option value="30">30 câu</option><option value="40">40 câu</option><option value="all">Tất cả (50)</option>
+                </select>
+            </div>
+            <div class="setup-button">
+                <button class="btn btn-small" id="startGrammarTest">🚀 LÀM BÀI</button>
+            </div>
         </div>
     </div>
 
-    <!-- SCREEN 4: DỊCH CÂU (lựa chọn số câu) -->
+    <!-- GIAO DIỆN 4: DỊCH CÂU - BỐ CỤC 3 DÒNG -->
     <div id="screen4" class="screen">
-        <h2>🌐 DỊCH CÂU – BÀI 1</h2> <!-- Đổi thành BÀI 1 -->
-        <div class="test-header">
-            <span><i class="fas fa-user-graduate"></i> <span id="trans-test-name"></span></span>
-            <button class="btn btn-back" id="btn-back-from-trans">⬅ QUAY LẠI</button>
-        </div>
-        <div style="text-align: center; margin: 40px;">
-            <select id="trans-question-count">
-                <option value="10">10 câu</option>
-                <option value="20">20 câu</option>
-                <option value="30">30 câu</option>
-                <option value="40">40 câu</option>
-                <option value="all">Tất cả (50)</option>
-            </select>
-            <button class="btn btn-sub" id="btn-start-trans-test">🚀 LÀM BÀI</button>
+        <div class="top-bar"><h2>🌍 DỊCH CÂU - E6U1</h2><button class="btn-back btn" id="backFromTrans">QUAY LẠI</button></div>
+        <div class="quiz-setup">
+            <div class="setup-name" id="displayNameTrans"></div>
+            <div class="setup-select">
+                <label for="transNumSelect">Chọn số câu:</label>
+                <select id="transNumSelect">
+                    <option value="10">10 câu</option><option value="20">20 câu</option><option value="30">30 câu</option><option value="40">40 câu</option><option value="all">Tất cả (50)</option>
+                </select>
+            </div>
+            <div class="setup-button">
+                <button class="btn btn-small" id="startTransTest">🚀 LÀM BÀI</button>
+            </div>
         </div>
     </div>
 
-    <!-- SCREEN 5: TỔNG HỢP (lựa chọn số câu) -->
+    <!-- GIAO DIỆN 5: TỔNG HỢP - BỐ CỤC 3 DÒNG -->
     <div id="screen5" class="screen">
-        <h2>🎲 TỔNG HỢP – BÀI 1</h2> <!-- Đổi thành BÀI 1 -->
-        <div class="test-header">
-            <span><i class="fas fa-user-graduate"></i> <span id="mix-test-name"></span></span>
-            <button class="btn btn-back" id="btn-back-from-mix">⬅ QUAY LẠI</button>
-        </div>
-        <div style="text-align: center; margin: 40px;">
-            <select id="mix-question-count">
-                <option value="10">10 câu</option>
-                <option value="20">20 câu</option>
-                <option value="30">30 câu</option>
-                <option value="40">40 câu</option>
-                <option value="all">Tất cả (160)</option>
-            </select>
-            <button class="btn btn-sub" id="btn-start-mix-test">🚀 LÀM BÀI</button>
+        <div class="top-bar"><h2>🔁 TỔNG HỢP - E6U1</h2><button class="btn-back btn" id="backFromMix">QUAY LẠI</button></div>
+        <div class="quiz-setup">
+            <div class="setup-name" id="displayNameMix"></div>
+            <div class="setup-select">
+                <label for="mixNumSelect">Chọn số câu:</label>
+                <select id="mixNumSelect">
+                    <option value="10">10 câu</option><option value="20">20 câu</option><option value="30">30 câu</option><option value="40">40 câu</option><option value="all">Tất cả (160)</option>
+                </select>
+            </div>
+            <div class="setup-button">
+                <button class="btn btn-small" id="startMixTest">🚀 LÀM BÀI</button>
+            </div>
         </div>
     </div>
 
-    <!-- SCREEN LÀM BÀI (dùng chung cho các loại test) -->
-    <div id="screen-test" class="screen">
-        <div class="test-header">
-            <span><i class="fas fa-user-graduate"></i> <span id="test-user-display"></span></span>
-            <span class="correct-count" id="correct-counter">ĐÚNG 0</span>
-            <button class="btn btn-back" id="btn-abort-test">✖ BỎ QUA</button>
+    <!-- GIAO DIỆN LÀM BÀI CHUNG -->
+    <div id="screenQuiz" class="screen">
+        <div class="top-bar"><h2 id="quizTitle"></h2><button class="btn-back btn" id="quitQuiz">✖ QUAY LẠI</button></div>
+        <p id="quizDisplayName" style="font-weight:bold;"></p>
+        <div class="timer-bar"><div id="timerFill" class="timer-fill" style="width:100%;"></div></div>
+        <div class="correct-count" id="correctCounter">ĐÚNG 0</div>
+        <div id="questionArea">
+            <div class="question-text" id="questionText">Đang tải...</div>
+            <div class="option-grid" id="optionsContainer"></div>
         </div>
-        <div class="timer-bar">
-            <div class="timer-fill" id="timer-fill" style="width:100%"></div>
-        </div>
-        <div class="question-area" id="question-text">...</div>
-        <div class="options" id="options-container"></div>
     </div>
 
-    <!-- SCREEN BÁO CÁO KẾT QUẢ -->
-    <div id="screen-report" class="screen">
-        <h2 id="report-title">BÁO CÁO</h2>
-        <div class="report-chart">
-            <div class="report-name" id="report-name"></div>
-            <canvas id="pieChart" width="220" height="220"></canvas>
-            <div class="report-date" id="report-date"></div>
-            <div id="report-time"></div>
+    <!-- GIAO DIỆN BÁO CÁO (ĐÃ SỬA MÀU 4 DÒNG VÀ KÍCH THƯỚC %) -->
+    <div id="screenReport" class="screen">
+        <div class="top-bar"><h2 id="reportTitle">BÁO CÁO - E6U1</h2><button class="btn-back btn" id="backFromReport">QUAY LẠI</button></div>
+        <div class="report-row">
+            <div class="chart-box">
+                <div class="name-big" id="reportName"></div>
+                <div class="chart-container">
+                    <canvas id="doughnutChart" width="300" height="300"></canvas>
+                    <div id="percentDisplay" class="percent-center">0%</div>
+                </div>
+                <div class="report-date" id="reportDate"></div>
+            </div>
+            <div class="stats-box" id="statsDetails"></div>
         </div>
-        <div class="answer-table" id="answer-table-container"></div>
-        <div class="footer-buttons">
-            <button class="btn btn-sub" id="btn-retry">🔄 LÀM LẠI</button>
-            <button class="btn btn-back" id="btn-back-from-report">⬅ QUAY LẠI</button>
+        <h3>📋 Chi tiết câu hỏi</h3>
+        <table class="result-table" id="resultTable"></table>
+        <div style="display:flex; gap:20px; margin-top:30px;">
+            <button class="btn btn-small" id="retrySameQuiz">🔄 LÀM LẠI</button>
+            <button class="btn btn-small btn-back" id="backToPrevFromReport">⬅ QUAY LẠI</button>
         </div>
     </div>
 </div>
 
 <script>
 (function() {
-    // ---------- DỮ LIỆU MỚI CHO BÀI 1 (LẤY TỪ TÀI LIỆU PDF) ----------
-    // 60 TỪ VỰNG (id 1-60)
-    const vocabBank = [
-        {id:1, word:"знакомить", pos:"động từ (chưa HT)", correct:"giới thiệu (ai với ai)", wrong1:"làm quen", wrong2:"gặp gỡ", wrong3:"chia tay"},
-        {id:2, word:"познакомить", pos:"động từ (HT)", correct:"giới thiệu (xong)", wrong1:"làm quen (xong)", wrong2:"gặp gỡ", wrong3:"chia tay"},
-        {id:3, word:"знакомиться", pos:"động từ (chưa HT)", correct:"làm quen (với ai)", wrong1:"giới thiệu", wrong2:"gặp gỡ", wrong3:"chia tay"},
-        {id:4, word:"познакомиться", pos:"động từ (HT)", correct:"làm quen (xong)", wrong1:"giới thiệu (xong)", wrong2:"gặp gỡ", wrong3:"chia tay"},
-        {id:5, word:"знакомый", pos:"tính từ", correct:"quen, thân", wrong1:"lạ", wrong2:"mới", wrong3:"cũ"},
-        {id:6, word:"незнакомый", pos:"tính từ", correct:"không quen, xa lạ", wrong1:"quen", wrong2:"thân", wrong3:"gần"},
-        {id:7, word:"танцевать", pos:"động từ (chưa HT)", correct:"nhảy múa", wrong1:"hát", wrong2:"chơi nhạc", wrong3:"vẽ"},
-        {id:8, word:"вечеринка", pos:"danh từ", correct:"bữa tiệc", wrong1:"buổi họp", wrong2:"buổi học", wrong3:"cuộc hẹn"},
-        {id:9, word:"друг", pos:"danh từ", correct:"bạn (nam)", wrong1:"bạn gái", wrong2:"người quen", wrong3:"đồng nghiệp"},
-        {id:10, word:"город", pos:"danh từ", correct:"thành phố", wrong1:"làng", wrong2:"thị trấn", wrong3:"đất nước"},
-        {id:11, word:"достопримечательность", pos:"danh từ", correct:"thắng cảnh, địa danh", wrong1:"di tích", wrong2:"bảo tàng", wrong3:"nhà hát"},
-        {id:12, word:"советовать", pos:"động từ (chưa HT)", correct:"khuyên", wrong1:"yêu cầu", wrong2:"đề nghị", wrong3:"hỏi"},
-        {id:13, word:"посоветовать", pos:"động từ (HT)", correct:"khuyên (xong)", wrong1:"yêu cầu", wrong2:"đề nghị", wrong3:"hỏi"},
-        {id:14, word:"книга", pos:"danh từ", correct:"sách", wrong1:"báo", wrong2:"tạp chí", wrong3:"truyện"},
-        {id:15, word:"история", pos:"danh từ", correct:"lịch sử", wrong1:"địa lý", wrong2:"văn học", wrong3:"toán học"},
-        {id:16, word:"Санкт-Петербург", pos:"danh từ riêng", correct:"Saint Petersburg", wrong1:"Moscow", wrong2:"Kiev", wrong3:"Novgorod"},
-        {id:17, word:"культура", pos:"danh từ", correct:"văn hóa", wrong1:"nghệ thuật", wrong2:"khoa học", wrong3:"giáo dục"},
-        {id:18, word:"народ", pos:"danh từ", correct:"dân tộc, nhân dân", wrong1:"đất nước", wrong2:"chính phủ", wrong3:"xã hội"},
-        {id:19, word:"язык", pos:"danh từ", correct:"ngôn ngữ, tiếng", wrong1:"văn hóa", wrong2:"lịch sử", wrong3:"phong tục"},
-        {id:20, word:"изучение", pos:"danh từ", correct:"việc học tập", wrong1:"giảng dạy", wrong2:"nghiên cứu", wrong3:"tìm hiểu"},
-        {id:21, word:"иностранный", pos:"tính từ", correct:"nước ngoài", wrong1:"bản địa", wrong2:"quốc tế", wrong3:"địa phương"},
-        {id:22, word:"русский", pos:"tính từ", correct:"Nga", wrong1:"Ukraina", wrong2:"Belarus", wrong3:"Xô Viết"},
-        {id:23, word:"познакомьтесь", pos:"động từ (mệnh lệnh)", correct:"hãy làm quen", wrong1:"hãy giới thiệu", wrong2:"hãy gặp", wrong3:"hãy chào"},
-        {id:24, word:"подруга", pos:"danh từ", correct:"bạn gái", wrong1:"bạn trai", wrong2:"chị em", wrong3:"người yêu"},
-        {id:25, word:"класс", pos:"danh từ", correct:"lớp học", wrong1:"trường", wrong2:"phòng", wrong3:"bàn"},
-        {id:26, word:"текст", pos:"danh từ", correct:"văn bản, bài khóa", wrong1:"câu chuyện", wrong2:"bài hát", wrong3:"bài thơ"},
-        {id:27, word:"понять", pos:"động từ (HT)", correct:"hiểu", wrong1:"nghe", wrong2:"đọc", wrong3:"viết"},
-        {id:28, word:"понимать", pos:"động từ (chưa HT)", correct:"hiểu", wrong1:"nghe", wrong2:"đọc", wrong3:"viết"},
-        {id:29, word:"слово", pos:"danh từ", correct:"từ", wrong1:"câu", wrong2:"đoạn", wrong3:"chữ cái"},
-        {id:30, word:"честное слово", pos:"cụm từ", correct:"lời hứa danh dự", wrong1:"thật lòng", wrong2:"thật thà", wrong3:"trung thực"},
-        {id:31, word:"Большой театр", pos:"danh từ riêng", correct:"Nhà hát Lớn", wrong1:"Nhà hát Quốc gia", wrong2:"Nhà hát Kịch", wrong3:"Nhà hát Nhạc vũ kịch"},
-        {id:32, word:"старейший", pos:"tính từ", correct:"lâu đời nhất", wrong1:"lớn nhất", wrong2:"đẹp nhất", wrong3:"nổi tiếng nhất"},
-        {id:33, word:"опера", pos:"danh từ", correct:"nhạc kịch", wrong1:"ba lê", wrong2:"kịch nói", wrong3:"giao hưởng"},
-        {id:34, word:"балет", pos:"danh từ", correct:"ba lê", wrong1:"nhạc kịch", wrong2:"kịch", wrong3:"ca nhạc"},
-        {id:35, word:"праздновать", pos:"động từ (chưa HT)", correct:"kỷ niệm, ăn mừng", wrong1:"tổ chức", wrong2:"diễn ra", wrong3:"bắt đầu"},
-        {id:36, word:"юбилей", pos:"danh từ", correct:"ngày kỷ niệm", wrong1:"sinh nhật", wrong2:"lễ hội", wrong3:"ngày lễ"},
-        {id:37, word:"зритель", pos:"danh từ", correct:"khán giả", wrong1:"diễn viên", wrong2:"đạo diễn", wrong3:"nhà phê bình"},
-        {id:38, word:"спектакль", pos:"danh từ", correct:"buổi diễn, vở kịch", wrong1:"phim", wrong2:"chương trình", wrong3:"buổi hòa nhạc"},
-        {id:39, word:"Европа", pos:"danh từ", correct:"châu Âu", wrong1:"châu Á", wrong2:"châu Mỹ", wrong3:"châu Phi"},
-        {id:40, word:"Азия", pos:"danh từ", correct:"châu Á", wrong1:"châu Âu", wrong2:"châu Mỹ", wrong3:"châu Phi"},
-        {id:41, word:"Америка", pos:"danh từ", correct:"châu Mỹ", wrong1:"châu Âu", wrong2:"châu Á", wrong3:"châu Phi"},
-        {id:42, word:"Австралия", pos:"danh từ", correct:"châu Úc", wrong1:"châu Âu", wrong2:"châu Á", wrong3:"châu Mỹ"},
-        {id:43, word:"Москва", pos:"danh từ", correct:"Moscow", wrong1:"St. Petersburg", wrong2:"Kiev", wrong3:"Minsk"},
-        {id:44, word:"Кремль", pos:"danh từ", correct:"Điện Kremlin", wrong1:"Cung điện", wrong2:"Lâu đài", wrong3:"Pháo đài"},
-        {id:45, word:"Красная площадь", pos:"danh từ riêng", correct:"Quảng trường Đỏ", wrong1:"Quảng trường Trung tâm", wrong2:"Quảng trường Cách mạng", wrong3:"Quảng trường Chiến thắng"},
-        {id:46, word:"университет", pos:"danh từ", correct:"đại học", wrong1:"học viện", wrong2:"trường cao đẳng", wrong3:"viện nghiên cứu"},
-        {id:47, word:"построить", pos:"động từ (HT)", correct:"xây dựng", wrong1:"sửa chữa", wrong2:"phá hủy", wrong3:"thiết kế"},
-        {id:48, word:"библиотека", pos:"danh từ", correct:"thư viện", wrong1:"hiệu sách", wrong2:"phòng đọc", wrong3:"kho sách"},
-        {id:49, word:"крупнейший", pos:"tính từ", correct:"lớn nhất", wrong1:"nhỏ nhất", wrong2:"hiện đại nhất", wrong3:"cổ nhất"},
-        {id:50, word:"государственный", pos:"tính từ", correct:"nhà nước", wrong1:"tư nhân", wrong2:"công cộng", wrong3:"quốc tế"},
-        {id:51, word:"переулок", pos:"danh từ", correct:"ngõ, hẻm", wrong1:"đường phố", wrong2:"đại lộ", wrong3:"quảng trường"},
-        {id:52, word:"Третьяковская галерея", pos:"danh từ riêng", correct:"Phòng tranh Tretyakov", wrong1:"Bảo tàng Mỹ thuật", wrong2:"Phòng trưng bày Quốc gia", wrong3:"Viện Hàn lâm Nghệ thuật"},
-        {id:53, word:"музей", pos:"danh từ", correct:"bảo tàng", wrong1:"nhà hát", wrong2:"thư viện", wrong3:"triển lãm"},
-        {id:54, word:"искусство", pos:"danh từ", correct:"nghệ thuật", wrong1:"văn hóa", wrong2:"khoa học", wrong3:"thể thao"},
-        {id:55, word:"Воробьёвы горы", pos:"danh từ riêng", correct:"Đồi Chim sẻ", wrong1:"Đồi Lenin", wrong2:"Đồi Vàng", wrong3:"Đồi Cát"},
-        {id:56, word:"стадион", pos:"danh từ", correct:"sân vận động", wrong1:"cung thể thao", wrong2:"nhà thi đấu", wrong3:"bể bơi"},
-        {id:57, word:"Лужники", pos:"danh từ riêng", correct:"sân vận động Luzhniki", wrong1:"sân vận động Olympic", wrong2:"sân vận động Quốc gia", wrong3:"sân vận động Trung tâm"},
-        {id:58, word:"район", pos:"danh từ", correct:"quận, huyện", wrong1:"thành phố", wrong2:"khu phố", wrong3:"vùng"},
-        {id:59, word:"молодой", pos:"tính từ", correct:"trẻ", wrong1:"già", wrong2:"mới", wrong3:"cũ"},
-        {id:60, word:"появиться", pos:"động từ (HT)", correct:"xuất hiện", wrong1:"biến mất", wrong2:"đến", wrong3:"đi"}
+    // --------------------------------------------------------------
+    // 60 TỪ VỰNG LIỆT KÊ ĐẦY ĐỦ (không vòng lặp)
+    const vocabList = [
+        {id:1, word:"school", pos:"n", meaning:"trường học"},
+        {id:2, word:"class", pos:"n", meaning:"lớp học"},
+        {id:3, word:"friend", pos:"n", meaning:"bạn bè"},
+        {id:4, word:"teacher", pos:"n", meaning:"giáo viên"},
+        {id:5, word:"student", pos:"n", meaning:"học sinh"},
+        {id:6, word:"uniform", pos:"n", meaning:"đồng phục"},
+        {id:7, word:"compass", pos:"n", meaning:"compa"},
+        {id:8, word:"pencil", pos:"n", meaning:"bút chì"},
+        {id:9, word:"notebook", pos:"n", meaning:"vở"},
+        {id:10, word:"ruler", pos:"n", meaning:"thước kẻ"},
+        {id:11, word:"eraser", pos:"n", meaning:"tẩy"},
+        {id:12, word:"bag", pos:"n", meaning:"cặp sách"},
+        {id:13, word:"bicycle", pos:"n", meaning:"xe đạp"},
+        {id:14, word:"playground", pos:"n", meaning:"sân chơi"},
+        {id:15, word:"library", pos:"n", meaning:"thư viện"},
+        {id:16, word:"subject", pos:"n", meaning:"môn học"},
+        {id:17, word:"maths", pos:"n", meaning:"toán"},
+        {id:18, word:"English", pos:"n", meaning:"tiếng Anh"},
+        {id:19, word:"history", pos:"n", meaning:"lịch sử"},
+        {id:20, word:"science", pos:"n", meaning:"khoa học"},
+        {id:21, word:"homework", pos:"n", meaning:"bài tập"},
+        {id:22, word:"football", pos:"n", meaning:"bóng đá"},
+        {id:23, word:"exercise", pos:"n", meaning:"bài tập thể dục"},
+        {id:24, word:"art", pos:"n", meaning:"mỹ thuật"},
+        {id:25, word:"music", pos:"n", meaning:"âm nhạc"},
+        {id:26, word:"lesson", pos:"n", meaning:"bài học"},
+        {id:27, word:"week", pos:"n", meaning:"tuần"},
+        {id:28, word:"month", pos:"n", meaning:"tháng"},
+        {id:29, word:"year", pos:"n", meaning:"năm"},
+        {id:30, word:"morning", pos:"n", meaning:"buổi sáng"},
+        {id:31, word:"afternoon", pos:"n", meaning:"buổi chiều"},
+        {id:32, word:"evening", pos:"n", meaning:"buổi tối"},
+        {id:33, word:"night", pos:"n", meaning:"ban đêm"},
+        {id:34, word:"study", pos:"v", meaning:"học tập"},
+        {id:35, word:"play", pos:"v", meaning:"chơi"},
+        {id:36, word:"do", pos:"v", meaning:"làm"},
+        {id:37, word:"have", pos:"v", meaning:"có"},
+        {id:38, word:"go", pos:"v", meaning:"đi"},
+        {id:39, word:"live", pos:"v", meaning:"sống"},
+        {id:40, word:"like", pos:"v", meaning:"thích"},
+        {id:41, word:"wear", pos:"v", meaning:"mặc"},
+        {id:42, word:"look", pos:"v", meaning:"trông"},
+        {id:43, word:"start", pos:"v", meaning:"bắt đầu"},
+        {id:44, word:"finish", pos:"v", meaning:"kết thúc"},
+        {id:45, word:"learn", pos:"v", meaning:"học"},
+        {id:46, word:"teach", pos:"v", meaning:"dạy"},
+        {id:47, word:"ride", pos:"v", meaning:"đạp xe"},
+        {id:48, word:"walk", pos:"v", meaning:"đi bộ"},
+        {id:49, word:"read", pos:"v", meaning:"đọc"},
+        {id:50, word:"write", pos:"v", meaning:"viết"},
+        {id:51, word:"listen", pos:"v", meaning:"nghe"},
+        {id:52, word:"speak", pos:"v", meaning:"nói"},
+        {id:53, word:"smart", pos:"adj", meaning:"thông minh, bảnh"},
+        {id:54, word:"heavy", pos:"adj", meaning:"nặng"},
+        {id:55, word:"new", pos:"adj", meaning:"mới"},
+        {id:56, word:"old", pos:"adj", meaning:"cũ"},
+        {id:57, word:"interesting", pos:"adj", meaning:"thú vị"},
+        {id:58, word:"boring", pos:"adj", meaning:"nhàm chán"},
+        {id:59, word:"large", pos:"adj", meaning:"rộng lớn"},
+        {id:60, word:"small", pos:"adj", meaning:"nhỏ"}
     ];
-
-    // 50 CÂU NGỮ PHÁP (id 1-50)
-    const grammarBank = [
-        {id:1, question:"Ты ... этого мальчика?", correct:"знаешь", wrong1:"знаете", wrong2:"знаю", wrong3:"знал"},
-        {id:2, question:"Я хочу ... тебя с моим другом.", correct:"познакомить", wrong1:"познакомиться", wrong2:"знакомить", wrong3:"знакомиться"},
-        {id:3, question:"Мы ... с ним на вечеринке у Наташи.", correct:"познакомились", wrong1:"познакомили", wrong2:"знакомились", wrong3:"знакомили"},
-        {id:4, question:"Он ... тебя с городом?", correct:"познакомит", wrong1:"познакомится", wrong2:"знакомит", wrong3:"знакомится"},
-        {id:5, question:"Она ... меня с родителями.", correct:"познакомила", wrong1:"познакомилась", wrong2:"знакомила", wrong3:"знакомилась"},
-        {id:6, question:"Давай я ... тебя с ним.", correct:"познакомлю", wrong1:"познакомлюсь", wrong2:"знакомлю", wrong3:"знакомлюсь"},
-        {id:7, question:"Вы уже ... ?", correct:"познакомились", wrong1:"познакомили", wrong2:"знакомились", wrong3:"знакомили"},
-        {id:8, question:"Это наш новый ... .", correct:"друг", wrong1:"подруга", wrong2:"знакомый", wrong3:"брат"},
-        {id:9, question:"Где ты ... с ним?", correct:"познакомился", wrong1:"познакомилась", wrong2:"знакомился", wrong3:"знакомилась"},
-        {id:10, question:"Как он хорошо ... !", correct:"танцует", wrong1:"поёт", wrong2:"играет", wrong3:"говорит"},
-        {id:11, question:"Мы ... на вечеринке.", correct:"были", wrong1:"был", wrong2:"была", wrong3:"было"},
-        {id:12, question:"У меня есть ... в этом городе.", correct:"знакомый", wrong1:"друг", wrong2:"подруга", wrong3:"родственник"},
-        {id:13, question:"У неё нет ... в новой школе.", correct:"знакомых", wrong1:"друзей", wrong2:"подруг", wrong3:"родных"},
-        {id:14, question:"Это ... для меня текст.", correct:"новый", wrong1:"старый", wrong2:"знакомый", wrong3:"незнакомый"},
-        {id:15, question:"В тексте нет ... слов.", correct:"незнакомых", wrong1:"знакомых", wrong2:"новых", wrong3:"трудных"},
-        {id:16, question:"Я хорошо ... текст.", correct:"понял", wrong1:"понимал", wrong2:"понимаю", wrong3:"пойму"},
-        {id:17, question:"Она ... меня с достопримечательностями.", correct:"познакомит", wrong1:"познакомится", wrong2:"знакомит", wrong3:"знакомится"},
-        {id:18, question:"Возьми эту книгу, она ... тебя с историей.", correct:"познакомит", wrong1:"познакомится", wrong2:"знакомит", wrong3:"знакомится"},
-        {id:19, question:"Москва - ... России.", correct:"столица", wrong1:"город", wrong2:"центр", wrong3:"страна"},
-        {id:20, question:"Большой театр - ... русский театр.", correct:"старейший", wrong1:"старый", wrong2:"новый", wrong3:"большой"},
-        {id:21, question:"В 1976 году театр ... свой юбилей.", correct:"праздновал", wrong1:"празднует", wrong2:"отпраздновал", wrong3:"будет праздновать"},
-        {id:22, question:"Его спектакли ... зрители Европы.", correct:"смотрели", wrong1:"смотрят", wrong2:"посмотрели", wrong3:"увидят"},
-        {id:23, question:"Третьяковская галерея ... в Лаврушинском переулке.", correct:"находится", wrong1:"стоит", wrong2:"расположена", wrong3:"есть"},
-        {id:24, question:"Это самый большой ... русского искусства.", correct:"музей", wrong1:"театр", wrong2:"библиотека", wrong3:"галерея"},
-        {id:25, question:"Отсюда ... красивая панорама Кремля.", correct:"открывается", wrong1:"открылась", wrong2:"открыта", wrong3:"открывают"},
-        {id:26, question:"Недалеко ... Лаврушинский переулок.", correct:"находится", wrong1:"стоит", wrong2:"есть", wrong3:"расположен"},
-        {id:27, question:"Мы ... небольшое путешествие.", correct:"совершим", wrong1:"совершаем", wrong2:"совершили", wrong3:"делаем"},
-        {id:28, question:"Сначала мы ... в центр.", correct:"отправимся", wrong1:"отправились", wrong2:"отправляемся", wrong3:"поедем"},
-        {id:29, question:"Я ... вам об истории Москвы.", correct:"расскажу", wrong1:"рассказываю", wrong2:"рассказал", wrong3:"говорю"},
-        {id:30, question:"Продолжим ... .", correct:"путешествие", wrong1:"экскурсию", wrong2:"прогулку", wrong3:"поездку"},
-        {id:31, question:"Это ... здание Московского университета.", correct:"старое", wrong1:"новое", wrong2:"главное", wrong3:"высокое"},
-        {id:32, question:"Университет ... в 1755 году.", correct:"построили", wrong1:"построен", wrong2:"строили", wrong3:"построил"},
-        {id:33, question:"Здесь ... старое и новое здания библиотеки.", correct:"находятся", wrong1:"находится", wrong2:"стоят", wrong3:"есть"},
-        {id:34, question:"Российская государственная библиотека - ... библиотека страны.", correct:"крупнейшая", wrong1:"крупная", wrong2:"большая", wrong3:"главная"},
-        {id:35, question:"Перейдём на ... сторону Москвы-реки.", correct:"другую", wrong1:"эту", wrong2:"ту", wrong3:"левую"},
-        {id:36, question:"Посмотрим ... города.", correct:"панораму", wrong1:"вид", wrong2:"карту", wrong3:"план"},
-        {id:37, question:"Вы ... на берегу Москвы-реки спортивный комплекс.", correct:"видите", wrong1:"видишь", wrong2:"видят", wrong3:"увидите"},
-        {id:38, question:"Его ... в 1956 году.", correct:"построили", wrong1:"построен", wrong2:"строили", wrong3:"построил"},
-        {id:39, question:"Это Центральный стадион ... .", correct:"Лужники", wrong1:"Динамо", wrong2:"Спартак", wrong3:"Олимпийский"},
-        {id:40, question:"Москва всё время ... .", correct:"растёт", wrong1:"растет", wrong2:"развивается", wrong3:"строится"},
-        {id:41, question:"Кажется, недавно ... Новые Черёмушки.", correct:"появились", wrong1:"появился", wrong2:"появлялись", wrong3:"появится"},
-        {id:42, question:"Сейчас это уже не ... районы.", correct:"самые молодые", wrong1:"новые", wrong2:"старые", wrong3:"молодые"},
-        {id:43, question:"В центре ... старое здание университета.", correct:"находится", wrong1:"стояло", wrong2:"было", wrong3:"есть"},
-        {id:44, question:"Вы знаете, ... находится Третьяковская галерея?", correct:"где", wrong1:"куда", wrong2:"откуда", wrong3:"когда"},
-        {id:45, question:"... вы были на вечеринке?", correct:"Когда", wrong1:"Где", wrong2:"Куда", wrong3:"Откуда"},
-        {id:46, question:"Я ... с ним на вечеринке.", correct:"познакомился", wrong1:"знакомился", wrong2:"познакомил", wrong3:"знакомил"},
-        {id:47, question:"Он хочет ... с тобой.", correct:"познакомиться", wrong1:"познакомить", wrong2:"знакомиться", wrong3:"знакомить"},
-        {id:48, question:"... меня с твоим другом!", correct:"Познакомь", wrong1:"Познакомься", wrong2:"Знакомь", wrong3:"Знакомься"},
-        {id:49, question:"... , это мой друг.", correct:"Познакомьтесь", wrong1:"Познакомь", wrong2:"Знакомьтесь", wrong3:"Знакомься"},
-        {id:50, question:"У меня нет ... в Москве.", correct:"знакомых", wrong1:"друзей", wrong2:"родственников", wrong3:"коллег"}
-    ];
-
-    // 50 CÂU DỊCH (id 1-50)
-    const transBank = [
-        {id:1, question:"Пойдём, я познакомлю тебя с ним.", correct:"Đi nào, tôi sẽ giới thiệu bạn với anh ấy.", wrong1:"Đi nào, tôi sẽ làm quen với anh ấy.", wrong2:"Đi nào, anh ấy sẽ giới thiệu tôi với bạn.", wrong3:"Tôi sẽ giới thiệu bạn với anh ấy, đi nào."},
-        {id:2, question:"Как он хорошо танцует!", correct:"Anh ấy nhảy đẹp quá!", wrong1:"Anh ấy hát hay quá!", wrong2:"Anh ấy nhảy như thế nào?", wrong3:"Anh ấy có nhảy giỏi không?"},
-        {id:3, question:"Ты знаешь этого мальчика?", correct:"Bạn có biết cậu bé này không?", wrong1:"Cậu bé này bạn có biết không?", wrong2:"Bạn biết cô gái này không?", wrong3:"Bạn có quen cậu bé này?"},
-        {id:4, question:"Мы с ним познакомились на вечеринке.", correct:"Chúng tôi làm quen với anh ấy ở bữa tiệc.", wrong1:"Anh ấy làm quen với chúng tôi ở bữa tiệc.", wrong2:"Chúng tôi gặp anh ấy ở bữa tiệc.", wrong3:"Chúng tôi giới thiệu anh ấy ở bữa tiệc."},
-        {id:5, question:"Давай я познакомлю тебя с моими родителями.", correct:"Để tôi giới thiệu bạn với bố mẹ tôi.", wrong1:"Để tôi làm quen với bố mẹ bạn.", wrong2:"Bố mẹ tôi sẽ giới thiệu bạn.", wrong3:"Tôi sẽ giới thiệu bố mẹ với bạn."},
-        {id:6, question:"Вы уже познакомились?", correct:"Các bạn đã làm quen chưa?", wrong1:"Các bạn đã gặp nhau chưa?", wrong2:"Các bạn đã giới thiệu chưa?", wrong3:"Các bạn quen nhau chưa?"},
-        {id:7, question:"У меня есть знакомая в этой школе.", correct:"Tôi có một người quen ở trường này.", wrong1:"Tôi có bạn ở trường này.", wrong2:"Ở trường này tôi có người quen.", wrong3:"Tôi quen biết trường này."},
-        {id:8, question:"В тексте нет незнакомых слов.", correct:"Trong bài không có từ lạ.", wrong1:"Bài này không có từ mới.", wrong2:"Trong bài có nhiều từ lạ.", wrong3:"Từ lạ không có trong bài."},
-        {id:9, question:"Я хорошо понял текст.", correct:"Tôi hiểu bài rõ ràng.", wrong1:"Tôi đọc bài tốt.", wrong2:"Bài này tôi hiểu rõ.", wrong3:"Tôi hiểu bài chưa tốt."},
-        {id:10, question:"Возьми эту книгу. Она познакомит тебя с историей Москвы.", correct:"Hãy cầm cuốn sách này. Nó sẽ giới thiệu cho bạn về lịch sử Moscow.", wrong1:"Hãy lấy cuốn sách này. Bạn sẽ biết lịch sử Moscow.", wrong2:"Cuốn sách này giới thiệu lịch sử Moscow.", wrong3:"Hãy đọc cuốn sách về lịch sử Moscow."},
-        {id:11, question:"Москва - столица России.", correct:"Moscow là thủ đô nước Nga.", wrong1:"Moscow là thành phố lớn nhất nước Nga.", wrong2:"Nga có thủ đô là Moscow.", wrong3:"Moscow là trung tâm nước Nga."},
-        {id:12, question:"Большой театр - старейший русский театр оперы и балета.", correct:"Nhà hát Lớn là nhà hát opera và ballet lâu đời nhất của Nga.", wrong1:"Nhà hát Lớn là nhà hát Nga cổ nhất.", wrong2:"Nhà hát Lớn là nhà hát opera và ballet nổi tiếng nhất.", wrong3:"Nhà hát Lớn là nhà hát lớn nhất nước Nga."},
-        {id:13, question:"В 1976 году Большой театр праздновал свой двухсотлетний юбилей.", correct:"Năm 1976, Nhà hát Lớn kỷ niệm 200 năm thành lập.", wrong1:"Năm 1976, Nhà hát Lớn được xây dựng.", wrong2:"Nhà hát Lớn kỷ niệm 200 năm vào năm 1976.", wrong3:"Năm 1976, Nhà hát Lớn tổ chức lễ kỷ niệm."},
-        {id:14, question:"Его спектакли смотрели зрители Европы и Азии.", correct:"Các vở diễn của nó đã được khán giả châu Âu và châu Á xem.", wrong1:"Khán giả châu Âu và châu Á đã xem các vở diễn của nó.", wrong2:"Các vở diễn được trình chiếu ở châu Âu và châu Á.", wrong3:"Nó có khán giả khắp châu Âu và châu Á."},
-        {id:15, question:"Отсюда открывается красивая панорама Кремля.", correct:"Từ đây mở ra toàn cảnh đẹp của Điện Kremlin.", wrong1:"Từ đây nhìn thấy Điện Kremlin đẹp.", wrong2:"Ở đây có tầm nhìn đẹp ra Điện Kremlin.", wrong3:"Toàn cảnh Điện Kremlin đẹp từ đây."},
-        {id:16, question:"Недалеко - Лаврушинский переулок.", correct:"Gần đó là ngõ Lavrushinsky.", wrong1:"Ở gần có ngõ Lavrushinsky.", wrong2:"Ngõ Lavrushinsky ở không xa.", wrong3:"Lavrushinsky là ngõ gần đây."},
-        {id:17, question:"В этом переулке находится Третьяковская галерея.", correct:"Trong ngõ này có Phòng tranh Tretyakov.", wrong1:"Phòng tranh Tretyakov nằm trong ngõ này.", wrong2:"Ở ngõ này là bảo tàng Tretyakov.", wrong3:"Ngõ này có Tretyakov Gallery."},
-        {id:18, question:"Сейчас это самый большой в мире музей русского искусства.", correct:"Hiện nay đây là bảo tàng nghệ thuật Nga lớn nhất thế giới.", wrong1:"Đây là bảo tàng nghệ thuật Nga lớn nhất thế giới hiện nay.", wrong2:"Bảo tàng nghệ thuật Nga lớn nhất thế giới là ở đây.", wrong3:"Hiện nay nó là bảo tàng Nga lớn nhất thế giới."},
-        {id:19, question:"А теперь поедем на Воробьёвы горы.", correct:"Còn bây giờ chúng ta hãy đến Đồi Chim sẻ.", wrong1:"Và bây giờ đi đến Đồi Chim sẻ.", wrong2:"Bây giờ chúng ta đi Vùng đồi Chim sẻ.", wrong3:"Hãy đến đồi Chim sẻ nào."},
-        {id:20, question:"Посмотрим отсюда панораму города.", correct:"Hãy nhìn toàn cảnh thành phố từ đây.", wrong1:"Từ đây nhìn toàn cảnh thành phố.", wrong2:"Chúng ta xem toàn cảnh thành phố từ đây.", wrong3:"Hãy ngắm nhìn thành phố từ đây."},
-        {id:21, question:"Вы видите на берегу Москвы-реки спортивный комплекс.", correct:"Các bạn thấy trên bờ sông Moskva khu thể thao.", wrong1:"Các bạn thấy khu thể thao bên sông Moskva.", wrong2:"Trên bờ sông Moskva có khu thể thao.", wrong3:"Khu thể thao ở bờ sông Moskva các bạn thấy không?"},
-        {id:22, question:"Его построили в 1956 году.", correct:"Nó được xây dựng năm 1956.", wrong1:"Nó xây năm 1956.", wrong2:"Người ta xây nó năm 1956.", wrong3:"Nó đã xây xong năm 1956."},
-        {id:23, question:"Это Центральный стадион 'Лужники'.", correct:"Đây là sân vận động trung tâm Luzhniki.", wrong1:"Đây là sân vận động Luzhniki.", wrong2:"Sân vận động trung tâm là Luzhniki.", wrong3:"Đây là trung tâm thể thao Luzhniki."},
-        {id:24, question:"Москва всё время растёт.", correct:"Moscow không ngừng lớn mạnh.", wrong1:"Moscow luôn phát triển.", wrong2:"Moscow ngày càng rộng lớn.", wrong3:"Moscow mãi mãi vươn cao."},
-        {id:25, question:"Кажется, совсем недавно появились Новые Черёмушки.", correct:"Có vẻ như mới xuất hiện khu Cheryomushki Mới.", wrong1:"Hình như mới đây có Cheryomushki Mới.", wrong2:"Cheryomushki Mới mới xuất hiện gần đây.", wrong3:"Dường như Cheryomushki Mới vừa mới được xây."},
-        {id:26, question:"Сейчас это уже не самые молодые районы Москвы.", correct:"Hiện nay đó không còn là những quận trẻ nhất của Moscow nữa.", wrong1:"Đó không còn là quận trẻ nhất Moscow.", wrong2:"Hiện tại chúng không phải quận trẻ nhất Moscow.", wrong3:"Bây giờ chúng không còn trẻ nhất Moscow."},
-        {id:27, question:"Я люблю Москву.", correct:"Tôi yêu Moscow.", wrong1:"Tôi thích Moscow.", wrong2:"Moscow tôi yêu.", wrong3:"Tôi yêu thành phố Moscow."},
-        {id:28, question:"Хочу немного рассказать о ней.", correct:"Tôi muốn kể một chút về nó.", wrong1:"Tôi muốn nói một ít về nó.", wrong2:"Muốn kể đôi điều về Moscow.", wrong3:"Tôi sẽ kể về nó."},
-        {id:29, question:"Давайте совершим небольшое путешествие.", correct:"Chúng ta hãy thực hiện một chuyến du lịch nhỏ.", wrong1:"Hãy cùng nhau du lịch nhé.", wrong2:"Chúng ta đi dạo một vòng.", wrong3:"Làm một chuyến phiêu lưu nhỏ."},
-        {id:30, question:"Сначала мы отправимся в центр.", correct:"Trước tiên chúng ta hãy đến trung tâm.", wrong1:"Đầu tiên chúng ta đi trung tâm.", wrong2:"Trước hết hãy tới trung tâm.", wrong3:"Chúng ta bắt đầu từ trung tâm."},
-        {id:31, question:"Я расскажу о них, когда буду знакомить вас с историей Москвы.", correct:"Tôi sẽ kể về chúng khi tôi giới thiệu với các bạn về lịch sử Moscow.", wrong1:"Tôi sẽ kể khi giới thiệu lịch sử Moscow.", wrong2:"Khi giới thiệu lịch sử Moscow tôi sẽ kể về chúng.", wrong3:"Tôi kể chúng trong lúc giới thiệu lịch sử Moscow."},
-        {id:32, question:"Продолжим путешествие.", correct:"Chúng ta tiếp tục cuộc hành trình.", wrong1:"Hãy tiếp tục chuyến đi.", wrong2:"Tiếp tục du lịch nào.", wrong3:"Chúng ta lại đi tiếp."},
-        {id:33, question:"Это Большой театр.", correct:"Đây là Nhà hát Lớn.", wrong1:"Kia là Nhà hát Lớn.", wrong2:"Nhà hát Lớn đây.", wrong3:"Đây chính là Nhà hát Lớn."},
-        {id:34, question:"В центре находится и старое здание Московского университета.", correct:"Ở trung tâm còn có tòa nhà cũ của Đại học Moscow.", wrong1:"Trung tâm có tòa nhà cũ Đại học Moscow.", wrong2:"Tòa nhà cũ Đại học Moscow nằm ở trung tâm.", wrong3:"Đại học Moscow có tòa nhà cũ ở trung tâm."},
-        {id:35, question:"Этот первый русский университет построили в 1755 году.", correct:"Trường đại học Nga đầu tiên này được xây dựng năm 1755.", wrong1:"Ngôi trường đại học Nga đầu tiên được xây năm 1755.", wrong2:"Đại học đầu tiên của Nga xây năm 1755.", wrong3:"Năm 1755 xây trường đại học Nga đầu tiên."},
-        {id:36, question:"Здесь же находятся старое и новое здания Российской государственной библиотеки.", correct:"Ở đây cũng có tòa nhà cũ và mới của Thư viện Quốc gia Nga.", wrong1:"Tại đây có cả tòa cũ và mới của Thư viện Quốc gia Nga.", wrong2:"Thư viện Quốc gia Nga có tòa cũ và mới ở đây.", wrong3:"Cũ và mới của Thư viện Quốc gia Nga đều ở đây."},
-        {id:37, question:"Перейдём на другую сторону Москвы-реки.", correct:"Chúng ta hãy sang bờ bên kia sông Moskva.", wrong1:"Hãy sang phía bên kia sông Moskva.", wrong2:"Chúng ta qua bờ bên kia sông Moskva.", wrong3:"Đi sang bờ đối diện sông Moskva."},
-        {id:38, question:"Познакомь меня с твоим другом.", correct:"Hãy giới thiệu tôi với bạn của anh.", wrong1:"Hãy làm quen với bạn tôi.", wrong2:"Bạn của anh hãy giới thiệu tôi.", wrong3:"Tôi muốn gặp bạn anh."},
-        {id:39, question:"Я хочу познакомиться с твоей сестрой.", correct:"Tôi muốn làm quen với em gái của bạn.", wrong1:"Tôi muốn giới thiệu em gái bạn.", wrong2:"Em gái bạn muốn gặp tôi.", wrong3:"Tôi muốn gặp em gái bạn."},
-        {id:40, question:"У него много знакомых в Москве.", correct:"Anh ấy có nhiều người quen ở Moscow.", wrong1:"Anh ấy có nhiều bạn ở Moscow.", wrong2:"Ở Moscow anh ấy quen nhiều người.", wrong3:"Người quen của anh ấy nhiều ở Moscow."},
-        {id:41, question:"Она познакомила нас со своим братом.", correct:"Cô ấy đã giới thiệu chúng tôi với anh trai cô ấy.", wrong1:"Chúng tôi đã làm quen với anh trai cô ấy.", wrong2:"Anh trai cô ấy giới thiệu chúng tôi.", wrong3:"Cô ấy giới thiệu anh trai với chúng tôi."},
-        {id:42, question:"Мы часто ходим в Большой театр.", correct:"Chúng tôi thường xem ở Nhà hát Lớn.", wrong1:"Chúng tôi thường đến Nhà hát Lớn.", wrong2:"Nhà hát Lớn chúng tôi hay đến.", wrong3:"Chúng tôi thích Nhà hát Lớn."},
-        {id:43, question:"Третьяковская галерея находится в центре Москвы.", correct:"Phòng tranh Tretyakov nằm ở trung tâm Moscow.", wrong1:"Phòng tranh Tretyakov ở trung tâm Moscow.", wrong2:"Trung tâm Moscow có Tretyakov.", wrong3:"Bảo tàng Tretyakov là trung tâm."},
-        {id:44, question:"Московский Кремль - символ России.", correct:"Điện Kremlin Moscow là biểu tượng của nước Nga.", wrong1:"Kremlin là biểu tượng Moscow.", wrong2:"Biểu tượng nước Nga là Kremlin.", wrong3:"Kremlin tượng trưng cho nước Nga."},
-        {id:45, question:"На Красной площади проходят парады.", correct:"Trên Quảng trường Đỏ diễn ra các cuộc diễu hành.", wrong1:"Quảng trường Đỏ có diễu hành.", wrong2:"Diễu hành ở Quảng trường Đỏ.", wrong3:"Quảng trường Đỏ nơi diễu hành."},
-        {id:46, question:"Лужники построили в 1956 году.", correct:"Sân vận động Luzhniki được xây năm 1956.", wrong1:"Luzhniki xây xong năm 1956.", wrong2:"Năm 1956 xây dựng Luzhniki.", wrong3:"Luzhniki được xây dựng từ 1956."},
-        {id:47, question:"Воробьёвы горы - красивое место в Москве.", correct:"Đồi Chim sẻ là nơi đẹp ở Moscow.", wrong1:"Đồi Chim sẻ đẹp ở Moscow.", wrong2:"Moscow có đồi Chim sẻ đẹp.", wrong3:"Nơi đẹp ở Moscow là đồi Chim sẻ."},
-        {id:48, question:"Российская государственная библиотека - крупнейшая в стране.", correct:"Thư viện Quốc gia Nga là thư viện lớn nhất cả nước.", wrong1:"Thư viện Quốc gia Nga lớn nhất nước.", wrong2:"Thư viện lớn nhất nước là Thư viện Quốc gia Nga.", wrong3:"Nga có thư viện lớn nhất là Thư viện Quốc gia."},
-        {id:49, question:"Я был на вечеринке у Наташи.", correct:"Tôi đã ở bữa tiệc của Natasha.", wrong1:"Tôi đã gặp Natasha ở bữa tiệc.", wrong2:"Natasha mời tôi dự tiệc.", wrong3:"Tôi và Natasha dự tiệc."},
-        {id:50, question:"Мы хотим познакомиться с вами.", correct:"Chúng tôi muốn làm quen với các bạn.", wrong1:"Các bạn muốn làm quen với chúng tôi.", wrong2:"Chúng tôi muốn giới thiệu các bạn.", wrong3:"Chúng tôi sẽ quen biết các bạn."}
-    ];
-
-    // ---------- BIẾN TOÀN CỤC (giữ nguyên so với bản gốc) ----------
-    let currentScreen = 'screen1';
-    let studentName = '';
-    let currentTest = null;
-    let timerInterval = null;
-    let timeLeft = 0;
-    let currentQuestionStartTime = 0;
-
-    const nameInput = document.getElementById('student-name');
-    const btnVocabMain = document.getElementById('btn-to-vocab-main');
-    const btnGrammarMain = document.getElementById('btn-to-grammar-main');
-    const btnTransMain = document.getElementById('btn-to-trans-main');
-    const btnMixMain = document.getElementById('btn-to-mix-main');
-
-    nameInput.addEventListener('input', (e) => {
-        studentName = e.target.value.trim();
-        const enable = studentName !== '';
-        btnVocabMain.disabled = !enable;
-        btnGrammarMain.disabled = !enable;
-        btnTransMain.disabled = !enable;
-        btnMixMain.disabled = !enable;
+    // Tạo vocabData với correct và wrong (dạng hiển thị (từ loại) + nghĩa)
+    const vocabData = vocabList.map((item, idx) => {
+        // Tạo 3 nghĩa sai từ các nghĩa khác (lấy ngẫu nhiên từ list, trừ nghĩa đúng)
+        let otherMeanings = vocabList.filter(v => v.id !== item.id).map(v => `(${v.pos}) ${v.meaning}`);
+        // Xáo trộn và lấy 3 cái
+        let shuffled = [...otherMeanings].sort(()=>0.5-Math.random());
+        let wrongs = shuffled.slice(0,3);
+        while(wrongs.length<3) wrongs.push("(n) sai"); // phòng
+        return {
+            id: item.id,
+            word: item.word,
+            displayCorrect: `(${item.pos}) ${item.meaning}`,
+            wrong1: wrongs[0], wrong2: wrongs[1], wrong3: wrongs[2]
+        };
     });
 
-    function showScreen(id) {
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        currentScreen = id;
-        if (id === 'screen2-2') document.getElementById('vocab-test-name').innerText = studentName;
-        if (id === 'screen3') document.getElementById('grammar-test-name').innerText = studentName;
-        if (id === 'screen4') document.getElementById('trans-test-name').innerText = studentName;
-        if (id === 'screen5') document.getElementById('mix-test-name').innerText = studentName;
+    // 50 CÂU NGỮ PHÁP LIỆT KÊ ĐẦY ĐỦ
+    const grammarData = [
+        {id:1, question:"We _____ new subjects for this school year.", correct:"have", wrong1:"has", wrong2:"having", wrong3:"to have"},
+        {id:2, question:"Duy _____ to school every day.", correct:"cycles", wrong1:"cycle", wrong2:"cycling", wrong3:"cycled"},
+        {id:3, question:"My new school _____ in the centre of the village.", correct:"isn't", wrong1:"not", wrong2:"doesn't", wrong3:"don't"},
+        {id:4, question:"Where _____ live?", correct:"do you", wrong1:"you", wrong2:"are you", wrong3:"does you"},
+        {id:5, question:"My friend has a sister, but she _____ a brother.", correct:"doesn't have", wrong1:"don't have", wrong2:"not has", wrong3:"haven't"},
+        {id:6, question:"Vy and I often _____ our homework after school.", correct:"do", wrong1:"does", wrong2:"doing", wrong3:"to do"},
+        {id:7, question:"Nick plays _____ for the school team.", correct:"football", wrong1:"the football", wrong2:"a football", wrong3:"footballs"},
+        {id:8, question:"Mrs Nguyen teaches all my history _____", correct:"lessons", wrong1:"lesson", wrong2:"a lesson", wrong3:"the lesson"},
+        {id:9, question:"They are healthy. They do _____ every day.", correct:"exercise", wrong1:"exercises", wrong2:"an exercise", wrong3:"the exercise"},
+        {id:10, question:"I study maths, English and _____ on Mondays.", correct:"science", wrong1:"sciences", wrong2:"a science", wrong3:"the science"},
+        {id:11, question:"My brother _____ a new compass.", correct:"has", wrong1:"have", wrong2:"is having", wrong3:"are having"},
+        {id:12, question:"Our classroom _____ large.", correct:"is", wrong1:"are", wrong2:"be", wrong3:"am"},
+        {id:13, question:"They _____ smart on their first day.", correct:"look", wrong1:"looks", wrong2:"looking", wrong3:"are look"},
+        {id:14, question:"The art lesson _____ at nine o'clock.", correct:"starts", wrong1:"start", wrong2:"starting", wrong3:"to start"},
+        {id:15, question:"He _____ out to have lunch every Sunday.", correct:"goes", wrong1:"go", wrong2:"going", wrong3:"to go"},
+        {id:16, question:"I _____ late on Saturdays.", correct:"usually get up", wrong1:"get up usually", wrong2:"am usually get up", wrong3:"usually gets up"},
+        {id:17, question:"My mum _____ to work late.", correct:"rarely goes", wrong1:"goes rarely", wrong2:"rarely go", wrong3:"go rarely"},
+        {id:18, question:"_____ at weekends?", correct:"Do you often travel", wrong1:"Often do you travel", wrong2:"Do often you travel", wrong3:"You often travel"},
+        {id:19, question:"What kind of music _____?", correct:"does Susan usually listen to", wrong1:"usually does Susan listen to", wrong2:"Susan usually listens to", wrong3:"does Susan listen usually to"},
+        {id:20, question:"When _____ go on holiday each year?", correct:"do you usually", wrong1:"you usually", wrong2:"usually do you", wrong3:"do usually you"},
+        {id:21, question:"My school _____ a large playground.", correct:"has", wrong1:"have", wrong2:"is having", wrong3:"are"},
+        {id:22, question:"_____ any new friends?", correct:"Do you have", wrong1:"Have you", wrong2:"You have", wrong3:"Are you have"},
+        {id:23, question:"I _____ my new friends, Vy and Phong.", correct:"like", wrong1:"likes", wrong2:"am liking", wrong3:"don't like"},
+        {id:24, question:"Vy _____ to school with you?", correct:"Does walk", wrong1:"Do walk", wrong2:"Walks", wrong3:"Walk"},
+        {id:25, question:"We often _____ our bicycles to school.", correct:"ride", wrong1:"rides", wrong2:"riding", wrong3:"to ride"},
+        {id:26, question:"I _____ home at 4 p.m. every day.", correct:"go", wrong1:"goes", wrong2:"going", wrong3:"to go"},
+        {id:27, question:"Students _____ their uniforms on Monday.", correct:"wear", wrong1:"wears", wrong2:"wearing", wrong3:"to wear"},
+        {id:28, question:"Vy _____ a new friend, Duy.", correct:"has", wrong1:"have", wrong2:"is have", wrong3:"are having"},
+        {id:29, question:"_____ Phong, Vy, and Duy _____ to the same school?", correct:"Do ... go", wrong1:"Does ... go", wrong2:"Are ... go", wrong3:"Do ... goes"},
+        {id:30, question:"Students always look smart in their _____", correct:"uniforms", wrong1:"uniform", wrong2:"a uniform", wrong3:"the uniform"},
+        {id:31, question:"What _____ you like to study?", correct:"do", wrong1:"does", wrong2:"are", wrong3:"is"},
+        {id:32, question:"I like to study English and _____", correct:"history", wrong1:"a history", wrong2:"histories", wrong3:"the history"},
+        {id:33, question:"They _____ from Da Nang.", correct:"come", wrong1:"comes", wrong2:"coming", wrong3:"to come"},
+        {id:34, question:"_____ you learn Russian? - No, I don't.", correct:"Do", wrong1:"Does", wrong2:"Are", wrong3:"Is"},
+        {id:35, question:"She always _____ to school with her friends.", correct:"walks", wrong1:"walk", wrong2:"walking", wrong3:"to walk"},
+        {id:36, question:"I often _____ my homework after school.", correct:"do", wrong1:"does", wrong2:"doing", wrong3:"to do"},
+        {id:37, question:"Mr Nam _____ history at my school.", correct:"teaches", wrong1:"teach", wrong2:"teaching", wrong3:"to teach"},
+        {id:38, question:"Hoang _____ in a small house.", correct:"lives", wrong1:"live", wrong2:"living", wrong3:"to live"},
+        {id:39, question:"His house _____ near his new school.", correct:"is", wrong1:"are", wrong2:"am", wrong3:"be"},
+        {id:40, question:"Every day, he _____ breakfast at 6 o'clock.", correct:"has", wrong1:"have", wrong2:"is having", wrong3:"are having"},
+        {id:41, question:"Then he _____ to school with his friends.", correct:"walks", wrong1:"walk", wrong2:"walking", wrong3:"to walk"},
+        {id:42, question:"Hoang and his friends _____ in grade 6.", correct:"study", wrong1:"studies", wrong2:"studying", wrong3:"to study"},
+        {id:43, question:"Hoang _____ his new school.", correct:"likes", wrong1:"like", wrong2:"is liking", wrong3:"are liking"},
+        {id:44, question:"I always remember _____ my homework.", correct:"to do", wrong1:"doing", wrong2:"do", wrong3:"does"},
+        {id:45, question:"Nick usually _____ good marks in exams.", correct:"gets", wrong1:"get", wrong2:"getting", wrong3:"to get"},
+        {id:46, question:"We do not often _____ a rabbit in town.", correct:"see", wrong1:"sees", wrong2:"seeing", wrong3:"to see"},
+        {id:47, question:"I rarely _____ in bed at night.", correct:"read", wrong1:"reads", wrong2:"reading", wrong3:"to read"},
+        {id:48, question:"Do you sometimes _____ in the shower?", correct:"sing", wrong1:"sings", wrong2:"singing", wrong3:"to sing"},
+        {id:49, question:"The students _____ live and study in a boarding school.", correct:"sometimes", wrong1:"sometime", wrong2:"some time", wrong3:"often"},
+        {id:50, question:"Sunrise is a school in _____", correct:"Sydney", wrong1:"Bac Giang", wrong2:"London", wrong3:"Hanoi"}
+    ];
+
+    // 50 CÂU DỊCH LIỆT KÊ ĐẦY ĐỦ
+    const transData = [
+        {id:1, question:"My school has a large playground.", correct:"Trường tôi có một sân chơi rộng lớn.", wrong1:"Trường tôi có sân chơi nhỏ.", wrong2:"Trường tôi có nhiều sân chơi.", wrong3:"Sân chơi trường tôi rộng."},
+        {id:2, question:"They look smart in uniform.", correct:"Họ trông bảnh bao trong đồng phục.", wrong1:"Họ thông minh trong lớp.", wrong2:"Đồng phục của họ đẹp.", wrong3:"Họ mặc đồng phục."},
+        {id:3, question:"I usually do homework after school.", correct:"Tôi thường làm bài tập sau giờ học.", wrong1:"Tôi luôn làm bài tập ở trường.", wrong2:"Tôi hiếm khi làm bài tập.", wrong3:"Tôi làm bài tập trước khi đến trường."},
+        {id:4, question:"We go to the same school.", correct:"Chúng tôi học cùng trường.", wrong1:"Chúng tôi đi cùng đường.", wrong2:"Chúng tôi thích trường giống nhau.", wrong3:"Trường chúng tôi giống nhau."},
+        {id:5, question:"Duy is my new friend.", correct:"Duy là bạn mới của tôi.", wrong1:"Duy là bạn cũ.", wrong2:"Duy và tôi là bạn.", wrong3:"Bạn mới của tôi tên Duy."},
+        {id:6, question:"Phong has a new uniform.", correct:"Phong có một bộ đồng phục mới.", wrong1:"Phong mặc đồng phục mới.", wrong2:"Đồng phục của Phong mới.", wrong3:"Phong thích đồng phục mới."},
+        {id:7, question:"Vy lives near the school.", correct:"Vy sống gần trường.", wrong1:"Vy sống xa trường.", wrong2:"Trường gần nhà Vy.", wrong3:"Vy đi bộ đến trường."},
+        {id:8, question:"They are studying maths.", correct:"Họ đang học toán.", wrong1:"Họ học toán mỗi ngày.", wrong2:"Toán là môn học của họ.", wrong3:"Họ thích toán."},
+        {id:9, question:"I have a new compass.", correct:"Tôi có một cái compa mới.", wrong1:"Tôi cần một cái compa.", wrong2:"Compa của tôi mới.", wrong3:"Tôi mua compa mới."},
+        {id:10, question:"The classroom is large.", correct:"Phòng học rộng rãi.", wrong1:"Phòng học nhỏ.", wrong2:"Có nhiều phòng học.", wrong3:"Phòng học sạch sẽ."},
+        {id:11, question:"We always look smart.", correct:"Chúng tôi luôn trông bảnh bao.", wrong1:"Chúng tôi luôn học giỏi.", wrong2:"Họ luôn vui vẻ.", wrong3:"Tôi luôn mặc đẹp."},
+        {id:12, question:"He goes out at noon.", correct:"Anh ấy ra ngoài vào buổi trưa.", wrong1:"Anh ấy về nhà buổi trưa.", wrong2:"Anh ấy ăn trưa ở ngoài.", wrong3:"Anh ấy đi làm buổi trưa."},
+        {id:13, question:"She teaches history.", correct:"Cô ấy dạy lịch sử.", wrong1:"Cô ấy học lịch sử.", wrong2:"Cô ấy thích lịch sử.", wrong3:"Lịch sử là môn cô ấy dạy."},
+        {id:14, question:"They do exercise every day.", correct:"Họ tập thể dục mỗi ngày.", wrong1:"Họ chơi thể thao mỗi ngày.", wrong2:"Họ đi dạo mỗi ngày.", wrong3:"Họ tập thể dục hàng tuần."},
+        {id:15, question:"I like English and music.", correct:"Tôi thích tiếng Anh và âm nhạc.", wrong1:"Tôi học tiếng Anh và âm nhạc.", wrong2:"Tiếng Anh và âm nhạc là môn tôi thích.", wrong3:"Tôi giỏi tiếng Anh và âm nhạc."},
+        {id:16, question:"The school has a library.", correct:"Trường có một thư viện.", wrong1:"Thư viện của trường rất lớn.", wrong2:"Trường có nhiều sách.", wrong3:"Thư viện ở gần trường."},
+        {id:17, question:"They play football after school.", correct:"Họ chơi bóng đá sau giờ học.", wrong1:"Họ chơi bóng rổ sau giờ học.", wrong2:"Họ xem bóng đá sau giờ học.", wrong3:"Họ tập bóng đá vào buổi sáng."},
+        {id:18, question:"Vy has a new friend.", correct:"Vy có một người bạn mới.", wrong1:"Vy là bạn mới.", wrong2:"Bạn mới của Vy rất tốt.", wrong3:"Vy gặp bạn mới."},
+        {id:19, question:"Phong's bag looks heavy.", correct:"Cặp của Phong trông có vẻ nặng.", wrong1:"Cặp của Phong rất nặng.", wrong2:"Phong mang cặp nặng.", wrong3:"Cặp Phong đựng nhiều sách."},
+        {id:20, question:"Duy lives near Phong.", correct:"Duy sống gần Phong.", wrong1:"Duy và Phong ở gần nhau.", wrong2:"Nhà Duy gần nhà Phong.", wrong3:"Duy thường đến nhà Phong."},
+        {id:21, question:"We have new subjects.", correct:"Chúng tôi có môn học mới.", wrong1:"Chúng tôi học môn mới.", wrong2:"Môn học mới rất khó.", wrong3:"Chúng tôi thích môn học mới."},
+        {id:22, question:"They are in grade 6.", correct:"Họ học lớp 6.", wrong1:"Họ 6 tuổi.", wrong2:"Họ học lớp 7.", wrong3:"Lớp của họ là 6."},
+        {id:23, question:"She walks to school.", correct:"Cô ấy đi bộ đến trường.", wrong1:"Cô ấy đạp xe đến trường.", wrong2:"Cô ấy đi xe buýt đến trường.", wrong3:"Cô ấy đến trường bằng xe máy."},
+        {id:24, question:"I do homework at 7 p.m.", correct:"Tôi làm bài tập lúc 7 giờ tối.", wrong1:"Tôi làm bài tập vào buổi sáng.", wrong2:"Tôi học bài lúc 7 giờ.", wrong3:"Bài tập của tôi làm lúc 7 giờ."},
+        {id:25, question:"He rides a bicycle.", correct:"Anh ấy đạp xe đạp.", wrong1:"Anh ấy lái xe máy.", wrong2:"Anh ấy đi bộ.", wrong3:"Anh ấy chạy bộ."},
+        {id:26, question:"They live in the city.", correct:"Họ sống ở thành phố.", wrong1:"Họ sống ở nông thôn.", wrong2:"Họ ở thành phố.", wrong3:"Thành phố là nơi họ sống."},
+        {id:27, question:"She likes painting.", correct:"Cô ấy thích vẽ.", wrong1:"Cô ấy thích âm nhạc.", wrong2:"Cô ấy học vẽ.", wrong3:"Cô ấy vẽ rất đẹp."},
+        {id:28, question:"We study in the library.", correct:"Chúng tôi học trong thư viện.", wrong1:"Chúng tôi chơi trong thư viện.", wrong2:"Thư viện là nơi chúng tôi học.", wrong3:"Chúng tôi đến thư viện mỗi ngày."},
+        {id:29, question:"The art lesson starts at 9.", correct:"Tiết mỹ thuật bắt đầu lúc 9 giờ.", wrong1:"Lớp mỹ thuật lúc 9 giờ.", wrong2:"Mỹ thuật học lúc 9 giờ.", wrong3:"Chín giờ là tiết mỹ thuật."},
+        {id:30, question:"He goes home at 4 p.m.", correct:"Anh ấy về nhà lúc 4 giờ chiều.", wrong1:"Anh ấy tan học lúc 4 giờ.", wrong2:"Anh ấy rời trường lúc 4 giờ.", wrong3:"Bốn giờ anh ấy về nhà."},
+        {id:31, question:"My friend has a sister.", correct:"Bạn tôi có một em gái.", wrong1:"Bạn tôi và em gái.", wrong2:"Em gái của bạn tôi.", wrong3:"Bạn tôi thích em gái."},
+        {id:32, question:"They don't have a brother.", correct:"Họ không có anh trai.", wrong1:"Họ có anh trai.", wrong2:"Anh trai của họ.", wrong3:"Họ và anh trai."},
+        {id:33, question:"Do you like music?", correct:"Bạn có thích âm nhạc không?", wrong1:"Bạn thích âm nhạc à?", wrong2:"Âm nhạc bạn thích không?", wrong3:"Bạn thích nghe nhạc không?"},
+        {id:34, question:"What is your favourite subject?", correct:"Môn học yêu thích của bạn là gì?", wrong1:"Bạn thích môn học nào?", wrong2:"Môn học nào bạn yêu thích?", wrong3:"Môn học yêu thích của bạn?"},
+        {id:35, question:"I go to school by bike.", correct:"Tôi đi học bằng xe đạp.", wrong1:"Tôi đạp xe đến trường.", wrong2:"Xe đạp của tôi đi học.", wrong3:"Tôi đến trường bằng xe buýt."},
+        {id:36, question:"She wears a uniform.", correct:"Cô ấy mặc đồng phục.", wrong1:"Đồng phục cô ấy mặc.", wrong2:"Cô ấy thích đồng phục.", wrong3:"Cô ấy có đồng phục mới."},
+        {id:37, question:"They are in the garden.", correct:"Họ đang ở trong vườn.", wrong1:"Họ chơi trong vườn.", wrong2:"Khu vườn của họ.", wrong3:"Họ thích khu vườn."},
+        {id:38, question:"The computer room is new.", correct:"Phòng máy tính mới.", wrong1:"Phòng máy tính rộng.", wrong2:"Máy tính mới trong phòng.", wrong3:"Phòng học máy tính mới."},
+        {id:39, question:"We join interesting clubs.", correct:"Chúng tôi tham gia câu lạc bộ thú vị.", wrong1:"Câu lạc bộ thú vị chúng tôi tham gia.", wrong2:"Chúng tôi thích câu lạc bộ.", wrong3:"Chúng tôi có câu lạc bộ thú vị."},
+        {id:40, question:"They play sports and games.", correct:"Họ chơi thể thao và trò chơi.", wrong1:"Họ chơi thể thao và trò chơi điện tử.", wrong2:"Họ thích thể thao.", wrong3:"Thể thao và trò chơi họ chơi."},
+        {id:41, question:"Some students do paintings.", correct:"Một số học sinh vẽ tranh.", wrong1:"Một số học sinh thích vẽ.", wrong2:"Các học sinh vẽ tranh.", wrong3:"Học sinh vẽ rất đẹp."},
+        {id:42, question:"There is a playground.", correct:"Có một sân chơi.", wrong1:"Sân chơi ở đó.", wrong2:"Có nhiều sân chơi.", wrong3:"Đó là sân chơi."},
+        {id:43, question:"The school has 8 classes.", correct:"Trường có 8 lớp.", wrong1:"Có 8 lớp trong trường.", wrong2:"Trường học 8 lớp.", wrong3:"Tám lớp của trường."},
+        {id:44, question:"It is an international school.", correct:"Đó là một trường quốc tế.", wrong1:"Trường quốc tế.", wrong2:"Nó là trường học.", wrong3:"Trường học quốc tế."},
+        {id:45, question:"They learn English with native teachers.", correct:"Họ học tiếng Anh với giáo viên bản ngữ.", wrong1:"Họ học tiếng Anh với giáo viên nước ngoài.", wrong2:"Giáo viên bản ngữ dạy họ tiếng Anh.", wrong3:"Họ học tiếng Anh hàng ngày."},
+        {id:46, question:"She goes to the art club.", correct:"Cô ấy đến câu lạc bộ mỹ thuật.", wrong1:"Cô ấy tham gia câu lạc bộ mỹ thuật.", wrong2:"Câu lạc bộ mỹ thuật cô ấy thích.", wrong3:"Cô ấy học vẽ ở câu lạc bộ."},
+        {id:47, question:"They live in Sydney.", correct:"Họ sống ở Sydney.", wrong1:"Sydney là nơi họ sống.", wrong2:"Họ đến từ Sydney.", wrong3:"Họ thích Sydney."},
+        {id:48, question:"It has students from all over Australia.", correct:"Nó có học sinh từ khắp nước Úc.", wrong1:"Học sinh đến từ Úc.", wrong2:"Nhiều học sinh Úc.", wrong3:"Các học sinh ở Úc."},
+        {id:49, question:"There are mountains and green fields.", correct:"Có những ngọn núi và cánh đồng xanh.", wrong1:"Núi và đồng xanh ở đó.", wrong2:"Có núi và đồng cỏ.", wrong3:"Những ngọn núi xanh và cánh đồng."},
+        {id:50, question:"The library is near the playground.", correct:"Thư viện ở gần sân chơi.", wrong1:"Thư viện và sân chơi gần nhau.", wrong2:"Sân chơi ở cạnh thư viện.", wrong3:"Thư viện gần đó."}
+    ];
+
+    // Tổng hợp cho mix
+    const mixPool = [
+        ...vocabData.map(v => ({...v, type:'vocab', time:8, question: v.word})),
+        ...grammarData.map(g => ({...g, type:'grammar', time:30})),
+        ...transData.map(t => ({...t, type:'trans', time:30}))
+    ];
+
+    // Biến toàn cục
+    let studentName = "";
+    let currentQuiz = null;
+    let countdownInterval = null;
+    let chartInstance = null;
+
+    const nameInput = document.getElementById('studentName');
+    const screens = document.querySelectorAll('.screen');
+    function showScreen(id) { screens.forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+
+    nameInput.addEventListener('input', function(e) {
+        studentName = e.target.value.trim();
+        const enable = studentName !== "";
+        document.getElementById('gotoVocabMain').disabled = !enable;
+        document.getElementById('gotoGrammarMain').disabled = !enable;
+        document.getElementById('gotoTransMain').disabled = !enable;
+        document.getElementById('gotoMixMain').disabled = !enable;
+    });
+
+    function updateDisplayName() {
+        document.getElementById('displayNameVocab').innerText = `👤 ${studentName}`;
+        document.getElementById('displayNameGrammar').innerText = `👤 ${studentName}`;
+        document.getElementById('displayNameTrans').innerText = `👤 ${studentName}`;
+        document.getElementById('displayNameMix').innerText = `👤 ${studentName}`;
+        document.getElementById('quizDisplayName').innerText = `👤 ${studentName}`;
     }
 
-    document.getElementById('btn-to-vocab-main').addEventListener('click', () => showScreen('screen2'));
-    document.getElementById('btn-to-grammar-main').addEventListener('click', () => showScreen('screen3'));
-    document.getElementById('btn-to-trans-main').addEventListener('click', () => showScreen('screen4'));
-    document.getElementById('btn-to-mix-main').addEventListener('click', () => showScreen('screen5'));
-    document.getElementById('btn-back-from-vocab').addEventListener('click', () => showScreen('screen1'));
-    document.getElementById('btn-back-from-grammar').addEventListener('click', () => showScreen('screen1'));
-    document.getElementById('btn-back-from-trans').addEventListener('click', () => showScreen('screen1'));
-    document.getElementById('btn-back-from-mix').addEventListener('click', () => showScreen('screen1'));
-    document.getElementById('btn-back-from-list-top').addEventListener('click', () => showScreen('screen2'));
-    document.getElementById('btn-back-from-list-bottom').addEventListener('click', () => showScreen('screen2'));
-    document.getElementById('btn-back-from-vocab-test').addEventListener('click', () => showScreen('screen2'));
-    document.getElementById('btn-to-list').addEventListener('click', () => { renderVocabTable(); showScreen('screen2-1'); });
-    document.getElementById('btn-to-vocab-test').addEventListener('click', () => showScreen('screen2-2'));
+    // Điều hướng
+    document.getElementById('gotoVocabMain').addEventListener('click', ()=>{ updateDisplayName(); showScreen('screen2'); });
+    document.getElementById('gotoGrammarMain').addEventListener('click', ()=>{ updateDisplayName(); showScreen('screen3'); });
+    document.getElementById('gotoTransMain').addEventListener('click', ()=>{ updateDisplayName(); showScreen('screen4'); });
+    document.getElementById('gotoMixMain').addEventListener('click', ()=>{ updateDisplayName(); showScreen('screen5'); });
 
-    function renderVocabTable() {
-        let html = `<table><tr><th>STT</th><th>Từ vựng</th><th>Từ loại</th><th>Nghĩa</th></tr>`;
-        vocabBank.forEach((item, idx) => {
-            html += `<tr>
-                <td>${idx+1}</td>
-                <td><i class="fas fa-volume-up speaker" data-word="${item.word}"></i> ${item.word}</td>
-                <td>${item.pos}</td>
-                <td>${item.correct}</td>
-            </tr>`;
+    document.getElementById('backFromVocabMenu').addEventListener('click', ()=>showScreen('screen1'));
+    document.getElementById('backFromGrammar').addEventListener('click', ()=>showScreen('screen1'));
+    document.getElementById('backFromTrans').addEventListener('click', ()=>showScreen('screen1'));
+    document.getElementById('backFromMix').addEventListener('click', ()=>showScreen('screen1'));
+
+    // DANH SÁCH TỪ VỰNG 2.1
+    document.getElementById('showWordList').addEventListener('click', ()=>{
+        let html = '<tr><th>STT</th><th>Từ vựng</th><th>(Từ loại) + Nghĩa</th></tr>';
+        vocabList.forEach((item, idx) => {
+            html += `<tr><td>${idx+1}</td><td><span class="speaker" data-word="${item.word}">🔊</span> ${item.word}</td><td>(${item.pos}) ${item.meaning}</td></tr>`;
         });
-        html += `</table>`;
-        document.getElementById('vocab-table-container').innerHTML = html;
+        document.getElementById('vocabTable').innerHTML = html;
         document.querySelectorAll('.speaker').forEach(sp => {
             sp.addEventListener('click', (e) => {
-                const word = e.target.getAttribute('data-word');
-                const utterance = new SpeechSynthesisUtterance(word);
-                utterance.lang = 'ru-RU';
+                e.stopPropagation();
+                const utterance = new SpeechSynthesisUtterance(sp.dataset.word);
+                utterance.lang = 'en-US';
                 speechSynthesis.speak(utterance);
             });
         });
-    }
+        showScreen('screen2_1');
+    });
+    document.getElementById('backFromWordList').addEventListener('click', ()=>showScreen('screen2'));
+    document.getElementById('backFromWordListBottom').addEventListener('click', ()=>showScreen('screen2'));
 
-    function shuffleArray(arr) {
-        for (let i = arr.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [arr[i], arr[j]] = [arr[j], arr[i]];
+    document.getElementById('startVocabQuiz').addEventListener('click', ()=>showScreen('screen2_2'));
+    document.getElementById('backFromVocabQuiz').addEventListener('click', ()=>showScreen('screen2'));
+
+    function startQuiz(mode, numSelectId, sourceArray, title) {
+        if (countdownInterval) clearInterval(countdownInterval);
+        let select = document.getElementById(numSelectId);
+        let val = select.value;
+        let total = val === 'all' ? sourceArray.length : parseInt(val);
+        let shuffled = [...sourceArray].sort(()=>0.5-Math.random());
+        let questions = shuffled.slice(0, total).map(q => ({...q}));
+        if (mode !== 'mix') {
+            questions = questions.map(q => ({...q, time: mode==='vocab'?8:30}));
         }
-        return arr;
-    }
-
-    function buildQuestionList(type, count) {
-        let bank;
-        switch(type) {
-            case 'vocab': bank = vocabBank; break;
-            case 'grammar': bank = grammarBank; break;
-            case 'trans': bank = transBank; break;
-            case 'mix': bank = [...vocabBank, ...grammarBank, ...transBank]; break;
-        }
-        let shuffled = shuffleArray([...bank]);
-        if (count === 'all') return shuffled;
-        return shuffled.slice(0, parseInt(count));
-    }
-
-    function startTest(type, countElemId) {
-        if (timerInterval) clearInterval(timerInterval);
-        const count = document.getElementById(countElemId).value;
-        let questions = buildQuestionList(type, count);
-        const qWithType = questions.map(q => {
-            if (q.hasOwnProperty('word')) return {...q, _type: 'vocab'};
-            else if (q.hasOwnProperty('question') && grammarBank.some(g => g.id === q.id && g.question === q.question)) return {...q, _type: 'grammar'};
-            else return {...q, _type: 'trans'};
-        });
-        currentTest = {
-            type: type,
-            questions: qWithType,
+        currentQuiz = {
+            mode: title,
+            questions: questions,
             index: 0,
-            correct: 0,
-            answers: [],
+            correctCount: 0,
+            userAnswers: [],
+            startTime: Date.now(),
+            totalQuestions: questions.length
         };
-        showScreen('screen-test');
-        document.getElementById('test-user-display').innerText = studentName;
-        loadQuestion(0);
+        document.getElementById('quizTitle').innerText = title + ' - E6U1';
+        document.getElementById('quizDisplayName').innerText = `👤 ${studentName}`;
+        showScreen('screenQuiz');
+        loadQuestion();
     }
 
-    function loadQuestion(idx) {
-        if (idx >= currentTest.questions.length) {
-            finishTest();
-            return;
-        }
-        const q = currentTest.questions[idx];
-        let timeSec = 8;
-        if (q._type === 'grammar' || q._type === 'trans') timeSec = 30;
-        if (currentTest.type === 'mix') {
-            if (q._type === 'vocab') timeSec = 8;
-            else timeSec = 30;
-        }
-        timeLeft = timeSec;
-        document.getElementById('timer-fill').style.width = '100%';
-        if (timerInterval) clearInterval(timerInterval);
-        timerInterval = setInterval(() => {
-            timeLeft -= 1;
-            const percent = (timeLeft / timeSec) * 100;
-            document.getElementById('timer-fill').style.width = `${percent}%`;
-            if (timeLeft <= 0) {
-                clearInterval(timerInterval);
-                currentTest.answers.push({
-                    question: q,
-                    chosen: null,
-                    correctAnswer: q.correct || (grammarBank.find(g => g.id === q.id)?.correct) || (transBank.find(t => t.id === q.id)?.correct),
-                    isCorrect: false
-                });
-                currentTest.index++;
-                document.getElementById('correct-counter').innerText = `ĐÚNG ${currentTest.correct}`;
-                loadQuestion(currentTest.index);
+    function loadQuestion() {
+        if (!currentQuiz) return;
+        if (currentQuiz.index >= currentQuiz.questions.length) { showReport(); return; }
+        let q = currentQuiz.questions[currentQuiz.index];
+        document.getElementById('questionText').innerText = q.question || q.word;
+        let opts = [q.correct, q.wrong1, q.wrong2, q.wrong3];
+        opts.sort(()=>0.5-Math.random());
+        let optsHtml = '';
+        opts.forEach(opt => { optsHtml += `<div class="option-item">${opt}</div>`; });
+        document.getElementById('optionsContainer').innerHTML = optsHtml;
+        document.querySelectorAll('.option-item').forEach(el => {
+            el.addEventListener('click', (e) => handleAnswer(e.target.innerText));
+        });
+
+        let timeLimit = q.time || 30;
+        document.getElementById('timerFill').style.transition = 'none';
+        document.getElementById('timerFill').style.width = '100%';
+        setTimeout(() => {
+            document.getElementById('timerFill').style.transition = `width ${timeLimit}s linear`;
+            document.getElementById('timerFill').style.width = '0%';
+        }, 20);
+
+        if (countdownInterval) clearInterval(countdownInterval);
+        let remain = timeLimit;
+        countdownInterval = setInterval(() => {
+            remain--;
+            if (remain <= 0) {
+                clearInterval(countdownInterval);
+                currentQuiz.userAnswers.push({ q: currentQuiz.questions[currentQuiz.index], selected: 'Hết giờ', correct: currentQuiz.questions[currentQuiz.index].correct });
+                currentQuiz.index++;
+                document.getElementById('correctCounter').innerText = `ĐÚNG ${currentQuiz.correctCount}`;
+                if (currentQuiz.index < currentQuiz.questions.length) loadQuestion(); else showReport();
             }
         }, 1000);
-
-        let questionText = q.question || q.word;
-        if (q._type === 'vocab') questionText = q.word;
-        document.getElementById('question-text').innerText = questionText;
-
-        let options = [q.correct, q.wrong1, q.wrong2, q.wrong3];
-        options = shuffleArray(options);
-        const optsHtml = options.map(opt => `<div class="option" data-opt="${opt}">${opt}</div>`).join('');
-        document.getElementById('options-container').innerHTML = optsHtml;
-
-        document.querySelectorAll('.option').forEach(optDiv => {
-            optDiv.addEventListener('click', (e) => {
-                if (timerInterval) clearInterval(timerInterval);
-                const chosen = e.target.getAttribute('data-opt');
-                const correctAns = q.correct;
-                const isCorrect = (chosen === correctAns);
-                if (isCorrect) currentTest.correct++;
-                currentTest.answers.push({
-                    question: q,
-                    chosen: chosen,
-                    correctAnswer: correctAns,
-                    isCorrect: isCorrect
-                });
-                document.getElementById('correct-counter').innerText = `ĐÚNG ${currentTest.correct}`;
-                currentTest.index++;
-                loadQuestion(currentTest.index);
-            });
-        });
     }
 
-    function finishTest() {
-        if (timerInterval) clearInterval(timerInterval);
-        showScreen('screen-report');
-        const total = currentTest.questions.length;
-        const correct = currentTest.correct;
-        const percent = Math.round((correct / total) * 100);
-        document.getElementById('report-name').innerText = studentName;
-        document.getElementById('report-title').innerText = `KẾT QUẢ ${currentTest.type.toUpperCase()} – BÀI 1`; // Đổi thành BÀI 1
-        const now = new Date();
-        const dateStr = now.toLocaleDateString('vi-VN');
-        const timeStr = now.toLocaleTimeString('vi-VN');
-        document.getElementById('report-date').innerText = dateStr;
-        document.getElementById('report-time').innerText = timeStr;
+    function handleAnswer(selected) {
+        if (!currentQuiz) return;
+        clearInterval(countdownInterval);
+        let q = currentQuiz.questions[currentQuiz.index];
+        let isCorrect = (selected === q.correct);
+        if (isCorrect) currentQuiz.correctCount++;
+        currentQuiz.userAnswers.push({ q: q, selected: selected, correct: q.correct });
+        currentQuiz.index++;
+        document.getElementById('correctCounter').innerText = `ĐÚNG ${currentQuiz.correctCount}`;
+        if (currentQuiz.index < currentQuiz.questions.length) loadQuestion(); else showReport();
+    }
 
-        const canvas = document.getElementById('pieChart');
-        const ctx = canvas.getContext('2d');
-        ctx.clearRect(0,0,220,220);
-        let color;
-        if (percent < 50) color = '#f5222d';
-        else if (percent < 70) color = '#faad14';
-        else if (percent < 80) color = '#52c41a';
-        else if (percent < 90) color = '#13c2c2';
-        else if (percent < 100) color = '#1890ff';
-        else color = '#722ed1';
+    function showReport() {
+        clearInterval(countdownInterval);
+        showScreen('screenReport');
+        let total = currentQuiz.questions.length;
+        let correct = currentQuiz.correctCount;
+        let percent = Math.round((correct/total)*100) || 0;
+        document.getElementById('reportTitle').innerText = currentQuiz.mode + ' - E6U1';
+        document.getElementById('reportName').innerText = studentName;
+        let now = new Date();
+        document.getElementById('reportDate').innerText = now.toLocaleDateString('vi-VN');
+        document.getElementById('percentDisplay').innerText = percent+'%';
+        let color = '#f5222d';
+        if (percent>=50 && percent<70) color='#faad14';
+        else if (percent>=70 && percent<80) color='#52c41a';
+        else if (percent>=80 && percent<90) color='#13c2c2';
+        else if (percent>=90 && percent<100) color='#1890ff';
+        else if (percent===100) color='#722ed1';
+        document.getElementById('percentDisplay').style.color = color;
+        if (chartInstance) chartInstance.destroy();
+        let ctx = document.getElementById('doughnutChart').getContext('2d');
+        chartInstance = new Chart(ctx, {
+            type: 'doughnut',
+            data: { labels: ['Đúng','Sai'], datasets: [{ data: [correct, total-correct], backgroundColor: [color, '#dddddd'], borderWidth: 0 }] },
+            options: { cutout:'70%', responsive: true, maintainAspectRatio: true, plugins: { legend: { display: false } } }
+        });
 
-        const centerX = 110, centerY = 110;
-        const outerR = 90, innerR = 60;
-        const startAngle = -Math.PI / 2;
-        const endAngle = startAngle + (percent / 100) * 2 * Math.PI;
+        let start = new Date(currentQuiz.startTime);
+        let end = new Date();
+        let totalSec = Math.floor((end - currentQuiz.startTime)/1000);
+        let minutes = Math.floor(totalSec/60); let seconds = totalSec%60;
+        let streak = 0, maxStreak = 0;
+        currentQuiz.userAnswers.forEach(ans => {
+            if (ans.selected === ans.correct) { streak++; if (streak>maxStreak) maxStreak=streak; }
+            else streak = 0;
+        });
 
-        ctx.beginPath();
-        ctx.arc(centerX, centerY, outerR, 0, 2 * Math.PI);
-        ctx.fillStyle = '#e0e0e0';
-        ctx.fill();
+        // Tạo nội dung stats với các class riêng cho từng dòng để tô màu
+        document.getElementById('statsDetails').innerHTML = `
+            <div class="stat-start"><span class="stat-label">START</span> <span class="stat-value">${start.toLocaleTimeString()}</span></div>
+            <div class="stat-end"><span class="stat-label">END</span> <span class="stat-value">${end.toLocaleTimeString()}</span></div>
+            <div class="stat-total"><span class="stat-label">TỔNG TG</span> <span class="stat-value">${minutes}:${seconds<10?'0':''}${seconds}</span></div>
+            <div class="stat-streak"><span class="stat-label">CHUỖI ĐÚNG</span> <span class="stat-value">${maxStreak}/${total}</span></div>
+        `;
 
-        ctx.beginPath();
-        ctx.arc(centerX, centerY, innerR, 0, 2 * Math.PI);
-        ctx.fillStyle = '#ffffff';
-        ctx.fill();
+        let tbl = '<tr><th>STT</th><th>Câu hỏi</th><th>Đáp án chọn</th><th>Đáp án đúng</th></tr>';
+        currentQuiz.userAnswers.forEach((ans, idx) => {
+            let qText = ans.q.question || ans.q.word;
+            let selected = ans.selected;
+            let correctAns = ans.correct;
+            let wrongClass = (selected !== correctAns && selected !== 'Hết giờ') ? 'wrong-answer' : '';
+            tbl += `<tr><td>${idx+1}</td><td>${qText}</td><td class="${wrongClass}">${selected}</td><td>${correctAns}</td></tr>`;
+        });
+        document.getElementById('resultTable').innerHTML = tbl;
+    }
 
-        if (percent > 0) {
-            ctx.beginPath();
-            ctx.moveTo(centerX, centerY);
-            ctx.arc(centerX, centerY, outerR, startAngle, endAngle);
-            ctx.closePath();
-            ctx.fillStyle = color;
-            ctx.fill();
+    document.getElementById('startVocabTest').addEventListener('click', ()=>startQuiz('vocab','vocabNumSelect', vocabData, 'TỪ VỰNG'));
+    document.getElementById('startGrammarTest').addEventListener('click', ()=>startQuiz('grammar','grammarNumSelect', grammarData, 'NGỮ PHÁP'));
+    document.getElementById('startTransTest').addEventListener('click', ()=>startQuiz('trans','transNumSelect', transData, 'DỊCH CÂU'));
+    document.getElementById('startMixTest').addEventListener('click', ()=>startQuiz('mix','mixNumSelect', mixPool, 'TỔNG HỢP'));
+
+    document.getElementById('quitQuiz').addEventListener('click', ()=>{
+        clearInterval(countdownInterval);
+        showScreen('screen1');
+    });
+
+    document.getElementById('backFromReport').addEventListener('click', ()=>showScreen('screen1'));
+    document.getElementById('backToPrevFromReport').addEventListener('click', ()=>showScreen('screen1'));
+
+    document.getElementById('retrySameQuiz').addEventListener('click', ()=>{
+        if (currentQuiz && currentQuiz.mode) {
+            if (currentQuiz.mode.includes('TỪ VỰNG')) startQuiz('vocab','vocabNumSelect', vocabData, 'TỪ VỰNG');
+            else if (currentQuiz.mode.includes('NGỮ PHÁP')) startQuiz('grammar','grammarNumSelect', grammarData, 'NGỮ PHÁP');
+            else if (currentQuiz.mode.includes('DỊCH CÂU')) startQuiz('trans','transNumSelect', transData, 'DỊCH CÂU');
+            else if (currentQuiz.mode.includes('TỔNG HỢP')) startQuiz('mix','mixNumSelect', mixPool, 'TỔNG HỢP');
         }
-
-        ctx.beginPath();
-        ctx.arc(centerX, centerY, innerR, 0, 2 * Math.PI);
-        ctx.fillStyle = '#ffffff';
-        ctx.fill();
-
-        ctx.fillStyle = '#000000';
-        ctx.font = 'bold 24px Arial';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(percent + '%', centerX, centerY);
-
-        let tableHtml = `<table><tr><th>STT</th><th>Câu hỏi</th><th>Bạn chọn</th><th>Đáp án đúng</th></tr>`;
-        currentTest.answers.forEach((ans, i) => {
-            const qText = ans.question.question || ans.question.word;
-            const chosen = ans.chosen || '(hết giờ)';
-            const rowClass = ans.isCorrect ? '' : 'wrong-answer';
-            tableHtml += `<tr class="${rowClass}"><td>${i+1}</td><td>${qText}</td><td>${chosen}</td><td>${ans.correctAnswer}</td></tr>`;
-        });
-        tableHtml += '</table>';
-        document.getElementById('answer-table-container').innerHTML = tableHtml;
-    }
-
-    document.getElementById('btn-start-vocab-test').addEventListener('click', () => startTest('vocab', 'vocab-question-count'));
-    document.getElementById('btn-start-grammar-test').addEventListener('click', () => startTest('grammar', 'grammar-question-count'));
-    document.getElementById('btn-start-trans-test').addEventListener('click', () => startTest('trans', 'trans-question-count'));
-    document.getElementById('btn-start-mix-test').addEventListener('click', () => startTest('mix', 'mix-question-count'));
-
-    document.getElementById('btn-abort-test').addEventListener('click', () => {
-        if (timerInterval) clearInterval(timerInterval);
-        showScreen('screen1');
     });
-
-    document.getElementById('btn-retry').addEventListener('click', () => {
-        if (timerInterval) clearInterval(timerInterval);
-        showScreen('screen1');
-    });
-    document.getElementById('btn-back-from-report').addEventListener('click', () => {
-        if (timerInterval) clearInterval(timerInterval);
-        showScreen('screen1');
-    });
-
 })();
 </script>
 </body>
