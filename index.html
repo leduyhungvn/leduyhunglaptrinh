@@ -10,9 +10,6 @@
         :root {
             --bg: #ffffff;
             --fg: #1a1a2e;
-            --muted: #6b7280;
-            --accent: #2563eb;
-            --card: #f8fafc;
             --border: #e2e8f0;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,12 +32,15 @@
             font-size: 18px;
             font-weight: 700;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
             color: white;
         }
         .btn-main:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .btn-main:active:not(:disabled) {
+            transform: translateY(0) scale(0.98);
         }
         .btn-main:disabled {
             opacity: 0.5;
@@ -66,17 +66,20 @@
             text-align: left;
             background: white;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.08s ease;
         }
         .option-btn:hover {
             border-color: #3b82f6;
             background-color: #eff6ff;
         }
+        .option-btn:active {
+            transform: scale(0.98);
+        }
         
         .card {
             background: white;
             border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             padding: 24px;
             margin-bottom: 16px;
         }
@@ -88,7 +91,7 @@
         
         .progress-container {
             width: 100%;
-            height: 12px;
+            height: 10px;
             background-color: #e5e7eb;
             border-radius: 999px;
             overflow: hidden;
@@ -96,7 +99,7 @@
         .progress-bar {
             height: 100%;
             border-radius: 999px;
-            transition: width 0.1s linear;
+            transition: width 0.05s linear;
         }
         
         select {
@@ -110,6 +113,7 @@
             font-size: 16px;
             width: 100%;
             background-color: white;
+            cursor: pointer;
         }
         
         input[type="text"] {
@@ -119,6 +123,7 @@
             border-radius: 12px;
             font-size: 16px;
             outline: none;
+            transition: border-color 0.1s;
         }
         input[type="text"]:focus {
             border-color: #3b82f6;
@@ -129,7 +134,7 @@
             border-collapse: collapse;
         }
         th, td {
-            padding: 12px;
+            padding: 10px 12px;
             text-align: left;
             border-bottom: 1px solid #e5e7eb;
         }
@@ -144,6 +149,7 @@
             cursor: pointer;
             color: #3b82f6;
             vertical-align: middle;
+            padding: 4px;
         }
         .speaker-btn:hover {
             color: #1d4ed8;
@@ -167,7 +173,6 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            position: relative;
         }
         
         .stats-container {
@@ -190,6 +195,14 @@
         .stat-row:last-child {
             border-bottom: none;
         }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .slide-in {
+            animation: slideIn 0.15s ease-out;
+        }
     </style>
 </head>
 <body>
@@ -208,18 +221,10 @@
         </div>
         
         <div class="space-y-4 mb-8">
-            <button onclick="goToScreen('screen-vocabulary')" class="btn-main btn-emerald" disabled id="btn-vocab">
-                ÔN TẬP TỪ VỰNG
-            </button>
-            <button onclick="goToScreen('screen-grammar')" class="btn-main btn-blue" disabled id="btn-grammar">
-                TRẮC NGHIỆM NGỮ PHÁP
-            </button>
-            <button onclick="goToScreen('screen-translation')" class="btn-main btn-orange" disabled id="btn-translation">
-                TRẮC NGHIỆM DỊCH CÂU
-            </button>
-            <button onclick="goToScreen('screen-comprehensive')" class="btn-main btn-rose" disabled id="btn-comprehensive">
-                TRẮC NGHIỆM TỔNG HỢP
-            </button>
+            <button onclick="goToScreen('screen-vocabulary')" class="btn-main btn-emerald" disabled id="btn-vocab">ÔN TẬP TỪ VỰNG</button>
+            <button onclick="goToScreen('screen-grammar')" class="btn-main btn-blue" disabled id="btn-grammar">TRẮC NGHIỆM NGỮ PHÁP</button>
+            <button onclick="goToScreen('screen-translation')" class="btn-main btn-orange" disabled id="btn-translation">TRẮC NGHIỆM DỊCH CÂU</button>
+            <button onclick="goToScreen('screen-comprehensive')" class="btn-main btn-rose" disabled id="btn-comprehensive">TRẮC NGHIỆM TỔNG HỢP</button>
         </div>
         
         <div class="card" style="background-color: #f9fafb;">
@@ -240,23 +245,14 @@
 <div id="screen-vocabulary" class="screen">
     <div class="max-w-2xl mx-auto py-6">
         <div class="flex items-center justify-between mb-6">
-            <button onclick="goToScreen('screen-home')" class="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg">
-                QUAY LẠI
-            </button>
+            <button onclick="goToScreen('screen-home')" class="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition-colors">QUAY LẠI</button>
             <h1 class="text-xl md:text-2xl font-bold text-emerald-600 title-main">TỪ VỰNG - E6U1</h1>
             <span id="vocab-player" class="text-blue-600 font-semibold"></span>
         </div>
-        
         <div class="space-y-4">
-            <button onclick="goToScreen('screen-vocab-test')" class="btn-main btn-emerald">
-                KIỂM TRA TỪ VỰNG
-            </button>
-            <button onclick="goToScreen('screen-vocab-list')" class="btn-main btn-teal">
-                DANH SÁCH TỪ VỰNG
-            </button>
-            <button onclick="goToScreen('screen-home')" class="btn-main btn-gray">
-                QUAY LẠI
-            </button>
+            <button onclick="goToScreen('screen-vocab-test')" class="btn-main btn-emerald">KIỂM TRA TỪ VỰNG</button>
+            <button onclick="goToScreen('screen-vocab-list')" class="btn-main btn-teal">DANH SÁCH TỪ VỰNG</button>
+            <button onclick="goToScreen('screen-home')" class="btn-main btn-gray">QUAY LẠI</button>
         </div>
     </div>
 </div>
@@ -265,9 +261,7 @@
 <div id="screen-vocab-test" class="screen">
     <div class="max-w-2xl mx-auto py-6">
         <div class="flex items-center justify-between mb-6">
-            <button onclick="goToScreen('screen-vocabulary')" class="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg">
-                QUAY LẠI
-            </button>
+            <button onclick="goToScreen('screen-vocabulary')" class="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300">QUAY LẠI</button>
             <h1 class="text-xl font-bold text-emerald-600 title-main">TỪ VỰNG - E6U1</h1>
             <span id="vocab-test-player" class="text-blue-600 font-semibold text-sm"></span>
         </div>
@@ -289,15 +283,12 @@
         <div id="vocab-test-playing" style="display: none;">
             <div class="card">
                 <div class="flex justify-between items-center mb-2">
-                    <span class="font-semibold text-gray-700">Câu hỏi: <span id="vocab-current-q">1</span>/<span id="vocab-total-q">10</span></span>
+                    <span class="font-semibold text-gray-700">Câu: <span id="vocab-current-q">1</span>/<span id="vocab-total-q">10</span></span>
                     <span class="font-bold text-lg text-emerald-600">ĐÚNG: <span id="vocab-correct-count">0</span></span>
                 </div>
-                <div class="progress-container">
-                    <div id="vocab-timer-bar" class="progress-bar" style="width: 100%; background-color: #10b981;"></div>
-                </div>
+                <div class="progress-container"><div id="vocab-timer-bar" class="progress-bar" style="width: 100%; background-color: #10b981;"></div></div>
             </div>
-            
-            <div class="card">
+            <div class="card slide-in">
                 <h2 class="text-xl font-bold text-center text-gray-800 mb-6" id="vocab-question-text"></h2>
                 <div id="vocab-options"></div>
             </div>
@@ -308,30 +299,17 @@
 <!-- GIAO DIEN 2.2: DANH SACH TU VUNG -->
 <div id="screen-vocab-list" class="screen">
     <div class="max-w-4xl mx-auto py-6">
-        <button onclick="goToScreen('screen-vocabulary')" class="mb-4 px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg">
-            QUAY LẠI
-        </button>
-        
+        <button onclick="goToScreen('screen-vocabulary')" class="mb-4 px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300">QUAY LẠI</button>
         <h1 class="text-xl md:text-2xl font-bold text-center text-emerald-600 title-main mb-6">DANH SÁCH TỪ VỰNG - E6U1</h1>
-        
         <div class="overflow-x-auto">
             <div class="card" style="padding: 0;">
                 <table>
-                    <thead>
-                        <tr style="background-color: #10b981; color: white;">
-                            <th class="px-4 py-3">STT</th>
-                            <th class="px-4 py-3">Từ vựng</th>
-                            <th class="px-4 py-3">Nghĩa</th>
-                        </tr>
-                    </thead>
+                    <thead><tr style="background-color: #10b981; color: white;"><th class="px-4 py-3">STT</th><th class="px-4 py-3">Từ vựng</th><th class="px-4 py-3">Nghĩa</th></tr></thead>
                     <tbody id="vocab-list-body"></tbody>
                 </table>
             </div>
         </div>
-        
-        <button onclick="goToScreen('screen-vocabulary')" class="mt-6 btn-main btn-gray">
-            QUAY LẠI
-        </button>
+        <button onclick="goToScreen('screen-vocabulary')" class="mt-6 btn-main btn-gray">QUAY LẠI</button>
     </div>
 </div>
 
@@ -339,39 +317,28 @@
 <div id="screen-grammar" class="screen">
     <div class="max-w-2xl mx-auto py-6">
         <div class="flex items-center justify-between mb-6">
-            <button onclick="goToScreen('screen-home')" class="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg">
-                QUAY LẠI
-            </button>
+            <button onclick="goToScreen('screen-home')" class="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300">QUAY LẠI</button>
             <h1 class="text-xl font-bold text-blue-600 title-main">NGỮ PHÁP - E6U1</h1>
             <span id="grammar-player" class="text-blue-600 font-semibold text-sm"></span>
         </div>
-        
         <div id="grammar-setup" class="card">
             <div class="mb-6">
                 <label class="block text-gray-700 font-semibold mb-2">Chọn số câu hỏi:</label>
                 <select id="grammar-question-count">
-                    <option value="10">10 câu</option>
-                    <option value="20">20 câu</option>
-                    <option value="30">30 câu</option>
-                    <option value="40">40 câu</option>
-                    <option value="60">Tất Cả (60 câu)</option>
+                    <option value="10">10 câu</option><option value="20">20 câu</option><option value="30">30 câu</option><option value="40">40 câu</option><option value="60">Tất Cả (60 câu)</option>
                 </select>
             </div>
             <button onclick="startGrammarTest()" class="btn-main btn-blue">LÀM BÀI</button>
         </div>
-        
         <div id="grammar-playing" style="display: none;">
             <div class="card">
                 <div class="flex justify-between items-center mb-2">
-                    <span class="font-semibold text-gray-700">Câu hỏi: <span id="grammar-current-q">1</span>/<span id="grammar-total-q">10</span></span>
+                    <span class="font-semibold text-gray-700">Câu: <span id="grammar-current-q">1</span>/<span id="grammar-total-q">10</span></span>
                     <span class="font-bold text-lg text-blue-600">ĐÚNG: <span id="grammar-correct-count">0</span></span>
                 </div>
-                <div class="progress-container">
-                    <div id="grammar-timer-bar" class="progress-bar" style="width: 100%; background-color: #3b82f6;"></div>
-                </div>
+                <div class="progress-container"><div id="grammar-timer-bar" class="progress-bar" style="width: 100%; background-color: #3b82f6;"></div></div>
             </div>
-            
-            <div class="card">
+            <div class="card slide-in">
                 <h2 class="text-lg font-bold text-center text-gray-800 mb-6" id="grammar-question-text"></h2>
                 <div id="grammar-options"></div>
             </div>
@@ -383,39 +350,28 @@
 <div id="screen-translation" class="screen">
     <div class="max-w-2xl mx-auto py-6">
         <div class="flex items-center justify-between mb-6">
-            <button onclick="goToScreen('screen-home')" class="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg">
-                QUAY LẠI
-            </button>
+            <button onclick="goToScreen('screen-home')" class="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300">QUAY LẠI</button>
             <h1 class="text-xl font-bold text-orange-600 title-main">DỊCH CÂU - E6U1</h1>
             <span id="translation-player" class="text-blue-600 font-semibold text-sm"></span>
         </div>
-        
         <div id="translation-setup" class="card">
             <div class="mb-6">
                 <label class="block text-gray-700 font-semibold mb-2">Chọn số câu hỏi:</label>
                 <select id="translation-question-count">
-                    <option value="10">10 câu</option>
-                    <option value="20">20 câu</option>
-                    <option value="30">30 câu</option>
-                    <option value="40">40 câu</option>
-                    <option value="60">Tất Cả (60 câu)</option>
+                    <option value="10">10 câu</option><option value="20">20 câu</option><option value="30">30 câu</option><option value="40">40 câu</option><option value="60">Tất Cả (60 câu)</option>
                 </select>
             </div>
             <button onclick="startTranslationTest()" class="btn-main btn-orange">LÀM BÀI</button>
         </div>
-        
         <div id="translation-playing" style="display: none;">
             <div class="card">
                 <div class="flex justify-between items-center mb-2">
-                    <span class="font-semibold text-gray-700">Câu hỏi: <span id="translation-current-q">1</span>/<span id="translation-total-q">10</span></span>
+                    <span class="font-semibold text-gray-700">Câu: <span id="translation-current-q">1</span>/<span id="translation-total-q">10</span></span>
                     <span class="font-bold text-lg text-orange-600">ĐÚNG: <span id="translation-correct-count">0</span></span>
                 </div>
-                <div class="progress-container">
-                    <div id="translation-timer-bar" class="progress-bar" style="width: 100%; background-color: #f97316;"></div>
-                </div>
+                <div class="progress-container"><div id="translation-timer-bar" class="progress-bar" style="width: 100%; background-color: #f97316;"></div></div>
             </div>
-            
-            <div class="card">
+            <div class="card slide-in">
                 <h2 class="text-lg font-bold text-center text-gray-800 mb-6" id="translation-question-text"></h2>
                 <div id="translation-options"></div>
             </div>
@@ -427,39 +383,28 @@
 <div id="screen-comprehensive" class="screen">
     <div class="max-w-2xl mx-auto py-6">
         <div class="flex items-center justify-between mb-6">
-            <button onclick="goToScreen('screen-home')" class="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg">
-                QUAY LẠI
-            </button>
+            <button onclick="goToScreen('screen-home')" class="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300">QUAY LẠI</button>
             <h1 class="text-xl font-bold text-rose-600 title-main">TỔNG HỢP - E6U1</h1>
             <span id="comprehensive-player" class="text-blue-600 font-semibold text-sm"></span>
         </div>
-        
         <div id="comprehensive-setup" class="card">
             <div class="mb-6">
                 <label class="block text-gray-700 font-semibold mb-2">Chọn số câu hỏi:</label>
                 <select id="comprehensive-question-count">
-                    <option value="10">10 câu</option>
-                    <option value="20">20 câu</option>
-                    <option value="30">30 câu</option>
-                    <option value="40">40 câu</option>
-                    <option value="200">Tất Cả (200 câu)</option>
+                    <option value="10">10 câu</option><option value="20">20 câu</option><option value="30">30 câu</option><option value="40">40 câu</option><option value="200">Tất Cả (200 câu)</option>
                 </select>
             </div>
             <button onclick="startComprehensiveTest()" class="btn-main btn-rose">LÀM BÀI</button>
         </div>
-        
         <div id="comprehensive-playing" style="display: none;">
             <div class="card">
                 <div class="flex justify-between items-center mb-2">
-                    <span class="font-semibold text-gray-700">Câu hỏi: <span id="comprehensive-current-q">1</span>/<span id="comprehensive-total-q">10</span></span>
+                    <span class="font-semibold text-gray-700">Câu: <span id="comprehensive-current-q">1</span>/<span id="comprehensive-total-q">10</span></span>
                     <span class="font-bold text-lg text-rose-600">ĐÚNG: <span id="comprehensive-correct-count">0</span></span>
                 </div>
-                <div class="progress-container">
-                    <div id="comprehensive-timer-bar" class="progress-bar" style="width: 100%; background-color: #f43f5e;"></div>
-                </div>
+                <div class="progress-container"><div id="comprehensive-timer-bar" class="progress-bar" style="width: 100%; background-color: #f43f5e;"></div></div>
             </div>
-            
-            <div class="card">
+            <div class="card slide-in">
                 <h2 class="text-lg font-bold text-center text-gray-800 mb-6" id="comprehensive-question-text"></h2>
                 <div id="comprehensive-options"></div>
             </div>
@@ -471,7 +416,6 @@
 <div id="screen-report" class="screen">
     <div class="max-w-3xl mx-auto py-6">
         <h1 id="report-title" class="text-xl md:text-2xl font-bold text-center mb-6 title-main"></h1>
-        
         <div class="report-grid mb-6">
             <div class="card chart-container">
                 <p id="report-player-name" class="font-bold text-blue-600 text-3xl mb-4"></p>
@@ -482,45 +426,20 @@
                     </div>
                 </div>
             </div>
-            
             <div class="card stats-container">
-                <div class="stat-row">
-                    <span class="font-bold text-gray-500">NGÀY:</span>
-                    <span id="report-date" class="font-bold text-blue-600"></span>
-                </div>
-                <div class="stat-row">
-                    <span class="font-bold text-emerald-600">START:</span>
-                    <span id="report-start" class="font-bold text-emerald-600"></span>
-                </div>
-                <div class="stat-row">
-                    <span class="font-bold text-rose-600">END:</span>
-                    <span id="report-end" class="font-bold text-rose-600"></span>
-                </div>
-                <div class="stat-row">
-                    <span class="font-bold text-orange-600">TỔNG TG:</span>
-                    <span id="report-duration" class="font-bold text-orange-600"></span>
-                </div>
-                <div class="stat-row">
-                    <span class="font-bold text-purple-600">CHUỖI ĐÚNG:</span>
-                    <span id="report-streak" class="font-bold text-purple-600"></span>
-                </div>
+                <div class="stat-row"><span class="font-bold text-gray-500">NGÀY:</span><span id="report-date" class="font-bold text-blue-600"></span></div>
+                <div class="stat-row"><span class="font-bold text-emerald-600">START:</span><span id="report-start" class="font-bold text-emerald-600"></span></div>
+                <div class="stat-row"><span class="font-bold text-rose-600">END:</span><span id="report-end" class="font-bold text-rose-600"></span></div>
+                <div class="stat-row"><span class="font-bold text-orange-600">TỔNG TG:</span><span id="report-duration" class="font-bold text-orange-600"></span></div>
+                <div class="stat-row"><span class="font-bold text-purple-600">CHUỖI ĐÚNG:</span><span id="report-streak" class="font-bold text-purple-600"></span></div>
             </div>
         </div>
-        
         <div class="card" style="padding: 0; overflow-x: auto;">
             <table>
-                <thead>
-                    <tr style="background-color: #f3f4f6;">
-                        <th class="px-3 py-2">STT</th>
-                        <th class="px-3 py-2">Câu hỏi</th>
-                        <th class="px-3 py-2">Đáp án chọn</th>
-                        <th class="px-3 py-2">Đáp án đúng</th>
-                    </tr>
-                </thead>
+                <thead><tr style="background-color: #f3f4f6;"><th class="px-3 py-2">STT</th><th class="px-3 py-2">Câu hỏi</th><th class="px-3 py-2">Đáp án chọn</th><th class="px-3 py-2">Đáp án đúng</th></tr></thead>
                 <tbody id="report-table-body"></tbody>
             </table>
         </div>
-        
         <div class="flex gap-4 mt-6">
             <button onclick="retakeTest()" class="btn-main btn-blue">LÀM LẠI</button>
             <button onclick="goBackFromReport()" class="btn-main btn-gray">QUAY LẠI</button>
@@ -530,237 +449,232 @@
 
 <script>
 // ==================== KHO DU LIEU ====================
-
-// KHO TU VUNG - 80 tu (id 1-80)
 const vocabularyData = [
-    {id:1, question:"to do", correct:"(v) làm", wrong1:"(v) đến", wrong2:"(v) có", wrong3:"(v) đi"},
-    {id:2, question:"to have", correct:"(v) có", wrong1:"(v) làm", wrong2:"(v) đi", wrong3:"(v) thấy"},
-    {id:3, question:"to go", correct:"(v) đi", wrong1:"(v) đến", wrong2:"(v) làm", wrong3:"(v) chơi"},
-    {id:4, question:"to come", correct:"(v) đến", wrong1:"(v) đi", wrong2:"(v) có", wrong3:"(v) nghỉ"},
-    {id:5, question:"to play", correct:"(v) chơi", wrong1:"(v) làm", wrong2:"(v) học", wrong3:"(v) đọc"},
-    {id:6, question:"to study", correct:"(v) học", wrong1:"(v) chơi", wrong2:"(v) nghe", wrong3:"(v) viết"},
-    {id:7, question:"to listen", correct:"(v) nghe", wrong1:"(v) nói", wrong2:"(v) đọc", wrong3:"(v) viết"},
-    {id:8, question:"to speak", correct:"(v) nói", wrong1:"(v) nghe", wrong2:"(v) đọc", wrong3:"(v) xem"},
-    {id:9, question:"to read", correct:"(v) đọc", wrong1:"(v) viết", wrong2:"(v) nghe", wrong3:"(v) nói"},
-    {id:10, question:"to write", correct:"(v) viết", wrong1:"(v) đọc", wrong2:"(v) nghe", wrong3:"(v) nói"},
-    {id:11, question:"to watch", correct:"(v) xem", wrong1:"(v) nghe", wrong2:"(v) đọc", wrong3:"(v) viết"},
-    {id:12, question:"to eat", correct:"(v) ăn", wrong1:"(v) uống", wrong2:"(v) ngủ", wrong3:"(v) chạy"},
-    {id:13, question:"to drink", correct:"(v) uống", wrong1:"(v) ăn", wrong2:"(v) ngủ", wrong3:"(v) đi"},
-    {id:14, question:"to sleep", correct:"(v) ngủ", wrong1:"(v) ăn", wrong2:"(v) uống", wrong3:"(v) chạy"},
-    {id:15, question:"to run", correct:"(v) chạy", wrong1:"(v) đi", wrong2:"(v) nhảy", wrong3:"(v) bay"},
-    {id:16, question:"to walk", correct:"(v) đi bộ", wrong1:"(v) chạy", wrong2:"(v) nhảy", wrong3:"(v) bay"},
-    {id:17, question:"to jump", correct:"(v) nhảy", wrong1:"(v) chạy", wrong2:"(v) đi", wrong3:"(v) bay"},
-    {id:18, question:"to fly", correct:"(v) bay", wrong1:"(v) chạy", wrong2:"(v) đi", wrong3:"(v) nhảy"},
-    {id:19, question:"to swim", correct:"(v) bơi", wrong1:"(v) chạy", wrong2:"(v) nhảy", wrong3:"(v) đi"},
-    {id:20, question:"to sing", correct:"(v) hát", wrong1:"(v) nhảy", wrong2:"(v) chơi", wrong3:"(v) đọc"},
-    {id:21, question:"to dance", correct:"(v) nhảy", wrong1:"(v) hát", wrong2:"(v) chơi", wrong3:"(v) chạy"},
-    {id:22, question:"to work", correct:"(v) làm việc", wrong1:"(v) chơi", wrong2:"(v) nghỉ", wrong3:"(v) học"},
-    {id:23, question:"to help", correct:"(v) giúp", wrong1:"(v) hỏi", wrong2:"(v) trả lời", wrong3:"(v) nói"},
-    {id:24, question:"to ask", correct:"(v) hỏi", wrong1:"(v) trả lời", wrong2:"(v) nói", wrong3:"(v) nghe"},
-    {id:25, question:"to answer", correct:"(v) trả lời", wrong1:"(v) hỏi", wrong2:"(v) nói", wrong3:"(v) nghe"},
-    {id:26, question:"to open", correct:"(v) mở", wrong1:"(v) đóng", wrong2:"(v) tắt", wrong3:"(v) bật"},
-    {id:27, question:"to close", correct:"(v) đóng", wrong1:"(v) mở", wrong2:"(v) tắt", wrong3:"(v) bật"},
-    {id:28, question:"to start", correct:"(v) bắt đầu", wrong1:"(v) kết thúc", wrong2:"(v) tiếp tục", wrong3:"(v) dừng"},
-    {id:29, question:"to finish", correct:"(v) kết thúc", wrong1:"(v) bắt đầu", wrong2:"(v) tiếp tục", wrong3:"(v) nghỉ"},
-    {id:30, question:"to live", correct:"(v) sống", wrong1:"(v) chết", wrong2:"(v) ở", wrong3:"(v) đi"},
-    {id:31, question:"school", correct:"(n) trường học", wrong1:"(n) nhà", wrong2:"(n) lớp", wrong3:"(n) sách"},
-    {id:32, question:"house", correct:"(n) nhà", wrong1:"(n) trường", wrong2:"(n) phòng", wrong3:"(n) cửa"},
-    {id:33, question:"classroom", correct:"(n) lớp học", wrong1:"(n) trường", wrong2:"(n) nhà", wrong3:"(n) phòng"},
-    {id:34, question:"teacher", correct:"(n) giáo viên", wrong1:"(n) học sinh", wrong2:"(n) bạn", wrong3:"(n) người"},
-    {id:35, question:"student", correct:"(n) học sinh", wrong1:"(n) giáo viên", wrong2:"(n) bạn", wrong3:"(n) người"},
-    {id:36, question:"friend", correct:"(n) bạn", wrong1:"(n) người thân", wrong2:"(n) giáo viên", wrong3:"(n) học sinh"},
-    {id:37, question:"family", correct:"(n) gia đình", wrong1:"(n) bạn", wrong2:"(n) người thân", wrong3:"(n) nhà"},
-    {id:38, question:"book", correct:"(n) sách", wrong1:"(n) vở", wrong2:"(n) bút", wrong3:"(n) bảng"},
-    {id:39, question:"notebook", correct:"(n) vở", wrong1:"(n) sách", wrong2:"(n) bút", wrong3:"(n) bảng"},
-    {id:40, question:"pen", correct:"(n) bút bi", wrong1:"(n) bút chì", wrong2:"(n) sách", wrong3:"(n) vở"},
-    {id:41, question:"pencil", correct:"(n) bút chì", wrong1:"(n) bút bi", wrong2:"(n) bảng", wrong3:"(n) thước"},
-    {id:42, question:"desk", correct:"(n) bàn học", wrong1:"(n) ghế", wrong2:"(n) tủ", wrong3:"(n) cửa"},
-    {id:43, question:"chair", correct:"(n) ghế", wrong1:"(n) bàn", wrong2:"(n) tủ", wrong3:"(n) giường"},
-    {id:44, question:"board", correct:"(n) bảng", wrong1:"(n) bàn", wrong2:"(n) ghế", wrong3:"(n) cửa"},
-    {id:45, question:"window", correct:"(n) cửa sổ", wrong1:"(n) cửa", wrong2:"(n) bảng", wrong3:"(n) tường"},
-    {id:46, question:"door", correct:"(n) cửa", wrong1:"(n) cửa sổ", wrong2:"(n) tường", wrong3:"(n) sân"},
-    {id:47, question:"table", correct:"(n) bàn", wrong1:"(n) ghế", wrong2:"(n) tủ", wrong3:"(n) giường"},
-    {id:48, question:"clock", correct:"(n) đồng hồ", wrong1:"(n) bàn", wrong2:"(n) ghế", wrong3:"(n) đèn"},
-    {id:49, question:"bag", correct:"(n) cái túi", wrong1:"(n) ba lô", wrong2:"(n) sách", wrong3:"(n) vở"},
-    {id:50, question:"ruler", correct:"(n) thước", wrong1:"(n) bút", wrong2:"(n) bảng", wrong3:"(n) compa"},
-    {id:51, question:"eraser", correct:"(n) tẩy", wrong1:"(n) bút", wrong2:"(n) thước", wrong3:"(n) bảng"},
-    {id:52, question:"computer", correct:"(n) máy tính", wrong1:"(n) điện thoại", wrong2:"(n) tivi", wrong3:"(n) radio"},
-    {id:53, question:"phone", correct:"(n) điện thoại", wrong1:"(n) máy tính", wrong2:"(n) tivi", wrong3:"(n) radio"},
-    {id:54, question:"morning", correct:"(n) buổi sáng", wrong1:"(n) buổi trưa", wrong2:"(n) buổi chiều", wrong3:"(n) buổi tối"},
-    {id:55, question:"afternoon", correct:"(n) buổi chiều", wrong1:"(n) buổi sáng", wrong2:"(n) buổi trưa", wrong3:"(n) buổi tối"},
-    {id:56, question:"evening", correct:"(n) buổi tối", wrong1:"(n) buổi sáng", wrong2:"(n) buổi trưa", wrong3:"(n) buổi chiều"},
-    {id:57, question:"night", correct:"(n) đêm", wrong1:"(n) ngày", wrong2:"(n) buổi tối", wrong3:"(n) buổi sáng"},
-    {id:58, question:"day", correct:"(n) ngày", wrong1:"(n) đêm", wrong2:"(n) tuần", wrong3:"(n) tháng"},
-    {id:59, question:"week", correct:"(n) tuần", wrong1:"(n) ngày", wrong2:"(n) tháng", wrong3:"(n) năm"},
-    {id:60, question:"month", correct:"(n) tháng", wrong1:"(n) tuần", wrong2:"(n) ngày", wrong3:"(n) năm"},
-    {id:61, question:"new", correct:"(adj) mới", wrong1:"(adj) cũ", wrong2:"(adj) đẹp", wrong3:"(adj) xấu"},
-    {id:62, question:"old", correct:"(adj) cũ/già", wrong1:"(adj) mới", wrong2:"(adj) trẻ", wrong3:"(adj) nhỏ"},
-    {id:63, question:"big", correct:"(adj) to", wrong1:"(adj) nhỏ", wrong2:"(adj) cao", wrong3:"(adj) thấp"},
-    {id:64, question:"small", correct:"(adj) nhỏ", wrong1:"(adj) to", wrong2:"(adj) cao", wrong3:"(adj) thấp"},
-    {id:65, question:"tall", correct:"(adj) cao", wrong1:"(adj) thấp", wrong2:"(adj) to", wrong3:"(adj) nhỏ"},
-    {id:66, question:"short", correct:"(adj) thấp/ngắn", wrong1:"(adj) cao", wrong2:"(adj) dài", wrong3:"(adj) rộng"},
-    {id:67, question:"long", correct:"(adj) dài", wrong1:"(adj) ngắn", wrong2:"(adj) rộng", wrong3:"(adj) hẹp"},
-    {id:68, question:"good", correct:"(adj) tốt", wrong1:"(adj) xấu", wrong2:"(adj) hay", wrong3:"(adj) đẹp"},
-    {id:69, question:"bad", correct:"(adj) xấu", wrong1:"(adj) tốt", wrong2:"(adj) đẹp", wrong3:"(adj) hay"},
-    {id:70, question:"beautiful", correct:"(adj) đẹp", wrong1:"(adj) xấu", wrong2:"(adj) tốt", wrong3:"(adj) hay"},
-    {id:71, question:"ugly", correct:"(adj) xấu", wrong1:"(adj) đẹp", wrong2:"(adj) tốt", wrong3:"(adj) hay"},
-    {id:72, question:"happy", correct:"(adj) vui", wrong1:"(adj) buồn", wrong2:"(adj) giận", wrong3:"(adj) sợ"},
-    {id:73, question:"sad", correct:"(adj) buồn", wrong1:"(adj) vui", wrong2:"(adj) giận", wrong3:"(adj) sợ"},
-    {id:74, question:"angry", correct:"(adj) giận", wrong1:"(adj) vui", wrong2:"(adj) buồn", wrong3:"(adj) sợ"},
-    {id:75, question:"tired", correct:"(adj) mệt", wrong1:"(adj) khỏe", wrong2:"(adj) vui", wrong3:"(adj) buồn"},
-    {id:76, question:"hungry", correct:"(adj) đói", wrong1:"(adj) khát", wrong2:"(adj) mệt", wrong3:"(adj) khỏe"},
-    {id:77, question:"thirsty", correct:"(adj) khát", wrong1:"(adj) đói", wrong2:"(adj) mệt", wrong3:"(adj) khỏe"},
-    {id:78, question:"busy", correct:"(adj) bận", wrong1:"(adj) rảnh", wrong2:"(adj) mệt", wrong3:"(adj) vui"},
-    {id:79, question:"free", correct:"(adj) rảnh/tự do", wrong1:"(adj) bận", wrong2:"(adj) mệt", wrong3:"(adj) buồn"},
-    {id:80, question:"nice", correct:"(adj) tốt/dễ thương", wrong1:"(adj) xấu", wrong2:"(adj) đẹp", wrong3:"(adj) hay"}
+{id:1, question:"to do", correct:"(v) làm", wrong1:"(v) đến", wrong2:"(v) có", wrong3:"(v) đi"},
+{id:2, question:"to have", correct:"(v) có", wrong1:"(v) làm", wrong2:"(v) đi", wrong3:"(v) thấy"},
+{id:3, question:"to go", correct:"(v) đi", wrong1:"(v) đến", wrong2:"(v) làm", wrong3:"(v) chơi"},
+{id:4, question:"to come", correct:"(v) đến", wrong1:"(v) đi", wrong2:"(v) có", wrong3:"(v) nghỉ"},
+{id:5, question:"to play", correct:"(v) chơi", wrong1:"(v) làm", wrong2:"(v) học", wrong3:"(v) đọc"},
+{id:6, question:"to study", correct:"(v) học", wrong1:"(v) chơi", wrong2:"(v) nghe", wrong3:"(v) viết"},
+{id:7, question:"to listen", correct:"(v) nghe", wrong1:"(v) nói", wrong2:"(v) đọc", wrong3:"(v) viết"},
+{id:8, question:"to speak", correct:"(v) nói", wrong1:"(v) nghe", wrong2:"(v) đọc", wrong3:"(v) xem"},
+{id:9, question:"to read", correct:"(v) đọc", wrong1:"(v) viết", wrong2:"(v) nghe", wrong3:"(v) nói"},
+{id:10, question:"to write", correct:"(v) viết", wrong1:"(v) đọc", wrong2:"(v) nghe", wrong3:"(v) nói"},
+{id:11, question:"to watch", correct:"(v) xem", wrong1:"(v) nghe", wrong2:"(v) đọc", wrong3:"(v) viết"},
+{id:12, question:"to eat", correct:"(v) ăn", wrong1:"(v) uống", wrong2:"(v) ngủ", wrong3:"(v) chạy"},
+{id:13, question:"to drink", correct:"(v) uống", wrong1:"(v) ăn", wrong2:"(v) ngủ", wrong3:"(v) đi"},
+{id:14, question:"to sleep", correct:"(v) ngủ", wrong1:"(v) ăn", wrong2:"(v) uống", wrong3:"(v) chạy"},
+{id:15, question:"to run", correct:"(v) chạy", wrong1:"(v) đi", wrong2:"(v) nhảy", wrong3:"(v) bay"},
+{id:16, question:"to walk", correct:"(v) đi bộ", wrong1:"(v) chạy", wrong2:"(v) nhảy", wrong3:"(v) bay"},
+{id:17, question:"to jump", correct:"(v) nhảy", wrong1:"(v) chạy", wrong2:"(v) đi", wrong3:"(v) bay"},
+{id:18, question:"to fly", correct:"(v) bay", wrong1:"(v) chạy", wrong2:"(v) đi", wrong3:"(v) nhảy"},
+{id:19, question:"to swim", correct:"(v) bơi", wrong1:"(v) chạy", wrong2:"(v) nhảy", wrong3:"(v) đi"},
+{id:20, question:"to sing", correct:"(v) hát", wrong1:"(v) nhảy", wrong2:"(v) chơi", wrong3:"(v) đọc"},
+{id:21, question:"to dance", correct:"(v) nhảy", wrong1:"(v) hát", wrong2:"(v) chơi", wrong3:"(v) chạy"},
+{id:22, question:"to work", correct:"(v) làm việc", wrong1:"(v) chơi", wrong2:"(v) nghỉ", wrong3:"(v) học"},
+{id:23, question:"to help", correct:"(v) giúp", wrong1:"(v) hỏi", wrong2:"(v) trả lời", wrong3:"(v) nói"},
+{id:24, question:"to ask", correct:"(v) hỏi", wrong1:"(v) trả lời", wrong2:"(v) nói", wrong3:"(v) nghe"},
+{id:25, question:"to answer", correct:"(v) trả lời", wrong1:"(v) hỏi", wrong2:"(v) nói", wrong3:"(v) nghe"},
+{id:26, question:"to open", correct:"(v) mở", wrong1:"(v) đóng", wrong2:"(v) tắt", wrong3:"(v) bật"},
+{id:27, question:"to close", correct:"(v) đóng", wrong1:"(v) mở", wrong2:"(v) tắt", wrong3:"(v) bật"},
+{id:28, question:"to start", correct:"(v) bắt đầu", wrong1:"(v) kết thúc", wrong2:"(v) tiếp tục", wrong3:"(v) dừng"},
+{id:29, question:"to finish", correct:"(v) kết thúc", wrong1:"(v) bắt đầu", wrong2:"(v) tiếp tục", wrong3:"(v) nghỉ"},
+{id:30, question:"to live", correct:"(v) sống", wrong1:"(v) chết", wrong2:"(v) ở", wrong3:"(v) đi"},
+{id:31, question:"school", correct:"(n) trường học", wrong1:"(n) nhà", wrong2:"(n) lớp", wrong3:"(n) sách"},
+{id:32, question:"house", correct:"(n) nhà", wrong1:"(n) trường", wrong2:"(n) phòng", wrong3:"(n) cửa"},
+{id:33, question:"classroom", correct:"(n) lớp học", wrong1:"(n) trường", wrong2:"(n) nhà", wrong3:"(n) phòng"},
+{id:34, question:"teacher", correct:"(n) giáo viên", wrong1:"(n) học sinh", wrong2:"(n) bạn", wrong3:"(n) người"},
+{id:35, question:"student", correct:"(n) học sinh", wrong1:"(n) giáo viên", wrong2:"(n) bạn", wrong3:"(n) người"},
+{id:36, question:"friend", correct:"(n) bạn", wrong1:"(n) người thân", wrong2:"(n) giáo viên", wrong3:"(n) học sinh"},
+{id:37, question:"family", correct:"(n) gia đình", wrong1:"(n) bạn", wrong2:"(n) người thân", wrong3:"(n) nhà"},
+{id:38, question:"book", correct:"(n) sách", wrong1:"(n) vở", wrong2:"(n) bút", wrong3:"(n) bảng"},
+{id:39, question:"notebook", correct:"(n) vở", wrong1:"(n) sách", wrong2:"(n) bút", wrong3:"(n) bảng"},
+{id:40, question:"pen", correct:"(n) bút bi", wrong1:"(n) bút chì", wrong2:"(n) sách", wrong3:"(n) vở"},
+{id:41, question:"pencil", correct:"(n) bút chì", wrong1:"(n) bút bi", wrong2:"(n) bảng", wrong3:"(n) thước"},
+{id:42, question:"desk", correct:"(n) bàn học", wrong1:"(n) ghế", wrong2:"(n) tủ", wrong3:"(n) cửa"},
+{id:43, question:"chair", correct:"(n) ghế", wrong1:"(n) bàn", wrong2:"(n) tủ", wrong3:"(n) giường"},
+{id:44, question:"board", correct:"(n) bảng", wrong1:"(n) bàn", wrong2:"(n) ghế", wrong3:"(n) cửa"},
+{id:45, question:"window", correct:"(n) cửa sổ", wrong1:"(n) cửa", wrong2:"(n) bảng", wrong3:"(n) tường"},
+{id:46, question:"door", correct:"(n) cửa", wrong1:"(n) cửa sổ", wrong2:"(n) tường", wrong3:"(n) sân"},
+{id:47, question:"table", correct:"(n) bàn", wrong1:"(n) ghế", wrong2:"(n) tủ", wrong3:"(n) giường"},
+{id:48, question:"clock", correct:"(n) đồng hồ", wrong1:"(n) bàn", wrong2:"(n) ghế", wrong3:"(n) đèn"},
+{id:49, question:"bag", correct:"(n) cái túi", wrong1:"(n) ba lô", wrong2:"(n) sách", wrong3:"(n) vở"},
+{id:50, question:"ruler", correct:"(n) thước", wrong1:"(n) bút", wrong2:"(n) bảng", wrong3:"(n) compa"},
+{id:51, question:"eraser", correct:"(n) tẩy", wrong1:"(n) bút", wrong2:"(n) thước", wrong3:"(n) bảng"},
+{id:52, question:"computer", correct:"(n) máy tính", wrong1:"(n) điện thoại", wrong2:"(n) tivi", wrong3:"(n) radio"},
+{id:53, question:"phone", correct:"(n) điện thoại", wrong1:"(n) máy tính", wrong2:"(n) tivi", wrong3:"(n) radio"},
+{id:54, question:"morning", correct:"(n) buổi sáng", wrong1:"(n) buổi trưa", wrong2:"(n) buổi chiều", wrong3:"(n) buổi tối"},
+{id:55, question:"afternoon", correct:"(n) buổi chiều", wrong1:"(n) buổi sáng", wrong2:"(n) buổi trưa", wrong3:"(n) buổi tối"},
+{id:56, question:"evening", correct:"(n) buổi tối", wrong1:"(n) buổi sáng", wrong2:"(n) buổi trưa", wrong3:"(n) buổi chiều"},
+{id:57, question:"night", correct:"(n) đêm", wrong1:"(n) ngày", wrong2:"(n) buổi tối", wrong3:"(n) buổi sáng"},
+{id:58, question:"day", correct:"(n) ngày", wrong1:"(n) đêm", wrong2:"(n) tuần", wrong3:"(n) tháng"},
+{id:59, question:"week", correct:"(n) tuần", wrong1:"(n) ngày", wrong2:"(n) tháng", wrong3:"(n) năm"},
+{id:60, question:"month", correct:"(n) tháng", wrong1:"(n) tuần", wrong2:"(n) ngày", wrong3:"(n) năm"},
+{id:61, question:"new", correct:"(adj) mới", wrong1:"(adj) cũ", wrong2:"(adj) đẹp", wrong3:"(adj) xấu"},
+{id:62, question:"old", correct:"(adj) cũ/già", wrong1:"(adj) mới", wrong2:"(adj) trẻ", wrong3:"(adj) nhỏ"},
+{id:63, question:"big", correct:"(adj) to", wrong1:"(adj) nhỏ", wrong2:"(adj) cao", wrong3:"(adj) thấp"},
+{id:64, question:"small", correct:"(adj) nhỏ", wrong1:"(adj) to", wrong2:"(adj) cao", wrong3:"(adj) thấp"},
+{id:65, question:"tall", correct:"(adj) cao", wrong1:"(adj) thấp", wrong2:"(adj) to", wrong3:"(adj) nhỏ"},
+{id:66, question:"short", correct:"(adj) thấp/ngắn", wrong1:"(adj) cao", wrong2:"(adj) dài", wrong3:"(adj) rộng"},
+{id:67, question:"long", correct:"(adj) dài", wrong1:"(adj) ngắn", wrong2:"(adj) rộng", wrong3:"(adj) hẹp"},
+{id:68, question:"good", correct:"(adj) tốt", wrong1:"(adj) xấu", wrong2:"(adj) hay", wrong3:"(adj) đẹp"},
+{id:69, question:"bad", correct:"(adj) xấu", wrong1:"(adj) tốt", wrong2:"(adj) đẹp", wrong3:"(adj) hay"},
+{id:70, question:"beautiful", correct:"(adj) đẹp", wrong1:"(adj) xấu", wrong2:"(adj) tốt", wrong3:"(adj) hay"},
+{id:71, question:"ugly", correct:"(adj) xấu", wrong1:"(adj) đẹp", wrong2:"(adj) tốt", wrong3:"(adj) hay"},
+{id:72, question:"happy", correct:"(adj) vui", wrong1:"(adj) buồn", wrong2:"(adj) giận", wrong3:"(adj) sợ"},
+{id:73, question:"sad", correct:"(adj) buồn", wrong1:"(adj) vui", wrong2:"(adj) giận", wrong3:"(adj) sợ"},
+{id:74, question:"angry", correct:"(adj) giận", wrong1:"(adj) vui", wrong2:"(adj) buồn", wrong3:"(adj) sợ"},
+{id:75, question:"tired", correct:"(adj) mệt", wrong1:"(adj) khỏe", wrong2:"(adj) vui", wrong3:"(adj) buồn"},
+{id:76, question:"hungry", correct:"(adj) đói", wrong1:"(adj) khát", wrong2:"(adj) mệt", wrong3:"(adj) khỏe"},
+{id:77, question:"thirsty", correct:"(adj) khát", wrong1:"(adj) đói", wrong2:"(adj) mệt", wrong3:"(adj) khỏe"},
+{id:78, question:"busy", correct:"(adj) bận", wrong1:"(adj) rảnh", wrong2:"(adj) mệt", wrong3:"(adj) vui"},
+{id:79, question:"free", correct:"(adj) rảnh/tự do", wrong1:"(adj) bận", wrong2:"(adj) mệt", wrong3:"(adj) buồn"},
+{id:80, question:"nice", correct:"(adj) tốt/dễ thương", wrong1:"(adj) xấu", wrong2:"(adj) đẹp", wrong3:"(adj) hay"}
 ];
 
-// KHO NGU PHAP - 60 cau
 const grammarData = [
-    {id:1, question:"I _____ a student.", correct:"am", wrong1:"is", wrong2:"are", wrong3:"be"},
-    {id:2, question:"She _____ from Vietnam.", correct:"is", wrong1:"am", wrong2:"are", wrong3:"be"},
-    {id:3, question:"They _____ my friends.", correct:"are", wrong1:"is", wrong2:"am", wrong3:"be"},
-    {id:4, question:"He _____ tall.", correct:"is", wrong1:"am", wrong2:"are", wrong3:"be"},
-    {id:5, question:"We _____ happy.", correct:"are", wrong1:"is", wrong2:"am", wrong3:"be"},
-    {id:6, question:"What _____ your name?", correct:"is", wrong1:"am", wrong2:"are", wrong3:"be"},
-    {id:7, question:"How old _____ you?", correct:"are", wrong1:"is", wrong2:"am", wrong3:"be"},
-    {id:8, question:"Where _____ she live?", correct:"does", wrong1:"do", wrong2:"is", wrong3:"are"},
-    {id:9, question:"I _____ to school every day.", correct:"go", wrong1:"goes", wrong2:"going", wrong3:"went"},
-    {id:10, question:"She _____ to school every day.", correct:"goes", wrong1:"go", wrong2:"going", wrong3:"went"},
-    {id:11, question:"They _____ English.", correct:"study", wrong1:"studies", wrong2:"studying", wrong3:"studied"},
-    {id:12, question:"He _____ English.", correct:"studies", wrong1:"study", wrong2:"studying", wrong3:"studied"},
-    {id:13, question:"I _____ breakfast at 7 am.", correct:"have", wrong1:"has", wrong2:"having", wrong3:"had"},
-    {id:14, question:"She _____ breakfast at 7 am.", correct:"has", wrong1:"have", wrong2:"having", wrong3:"had"},
-    {id:15, question:"We _____ in Hanoi.", correct:"live", wrong1:"lives", wrong2:"living", wrong3:"lived"},
-    {id:16, question:"He _____ in Hanoi.", correct:"lives", wrong1:"live", wrong2:"living", wrong3:"lived"},
-    {id:17, question:"Do you like music? Yes, I _____.", correct:"do", wrong1:"does", wrong2:"am", wrong3:"like"},
-    {id:18, question:"Does she like music? Yes, she _____.", correct:"does", wrong1:"do", wrong2:"is", wrong3:"likes"},
-    {id:19, question:"Do they play football? No, they _____.", correct:"don't", wrong1:"doesn't", wrong2:"aren't", wrong3:"isn't"},
-    {id:20, question:"Does he play football? No, he _____.", correct:"doesn't", wrong1:"don't", wrong2:"isn't", wrong3:"aren't"},
-    {id:21, question:"I am _____ student.", correct:"a", wrong1:"an", wrong2:"the", wrong3:"x"},
-    {id:22, question:"She is _____ engineer.", correct:"an", wrong1:"a", wrong2:"the", wrong3:"x"},
-    {id:23, question:"This is _____ apple.", correct:"an", wrong1:"a", wrong2:"the", wrong3:"x"},
-    {id:24, question:"That is _____ book.", correct:"a", wrong1:"an", wrong2:"the", wrong3:"x"},
-    {id:25, question:"_____ is my book.", correct:"This", wrong1:"These", wrong2:"Those", wrong3:"That"},
-    {id:26, question:"_____ are my pens.", correct:"These", wrong1:"This", wrong2:"That", wrong3:"It"},
-    {id:27, question:"_____ is your house.", correct:"That", wrong1:"These", wrong2:"Those", wrong3:"This"},
-    {id:28, question:"_____ are your books.", correct:"Those", wrong1:"This", wrong2:"That", wrong3:"It"},
-    {id:29, question:"What is _____ name?", correct:"your", wrong1:"you", wrong2:"yours", wrong3:"yourself"},
-    {id:30, question:"This is _____ book.", correct:"my", wrong1:"I", wrong2:"mine", wrong3:"me"},
-    {id:31, question:"That is _____ car.", correct:"his", wrong1:"he", wrong2:"him", wrong3:"himself"},
-    {id:32, question:"This bag is _____ .", correct:"hers", wrong1:"her", wrong2:"she", wrong3:"herself"},
-    {id:33, question:"These are _____ pens.", correct:"our", wrong1:"we", wrong2:"us", wrong3:"ours"},
-    {id:34, question:"Those books are _____ .", correct:"theirs", wrong1:"their", wrong2:"them", wrong3:"they"},
-    {id:35, question:"I can _____ English.", correct:"speak", wrong1:"speaks", wrong2:"speaking", wrong3:"spoke"},
-    {id:36, question:"She can _____ the piano.", correct:"play", wrong1:"plays", wrong2:"playing", wrong3:"played"},
-    {id:37, question:"He cannot _____ a car.", correct:"drive", wrong1:"drives", wrong2:"driving", wrong3:"drove"},
-    {id:38, question:"Can you swim? Yes, I _____.", correct:"can", wrong1:"do", wrong2:"am", wrong3:"swim"},
-    {id:39, question:"Can she dance? No, she _____.", correct:"can't", wrong1:"doesn't", wrong2:"isn't", wrong3:"don't"},
-    {id:40, question:"There _____ a book on the table.", correct:"is", wrong1:"are", wrong2:"am", wrong3:"be"},
-    {id:41, question:"There _____ two pens on the desk.", correct:"are", wrong1:"is", wrong2:"am", wrong3:"be"},
-    {id:42, question:"There _____ any milk in the fridge.", correct:"isn't", wrong1:"aren't", wrong2:"don't", wrong3:"doesn't"},
-    {id:43, question:"There _____ any students in the classroom.", correct:"aren't", wrong1:"isn't", wrong2:"don't", wrong3:"doesn't"},
-    {id:44, question:"How _____ people are there?", correct:"many", wrong1:"much", wrong2:"any", wrong3:"some"},
-    {id:45, question:"How _____ water do you need?", correct:"much", wrong1:"many", wrong2:"any", wrong3:"some"},
-    {id:46, question:"I have _____ friends.", correct:"many", wrong1:"much", wrong2:"any", wrong3:"a"},
-    {id:47, question:"There is _____ milk in the glass.", correct:"some", wrong1:"any", wrong2:"many", wrong3:"a"},
-    {id:48, question:"Do you have _____ brothers?", correct:"any", wrong1:"some", wrong2:"much", wrong3:"a"},
-    {id:49, question:"My house is _____ than yours.", correct:"bigger", wrong1:"big", wrong2:"biggest", wrong3:"more big"},
-    {id:50, question:"She is _____ than her sister.", correct:"taller", wrong1:"tall", wrong2:"tallest", wrong3:"more tall"},
-    {id:51, question:"This is the _____ book I have.", correct:"best", wrong1:"good", wrong2:"better", wrong3:"most good"},
-    {id:52, question:"He is the _____ student in class.", correct:"smartest", wrong1:"smart", wrong2:"smarter", wrong3:"most smart"},
-    {id:53, question:"I like _____ to music.", correct:"listening", wrong1:"listen", wrong2:"listens", wrong3:"listened"},
-    {id:54, question:"She enjoys _____ books.", correct:"reading", wrong1:"read", wrong2:"reads", wrong3:"readed"},
-    {id:55, question:"We love _____ football.", correct:"playing", wrong1:"play", wrong2:"plays", wrong3:"played"},
-    {id:56, question:"He hates _____ up early.", correct:"getting", wrong1:"get", wrong2:"gets", wrong3:"got"},
-    {id:57, question:"You should _____ hard.", correct:"study", wrong1:"studying", wrong2:"studies", wrong3:"to study"},
-    {id:58, question:"_____ you like some tea?", correct:"Would", wrong1:"Do", wrong2:"Are", wrong3:"Will"},
-    {id:59, question:"_____ you play football?", correct:"Do", wrong1:"Are", wrong2:"Is", wrong3:"Does"},
-    {id:60, question:"What time _____ you get up?", correct:"do", wrong1:"does", wrong2:"are", wrong3:"is"}
+{id:1, question:"I _____ a student.", correct:"am", wrong1:"is", wrong2:"are", wrong3:"be"},
+{id:2, question:"She _____ from Vietnam.", correct:"is", wrong1:"am", wrong2:"are", wrong3:"be"},
+{id:3, question:"They _____ my friends.", correct:"are", wrong1:"is", wrong2:"am", wrong3:"be"},
+{id:4, question:"He _____ tall.", correct:"is", wrong1:"am", wrong2:"are", wrong3:"be"},
+{id:5, question:"We _____ happy.", correct:"are", wrong1:"is", wrong2:"am", wrong3:"be"},
+{id:6, question:"What _____ your name?", correct:"is", wrong1:"am", wrong2:"are", wrong3:"be"},
+{id:7, question:"How old _____ you?", correct:"are", wrong1:"is", wrong2:"am", wrong3:"be"},
+{id:8, question:"Where _____ she live?", correct:"does", wrong1:"do", wrong2:"is", wrong3:"are"},
+{id:9, question:"I _____ to school every day.", correct:"go", wrong1:"goes", wrong2:"going", wrong3:"went"},
+{id:10, question:"She _____ to school every day.", correct:"goes", wrong1:"go", wrong2:"going", wrong3:"went"},
+{id:11, question:"They _____ English.", correct:"study", wrong1:"studies", wrong2:"studying", wrong3:"studied"},
+{id:12, question:"He _____ English.", correct:"studies", wrong1:"study", wrong2:"studying", wrong3:"studied"},
+{id:13, question:"I _____ breakfast at 7 am.", correct:"have", wrong1:"has", wrong2:"having", wrong3:"had"},
+{id:14, question:"She _____ breakfast at 7 am.", correct:"has", wrong1:"have", wrong2:"having", wrong3:"had"},
+{id:15, question:"We _____ in Hanoi.", correct:"live", wrong1:"lives", wrong2:"living", wrong3:"lived"},
+{id:16, question:"He _____ in Hanoi.", correct:"lives", wrong1:"live", wrong2:"living", wrong3:"lived"},
+{id:17, question:"Do you like music? Yes, I _____.", correct:"do", wrong1:"does", wrong2:"am", wrong3:"like"},
+{id:18, question:"Does she like music? Yes, she _____.", correct:"does", wrong1:"do", wrong2:"is", wrong3:"likes"},
+{id:19, question:"Do they play football? No, they _____.", correct:"don't", wrong1:"doesn't", wrong2:"aren't", wrong3:"isn't"},
+{id:20, question:"Does he play football? No, he _____.", correct:"doesn't", wrong1:"don't", wrong2:"isn't", wrong3:"aren't"},
+{id:21, question:"I am _____ student.", correct:"a", wrong1:"an", wrong2:"the", wrong3:"x"},
+{id:22, question:"She is _____ engineer.", correct:"an", wrong1:"a", wrong2:"the", wrong3:"x"},
+{id:23, question:"This is _____ apple.", correct:"an", wrong1:"a", wrong2:"the", wrong3:"x"},
+{id:24, question:"That is _____ book.", correct:"a", wrong1:"an", wrong2:"the", wrong3:"x"},
+{id:25, question:"_____ is my book.", correct:"This", wrong1:"These", wrong2:"Those", wrong3:"That"},
+{id:26, question:"_____ are my pens.", correct:"These", wrong1:"This", wrong2:"That", wrong3:"It"},
+{id:27, question:"_____ is your house.", correct:"That", wrong1:"These", wrong2:"Those", wrong3:"This"},
+{id:28, question:"_____ are your books.", correct:"Those", wrong1:"This", wrong2:"That", wrong3:"It"},
+{id:29, question:"What is _____ name?", correct:"your", wrong1:"you", wrong2:"yours", wrong3:"yourself"},
+{id:30, question:"This is _____ book.", correct:"my", wrong1:"I", wrong2:"mine", wrong3:"me"},
+{id:31, question:"That is _____ car.", correct:"his", wrong1:"he", wrong2:"him", wrong3:"himself"},
+{id:32, question:"This bag is _____ .", correct:"hers", wrong1:"her", wrong2:"she", wrong3:"herself"},
+{id:33, question:"These are _____ pens.", correct:"our", wrong1:"we", wrong2:"us", wrong3:"ours"},
+{id:34, question:"Those books are _____ .", correct:"theirs", wrong1:"their", wrong2:"them", wrong3:"they"},
+{id:35, question:"I can _____ English.", correct:"speak", wrong1:"speaks", wrong2:"speaking", wrong3:"spoke"},
+{id:36, question:"She can _____ the piano.", correct:"play", wrong1:"plays", wrong2:"playing", wrong3:"played"},
+{id:37, question:"He cannot _____ a car.", correct:"drive", wrong1:"drives", wrong2:"driving", wrong3:"drove"},
+{id:38, question:"Can you swim? Yes, I _____.", correct:"can", wrong1:"do", wrong2:"am", wrong3:"swim"},
+{id:39, question:"Can she dance? No, she _____.", correct:"can't", wrong1:"doesn't", wrong2:"isn't", wrong3:"don't"},
+{id:40, question:"There _____ a book on the table.", correct:"is", wrong1:"are", wrong2:"am", wrong3:"be"},
+{id:41, question:"There _____ two pens on the desk.", correct:"are", wrong1:"is", wrong2:"am", wrong3:"be"},
+{id:42, question:"There _____ any milk in the fridge.", correct:"isn't", wrong1:"aren't", wrong2:"don't", wrong3:"doesn't"},
+{id:43, question:"There _____ any students in the classroom.", correct:"aren't", wrong1:"isn't", wrong2:"don't", wrong3:"doesn't"},
+{id:44, question:"How _____ people are there?", correct:"many", wrong1:"much", wrong2:"any", wrong3:"some"},
+{id:45, question:"How _____ water do you need?", correct:"much", wrong1:"many", wrong2:"any", wrong3:"some"},
+{id:46, question:"I have _____ friends.", correct:"many", wrong1:"much", wrong2:"any", wrong3:"a"},
+{id:47, question:"There is _____ milk in the glass.", correct:"some", wrong1:"any", wrong2:"many", wrong3:"a"},
+{id:48, question:"Do you have _____ brothers?", correct:"any", wrong1:"some", wrong2:"much", wrong3:"a"},
+{id:49, question:"My house is _____ than yours.", correct:"bigger", wrong1:"big", wrong2:"biggest", wrong3:"more big"},
+{id:50, question:"She is _____ than her sister.", correct:"taller", wrong1:"tall", wrong2:"tallest", wrong3:"more tall"},
+{id:51, question:"This is the _____ book I have.", correct:"best", wrong1:"good", wrong2:"better", wrong3:"most good"},
+{id:52, question:"He is the _____ student in class.", correct:"smartest", wrong1:"smart", wrong2:"smarter", wrong3:"most smart"},
+{id:53, question:"I like _____ to music.", correct:"listening", wrong1:"listen", wrong2:"listens", wrong3:"listened"},
+{id:54, question:"She enjoys _____ books.", correct:"reading", wrong1:"read", wrong2:"reads", wrong3:"readed"},
+{id:55, question:"We love _____ football.", correct:"playing", wrong1:"play", wrong2:"plays", wrong3:"played"},
+{id:56, question:"He hates _____ up early.", correct:"getting", wrong1:"get", wrong2:"gets", wrong3:"got"},
+{id:57, question:"You should _____ hard.", correct:"study", wrong1:"studying", wrong2:"studies", wrong3:"to study"},
+{id:58, question:"_____ you like some tea?", correct:"Would", wrong1:"Do", wrong2:"Are", wrong3:"Will"},
+{id:59, question:"_____ you play football?", correct:"Do", wrong1:"Are", wrong2:"Is", wrong3:"Does"},
+{id:60, question:"What time _____ you get up?", correct:"do", wrong1:"does", wrong2:"are", wrong3:"is"}
 ];
 
-// KHO DICH CAU - 60 cau
 const translationData = [
-    {id:1, question:"I am a student.", correct:"Tôi là một học sinh.", wrong1:"Tôi là một giáo viên.", wrong2:"Tôi là một bác sĩ.", wrong3:"Tôi là một kĩ sư."},
-    {id:2, question:"She is my friend.", correct:"Cô ấy là bạn của tôi.", wrong1:"Cô ấy là chị của tôi.", wrong2:"Cô ấy là mẹ của tôi.", wrong3:"Cô ấy là em gái của tôi."},
-    {id:3, question:"He is tall.", correct:"Anh ấy cao.", wrong1:"Anh ấy thấp.", wrong2:"Anh ấy béo.", wrong3:"Anh ấy ốm."},
-    {id:4, question:"We are happy.", correct:"Chúng tôi vui vẻ.", wrong1:"Chúng tôi buồn.", wrong2:"Chúng tôi mệt.", wrong3:"Chúng tôi giận."},
-    {id:5, question:"They are at school.", correct:"Họ đang ở trường.", wrong1:"Họ đang ở nhà.", wrong2:"Họ đang ở công viên.", wrong3:"Họ đang ở nhà hàng."},
-    {id:6, question:"What is your name?", correct:"Tên của bạn là gì?", wrong1:"Bạn bao nhiêu tuổi?", wrong2:"Bạn ở đâu?", wrong3:"Bạn làm gì?"},
-    {id:7, question:"How old are you?", correct:"Bạn bao nhiêu tuổi?", wrong1:"Tên của bạn là gì?", wrong2:"Bạn sống ở đâu?", wrong3:"Bạn đi đâu?"},
-    {id:8, question:"Where do you live?", correct:"Bạn sống ở đâu?", wrong1:"Bạn đi đâu?", wrong2:"Bạn làm gì?", wrong3:"Bạn học lớp mấy?"},
-    {id:9, question:"I go to school every day.", correct:"Tôi đến trường mỗi ngày.", wrong1:"Tôi đi chơi mỗi ngày.", wrong2:"Tôi đi làm mỗi ngày.", wrong3:"Tôi đi ngủ mỗi ngày."},
-    {id:10, question:"She studies English.", correct:"Cô ấy học tiếng Anh.", wrong1:"Cô ấy học tiếng Việt.", wrong2:"Cô ấy học tiếng Trung.", wrong3:"Cô ấy học tiếng Nhật."},
-    {id:11, question:"He plays football.", correct:"Anh ấy chơi bóng đá.", wrong1:"Anh ấy chơi bóng rổ.", wrong2:"Anh ấy chơi cầu lông.", wrong3:"Anh ấy chơi tennis."},
-    {id:12, question:"We have breakfast at 7 am.", correct:"Chúng tôi ăn sáng lúc 7 giờ.", wrong1:"Chúng tôi ăn trưa lúc 7 giờ.", wrong2:"Chúng tôi ăn tối lúc 7 giờ.", wrong3:"Chúng tôi ăn đêm lúc 7 giờ."},
-    {id:13, question:"They live in Hanoi.", correct:"Họ sống ở Hà Nội.", wrong1:"Họ sống ở TP.HCM.", wrong2:"Họ sống ở Đà Nẵng.", wrong3:"Họ sống ở Hải Phòng."},
-    {id:14, question:"Do you like music?", correct:"Bạn có thích âm nhạc không?", wrong1:"Bạn có thích thể thao không?", wrong2:"Bạn có thích đọc sách không?", wrong3:"Bạn có thích xem phim không?"},
-    {id:15, question:"Does she work here?", correct:"Cô ấy có làm ở đây không?", wrong1:"Cô ấy có học ở đây không?", wrong2:"Cô ấy có sống ở đây không?", wrong3:"Cô ấy có chơi ở đây không?"},
-    {id:16, question:"I don't like coffee.", correct:"Tôi không thích cà phê.", wrong1:"Tôi thích cà phê.", wrong2:"Tôi uống cà phê.", wrong3:"Tôi mua cà phê."},
-    {id:17, question:"She doesn't eat meat.", correct:"Cô ấy không ăn thịt.", wrong1:"Cô ấy ăn thịt.", wrong2:"Cô ấy thích thịt.", wrong3:"Cô ấy mua thịt."},
-    {id:18, question:"This is my book.", correct:"Đây là sách của tôi.", wrong1:"Đây là vở của tôi.", wrong2:"Đây là bút của tôi.", wrong3:"Đây là túi của tôi."},
-    {id:19, question:"That is your pen.", correct:"Đó là bút của bạn.", wrong1:"Đó là sách của bạn.", wrong2:"Đó là vở của bạn.", wrong3:"Đó là thước của bạn."},
-    {id:20, question:"These are my friends.", correct:"Đây là những người bạn của tôi.", wrong1:"Đây là những người thân của tôi.", wrong2:"Đây là những giáo viên của tôi.", wrong3:"Đây là những học sinh của tôi."},
-    {id:21, question:"Those are beautiful flowers.", correct:"Đó là những bông hoa đẹp.", wrong1:"Đó là những cây xanh đẹp.", wrong2:"Đó là những quả táo đẹp.", wrong3:"Đó là những cửa sổ đẹp."},
-    {id:22, question:"I can swim.", correct:"Tôi biết bơi.", wrong1:"Tôi biết đi.", wrong2:"Tôi biết chạy.", wrong3:"Tôi biết nhảy."},
-    {id:23, question:"She can speak English.", correct:"Cô ấy biết nói tiếng Anh.", wrong1:"Cô ấy biết viết tiếng Anh.", wrong2:"Cô ấy biết đọc tiếng Anh.", wrong3:"Cô ấy biết nghe tiếng Anh."},
-    {id:24, question:"He can't drive a car.", correct:"Anh ấy không biết lái xe.", wrong1:"Anh ấy biết lái xe.", wrong2:"Anh ấy thích lái xe.", wrong3:"Anh ấy mua xe."},
-    {id:25, question:"Can you help me?", correct:"Bạn có thể giúp tôi không?", wrong1:"Bạn muốn giúp tôi không?", wrong2:"Bạn thích giúp tôi không?", wrong3:"Bạn cần giúp tôi không?"},
-    {id:26, question:"There is a cat in the room.", correct:"Có một con mèo trong phòng.", wrong1:"Có một con chó trong phòng.", wrong2:"Có một con chim trong phòng.", wrong3:"Có một con cá trong phòng."},
-    {id:27, question:"There are five students in class.", correct:"Có năm học sinh trong lớp.", wrong1:"Có năm giáo viên trong lớp.", wrong2:"Có năm người trong lớp.", wrong3:"Có năm bàn ghế trong lớp."},
-    {id:28, question:"There isn't any milk.", correct:"Không có sữa nào.", wrong1:"Có một chút sữa.", wrong2:"Có nhiều sữa.", wrong3:"Có ít sữa."},
-    {id:29, question:"How many books do you have?", correct:"Bạn có bao nhiêu quyển sách?", wrong1:"Bạn có bao nhiêu bút?", wrong2:"Bạn có bao nhiêu vở?", wrong3:"Bạn có bao nhiêu túi?"},
-    {id:30, question:"How much water is there?", correct:"Có bao nhiêu nước?", wrong1:"Có bao nhiêu sách?", wrong2:"Có bao nhiêu bút?", wrong3:"Có bao nhiêu học sinh?"},
-    {id:31, question:"My house is big.", correct:"Nhà của tôi to.", wrong1:"Nhà của tôi nhỏ.", wrong2:"Nhà của tôi cao.", wrong3:"Nhà của tôi đẹp."},
-    {id:32, question:"Her car is new.", correct:"Xe của cô ấy là mới.", wrong1:"Xe của cô ấy là cũ.", wrong2:"Xe của cô ấy là đẹp.", wrong3:"Xe của cô ấy là to."},
-    {id:33, question:"His school is far.", correct:"Trường của anh ấy xa.", wrong1:"Trường của anh ấy gần.", wrong2:"Trường của anh ấy to.", wrong3:"Trường của anh ấy đẹp."},
-    {id:34, question:"I like reading books.", correct:"Tôi thích đọc sách.", wrong1:"Tôi thích viết sách.", wrong2:"Tôi thích mua sách.", wrong3:"Tôi thích bán sách."},
-    {id:35, question:"She loves cooking.", correct:"Cô ấy thích nấu ăn.", wrong1:"Cô ấy thích ăn uống.", wrong2:"Cô ấy thích mua đồ.", wrong3:"Cô ấy thích đi chơi."},
-    {id:36, question:"We enjoy watching movies.", correct:"Chúng tôi thích xem phim.", wrong1:"Chúng tôi thích làm phim.", wrong2:"Chúng tôi thích mua phim.", wrong3:"Chúng tôi thích đi xem."},
-    {id:37, question:"He hates getting up early.", correct:"Anh ấy ghét dậy sớm.", wrong1:"Anh ấy thích dậy sớm.", wrong2:"Anh ấy ghét đi ngủ.", wrong3:"Anh ấy thích đi ngủ."},
-    {id:38, question:"You should study hard.", correct:"Bạn nên học chăm chỉ.", wrong1:"Bạn phải học chăm chỉ.", wrong2:"Bạn cần học chăm chỉ.", wrong3:"Bạn thích học chăm chỉ."},
-    {id:39, question:"Would you like some coffee?", correct:"Bạn có muốn uống cà phê không?", wrong1:"Bạn có thích cà phê không?", wrong2:"Bạn có cần cà phê không?", wrong3:"Bạn có uống cà phê không?"},
-    {id:40, question:"What time do you get up?", correct:"Bạn thức dậy lúc mấy giờ?", wrong1:"Bạn đi ngủ lúc mấy giờ?", wrong2:"Bạn ăn sáng lúc mấy giờ?", wrong3:"Bạn đi học lúc mấy giờ?"},
-    {id:41, question:"I have two brothers.", correct:"Tôi có hai anh em trai.", wrong1:"Tôi có hai chị em gái.", wrong2:"Tôi có hai người bạn.", wrong3:"Tôi có hai người thân."},
-    {id:42, question:"She has a beautiful house.", correct:"Cô ấy có một ngôi nhà đẹp.", wrong1:"Cô ấy có một chiếc xe đẹp.", wrong2:"Cô ấy có một cái túi đẹp.", wrong3:"Cô ấy có một bộ quần áo đẹp."},
-    {id:43, question:"They have three children.", correct:"Họ có ba người con.", wrong1:"Họ có ba người bạn.", wrong2:"Họ có ba người thân.", wrong3:"Họ có ba học sinh."},
-    {id:44, question:"My mother is a teacher.", correct:"Mẹ tôi là một giáo viên.", wrong1:"Mẹ tôi là một bác sĩ.", wrong2:"Mẹ tôi là một kĩ sư.", wrong3:"Mẹ tôi là một đầu bếp."},
-    {id:45, question:"His father is a doctor.", correct:"Bố của anh ấy là bác sĩ.", wrong1:"Bố của anh ấy là giáo viên.", wrong2:"Bố của anh ấy là kĩ sư.", wrong3:"Bố của anh ấy là luật sư."},
-    {id:46, question:"I am from Vietnam.", correct:"Tôi đến từ Việt Nam.", wrong1:"Tôi sống ở Việt Nam.", wrong2:"Tôi thích Việt Nam.", wrong3:"Tôi đi Việt Nam."},
-    {id:47, question:"Where is she from?", correct:"Cô ấy đến từ đâu?", wrong1:"Cô ấy sống ở đâu?", wrong2:"Cô ấy đi đâu?", wrong3:"Cô ấy làm gì?"},
-    {id:48, question:"What do you do?", correct:"Bạn làm nghề gì?", wrong1:"Bạn học gì?", wrong2:"Bạn thích gì?", wrong3:"Bạn cần gì?"},
-    {id:49, question:"I am twelve years old.", correct:"Tôi mười hai tuổi.", wrong1:"Tôi mười tuổi.", wrong2:"Tôi mười một tuổi.", wrong3:"Tôi mười ba tuổi."},
-    {id:50, question:"She is in grade 6.", correct:"Cô ấy học lớp 6.", wrong1:"Cô ấy học lớp 7.", wrong2:"Cô ấy học lớp 8.", wrong3:"Cô ấy học lớp 9."},
-    {id:51, question:"We go to school by bike.", correct:"Chúng tôi đi xe đạp đến trường.", wrong1:"Chúng tôi đi xe máy đến trường.", wrong2:"Chúng tôi đi bộ đến trường.", wrong3:"Chúng tôi đi xe buýt đến trường."},
-    {id:52, question:"He walks to school.", correct:"Anh ấy đi bộ đến trường.", wrong1:"Anh ấy đi xe đạp đến trường.", wrong2:"Anh ấy đi xe máy đến trường.", wrong3:"Anh ấy đi xe buýt đến trường."},
-    {id:53, question:"What is this?", correct:"Đây là cái gì?", wrong1:"Đó là cái gì?", wrong2:"Cái này là gì?", wrong3:"Cái kia là gì?"},
-    {id:54, question:"What are those?", correct:"Đó là những cái gì?", wrong1:"Đây là những cái gì?", wrong2:"Cái này là gì?", wrong3:"Cái kia là gì?"},
-    {id:55, question:"It is a ruler.", correct:"Đó là một cái thước.", wrong1:"Đó là một cái bút.", wrong2:"Đó là một cái bảng.", wrong3:"Đó là một quyển sách."},
-    {id:56, question:"They are pencils.", correct:"Đó là những cái bút chì.", wrong1:"Đó là những cái bút bi.", wrong2:"Đó là những cái thước.", wrong3:"Đó là những quyển sách."},
-    {id:57, question:"Good morning!", correct:"Chào buổi sáng!", wrong1:"Chào buổi trưa!", wrong2:"Chào buổi chiều!", wrong3:"Chào buổi tối!"},
-    {id:58, question:"Good evening!", correct:"Chào buổi tối!", wrong1:"Chào buổi sáng!", wrong2:"Chào buổi trưa!", wrong3:"Chào buổi chiều!"},
-    {id:59, question:"Nice to meet you!", correct:"Rất vui được gặp bạn!", wrong1:"Chào bạn!", wrong2:"Tạm biệt bạn!", wrong3:"Hẹn gặp lại bạn!"},
-    {id:60, question:"See you tomorrow!", correct:"Hẹn gặp lại bạn ngày mai!", wrong1:"Hẹn gặp lại bạn ngày kia!", wrong2:"Hẹn gặp lại bạn tuần sau!", wrong3:"Hẹn gặp lại bạn tháng sau!"}
+{id:1, question:"I am a student.", correct:"Tôi là một học sinh.", wrong1:"Tôi là một giáo viên.", wrong2:"Tôi là một bác sĩ.", wrong3:"Tôi là một kĩ sư."},
+{id:2, question:"She is my friend.", correct:"Cô ấy là bạn của tôi.", wrong1:"Cô ấy là chị của tôi.", wrong2:"Cô ấy là mẹ của tôi.", wrong3:"Cô ấy là em gái của tôi."},
+{id:3, question:"He is tall.", correct:"Anh ấy cao.", wrong1:"Anh ấy thấp.", wrong2:"Anh ấy béo.", wrong3:"Anh ấy ốm."},
+{id:4, question:"We are happy.", correct:"Chúng tôi vui vẻ.", wrong1:"Chúng tôi buồn.", wrong2:"Chúng tôi mệt.", wrong3:"Chúng tôi giận."},
+{id:5, question:"They are at school.", correct:"Họ đang ở trường.", wrong1:"Họ đang ở nhà.", wrong2:"Họ đang ở công viên.", wrong3:"Họ đang ở nhà hàng."},
+{id:6, question:"What is your name?", correct:"Tên của bạn là gì?", wrong1:"Bạn bao nhiêu tuổi?", wrong2:"Bạn ở đâu?", wrong3:"Bạn làm gì?"},
+{id:7, question:"How old are you?", correct:"Bạn bao nhiêu tuổi?", wrong1:"Tên của bạn là gì?", wrong2:"Bạn sống ở đâu?", wrong3:"Bạn đi đâu?"},
+{id:8, question:"Where do you live?", correct:"Bạn sống ở đâu?", wrong1:"Bạn đi đâu?", wrong2:"Bạn làm gì?", wrong3:"Bạn học lớp mấy?"},
+{id:9, question:"I go to school every day.", correct:"Tôi đến trường mỗi ngày.", wrong1:"Tôi đi chơi mỗi ngày.", wrong2:"Tôi đi làm mỗi ngày.", wrong3:"Tôi đi ngủ mỗi ngày."},
+{id:10, question:"She studies English.", correct:"Cô ấy học tiếng Anh.", wrong1:"Cô ấy học tiếng Việt.", wrong2:"Cô ấy học tiếng Trung.", wrong3:"Cô ấy học tiếng Nhật."},
+{id:11, question:"He plays football.", correct:"Anh ấy chơi bóng đá.", wrong1:"Anh ấy chơi bóng rổ.", wrong2:"Anh ấy chơi cầu lông.", wrong3:"Anh ấy chơi tennis."},
+{id:12, question:"We have breakfast at 7 am.", correct:"Chúng tôi ăn sáng lúc 7 giờ.", wrong1:"Chúng tôi ăn trưa lúc 7 giờ.", wrong2:"Chúng tôi ăn tối lúc 7 giờ.", wrong3:"Chúng tôi ăn đêm lúc 7 giờ."},
+{id:13, question:"They live in Hanoi.", correct:"Họ sống ở Hà Nội.", wrong1:"Họ sống ở TP.HCM.", wrong2:"Họ sống ở Đà Nẵng.", wrong3:"Họ sống ở Hải Phòng."},
+{id:14, question:"Do you like music?", correct:"Bạn có thích âm nhạc không?", wrong1:"Bạn có thích thể thao không?", wrong2:"Bạn có thích đọc sách không?", wrong3:"Bạn có thích xem phim không?"},
+{id:15, question:"Does she work here?", correct:"Cô ấy có làm ở đây không?", wrong1:"Cô ấy có học ở đây không?", wrong2:"Cô ấy có sống ở đây không?", wrong3:"Cô ấy có chơi ở đây không?"},
+{id:16, question:"I don't like coffee.", correct:"Tôi không thích cà phê.", wrong1:"Tôi thích cà phê.", wrong2:"Tôi uống cà phê.", wrong3:"Tôi mua cà phê."},
+{id:17, question:"She doesn't eat meat.", correct:"Cô ấy không ăn thịt.", wrong1:"Cô ấy ăn thịt.", wrong2:"Cô ấy thích thịt.", wrong3:"Cô ấy mua thịt."},
+{id:18, question:"This is my book.", correct:"Đây là sách của tôi.", wrong1:"Đây là vở của tôi.", wrong2:"Đây là bút của tôi.", wrong3:"Đây là túi của tôi."},
+{id:19, question:"That is your pen.", correct:"Đó là bút của bạn.", wrong1:"Đó là sách của bạn.", wrong2:"Đó là vở của bạn.", wrong3:"Đó là thước của bạn."},
+{id:20, question:"These are my friends.", correct:"Đây là những người bạn của tôi.", wrong1:"Đây là những người thân của tôi.", wrong2:"Đây là những giáo viên của tôi.", wrong3:"Đây là những học sinh của tôi."},
+{id:21, question:"Those are beautiful flowers.", correct:"Đó là những bông hoa đẹp.", wrong1:"Đó là những cây xanh đẹp.", wrong2:"Đó là những quả táo đẹp.", wrong3:"Đó là những cửa sổ đẹp."},
+{id:22, question:"I can swim.", correct:"Tôi biết bơi.", wrong1:"Tôi biết đi.", wrong2:"Tôi biết chạy.", wrong3:"Tôi biết nhảy."},
+{id:23, question:"She can speak English.", correct:"Cô ấy biết nói tiếng Anh.", wrong1:"Cô ấy biết viết tiếng Anh.", wrong2:"Cô ấy biết đọc tiếng Anh.", wrong3:"Cô ấy biết nghe tiếng Anh."},
+{id:24, question:"He can't drive a car.", correct:"Anh ấy không biết lái xe.", wrong1:"Anh ấy biết lái xe.", wrong2:"Anh ấy thích lái xe.", wrong3:"Anh ấy mua xe."},
+{id:25, question:"Can you help me?", correct:"Bạn có thể giúp tôi không?", wrong1:"Bạn muốn giúp tôi không?", wrong2:"Bạn thích giúp tôi không?", wrong3:"Bạn cần giúp tôi không?"},
+{id:26, question:"There is a cat in the room.", correct:"Có một con mèo trong phòng.", wrong1:"Có một con chó trong phòng.", wrong2:"Có một con chim trong phòng.", wrong3:"Có một con cá trong phòng."},
+{id:27, question:"There are five students in class.", correct:"Có năm học sinh trong lớp.", wrong1:"Có năm giáo viên trong lớp.", wrong2:"Có năm người trong lớp.", wrong3:"Có năm bàn ghế trong lớp."},
+{id:28, question:"There isn't any milk.", correct:"Không có sữa nào.", wrong1:"Có một chút sữa.", wrong2:"Có nhiều sữa.", wrong3:"Có ít sữa."},
+{id:29, question:"How many books do you have?", correct:"Bạn có bao nhiêu quyển sách?", wrong1:"Bạn có bao nhiêu bút?", wrong2:"Bạn có bao nhiêu vở?", wrong3:"Bạn có bao nhiêu túi?"},
+{id:30, question:"How much water is there?", correct:"Có bao nhiêu nước?", wrong1:"Có bao nhiêu sách?", wrong2:"Có bao nhiêu bút?", wrong3:"Có bao nhiêu học sinh?"},
+{id:31, question:"My house is big.", correct:"Nhà của tôi to.", wrong1:"Nhà của tôi nhỏ.", wrong2:"Nhà của tôi cao.", wrong3:"Nhà của tôi đẹp."},
+{id:32, question:"Her car is new.", correct:"Xe của cô ấy là mới.", wrong1:"Xe của cô ấy là cũ.", wrong2:"Xe của cô ấy là đẹp.", wrong3:"Xe của cô ấy là to."},
+{id:33, question:"His school is far.", correct:"Trường của anh ấy xa.", wrong1:"Trường của anh ấy gần.", wrong2:"Trường của anh ấy to.", wrong3:"Trường của anh ấy đẹp."},
+{id:34, question:"I like reading books.", correct:"Tôi thích đọc sách.", wrong1:"Tôi thích viết sách.", wrong2:"Tôi thích mua sách.", wrong3:"Tôi thích bán sách."},
+{id:35, question:"She loves cooking.", correct:"Cô ấy thích nấu ăn.", wrong1:"Cô ấy thích ăn uống.", wrong2:"Cô ấy thích mua đồ.", wrong3:"Cô ấy thích đi chơi."},
+{id:36, question:"We enjoy watching movies.", correct:"Chúng tôi thích xem phim.", wrong1:"Chúng tôi thích làm phim.", wrong2:"Chúng tôi thích mua phim.", wrong3:"Chúng tôi thích đi xem."},
+{id:37, question:"He hates getting up early.", correct:"Anh ấy ghét dậy sớm.", wrong1:"Anh ấy thích dậy sớm.", wrong2:"Anh ấy ghét đi ngủ.", wrong3:"Anh ấy thích đi ngủ."},
+{id:38, question:"You should study hard.", correct:"Bạn nên học chăm chỉ.", wrong1:"Bạn phải học chăm chỉ.", wrong2:"Bạn cần học chăm chỉ.", wrong3:"Bạn thích học chăm chỉ."},
+{id:39, question:"Would you like some coffee?", correct:"Bạn có muốn uống cà phê không?", wrong1:"Bạn có thích cà phê không?", wrong2:"Bạn có cần cà phê không?", wrong3:"Bạn có uống cà phê không?"},
+{id:40, question:"What time do you get up?", correct:"Bạn thức dậy lúc mấy giờ?", wrong1:"Bạn đi ngủ lúc mấy giờ?", wrong2:"Bạn ăn sáng lúc mấy giờ?", wrong3:"Bạn đi học lúc mấy giờ?"},
+{id:41, question:"I have two brothers.", correct:"Tôi có hai anh em trai.", wrong1:"Tôi có hai chị em gái.", wrong2:"Tôi có hai người bạn.", wrong3:"Tôi có hai người thân."},
+{id:42, question:"She has a beautiful house.", correct:"Cô ấy có một ngôi nhà đẹp.", wrong1:"Cô ấy có một chiếc xe đẹp.", wrong2:"Cô ấy có một cái túi đẹp.", wrong3:"Cô ấy có một bộ quần áo đẹp."},
+{id:43, question:"They have three children.", correct:"Họ có ba người con.", wrong1:"Họ có ba người bạn.", wrong2:"Họ có ba người thân.", wrong3:"Họ có ba học sinh."},
+{id:44, question:"My mother is a teacher.", correct:"Mẹ tôi là một giáo viên.", wrong1:"Mẹ tôi là một bác sĩ.", wrong2:"Mẹ tôi là một kĩ sư.", wrong3:"Mẹ tôi là một đầu bếp."},
+{id:45, question:"His father is a doctor.", correct:"Bố của anh ấy là bác sĩ.", wrong1:"Bố của anh ấy là giáo viên.", wrong2:"Bố của anh ấy là kĩ sư.", wrong3:"Bố của anh ấy là luật sư."},
+{id:46, question:"I am from Vietnam.", correct:"Tôi đến từ Việt Nam.", wrong1:"Tôi sống ở Việt Nam.", wrong2:"Tôi thích Việt Nam.", wrong3:"Tôi đi Việt Nam."},
+{id:47, question:"Where is she from?", correct:"Cô ấy đến từ đâu?", wrong1:"Cô ấy sống ở đâu?", wrong2:"Cô ấy đi đâu?", wrong3:"Cô ấy làm gì?"},
+{id:48, question:"What do you do?", correct:"Bạn làm nghề gì?", wrong1:"Bạn học gì?", wrong2:"Bạn thích gì?", wrong3:"Bạn cần gì?"},
+{id:49, question:"I am twelve years old.", correct:"Tôi mười hai tuổi.", wrong1:"Tôi mười tuổi.", wrong2:"Tôi mười một tuổi.", wrong3:"Tôi mười ba tuổi."},
+{id:50, question:"She is in grade 6.", correct:"Cô ấy học lớp 6.", wrong1:"Cô ấy học lớp 7.", wrong2:"Cô ấy học lớp 8.", wrong3:"Cô ấy học lớp 9."},
+{id:51, question:"We go to school by bike.", correct:"Chúng tôi đi xe đạp đến trường.", wrong1:"Chúng tôi đi xe máy đến trường.", wrong2:"Chúng tôi đi bộ đến trường.", wrong3:"Chúng tôi đi xe buýt đến trường."},
+{id:52, question:"He walks to school.", correct:"Anh ấy đi bộ đến trường.", wrong1:"Anh ấy đi xe đạp đến trường.", wrong2:"Anh ấy đi xe máy đến trường.", wrong3:"Anh ấy đi xe buýt đến trường."},
+{id:53, question:"What is this?", correct:"Đây là cái gì?", wrong1:"Đó là cái gì?", wrong2:"Cái này là gì?", wrong3:"Cái kia là gì?"},
+{id:54, question:"What are those?", correct:"Đó là những cái gì?", wrong1:"Đây là những cái gì?", wrong2:"Cái này là gì?", wrong3:"Cái kia là gì?"},
+{id:55, question:"It is a ruler.", correct:"Đó là một cái thước.", wrong1:"Đó là một cái bút.", wrong2:"Đó là một cái bảng.", wrong3:"Đó là một quyển sách."},
+{id:56, question:"They are pencils.", correct:"Đó là những cái bút chì.", wrong1:"Đó là những cái bút bi.", wrong2:"Đó là những cái thước.", wrong3:"Đó là những quyển sách."},
+{id:57, question:"Good morning!", correct:"Chào buổi sáng!", wrong1:"Chào buổi trưa!", wrong2:"Chào buổi chiều!", wrong3:"Chào buổi tối!"},
+{id:58, question:"Good evening!", correct:"Chào buổi tối!", wrong1:"Chào buổi sáng!", wrong2:"Chào buổi trưa!", wrong3:"Chào buổi chiều!"},
+{id:59, question:"Nice to meet you!", correct:"Rất vui được gặp bạn!", wrong1:"Chào bạn!", wrong2:"Tạm biệt bạn!", wrong3:"Hẹn gặp lại bạn!"},
+{id:60, question:"See you tomorrow!", correct:"Hẹn gặp lại bạn ngày mai!", wrong1:"Hẹn gặp lại bạn ngày kia!", wrong2:"Hẹn gặp lại bạn tuần sau!", wrong3:"Hẹn gặp lại bạn tháng sau!"}
 ];
 
 // ==================== BIEN TOAN CUC ====================
-let playerName = "";
-let currentQuestions = [];
-let currentQuestionIndex = 0;
-let correctCount = 0;
-let startTime = null;
-let endTime = null;
-let totalTimeSpent = 0;
-let questionStartTime = null;
-let answers = [];
-let maxStreak = 0;
-let currentStreak = 0;
-let timerInterval = null;
-let previousScreen = "screen-home";
-let testType = "";
+var playerName = "";
+var currentQuestions = [];
+var currentQuestionIndex = 0;
+var correctCount = 0;
+var startTime = null;
+var endTime = null;
+var totalTimeSpent = 0;
+var questionStartTime = null;
+var answers = [];
+var maxStreak = 0;
+var currentStreak = 0;
+var timerInterval = null;
+var previousScreen = "screen-home";
+var testType = "";
 
 // ==================== HAM CHINH ====================
-
 function checkPlayerName() {
     playerName = document.getElementById("playerName").value.trim();
     document.getElementById("btn-vocab").disabled = playerName === "";
@@ -771,32 +685,23 @@ function checkPlayerName() {
 
 function goToScreen(screenId) {
     var screens = document.querySelectorAll(".screen");
-    for (var i = 0; i < screens.length; i++) {
-        screens[i].classList.remove("active");
-    }
+    for (var i = 0; i < screens.length; i++) screens[i].classList.remove("active");
     document.getElementById(screenId).classList.add("active");
     
     var playerDisplays = {
         "screen-vocabulary": "vocab-player",
         "screen-vocab-test": "vocab-test-player",
-        "screen-vocab-list": null,
         "screen-grammar": "grammar-player",
         "screen-translation": "translation-player",
         "screen-comprehensive": "comprehensive-player"
     };
+    if (playerDisplays[screenId]) document.getElementById(playerDisplays[screenId]).textContent = playerName;
+    if (screenId === "screen-vocab-list") renderVocabularyList();
     
-    if (playerDisplays[screenId]) {
-        document.getElementById(playerDisplays[screenId]).textContent = playerName;
-    }
-    
-    if (screenId === "screen-vocab-list") {
-        renderVocabularyList();
-    }
-    
-    var setupScreens = ["screen-vocab-test", "screen-grammar", "screen-translation", "screen-comprehensive"];
-    if (setupScreens.indexOf(screenId) !== -1) {
-        document.getElementById(screenId.replace("screen-", "") + "-setup").style.display = "block";
-        document.getElementById(screenId.replace("screen-", "") + "-playing").style.display = "none";
+    var setupScreens = { "screen-vocab-test": "vocab", "screen-grammar": "grammar", "screen-translation": "translation", "screen-comprehensive": "comprehensive" };
+    if (setupScreens[screenId]) {
+        document.getElementById(setupScreens[screenId] + "-setup").style.display = "block";
+        document.getElementById(setupScreens[screenId] + "-playing").style.display = "none";
     }
 }
 
@@ -814,292 +719,173 @@ function shuffleArray(array) {
 function startVocabTest() {
     testType = "vocab";
     previousScreen = "screen-vocabulary";
-    var count = parseInt(document.getElementById("vocab-question-count").value);
-    currentQuestions = shuffleArray(vocabularyData).slice(0, count);
+    currentQuestions = shuffleArray(vocabularyData).slice(0, parseInt(document.getElementById("vocab-question-count").value));
     startTest("vocab", 8);
 }
 
 function startGrammarTest() {
     testType = "grammar";
     previousScreen = "screen-home";
-    var count = parseInt(document.getElementById("grammar-question-count").value);
-    currentQuestions = shuffleArray(grammarData).slice(0, count);
+    currentQuestions = shuffleArray(grammarData).slice(0, parseInt(document.getElementById("grammar-question-count").value));
     startTest("grammar", 30);
 }
 
 function startTranslationTest() {
     testType = "translation";
     previousScreen = "screen-home";
-    var count = parseInt(document.getElementById("translation-question-count").value);
-    currentQuestions = shuffleArray(translationData).slice(0, count);
+    currentQuestions = shuffleArray(translationData).slice(0, parseInt(document.getElementById("translation-question-count").value));
     startTest("translation", 30);
 }
 
 function startComprehensiveTest() {
     testType = "comprehensive";
     previousScreen = "screen-home";
-    var count = parseInt(document.getElementById("comprehensive-question-count").value);
-    
     var allQuestions = [];
-    for (var i = 0; i < vocabularyData.length; i++) {
-        allQuestions.push(Object.assign({}, vocabularyData[i], {type: "vocab", timeLimit: 8}));
-    }
-    for (var i = 0; i < grammarData.length; i++) {
-        allQuestions.push(Object.assign({}, grammarData[i], {type: "grammar", timeLimit: 30}));
-    }
-    for (var i = 0; i < translationData.length; i++) {
-        allQuestions.push(Object.assign({}, translationData[i], {type: "translation", timeLimit: 30}));
-    }
-    
-    currentQuestions = shuffleArray(allQuestions).slice(0, count);
+    for (var i = 0; i < vocabularyData.length; i++) allQuestions.push(Object.assign({}, vocabularyData[i], { type: "vocab", timeLimit: 8 }));
+    for (var i = 0; i < grammarData.length; i++) allQuestions.push(Object.assign({}, grammarData[i], { type: "grammar", timeLimit: 30 }));
+    for (var i = 0; i < translationData.length; i++) allQuestions.push(Object.assign({}, translationData[i], { type: "translation", timeLimit: 30 }));
+    currentQuestions = shuffleArray(allQuestions).slice(0, parseInt(document.getElementById("comprehensive-question-count").value));
     startComprehensiveTestRun();
 }
 
 function startComprehensiveTestRun() {
-    currentQuestionIndex = 0;
-    correctCount = 0;
-    answers = [];
-    maxStreak = 0;
-    currentStreak = 0;
-    totalTimeSpent = 0;
-    startTime = new Date();
-    
+    currentQuestionIndex = 0; correctCount = 0; answers = []; maxStreak = 0; currentStreak = 0; totalTimeSpent = 0; startTime = new Date();
     document.getElementById("comprehensive-setup").style.display = "none";
     document.getElementById("comprehensive-playing").style.display = "block";
     document.getElementById("comprehensive-total-q").textContent = currentQuestions.length;
-    
     showComprehensiveQuestion();
 }
 
 function showComprehensiveQuestion() {
-    if (currentQuestionIndex >= currentQuestions.length) {
-        endComprehensiveTest();
-        return;
-    }
-    
+    if (currentQuestionIndex >= currentQuestions.length) { endComprehensiveTest(); return; }
     var q = currentQuestions[currentQuestionIndex];
     document.getElementById("comprehensive-current-q").textContent = currentQuestionIndex + 1;
     document.getElementById("comprehensive-correct-count").textContent = correctCount;
     document.getElementById("comprehensive-question-text").textContent = q.question;
     
     var options = shuffleArray([q.correct, q.wrong1, q.wrong2, q.wrong3]);
-    var optionsContainer = document.getElementById("comprehensive-options");
-    optionsContainer.innerHTML = "";
-    
+    var container = document.getElementById("comprehensive-options");
+    container.innerHTML = "";
     for (var i = 0; i < options.length; i++) {
         (function(opt, correct) {
             var btn = document.createElement("button");
             btn.className = "option-btn";
             btn.textContent = opt;
             btn.onclick = function() { selectComprehensiveAnswer(opt, correct); };
-            optionsContainer.appendChild(btn);
+            container.appendChild(btn);
         })(options[i], q.correct);
     }
-    
     questionStartTime = Date.now();
     startComprehensiveTimer(q.timeLimit);
 }
 
 function startComprehensiveTimer(seconds) {
     if (timerInterval) clearInterval(timerInterval);
-    
     var timeLeft = seconds;
     var timerBar = document.getElementById("comprehensive-timer-bar");
     timerBar.style.width = "100%";
     timerBar.style.backgroundColor = seconds === 8 ? "#f43f5e" : "#f97316";
-    
     timerInterval = setInterval(function() {
         timeLeft -= 0.1;
-        var percent = (timeLeft / seconds) * 100;
-        timerBar.style.width = percent + "%";
-        
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            selectComprehensiveAnswer("", currentQuestions[currentQuestionIndex].correct);
-        }
+        timerBar.style.width = Math.max(0, (timeLeft / seconds) * 100) + "%";
+        if (timeLeft <= 0) { clearInterval(timerInterval); selectComprehensiveAnswer("", currentQuestions[currentQuestionIndex].correct); }
     }, 100);
 }
 
 function selectComprehensiveAnswer(selected, correct) {
     if (timerInterval) clearInterval(timerInterval);
-    
-    var timeSpent = (Date.now() - questionStartTime) / 1000;
-    totalTimeSpent += timeSpent;
-    
+    totalTimeSpent += (Date.now() - questionStartTime) / 1000;
     var isCorrect = selected === correct;
-    if (isCorrect) {
-        correctCount++;
-        currentStreak++;
-        if (currentStreak > maxStreak) maxStreak = currentStreak;
-    } else {
-        currentStreak = 0;
-    }
-    
-    answers.push({
-        question: currentQuestions[currentQuestionIndex].question,
-        selected: selected || "(Không chọn)",
-        correct: correct,
-        isCorrect: isCorrect
-    });
-    
+    if (isCorrect) { correctCount++; currentStreak++; if (currentStreak > maxStreak) maxStreak = currentStreak; }
+    else currentStreak = 0;
+    answers.push({ question: currentQuestions[currentQuestionIndex].question, selected: selected || "(Không chọn)", correct: correct, isCorrect: isCorrect });
     currentQuestionIndex++;
-    setTimeout(showComprehensiveQuestion, 300);
+    setTimeout(showComprehensiveQuestion, 100);
 }
 
-function endComprehensiveTest() {
-    endTime = new Date();
-    showReport("TỔNG HỢP - E6U1", "#f43f5e");
-}
+function endComprehensiveTest() { endTime = new Date(); showReport("TỔNG HỢP - E6U1", "#f43f5e"); }
 
 function startTest(type, timeLimit) {
-    currentQuestionIndex = 0;
-    correctCount = 0;
-    answers = [];
-    maxStreak = 0;
-    currentStreak = 0;
-    totalTimeSpent = 0;
-    startTime = new Date();
-    
+    currentQuestionIndex = 0; correctCount = 0; answers = []; maxStreak = 0; currentStreak = 0; totalTimeSpent = 0; startTime = new Date();
     document.getElementById(type + "-setup").style.display = "none";
     document.getElementById(type + "-playing").style.display = "block";
     document.getElementById(type + "-total-q").textContent = currentQuestions.length;
-    
     showQuestion(type, timeLimit);
 }
 
 function showQuestion(type, timeLimit) {
-    if (currentQuestionIndex >= currentQuestions.length) {
-        endTest(type);
-        return;
-    }
-    
+    if (currentQuestionIndex >= currentQuestions.length) { endTest(type); return; }
     var q = currentQuestions[currentQuestionIndex];
     document.getElementById(type + "-current-q").textContent = currentQuestionIndex + 1;
     document.getElementById(type + "-correct-count").textContent = correctCount;
     document.getElementById(type + "-question-text").textContent = q.question;
     
     var options = shuffleArray([q.correct, q.wrong1, q.wrong2, q.wrong3]);
-    var optionsContainer = document.getElementById(type + "-options");
-    optionsContainer.innerHTML = "";
-    
-    var colors = {
-        vocab: "#10b981",
-        grammar: "#3b82f6",
-        translation: "#f97316"
-    };
-    
+    var container = document.getElementById(type + "-options");
+    container.innerHTML = "";
     for (var i = 0; i < options.length; i++) {
         (function(opt, correct, tl, t) {
             var btn = document.createElement("button");
             btn.className = "option-btn";
             btn.textContent = opt;
             btn.onclick = function() { selectAnswer(t, opt, correct, tl); };
-            optionsContainer.appendChild(btn);
+            container.appendChild(btn);
         })(options[i], q.correct, timeLimit, type);
     }
-    
     questionStartTime = Date.now();
     startTimer(type, timeLimit);
 }
 
 function startTimer(type, seconds) {
     if (timerInterval) clearInterval(timerInterval);
-    
     var timeLeft = seconds;
     var timerBar = document.getElementById(type + "-timer-bar");
     timerBar.style.width = "100%";
-    
-    var colors = {
-        vocab: "#10b981",
-        grammar: "#3b82f6",
-        translation: "#f97316"
-    };
+    var colors = { vocab: "#10b981", grammar: "#3b82f6", translation: "#f97316" };
     timerBar.style.backgroundColor = colors[type] || "#3b82f6";
-    
     timerInterval = setInterval(function() {
         timeLeft -= 0.1;
-        var percent = (timeLeft / seconds) * 100;
-        timerBar.style.width = percent + "%";
-        
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            selectAnswer(type, "", currentQuestions[currentQuestionIndex].correct, seconds);
-        }
+        timerBar.style.width = Math.max(0, (timeLeft / seconds) * 100) + "%";
+        if (timeLeft <= 0) { clearInterval(timerInterval); selectAnswer(type, "", currentQuestions[currentQuestionIndex].correct, seconds); }
     }, 100);
 }
 
 function selectAnswer(type, selected, correct, timeLimit) {
     if (timerInterval) clearInterval(timerInterval);
-    
-    var timeSpent = (Date.now() - questionStartTime) / 1000;
-    totalTimeSpent += timeSpent;
-    
+    totalTimeSpent += (Date.now() - questionStartTime) / 1000;
     var isCorrect = selected === correct;
-    if (isCorrect) {
-        correctCount++;
-        currentStreak++;
-        if (currentStreak > maxStreak) maxStreak = currentStreak;
-    } else {
-        currentStreak = 0;
-    }
-    
-    answers.push({
-        question: currentQuestions[currentQuestionIndex].question,
-        selected: selected || "(Không chọn)",
-        correct: correct,
-        isCorrect: isCorrect
-    });
-    
+    if (isCorrect) { correctCount++; currentStreak++; if (currentStreak > maxStreak) maxStreak = currentStreak; }
+    else currentStreak = 0;
+    answers.push({ question: currentQuestions[currentQuestionIndex].question, selected: selected || "(Không chọn)", correct: correct, isCorrect: isCorrect });
     currentQuestionIndex++;
-    setTimeout(function() { showQuestion(type, timeLimit); }, 300);
+    setTimeout(function() { showQuestion(type, timeLimit); }, 100);
 }
 
 function endTest(type) {
     endTime = new Date();
-    var titles = {
-        vocab: "TỪ VỰNG - E6U1",
-        grammar: "NGỮ PHÁP - E6U1",
-        translation: "DỊCH CÂU - E6U1"
-    };
-    var colors = {
-        vocab: "#10b981",
-        grammar: "#3b82f6",
-        translation: "#f97316"
-    };
+    var titles = { vocab: "TỪ VỰNG - E6U1", grammar: "NGỮ PHÁP - E6U1", translation: "DỊCH CÂU - E6U1" };
+    var colors = { vocab: "#10b981", grammar: "#3b82f6", translation: "#f97316" };
     showReport(titles[type], colors[type]);
 }
 
 function showReport(title, color) {
     goToScreen("screen-report");
-    
-    var titleEl = document.getElementById("report-title");
-    titleEl.textContent = title;
-    titleEl.style.color = color;
-    
+    document.getElementById("report-title").textContent = title;
+    document.getElementById("report-title").style.color = color;
     document.getElementById("report-player-name").textContent = playerName;
     
     var total = currentQuestions.length;
     var percent = Math.round((correctCount / total) * 100);
-    
     var percentColor;
-    if (percent <= 49) {
-        percentColor = "#ef4444";
-    } else if (percent <= 69) {
-        percentColor = "#f59e0b";
-    } else if (percent <= 79) {
-        percentColor = "#22c55e";
-    } else if (percent <= 89) {
-        percentColor = "#14b8a6";
-    } else if (percent <= 99) {
-        percentColor = "#3b82f6";
-    } else {
-        percentColor = "#8b5cf6";
-    }
+    if (percent <= 49) percentColor = "#ef4444";
+    else if (percent <= 69) percentColor = "#f59e0b";
+    else if (percent <= 79) percentColor = "#22c55e";
+    else if (percent <= 89) percentColor = "#14b8a6";
+    else if (percent <= 99) percentColor = "#3b82f6";
+    else percentColor = "#8b5cf6";
     
-    var percentEl = document.getElementById("report-percentage");
-    percentEl.textContent = percent + "%";
-    percentEl.style.color = percentColor;
-    
+    document.getElementById("report-percentage").textContent = percent + "%";
+    document.getElementById("report-percentage").style.color = percentColor;
     var now = new Date();
     document.getElementById("report-date").textContent = now.getDate() + "/" + (now.getMonth() + 1) + "/" + now.getFullYear();
     document.getElementById("report-start").textContent = formatTime(startTime);
@@ -1111,139 +897,69 @@ function showReport(title, color) {
     
     var tbody = document.getElementById("report-table-body");
     tbody.innerHTML = "";
-    
     for (var i = 0; i < answers.length; i++) {
         var ans = answers[i];
         var tr = document.createElement("tr");
         tr.style.backgroundColor = i % 2 === 0 ? "#f9fafb" : "white";
-        
         var selectedStyle = ans.isCorrect ? "" : "color: #dc2626; background-color: #fef2f2;";
         var correctStyle = "color: #16a34a; background-color: #f0fdf4;";
-        
-        tr.innerHTML = 
-            '<td style="padding: 8px 12px; border-bottom: 1px solid #e5e7eb;">' + (i + 1) + '</td>' +
+        tr.innerHTML = '<td style="padding: 8px 12px; border-bottom: 1px solid #e5e7eb;">' + (i + 1) + '</td>' +
             '<td style="padding: 8px 12px; border-bottom: 1px solid #e5e7eb;">' + ans.question + '</td>' +
             '<td style="padding: 8px 12px; border-bottom: 1px solid #e5e7eb; ' + selectedStyle + '">' + ans.selected + '</td>' +
             '<td style="padding: 8px 12px; border-bottom: 1px solid #e5e7eb; ' + correctStyle + '">' + ans.correct + '</td>';
-        
         tbody.appendChild(tr);
     }
 }
 
-function formatTime(date) {
-    var h = date.getHours().toString().padStart(2, "0");
-    var m = date.getMinutes().toString().padStart(2, "0");
-    var s = date.getSeconds().toString().padStart(2, "0");
-    return h + ":" + m + ":" + s;
-}
-
-function formatDuration(seconds) {
-    var m = Math.floor(seconds / 60);
-    var s = Math.floor(seconds % 60);
-    return m + ":" + s.toString().padStart(2, "0");
-}
+function formatTime(date) { var h = date.getHours().toString().padStart(2, "0"); var m = date.getMinutes().toString().padStart(2, "0"); var s = date.getSeconds().toString().padStart(2, "0"); return h + ":" + m + ":" + s; }
+function formatDuration(seconds) { var m = Math.floor(seconds / 60); var s = Math.floor(seconds % 60); return m + ":" + s.toString().padStart(2, "0"); }
 
 function drawChart(percent, color) {
     var canvas = document.getElementById("report-chart");
     var ctx = canvas.getContext("2d");
-    var centerX = 100;
-    var centerY = 100;
-    var outerRadius = 95;
-    var innerRadius = 65;
-    
+    var centerX = 100, centerY = 100, outerRadius = 95, innerRadius = 65;
     ctx.clearRect(0, 0, 200, 200);
-    
-    ctx.beginPath();
-    ctx.arc(centerX, centerY, outerRadius, 0, 2 * Math.PI);
-    ctx.arc(centerX, centerY, innerRadius, 0, 2 * Math.PI, true);
-    ctx.fillStyle = "#e5e7eb";
-    ctx.fill();
-    
+    ctx.beginPath(); ctx.arc(centerX, centerY, outerRadius, 0, 2 * Math.PI); ctx.arc(centerX, centerY, innerRadius, 0, 2 * Math.PI, true); ctx.fillStyle = "#e5e7eb"; ctx.fill();
     if (percent > 0) {
         var startAngle = -Math.PI / 2;
         var endAngle = startAngle + (percent / 100) * 2 * Math.PI;
-        
-        ctx.beginPath();
-        ctx.arc(centerX, centerY, outerRadius, startAngle, endAngle);
-        ctx.arc(centerX, centerY, innerRadius, endAngle, startAngle, true);
-        ctx.closePath();
-        ctx.fillStyle = color;
-        ctx.fill();
+        ctx.beginPath(); ctx.arc(centerX, centerY, outerRadius, startAngle, endAngle); ctx.arc(centerX, centerY, innerRadius, endAngle, startAngle, true); ctx.closePath(); ctx.fillStyle = color; ctx.fill();
     }
 }
 
 function retakeTest() {
-    if (testType === "vocab") {
-        var count = parseInt(document.getElementById("vocab-question-count").value);
-        currentQuestions = shuffleArray(vocabularyData).slice(0, count);
-        startTest("vocab", 8);
-        goToScreen("screen-vocab-test");
-    } else if (testType === "grammar") {
-        var count = parseInt(document.getElementById("grammar-question-count").value);
-        currentQuestions = shuffleArray(grammarData).slice(0, count);
-        startTest("grammar", 30);
-        goToScreen("screen-grammar");
-    } else if (testType === "translation") {
-        var count = parseInt(document.getElementById("translation-question-count").value);
-        currentQuestions = shuffleArray(translationData).slice(0, count);
-        startTest("translation", 30);
-        goToScreen("screen-translation");
-    } else if (testType === "comprehensive") {
-        var count = parseInt(document.getElementById("comprehensive-question-count").value);
+    if (testType === "vocab") { currentQuestions = shuffleArray(vocabularyData).slice(0, parseInt(document.getElementById("vocab-question-count").value)); startTest("vocab", 8); goToScreen("screen-vocab-test"); }
+    else if (testType === "grammar") { currentQuestions = shuffleArray(grammarData).slice(0, parseInt(document.getElementById("grammar-question-count").value)); startTest("grammar", 30); goToScreen("screen-grammar"); }
+    else if (testType === "translation") { currentQuestions = shuffleArray(translationData).slice(0, parseInt(document.getElementById("translation-question-count").value)); startTest("translation", 30); goToScreen("screen-translation"); }
+    else if (testType === "comprehensive") {
         var allQuestions = [];
-        for (var i = 0; i < vocabularyData.length; i++) {
-            allQuestions.push(Object.assign({}, vocabularyData[i], {type: "vocab", timeLimit: 8}));
-        }
-        for (var i = 0; i < grammarData.length; i++) {
-            allQuestions.push(Object.assign({}, grammarData[i], {type: "grammar", timeLimit: 30}));
-        }
-        for (var i = 0; i < translationData.length; i++) {
-            allQuestions.push(Object.assign({}, translationData[i], {type: "translation", timeLimit: 30}));
-        }
-        currentQuestions = shuffleArray(allQuestions).slice(0, count);
-        startComprehensiveTestRun();
-        goToScreen("screen-comprehensive");
+        for (var i = 0; i < vocabularyData.length; i++) allQuestions.push(Object.assign({}, vocabularyData[i], { type: "vocab", timeLimit: 8 }));
+        for (var i = 0; i < grammarData.length; i++) allQuestions.push(Object.assign({}, grammarData[i], { type: "grammar", timeLimit: 30 }));
+        for (var i = 0; i < translationData.length; i++) allQuestions.push(Object.assign({}, translationData[i], { type: "translation", timeLimit: 30 }));
+        currentQuestions = shuffleArray(allQuestions).slice(0, parseInt(document.getElementById("comprehensive-question-count").value));
+        startComprehensiveTestRun(); goToScreen("screen-comprehensive");
     }
 }
 
-function goBackFromReport() {
-    goToScreen(previousScreen);
-}
+function goBackFromReport() { goToScreen(previousScreen); }
 
 function renderVocabularyList() {
     var tbody = document.getElementById("vocab-list-body");
     tbody.innerHTML = "";
-    
     for (var i = 0; i < vocabularyData.length; i++) {
         var vocab = vocabularyData[i];
         var tr = document.createElement("tr");
-        
-        var speakerBtn = '<button class="speaker-btn" onclick="speakWord(\'' + vocab.question + '\')"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg></button>';
-        
-        tr.innerHTML = 
-            '<td style="padding: 12px 16px; font-weight: 600;">' + vocab.id + '</td>' +
-            '<td style="padding: 12px 16px;">' + speakerBtn + ' <span style="font-weight: 500;">' + vocab.question + '</span></td>' +
-            '<td style="padding: 12px 16px; color: #4b5563;">' + vocab.correct + '</td>';
-        
+        tr.innerHTML = '<td style="padding: 10px 16px; font-weight: 600;">' + vocab.id + '</td>' +
+            '<td style="padding: 10px 16px;"><button class="speaker-btn" onclick="speakWord(\'' + vocab.question + '\')"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg></button> <span style="font-weight: 500;">' + vocab.question + '</span></td>' +
+            '<td style="padding: 10px 16px; color: #4b5563;">' + vocab.correct + '</td>';
         tbody.appendChild(tr);
     }
 }
 
-function speakWord(word) {
-    if ('speechSynthesis' in window) {
-        var utterance = new SpeechSynthesisUtterance(word);
-        utterance.lang = 'en-US';
-        utterance.rate = 0.8;
-        speechSynthesis.speak(utterance);
-    } else {
-        alert('Trình duyệt không hỗ trợ phát âm.');
-    }
-}
+function speakWord(word) { if ('speechSynthesis' in window) { var utterance = new SpeechSynthesisUtterance(word); utterance.lang = 'en-US'; utterance.rate = 0.8; speechSynthesis.speak(utterance); } else alert('Trình duyệt không hỗ trợ phát âm.'); }
 
 document.getElementById("playerName").addEventListener("input", checkPlayerName);
-
 checkPlayerName();
 </script>
-
 </body>
 </html>
