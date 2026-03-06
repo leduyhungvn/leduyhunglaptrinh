@@ -1046,16 +1046,21 @@
         const cungTrach = (isMeEast === isPartnerEast) ? 'Cùng trạch' : 'Khác trạch';
 
         const getBadge = (rel) => {
+            // Các trường hợp tốt
             if (rel.includes('TỐT') || rel.includes('ỨNG TƯƠNG SINH') || 
                 rel.includes('Hợp') || rel.includes('Lục hợp') || rel.includes('Tam hợp') || 
-                rel.includes('Sinh Khí') || rel.includes('Thiên Y') || rel.includes('Phúc Đức') || rel.includes('Phục Vị')) {
+                rel.includes('Sinh Khí') || rel.includes('Thiên Y') || rel.includes('Phúc Đức') || rel.includes('Phục Vị') ||
+                rel.includes('Tương Sinh')) {  // Thêm Tương Sinh
                 return '<span class="badge-good">Tốt</span>';
             }
+            // Các trường hợp xấu
             if (rel.includes('XẤU') || rel.includes('ỨNG TƯƠNG KHẮC') ||
                 rel.includes('xung') || rel.includes('phá') || rel.includes('hại') || rel.includes('hình') ||
-                rel.includes('Tuyệt') || rel.includes('Lục Sát') || rel.includes('Hoạ') || rel.includes('Ngũ Quỷ')) {
+                rel.includes('Tuyệt') || rel.includes('Lục Sát') || rel.includes('Hoạ') || rel.includes('Ngũ Quỷ') ||
+                rel.includes('Tương Khắc')) {  // Thêm Tương Khắc
                 return '<span class="badge-bad">Xấu</span>';
             }
+            // Còn lại là bình
             return '<span class="badge-normal">Bình</span>';
         };
 
