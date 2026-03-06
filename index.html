@@ -3,963 +3,1192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ÔN TẬP TIẾNG ANH - E6U1</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
+    <title>Tra cứu hợp tuổi vợ chồng + Bát trạch hướng nhà</title>
     <style>
-        :root {
-            --bg: #ffffff;
-            --fg: #1a1a2e;
-            --border: #e2e8f0;
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: 'Roboto', sans-serif;
-            background: var(--bg);
-            color: var(--fg);
-            min-height: 100vh;
-            line-height: 1.5;
+            background: #f0f2f5;
+            margin: 0;
+            padding: 20px;
         }
-        .screen { display: none; min-height: 100vh; padding: 16px; }
-        .screen.active { display: block; }
-        
-        .btn-main {
-            display: block;
-            width: 100%;
-            padding: 16px;
-            border: none;
-            border-radius: 12px;
-            font-size: 18px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: transform 0.1s ease, box-shadow 0.1s ease;
-            color: white;
-        }
-        .btn-main:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        .btn-main:active:not(:disabled) {
-            transform: translateY(0) scale(0.98);
-        }
-        .btn-main:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        
-        .btn-emerald { background-color: #10b981; }
-        .btn-blue { background-color: #3b82f6; }
-        .btn-orange { background-color: #f97316; }
-        .btn-rose { background-color: #f43f5e; }
-        .btn-teal { background-color: #14b8a6; }
-        .btn-gray { background-color: #6b7280; }
-        
-        .option-btn {
-            display: block;
-            width: 100%;
-            padding: 12px 16px;
-            margin-bottom: 12px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 500;
-            text-align: left;
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
             background: white;
-            cursor: pointer;
-            transition: all 0.08s ease;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            padding: 28px 24px;
         }
-        .option-btn:hover {
-            border-color: #3b82f6;
-            background-color: #eff6ff;
-        }
-        .option-btn:active {
-            transform: scale(0.98);
-        }
-        
-        .card {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            padding: 24px;
-            margin-bottom: 16px;
-        }
-        
-        .title-main {
-            font-family: 'Roboto Condensed', sans-serif;
-            letter-spacing: 0.5px;
-        }
-        
-        .progress-container {
-            width: 100%;
-            height: 10px;
-            background-color: #e5e7eb;
-            border-radius: 999px;
-            overflow: hidden;
-        }
-        .progress-bar {
-            height: 100%;
-            border-radius: 999px;
-            transition: width 0.05s linear;
-        }
-        
-        select {
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 12px center;
-            padding: 12px 40px 12px 16px;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 16px;
-            width: 100%;
-            background-color: white;
-            cursor: pointer;
-        }
-        
-        input[type="text"] {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 16px;
-            outline: none;
-            transition: border-color 0.1s;
-        }
-        input[type="text"]:focus {
-            border-color: #3b82f6;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 10px 12px;
-            text-align: left;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        th {
-            background-color: #f9fafb;
-            font-weight: 700;
-        }
-        
-        .speaker-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #3b82f6;
-            vertical-align: middle;
-            padding: 4px;
-        }
-        .speaker-btn:hover {
-            color: #1d4ed8;
-        }
-        
-        .report-grid {
+        h1 {
+            font-size: 2.1rem;
+            font-weight: 600;
+            color: #1e2b3a;
+            margin: 0 0 16px 0;
             display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        @media (min-width: 768px) {
-            .report-grid {
-                flex-direction: row;
-                align-items: stretch;
-            }
-        }
-        
-        .chart-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
+            gap: 10px;
+            border-bottom: 2px solid #e9edf4;
+            padding-bottom: 20px;
         }
-        
-        .stats-container {
-            flex: 0 0 auto;
+        h1:before {
+            content: "🔯";
+            font-size: 2rem;
+        }
+        .form-group {
+            display: flex;
+            gap: 30px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            background: #f8fafd;
+            padding: 24px 28px;
+            border-radius: 30px;
+            margin: 20px 0 28px 0;
+        }
+        .form-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .form-item label {
+            font-weight: 600;
+            color: #2c3e50;
+            letter-spacing: 0.3px;
+            font-size: 0.95rem;
+        }
+        select, button {
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 40px;
+            border: 1px solid #cbd5e0;
+            background: white;
             min-width: 200px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
         }
-        @media (min-width: 768px) {
-            .stats-container {
-                width: 35%;
-            }
+        select:hover, button:hover {
+            border-color: #3498db;
+            box-shadow: 0 4px 10px rgba(52,152,219,0.15);
         }
-        
-        .stat-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            border-bottom: 1px solid #f3f4f6;
+        button {
+            background: #1e2b3a;
+            color: white;
+            border: none;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            min-width: 140px;
         }
-        .stat-row:last-child {
-            border-bottom: none;
+        button:hover {
+            background: #2c3e50;
+            transform: translateY(-2px);
         }
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Thông tin 3 cột: cá nhân, hướng tốt, hướng xấu */
+        .info-container {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0 28px 0;
+            flex-wrap: wrap;
         }
-        .slide-in {
-            animation: slideIn 0.15s ease-out;
+        .info-col {
+            background: linear-gradient(145deg, #f6f9fc, #ffffff);
+            border-left: 8px solid #0d6efd;
+            border-radius: 28px;
+            padding: 24px 24px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.02);
+            flex: 1 1 280px;
+        }
+        .huong-col {
+            border-radius: 28px;
+            padding: 20px 22px;
+            box-shadow: 0 10px 18px rgba(0,0,0,0.04);
+            flex: 1 1 280px;
+        }
+        .huong-tot {
+            background: #e2f0e6;
+            border-left: 8px solid #2e7d32;
+        }
+        .huong-xau {
+            background: #fee9e7;
+            border-left: 8px solid #b71c1c;
+        }
+        .huong-title {
+            font-weight: 700;
+            font-size: 1.4rem;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px dashed #aaa;
+            padding-bottom: 12px;
+        }
+        .huong-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .huong-list li {
+            margin: 14px 0;
+            line-height: 1.5;
+        }
+        .huong-item {
+            background: rgba(255,255,255,0.7);
+            border-radius: 30px;
+            padding: 8px 16px;
+            font-size: 0.98rem;
+            border-left: 5px solid;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .huong-item strong {
+            color: #0a2f44;
+        }
+        .badge-huong {
+            display: inline-block;
+            background: #ffffffcc;
+            border-radius: 30px;
+            padding: 2px 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+        .info-row {
+            display: flex;
+            align-items: baseline;
+            padding: 12px 0;
+            border-bottom: 1px dashed #d4deec;
+            font-size: 1.2rem;
+        }
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        .info-label {
+            font-weight: 650;
+            width: 140px;
+            color: #1e3c5c;
+        }
+        .info-value {
+            font-weight: 500;
+            color: #0b5e8e;
+            background: #eaf4ff;
+            padding: 4px 18px;
+            border-radius: 40px;
+            margin-left: 10px;
+        }
+
+        /* Top 10 container */
+        .top10-container {
+            background: #fef5e7;
+            border: 1px solid #f1c40f;
+            border-radius: 24px;
+            padding: 16px 20px;
+            margin: 20px 0 28px 0;
+            box-shadow: 0 8px 18px rgba(241,196,15,0.1);
+        }
+        .top10-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #b36b0b;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .top10-title:before {
+            content: "🏆";
+            font-size: 2rem;
+        }
+        .top10-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .top10-table th {
+            background: #f39c12;
+            color: #1e2b3a;
+            padding: 12px 8px;
+            font-weight: 600;
+        }
+        .top10-table td, .top10-table th {
+            border: 1px solid #e6b422;
+            padding: 10px 8px;
+            text-align: center;
+        }
+        .top10-table tr:nth-child(even) {
+            background: #fef9e7;
+        }
+
+        /* Khu vực so sánh chi tiết */
+        .compare-box {
+            background: #e8f0fe;
+            border: 2px solid #2c7da0;
+            border-radius: 24px;
+            padding: 20px 28px;
+            margin: 20px 0 30px 0;
+            box-shadow: 0 6px 14px rgba(44,125,160,0.15);
+        }
+        .compare-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0b3b5a;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .compare-title:before {
+            content: "📊";
+            font-size: 1.8rem;
+        }
+        .compare-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .compare-item {
+            background: white;
+            border-radius: 20px;
+            padding: 18px 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.02);
+            border-left: 6px solid;
+        }
+        .compare-item:nth-child(1) { border-left-color: #e76f51; }
+        .compare-item:nth-child(2) { border-left-color: #f4a261; }
+        .compare-item:nth-child(3) { border-left-color: #2a9d8f; }
+        .compare-item:nth-child(4) { border-left-color: #2874a6; }
+        .compare-item:nth-child(5) { border-left-color: #8e44ad; }
+        .compare-item h3 {
+            margin: 0 0 15px 0;
+            color: #1e2b3a;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .compare-item p {
+            margin: 8px 0;
+            font-size: 1.05rem;
+            line-height: 1.5;
+        }
+        .badge-good {
+            background: #d4edda;
+            color: #155724;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .badge-normal {
+            background: #fff3cd;
+            color: #856404;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+        .badge-bad {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+
+        /* Bảng chính có cuộn */
+        .scrollable {
+            max-height: 580px;
+            overflow-y: auto;
+            border: 1px solid #a0b8cc;
+            border-radius: 18px;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.03);
+            margin-top: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 0.85rem;
+            background: white;
+        }
+        th {
+            background: #1e2b3a;
+            color: white;
+            padding: 14px 6px;
+            font-weight: 500;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            white-space: nowrap;
+        }
+        td {
+            padding: 10px 5px;
+            border: 1px solid #bdc9d5;
+            text-align: center;
+        }
+        tr:nth-child(even) {
+            background: #f2f6f9;
+        }
+        .btn-compare {
+            background: #2c7da0;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 6px 14px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+        .btn-compare:hover {
+            background: #1e5f7d;
+            transform: scale(1.02);
+        }
+
+        /* Giải thích mở rộng điểm số */
+        .explain-box {
+            background: #e4eaf2;
+            border-radius: 26px;
+            padding: 24px 28px;
+            margin-top: 40px;
+            font-size: 0.98rem;
+            border: 1px solid #cbd5e0;
+        }
+        .explain-box h3 {
+            margin-top: 0;
+            color: #0b3b5a;
+            font-weight: 650;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .explain-box h3:before {
+            content: "📌";
+            font-size: 1.6rem;
+        }
+        .explain-box ul {
+            padding-left: 24px;
+            line-height: 1.7;
+        }
+        .explain-box li {
+            margin: 8px 0;
+        }
+        .badge {
+            display: inline-block;
+            background: #2c3e50;
+            color: white;
+            border-radius: 30px;
+            padding: 4px 12px;
+            font-size: 0.8rem;
+            margin: 4px 6px 4px 0;
+            white-space: nowrap;
+        }
+        .note {
+            margin-top: 15px;
+            font-style: italic;
+            color: #2c3e50;
+        }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #5e6f8d;
+        }
+        .example {
+            background: #fef9e7;
+            padding: 15px 20px;
+            border-radius: 20px;
+            margin-top: 15px;
+            border-left: 6px solid #f1c40f;
+        }
+
+        /* Giải thích chi tiết hướng tốt xấu */
+        .direction-detail {
+            background: #f9f9fc;
+            border-radius: 26px;
+            padding: 24px 28px;
+            margin-top: 40px;
+            border: 1px solid #cbd5e0;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+        }
+        .direction-detail h3 {
+            color: #0b3b5a;
+            font-size: 1.5rem;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-weight: 650;
+            border-left: 8px solid #2c7da0;
+            padding-left: 20px;
+        }
+        .direction-detail h4 {
+            color: #1e3c5c;
+            font-size: 1.2rem;
+            margin: 20px 0 10px;
+            font-weight: 600;
+            background: #eaf4ff;
+            display: inline-block;
+            padding: 5px 20px;
+            border-radius: 30px;
+        }
+        .direction-detail ul {
+            margin-top: 5px;
+            margin-bottom: 20px;
+            padding-left: 25px;
+        }
+        .direction-detail li {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+        .direction-detail p {
+            margin: 8px 0;
+        }
+        .explain-diff {
+            background: #e8f0fe;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 30px 0 10px;
+            border-left: 6px solid #2c7da0;
         }
     </style>
 </head>
 <body>
-
-<!-- GIAO DIEN 1: TRANG CHU -->
-<div id="screen-home" class="screen active">
-    <div class="max-w-2xl mx-auto py-8">
-        <div class="text-center mb-8">
-            <h1 class="text-3xl md:text-4xl font-black text-blue-600 title-main mb-2">ÔN TẬP TIẾNG ANH</h1>
-            <h2 class="text-2xl md:text-3xl font-bold text-gray-700 title-main">E6U1</h2>
+<div class="container">
+    <h1>HỢP TUỔI NAM - NỮ (1945–2145) – BÁT TRẠCH HƯỚNG NHÀ</h1>
+    
+    <div class="form-group">
+        <div class="form-item">
+            <label>📅 Năm sinh của bạn (chính chủ):</label>
+            <select id="yearSelect"></select>
         </div>
+        <div class="form-item">
+            <label>⚥ Giới tính của bạn:</label>
+            <select id="genderSelect">
+                <option value="male">Nam</option>
+                <option value="female" selected>Nữ</option>
+            </select>
+        </div>
+        <button id="xemBtn">🔍 Xem kết quả</button>
+    </div>
+
+    <!-- 3 CỘT THÔNG TIN: CÁ NHÂN, HƯỚNG TỐT, HƯỚNG XẤU -->
+    <div id="infoContainer" class="info-container" style="display: flex; gap: 20px; margin: 20px 0 28px 0; flex-wrap: wrap;">
+        <div id="personalInfo" class="info-col" style="display: none;"></div>
+        <div id="huongTot" class="huong-col huong-tot" style="display: none;"></div>
+        <div id="huongXau" class="huong-col huong-xau" style="display: none;"></div>
+    </div>
+
+    <!-- TOP 10 BẢNG ĐIỂM CAO NHẤT -->
+    <div id="top10Container" class="top10-container" style="display: none;"></div>
+
+    <!-- Khu vực hiển thị so sánh chi tiết -->
+    <div id="compareDetail" class="compare-box" style="display: none;"></div>
+
+    <!-- Bảng kết quả đầy đủ (có cuộn) -->
+    <div class="scrollable" id="resultTable"></div>
+
+    <!-- Giải thích cách tính điểm (mở rộng) -->
+    <div class="explain-box">
+        <h3>Cách tính điểm hợp tuổi (thang 10) – chi tiết</h3>
+        <ul>
+            <li><strong>Quan hệ đối xứng (Thiên can, Địa chi, Cung mệnh):</strong>
+                <ul>
+                    <li>2 điểm: hợp (can hợp, lục hợp, tam hợp, cung tốt).</li>
+                    <li>1 điểm: bình (không hợp không xung).</li>
+                    <li>0 điểm: xung khắc (can xung, lục xung, lục phá, lục hại, tam hình, cung xấu).</li>
+                </ul>
+            </li>
+            <li><strong>Quan hệ một chiều (Mệnh nạp âm và Niên mệnh – hành cung):</strong> Kết quả phụ thuộc vào chiều tương sinh khắc giữa hai người.
+                <ul>
+                    <li>2 điểm: <strong>Đối phương sinh chính chủ</strong> = TỐT TƯƠNG SINH (Tốt).</li>
+                    <li>1.5 điểm: <strong>Chính chủ sinh đối phương</strong> = ỨNG TƯƠNG SINH (Tốt).</li>
+                    <li>1 điểm: <strong>Bình hòa</strong> (không sinh, không khắc) = BÌNH (Bình).</li>
+                    <li>0.5 điểm: <strong>Chính chủ khắc đối phương</strong> = ỨNG TƯƠNG KHẮC (Xấu).</li>
+                    <li>0 điểm: <strong>Đối phương khắc chính chủ</strong> = XẤU TƯƠNG KHẮC (Xấu).</li>
+                </ul>
+            </li>
+        </ul>
+        <div class="example">
+            <strong>Ví dụ:</strong> Bạn là Nam 1985 (mệnh Kim, niên mệnh Kim), đối phương Nữ 1996 (mệnh Thủy, niên mệnh Thổ).<br>
+            - Mệnh: đối phương Thủy không sinh, không khắc Kim → BÌNH (1 điểm).<br>
+            - Niên mệnh: đối phương Thổ sinh bạn Kim → TỐT TƯƠNG SINH (2 điểm).<br>
+            Tổng điểm các mục khác cộng lại sẽ phản ánh mức độ hợp.
+        </div>
+        <p class="note">Tổng điểm tối đa 10. Các cặp đạt 8–10 điểm được xem là rất hợp.</p>
+    </div>
+
+    <!-- Giải thích chi tiết về các hướng tốt xấu trong Bát trạch -->
+    <div class="direction-detail">
+        <h3>🟢 NHÓM HƯỚNG TỐT (CÁT HƯỚNG)</h3>
+        <p>Đây là những hướng đón nhận các luồng khí tốt lành (Sinh Khí) từ vũ trụ, giúp gia chủ gặp may mắn, thuận lợi trong công việc và cuộc sống.</p>
         
-        <div class="card">
-            <label class="block text-gray-700 font-semibold mb-2">Họ và tên người làm bài:</label>
-            <input type="text" id="playerName" placeholder="Nhập họ và tên của bạn...">
-        </div>
+        <h4>1. Sinh Khí - Hướng "Đại Cát"</h4>
+        <p><strong>Ý nghĩa tên gọi:</strong> "Sinh" là sinh sôi, "Khí" là năng lượng. Đây là nguồn năng lượng mạnh mẽ nhất, tượng trưng cho sự khởi đầu thuận lợi và phát triển.</p>
+        <p><strong>Tác động chi tiết:</strong></p>
+        <ul>
+            <li><strong>Tài lộc:</strong> Đây là hướng vượng tài vượng lộc nhất. Nếu làm nhà, kê bàn làm việc hoặc chọn hướng phòng ngủ theo hướng này, công việc kinh doanh, sự nghiệp sẽ hanh thông, tiền bạc dồi dào, có cơ hội thăng quan tiến chức.</li>
+            <li><strong>Sức khỏe:</strong> Năng lượng Sinh Khí dồi dào giúp cơ thể tràn đầy sức sống, ít bệnh vặt, tinh thần phấn chấn.</li>
+            <li><strong>Gia đạo:</strong> Rất vượng về người (con cháu đề huề, đông vui), các mối quan hệ xã hội được mở rộng, gặp được nhiều quý nhân phù trợ.</li>
+        </ul>
         
-        <div class="space-y-4 mb-8">
-            <button onclick="goToScreen('screen-vocabulary')" class="btn-main btn-emerald" disabled id="btn-vocab">ÔN TẬP TỪ VỰNG</button>
-            <button onclick="goToScreen('screen-grammar')" class="btn-main btn-blue" disabled id="btn-grammar">TRẮC NGHIỆM NGỮ PHÁP</button>
-            <button onclick="goToScreen('screen-translation')" class="btn-main btn-orange" disabled id="btn-translation">TRẮC NGHIỆM DỊCH CÂU</button>
-            <button onclick="goToScreen('screen-comprehensive')" class="btn-main btn-rose" disabled id="btn-comprehensive">TRẮC NGHIỆM TỔNG HỢP</button>
-        </div>
+        <h4>2. Phúc Đức (Diên Niên) - Hướng "Đại Cát"</h4>
+        <p><strong>Ý nghĩa tên gọi:</strong> "Diên Niên" nghĩa là kéo dài tuổi thọ, sự hòa thuận. "Phúc Đức" là phúc phần tổ tiên để lại.</p>
+        <p><strong>Tác động chi tiết:</strong></p>
+        <ul>
+            <li><strong>Gia đạo:</strong> Đây là hướng của tình yêu thương và sự hòa hợp. Rất tốt cho hôn nhân, giúp vợ chồng thêm gắn bó, yêu thương nhau, hạn chế cãi vã. Các thành viên trong nhà sống hòa thuận, êm ấm.</li>
+            <li><strong>Tài lộc:</strong> Tài vận rất tốt, tiền bạc đến một cách ổn định, bền vững, không phải tài lộc nhất thời.</li>
+            <li><strong>Sức khỏe:</strong> Sống lâu, khỏe mạnh, ít bệnh tật nhờ sự ổn định của nguồn năng lượng.</li>
+        </ul>
         
-        <div class="card" style="background-color: #f9fafb;">
-            <h3 class="font-bold text-gray-800 mb-3 text-lg">THÔNG TIN LIÊN HỆ</h3>
-            <p class="font-semibold text-blue-600 mb-2">Thầy Hùng</p>
-            <ul class="text-gray-600 space-y-1 text-sm">
-                <li>Giáo viên dạy kèm toán, tiếng anh.</li>
-                <li>Zalo: 0967.095.025</li>
-                <li>Facebook: leduyhung.vietnam</li>
-                <li>Tiktok: leduyhungtiktok</li>
-                <li>Youtube: byleduyhung & approach1234</li>
-            </ul>
-        </div>
-    </div>
-</div>
-
-<!-- GIAO DIEN 2: ON TAP TU VUNG -->
-<div id="screen-vocabulary" class="screen">
-    <div class="max-w-2xl mx-auto py-6">
-        <div class="flex items-center justify-between mb-6">
-            <button onclick="goToScreen('screen-home')" class="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition-colors">QUAY LẠI</button>
-            <h1 class="text-xl md:text-2xl font-bold text-emerald-600 title-main">TỪ VỰNG - E6U1</h1>
-            <span id="vocab-player" class="text-blue-600 font-semibold"></span>
-        </div>
-        <div class="space-y-4">
-            <button onclick="goToScreen('screen-vocab-test')" class="btn-main btn-emerald">KIỂM TRA TỪ VỰNG</button>
-            <button onclick="goToScreen('screen-vocab-list')" class="btn-main btn-teal">DANH SÁCH TỪ VỰNG</button>
-            <button onclick="goToScreen('screen-home')" class="btn-main btn-gray">QUAY LẠI</button>
-        </div>
-    </div>
-</div>
-
-<!-- GIAO DIEN 2.1: TRAC NGHIEM TU VUNG -->
-<div id="screen-vocab-test" class="screen">
-    <div class="max-w-2xl mx-auto py-6">
-        <div class="flex items-center justify-between mb-6">
-            <button onclick="goToScreen('screen-vocabulary')" class="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300">QUAY LẠI</button>
-            <h1 class="text-xl font-bold text-emerald-600 title-main">TỪ VỰNG - E6U1</h1>
-            <span id="vocab-test-player" class="text-blue-600 font-semibold text-sm"></span>
-        </div>
+        <h4>3. Thiên Y - Hướng "Cát"</h4>
+        <p><strong>Ý nghĩa tên gọi:</strong> "Thiên" là trời, "Y" là thuốc chữa bệnh. Có nghĩa là được trời ban cho sức khỏe và sự che chở.</p>
+        <p><strong>Tác động chi tiết:</strong></p>
+        <ul>
+            <li><strong>Sức khỏe:</strong> Nổi bật nhất là khả năng hóa giải bệnh tật. Nhà có hướng hoặc phòng ngủ/bếp ở hướng Thiên Y sẽ giúp người ốm mau khỏi, người khỏe càng thêm dẻo dai.</li>
+            <li><strong>Tài lộc:</strong> Tài vận cũng tốt, có quý nhân giúp đỡ, tiền bạc có phần nhẹ nhàng, không quá vất vả.</li>
+            <li><strong>Năng lượng:</strong> Mang đến sự an yên, che chở, giúp gia chủ vượt qua khó khăn về bệnh tật.</li>
+        </ul>
         
-        <div id="vocab-test-setup" class="card">
-            <div class="mb-6">
-                <label class="block text-gray-700 font-semibold mb-2">Chọn số câu hỏi:</label>
-                <select id="vocab-question-count">
-                    <option value="10">10 câu</option>
-                    <option value="20">20 câu</option>
-                    <option value="30">30 câu</option>
-                    <option value="40">40 câu</option>
-                    <option value="80">Tất Cả (80 câu)</option>
-                </select>
-            </div>
-            <button onclick="startVocabTest()" class="btn-main btn-emerald">LÀM BÀI</button>
-        </div>
+        <h4>4. Phục Vị - Hướng "Bình Cát" (Tiểu Cát)</h4>
+        <p><strong>Ý nghĩa tên gọi:</strong> "Phục" là quay về, "Vị" là vị trí. Tượng trưng cho sự tĩnh tâm, ổn định và nương tựa vào chính mình.</p>
+        <p><strong>Tác động chi tiết:</strong></p>
+        <ul>
+            <li><strong>Tinh thần:</strong> Tốt cho việc tu tập, học hành, nghiên cứu hoặc những người làm công việc tư duy. Nó củng cố ý chí và sự kiên định.</li>
+            <li><strong>Tài lộc:</strong> Ở mức trung bình, khá ổn định, ít biến động lớn. Không phải là hướng để cầu mong sự giàu có vượt bậc.</li>
+            <li><strong>Sức khỏe & Gia vận:</strong> Mọi thứ ở mức ổn định, không xấu nhưng cũng không có gì đột phá. Đây là nguồn năng lượng hỗ trợ cho sự vững chắc hơn là sự phát triển.</li>
+        </ul>
         
-        <div id="vocab-test-playing" style="display: none;">
-            <div class="card">
-                <div class="flex justify-between items-center mb-2">
-                    <span class="font-semibold text-gray-700">Câu: <span id="vocab-current-q">1</span>/<span id="vocab-total-q">10</span></span>
-                    <span class="font-bold text-lg text-emerald-600">ĐÚNG: <span id="vocab-correct-count">0</span></span>
-                </div>
-                <div class="progress-container"><div id="vocab-timer-bar" class="progress-bar" style="width: 100%; background-color: #10b981;"></div></div>
-            </div>
-            <div class="card slide-in">
-                <h2 class="text-xl font-bold text-center text-gray-800 mb-6" id="vocab-question-text"></h2>
-                <div id="vocab-options"></div>
-            </div>
-        </div>
+        <h3>🔴 NHÓM HƯỚNG XẤU (HUNG HƯỚNG)</h3>
+        <p>Đây là các hướng đón nhận các luồng khí xấu (Sát Khí), gây ra trở ngại, tai họa và suy giảm năng lượng sống.</p>
+        
+        <h4>1. Tuyệt Mạng - Hướng "Đại Hung" (Xấu Nhất)</h4>
+        <p><strong>Ý nghĩa tên gọi:</strong> "Tuyệt" là chấm dứt, "Mạng" là sinh mệnh. Đây là hướng có năng lượng sát thương mạnh nhất, tượng trưng cho sự suy vong và kết thúc.</p>
+        <p><strong>Tác động chi tiết:</strong></p>
+        <ul>
+            <li><strong>Sức khỏe:</strong> Gây ra những bệnh trọng, bệnh hiểm nghèo, khó chữa trị, ảnh hưởng đến tuổi thọ.</li>
+            <li><strong>Gia đạo:</strong> Nguy cơ tuyệt tự (khó có con), mâu thuẫn gia đình đến mức đổ vỡ nghiêm trọng, ly tán.</li>
+            <li><strong>Tai họa:</strong> Dễ gặp các tai nạn bất ngờ, thương tật, kiện tụng dẫn đến hao tài tốn của nặng nề, thậm chí mất hết.</li>
+        </ul>
+        
+        <h4>2. Ngũ Quỷ - Hướng "Hung" (Xấu Thứ Ba)</h4>
+        <p><strong>Ý nghĩa tên gọi:</strong> "Ngũ Quỷ" tức là năm con quỷ (hỏa tinh) phá phách. Năng lượng của hướng này rất hỗn loạn, liên quan đến hỏa hoạn và thị phi.</p>
+        <p><strong>Tác động chi tiết:</strong></p>
+        <ul>
+            <li><strong>Tài lộc:</strong> Dễ bị phá tài, mất của, làm ăn thất bát, đầu tư sai chỗ.</li>
+            <li><strong>An ninh:</strong> Cảnh giác với hỏa hoạn (cháy nhà), trộm cướp.</li>
+            <li><strong>Sức khỏe & Tinh thần:</strong> Sức khỏe giảm sút, hay gặp các vấn đề về tim mạch, máu huyết. Tinh thần bất ổn, dễ nổi nóng, gây gổ, mất kiểm soát.</li>
+        </ul>
+        
+        <h4>3. Lục Sát - Hướng "Hung" (Xấu Thứ Nhì)</h4>
+        <p><strong>Ý nghĩa tên gọi:</strong> "Lục" là sáu, "Sát" là sát khí. Tượng trưng cho sáu dạng tai họa, rắc rối liên miên.</p>
+        <p><strong>Tác động chi tiết:</strong></p>
+        <ul>
+            <li><strong>Quan hệ:</strong> Gây ra thị phi, kiện tụng, tranh chấp. Các mối quan hệ xã hội, đồng nghiệp, hàng xóm dễ xảy ra mâu thuẫn, khẩu thiệt.</li>
+            <li><strong>Gia đạo:</strong> Vợ chồng dễ bất hòa, người nhà hay có xích mích.</li>
+            <li><strong>Tài lộc & Sức khỏe:</strong> Tài vận không tốt, hay gặp những rủi ro nhỏ như mất mát đồ đạc. Bệnh tật cũng đến liên tục, tuy không nguy hiểm tức thời như Tuyệt Mạng nhưng dai dẳng, hao mòn sức lực.</li>
+        </ul>
+        
+        <h4>4. Hoạ Hại - Hướng "Tiểu Hung" (Ít Xấu Nhất)</h4>
+        <p><strong>Ý nghĩa tên gọi:</strong> "Họa" là tai họa, "Hại" là tổn hại. Đây là hướng mang đến những điều phiền toái, hao hụt nhỏ.</p>
+        <p><strong>Tác động chi tiết:</strong></p>
+        <ul>
+            <li><strong>Tài lộc:</strong> Khó tích tụ tiền của, tiền kiếm được dễ bị thất thoát vào các chi phí không tên, làm việc vất vả nhưng không dư dả.</li>
+            <li><strong>Quan hệ:</strong> Dễ gặp chuyện thị phi, bị đàm tiếu, bị người khác hãm hại ngầm hoặc tranh giành lợi lộc nhỏ.</li>
+            <li><strong>An ninh:</strong> Cần đề phòng trộm cướp, mất mát tài sản cá nhân. Sức khỏe và gia vận sa sút nhẹ, tạo cảm giác bất an, không thoải mái.</li>
+        </ul>
+        
+        <h4>Kết luận và lưu ý:</h4>
+        <p><strong>Sự tương tác:</strong> Các hướng tốt xấu này được áp dụng để chọn hướng nhà, hướng bếp, hướng bàn thờ, hướng giường ngủ và hướng bàn làm việc. Mỗi không gian chức năng lại có một yêu cầu khác nhau (ví dụ: phòng ngủ và bàn thờ nên ưu tiên Sinh Khí và Phúc Đức; bếp có thể đặt ở hướng xấu nhưng nhìn về hướng tốt...).</p>
     </div>
-</div>
 
-<!-- GIAO DIEN 2.2: DANH SACH TU VUNG -->
-<div id="screen-vocab-list" class="screen">
-    <div class="max-w-4xl mx-auto py-6">
-        <button onclick="goToScreen('screen-vocabulary')" class="mb-4 px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300">QUAY LẠI</button>
-        <h1 class="text-xl md:text-2xl font-bold text-center text-emerald-600 title-main mb-6">DANH SÁCH TỪ VỰNG - E6U1</h1>
-        <div class="overflow-x-auto">
-            <div class="card" style="padding: 0;">
-                <table>
-                    <thead><tr style="background-color: #10b981; color: white;"><th class="px-4 py-3">STT</th><th class="px-4 py-3">Từ vựng</th><th class="px-4 py-3">Nghĩa</th></tr></thead>
-                    <tbody id="vocab-list-body"></tbody>
-                </table>
-            </div>
-        </div>
-        <button onclick="goToScreen('screen-vocabulary')" class="mt-6 btn-main btn-gray">QUAY LẠI</button>
+    <!-- Giải thích sự khác biệt giữa hai kết quả so sánh và cách tính điểm đầy đủ -->
+    <div class="explain-diff">
+        <strong>🔍 Cách tính điểm chi tiết và giải thích sự khác biệt giữa hai kết quả so sánh</strong>
+        <p style="margin-top: 10px;">Khi bạn chọn năm sinh và giới tính của mình (chính chủ), hệ thống sẽ tính điểm dựa trên bạn làm trung tâm. Có hai loại quan hệ:</p>
+        <ul>
+            <li><strong>Quan hệ đối xứng (Thiên can, Địa chi, Cung mệnh):</strong> Kết quả không phụ thuộc vào ai là chính chủ.
+                <ul>
+                    <li>2 điểm: hợp (can hợp, lục hợp, tam hợp, cung tốt).</li>
+                    <li>1 điểm: bình (không hợp, không xung).</li>
+                    <li>0 điểm: xung khắc (can xung, lục xung, lục phá, lục hại, tam hình, cung xấu).</li>
+                </ul>
+            </li>
+            <li><strong>Quan hệ một chiều (Mệnh nạp âm và Niên mệnh – hành cung):</strong> Kết quả phụ thuộc vào chiều tương sinh khắc giữa hai người.
+                <ul>
+                    <li>2 điểm: <strong>Đối phương sinh chính chủ</strong> = TỐT TƯƠNG SINH (Tốt).</li>
+                    <li>1.5 điểm: <strong>Chính chủ sinh đối phương</strong> = ỨNG TƯƠNG SINH (Tốt).</li>
+                    <li>1 điểm: <strong>Bình hòa</strong> (không sinh, không khắc) = BÌNH (Bình).</li>
+                    <li>0.5 điểm: <strong>Chính chủ khắc đối phương</strong> = ỨNG TƯƠNG KHẮC (Xấu).</li>
+                    <li>0 điểm: <strong>Đối phương khắc chính chủ</strong> = XẤU TƯƠNG KHẮC (Xấu).</li>
+                </ul>
+            </li>
+        </ul>
+        <p><strong>Ví dụ cụ thể:</strong></p>
+        <ul>
+            <li>Bạn chọn <strong>Nữ 1960</strong> (mệnh Thổ, niên mệnh Thổ) so với Nam 1985 (mệnh Kim, niên mệnh Kim):
+                <ul>
+                    <li>Mệnh: bạn Thổ sinh đối phương Kim → ỨNG TƯƠNG SINH (1.5 điểm).</li>
+                    <li>Niên mệnh: bạn Thổ sinh đối phương Kim → ỨNG TƯƠNG SINH (1.5 điểm).</li>
+                    <li>Thiên can, Địa chi, Cung mệnh: tính đối xứng, giả sử đều hợp → mỗi mục 2 điểm.</li>
+                </ul>
+            </li>
+            <li>Bạn chọn <strong>Nam 1985</strong> (mệnh Kim, niên mệnh Kim) so với Nữ 1960 (mệnh Thổ, niên mệnh Thổ):
+                <ul>
+                    <li>Mệnh: đối phương Thổ sinh bạn Kim → TỐT TƯƠNG SINH (2 điểm).</li>
+                    <li>Niên mệnh: đối phương Thổ sinh bạn Kim → TỐT TƯƠNG SINH (2 điểm).</li>
+                    <li>Thiên can, Địa chi, Cung mệnh: giống như trên, vẫn 2 điểm mỗi mục.</li>
+                </ul>
+            </li>
+        </ul>
+        <p>Như vậy, cùng một cặp nhưng khi đổi vai trò chính chủ, điểm Mệnh và Niên mệnh có thể thay đổi, phản ánh đúng việc bạn được hưởng lợi (TỐT TƯƠNG SINH), bạn hỗ trợ đối phương (ỨNG TƯƠNG SINH), hay bị áp chế (XẤU TƯƠNG KHẮC), v.v.</p>
     </div>
-</div>
 
-<!-- GIAO DIEN 3: TRAC NGHIEM NGU PHAP -->
-<div id="screen-grammar" class="screen">
-    <div class="max-w-2xl mx-auto py-6">
-        <div class="flex items-center justify-between mb-6">
-            <button onclick="goToScreen('screen-home')" class="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300">QUAY LẠI</button>
-            <h1 class="text-xl font-bold text-blue-600 title-main">NGỮ PHÁP - E6U1</h1>
-            <span id="grammar-player" class="text-blue-600 font-semibold text-sm"></span>
-        </div>
-        <div id="grammar-setup" class="card">
-            <div class="mb-6">
-                <label class="block text-gray-700 font-semibold mb-2">Chọn số câu hỏi:</label>
-                <select id="grammar-question-count">
-                    <option value="10">10 câu</option><option value="20">20 câu</option><option value="30">30 câu</option><option value="40">40 câu</option><option value="60">Tất Cả (60 câu)</option>
-                </select>
-            </div>
-            <button onclick="startGrammarTest()" class="btn-main btn-blue">LÀM BÀI</button>
-        </div>
-        <div id="grammar-playing" style="display: none;">
-            <div class="card">
-                <div class="flex justify-between items-center mb-2">
-                    <span class="font-semibold text-gray-700">Câu: <span id="grammar-current-q">1</span>/<span id="grammar-total-q">10</span></span>
-                    <span class="font-bold text-lg text-blue-600">ĐÚNG: <span id="grammar-correct-count">0</span></span>
-                </div>
-                <div class="progress-container"><div id="grammar-timer-bar" class="progress-bar" style="width: 100%; background-color: #3b82f6;"></div></div>
-            </div>
-            <div class="card slide-in">
-                <h2 class="text-lg font-bold text-center text-gray-800 mb-6" id="grammar-question-text"></h2>
-                <div id="grammar-options"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- GIAO DIEN 4: TRAC NGHIEM DICH CAU -->
-<div id="screen-translation" class="screen">
-    <div class="max-w-2xl mx-auto py-6">
-        <div class="flex items-center justify-between mb-6">
-            <button onclick="goToScreen('screen-home')" class="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300">QUAY LẠI</button>
-            <h1 class="text-xl font-bold text-orange-600 title-main">DỊCH CÂU - E6U1</h1>
-            <span id="translation-player" class="text-blue-600 font-semibold text-sm"></span>
-        </div>
-        <div id="translation-setup" class="card">
-            <div class="mb-6">
-                <label class="block text-gray-700 font-semibold mb-2">Chọn số câu hỏi:</label>
-                <select id="translation-question-count">
-                    <option value="10">10 câu</option><option value="20">20 câu</option><option value="30">30 câu</option><option value="40">40 câu</option><option value="60">Tất Cả (60 câu)</option>
-                </select>
-            </div>
-            <button onclick="startTranslationTest()" class="btn-main btn-orange">LÀM BÀI</button>
-        </div>
-        <div id="translation-playing" style="display: none;">
-            <div class="card">
-                <div class="flex justify-between items-center mb-2">
-                    <span class="font-semibold text-gray-700">Câu: <span id="translation-current-q">1</span>/<span id="translation-total-q">10</span></span>
-                    <span class="font-bold text-lg text-orange-600">ĐÚNG: <span id="translation-correct-count">0</span></span>
-                </div>
-                <div class="progress-container"><div id="translation-timer-bar" class="progress-bar" style="width: 100%; background-color: #f97316;"></div></div>
-            </div>
-            <div class="card slide-in">
-                <h2 class="text-lg font-bold text-center text-gray-800 mb-6" id="translation-question-text"></h2>
-                <div id="translation-options"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- GIAO DIEN 5: TRAC NGHIEM TONG HOP -->
-<div id="screen-comprehensive" class="screen">
-    <div class="max-w-2xl mx-auto py-6">
-        <div class="flex items-center justify-between mb-6">
-            <button onclick="goToScreen('screen-home')" class="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300">QUAY LẠI</button>
-            <h1 class="text-xl font-bold text-rose-600 title-main">TỔNG HỢP - E6U1</h1>
-            <span id="comprehensive-player" class="text-blue-600 font-semibold text-sm"></span>
-        </div>
-        <div id="comprehensive-setup" class="card">
-            <div class="mb-6">
-                <label class="block text-gray-700 font-semibold mb-2">Chọn số câu hỏi:</label>
-                <select id="comprehensive-question-count">
-                    <option value="10">10 câu</option><option value="20">20 câu</option><option value="30">30 câu</option><option value="40">40 câu</option><option value="200">Tất Cả (200 câu)</option>
-                </select>
-            </div>
-            <button onclick="startComprehensiveTest()" class="btn-main btn-rose">LÀM BÀI</button>
-        </div>
-        <div id="comprehensive-playing" style="display: none;">
-            <div class="card">
-                <div class="flex justify-between items-center mb-2">
-                    <span class="font-semibold text-gray-700">Câu: <span id="comprehensive-current-q">1</span>/<span id="comprehensive-total-q">10</span></span>
-                    <span class="font-bold text-lg text-rose-600">ĐÚNG: <span id="comprehensive-correct-count">0</span></span>
-                </div>
-                <div class="progress-container"><div id="comprehensive-timer-bar" class="progress-bar" style="width: 100%; background-color: #f43f5e;"></div></div>
-            </div>
-            <div class="card slide-in">
-                <h2 class="text-lg font-bold text-center text-gray-800 mb-6" id="comprehensive-question-text"></h2>
-                <div id="comprehensive-options"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- GIAO DIEN BAO CAO -->
-<div id="screen-report" class="screen">
-    <div class="max-w-3xl mx-auto py-6">
-        <h1 id="report-title" class="text-xl md:text-2xl font-bold text-center mb-6 title-main"></h1>
-        <div class="report-grid mb-6">
-            <div class="card chart-container">
-                <p id="report-player-name" class="font-bold text-blue-600 text-3xl mb-4"></p>
-                <div style="position: relative; width: 200px; height: 200px;">
-                    <canvas id="report-chart" width="200" height="200"></canvas>
-                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-                        <span id="report-percentage" class="text-4xl font-black"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="card stats-container">
-                <div class="stat-row"><span class="font-bold text-gray-500">NGÀY:</span><span id="report-date" class="font-bold text-blue-600"></span></div>
-                <div class="stat-row"><span class="font-bold text-emerald-600">START:</span><span id="report-start" class="font-bold text-emerald-600"></span></div>
-                <div class="stat-row"><span class="font-bold text-rose-600">END:</span><span id="report-end" class="font-bold text-rose-600"></span></div>
-                <div class="stat-row"><span class="font-bold text-orange-600">TỔNG TG:</span><span id="report-duration" class="font-bold text-orange-600"></span></div>
-                <div class="stat-row"><span class="font-bold text-purple-600">CHUỖI ĐÚNG:</span><span id="report-streak" class="font-bold text-purple-600"></span></div>
-            </div>
-        </div>
-        <div class="card" style="padding: 0; overflow-x: auto;">
-            <table>
-                <thead><tr style="background-color: #f3f4f6;"><th class="px-3 py-2">STT</th><th class="px-3 py-2">Câu hỏi</th><th class="px-3 py-2">Đáp án chọn</th><th class="px-3 py-2">Đáp án đúng</th></tr></thead>
-                <tbody id="report-table-body"></tbody>
-            </table>
-        </div>
-        <div class="flex gap-4 mt-6">
-            <button onclick="retakeTest()" class="btn-main btn-blue">LÀM LẠI</button>
-            <button onclick="goBackFromReport()" class="btn-main btn-gray">QUAY LẠI</button>
-        </div>
-    </div>
+    <footer>Dữ liệu phong thủy 60 hoa giáp & bát trạch – cập nhật công thức cung phi theo tổng số năm</footer>
 </div>
 
 <script>
-// ==================== KHO DU LIEU ====================
-const vocabularyData = [
-{id:1, question:"to do", correct:"(v) làm", wrong1:"(v) đến", wrong2:"(v) có", wrong3:"(v) đi"},
-{id:2, question:"to have", correct:"(v) có", wrong1:"(v) làm", wrong2:"(v) đi", wrong3:"(v) thấy"},
-{id:3, question:"to go", correct:"(v) đi", wrong1:"(v) đến", wrong2:"(v) làm", wrong3:"(v) chơi"},
-{id:4, question:"to come", correct:"(v) đến", wrong1:"(v) đi", wrong2:"(v) có", wrong3:"(v) nghỉ"},
-{id:5, question:"to play", correct:"(v) chơi", wrong1:"(v) làm", wrong2:"(v) học", wrong3:"(v) đọc"},
-{id:6, question:"to study", correct:"(v) học", wrong1:"(v) chơi", wrong2:"(v) nghe", wrong3:"(v) viết"},
-{id:7, question:"to listen", correct:"(v) nghe", wrong1:"(v) nói", wrong2:"(v) đọc", wrong3:"(v) viết"},
-{id:8, question:"to speak", correct:"(v) nói", wrong1:"(v) nghe", wrong2:"(v) đọc", wrong3:"(v) xem"},
-{id:9, question:"to read", correct:"(v) đọc", wrong1:"(v) viết", wrong2:"(v) nghe", wrong3:"(v) nói"},
-{id:10, question:"to write", correct:"(v) viết", wrong1:"(v) đọc", wrong2:"(v) nghe", wrong3:"(v) nói"},
-{id:11, question:"to watch", correct:"(v) xem", wrong1:"(v) nghe", wrong2:"(v) đọc", wrong3:"(v) viết"},
-{id:12, question:"to eat", correct:"(v) ăn", wrong1:"(v) uống", wrong2:"(v) ngủ", wrong3:"(v) chạy"},
-{id:13, question:"to drink", correct:"(v) uống", wrong1:"(v) ăn", wrong2:"(v) ngủ", wrong3:"(v) đi"},
-{id:14, question:"to sleep", correct:"(v) ngủ", wrong1:"(v) ăn", wrong2:"(v) uống", wrong3:"(v) chạy"},
-{id:15, question:"to run", correct:"(v) chạy", wrong1:"(v) đi", wrong2:"(v) nhảy", wrong3:"(v) bay"},
-{id:16, question:"to walk", correct:"(v) đi bộ", wrong1:"(v) chạy", wrong2:"(v) nhảy", wrong3:"(v) bay"},
-{id:17, question:"to jump", correct:"(v) nhảy", wrong1:"(v) chạy", wrong2:"(v) đi", wrong3:"(v) bay"},
-{id:18, question:"to fly", correct:"(v) bay", wrong1:"(v) chạy", wrong2:"(v) đi", wrong3:"(v) nhảy"},
-{id:19, question:"to swim", correct:"(v) bơi", wrong1:"(v) chạy", wrong2:"(v) nhảy", wrong3:"(v) đi"},
-{id:20, question:"to sing", correct:"(v) hát", wrong1:"(v) nhảy", wrong2:"(v) chơi", wrong3:"(v) đọc"},
-{id:21, question:"to dance", correct:"(v) nhảy", wrong1:"(v) hát", wrong2:"(v) chơi", wrong3:"(v) chạy"},
-{id:22, question:"to work", correct:"(v) làm việc", wrong1:"(v) chơi", wrong2:"(v) nghỉ", wrong3:"(v) học"},
-{id:23, question:"to help", correct:"(v) giúp", wrong1:"(v) hỏi", wrong2:"(v) trả lời", wrong3:"(v) nói"},
-{id:24, question:"to ask", correct:"(v) hỏi", wrong1:"(v) trả lời", wrong2:"(v) nói", wrong3:"(v) nghe"},
-{id:25, question:"to answer", correct:"(v) trả lời", wrong1:"(v) hỏi", wrong2:"(v) nói", wrong3:"(v) nghe"},
-{id:26, question:"to open", correct:"(v) mở", wrong1:"(v) đóng", wrong2:"(v) tắt", wrong3:"(v) bật"},
-{id:27, question:"to close", correct:"(v) đóng", wrong1:"(v) mở", wrong2:"(v) tắt", wrong3:"(v) bật"},
-{id:28, question:"to start", correct:"(v) bắt đầu", wrong1:"(v) kết thúc", wrong2:"(v) tiếp tục", wrong3:"(v) dừng"},
-{id:29, question:"to finish", correct:"(v) kết thúc", wrong1:"(v) bắt đầu", wrong2:"(v) tiếp tục", wrong3:"(v) nghỉ"},
-{id:30, question:"to live", correct:"(v) sống", wrong1:"(v) chết", wrong2:"(v) ở", wrong3:"(v) đi"},
-{id:31, question:"school", correct:"(n) trường học", wrong1:"(n) nhà", wrong2:"(n) lớp", wrong3:"(n) sách"},
-{id:32, question:"house", correct:"(n) nhà", wrong1:"(n) trường", wrong2:"(n) phòng", wrong3:"(n) cửa"},
-{id:33, question:"classroom", correct:"(n) lớp học", wrong1:"(n) trường", wrong2:"(n) nhà", wrong3:"(n) phòng"},
-{id:34, question:"teacher", correct:"(n) giáo viên", wrong1:"(n) học sinh", wrong2:"(n) bạn", wrong3:"(n) người"},
-{id:35, question:"student", correct:"(n) học sinh", wrong1:"(n) giáo viên", wrong2:"(n) bạn", wrong3:"(n) người"},
-{id:36, question:"friend", correct:"(n) bạn", wrong1:"(n) người thân", wrong2:"(n) giáo viên", wrong3:"(n) học sinh"},
-{id:37, question:"family", correct:"(n) gia đình", wrong1:"(n) bạn", wrong2:"(n) người thân", wrong3:"(n) nhà"},
-{id:38, question:"book", correct:"(n) sách", wrong1:"(n) vở", wrong2:"(n) bút", wrong3:"(n) bảng"},
-{id:39, question:"notebook", correct:"(n) vở", wrong1:"(n) sách", wrong2:"(n) bút", wrong3:"(n) bảng"},
-{id:40, question:"pen", correct:"(n) bút bi", wrong1:"(n) bút chì", wrong2:"(n) sách", wrong3:"(n) vở"},
-{id:41, question:"pencil", correct:"(n) bút chì", wrong1:"(n) bút bi", wrong2:"(n) bảng", wrong3:"(n) thước"},
-{id:42, question:"desk", correct:"(n) bàn học", wrong1:"(n) ghế", wrong2:"(n) tủ", wrong3:"(n) cửa"},
-{id:43, question:"chair", correct:"(n) ghế", wrong1:"(n) bàn", wrong2:"(n) tủ", wrong3:"(n) giường"},
-{id:44, question:"board", correct:"(n) bảng", wrong1:"(n) bàn", wrong2:"(n) ghế", wrong3:"(n) cửa"},
-{id:45, question:"window", correct:"(n) cửa sổ", wrong1:"(n) cửa", wrong2:"(n) bảng", wrong3:"(n) tường"},
-{id:46, question:"door", correct:"(n) cửa", wrong1:"(n) cửa sổ", wrong2:"(n) tường", wrong3:"(n) sân"},
-{id:47, question:"table", correct:"(n) bàn", wrong1:"(n) ghế", wrong2:"(n) tủ", wrong3:"(n) giường"},
-{id:48, question:"clock", correct:"(n) đồng hồ", wrong1:"(n) bàn", wrong2:"(n) ghế", wrong3:"(n) đèn"},
-{id:49, question:"bag", correct:"(n) cái túi", wrong1:"(n) ba lô", wrong2:"(n) sách", wrong3:"(n) vở"},
-{id:50, question:"ruler", correct:"(n) thước", wrong1:"(n) bút", wrong2:"(n) bảng", wrong3:"(n) compa"},
-{id:51, question:"eraser", correct:"(n) tẩy", wrong1:"(n) bút", wrong2:"(n) thước", wrong3:"(n) bảng"},
-{id:52, question:"computer", correct:"(n) máy tính", wrong1:"(n) điện thoại", wrong2:"(n) tivi", wrong3:"(n) radio"},
-{id:53, question:"phone", correct:"(n) điện thoại", wrong1:"(n) máy tính", wrong2:"(n) tivi", wrong3:"(n) radio"},
-{id:54, question:"morning", correct:"(n) buổi sáng", wrong1:"(n) buổi trưa", wrong2:"(n) buổi chiều", wrong3:"(n) buổi tối"},
-{id:55, question:"afternoon", correct:"(n) buổi chiều", wrong1:"(n) buổi sáng", wrong2:"(n) buổi trưa", wrong3:"(n) buổi tối"},
-{id:56, question:"evening", correct:"(n) buổi tối", wrong1:"(n) buổi sáng", wrong2:"(n) buổi trưa", wrong3:"(n) buổi chiều"},
-{id:57, question:"night", correct:"(n) đêm", wrong1:"(n) ngày", wrong2:"(n) buổi tối", wrong3:"(n) buổi sáng"},
-{id:58, question:"day", correct:"(n) ngày", wrong1:"(n) đêm", wrong2:"(n) tuần", wrong3:"(n) tháng"},
-{id:59, question:"week", correct:"(n) tuần", wrong1:"(n) ngày", wrong2:"(n) tháng", wrong3:"(n) năm"},
-{id:60, question:"month", correct:"(n) tháng", wrong1:"(n) tuần", wrong2:"(n) ngày", wrong3:"(n) năm"},
-{id:61, question:"new", correct:"(adj) mới", wrong1:"(adj) cũ", wrong2:"(adj) đẹp", wrong3:"(adj) xấu"},
-{id:62, question:"old", correct:"(adj) cũ/già", wrong1:"(adj) mới", wrong2:"(adj) trẻ", wrong3:"(adj) nhỏ"},
-{id:63, question:"big", correct:"(adj) to", wrong1:"(adj) nhỏ", wrong2:"(adj) cao", wrong3:"(adj) thấp"},
-{id:64, question:"small", correct:"(adj) nhỏ", wrong1:"(adj) to", wrong2:"(adj) cao", wrong3:"(adj) thấp"},
-{id:65, question:"tall", correct:"(adj) cao", wrong1:"(adj) thấp", wrong2:"(adj) to", wrong3:"(adj) nhỏ"},
-{id:66, question:"short", correct:"(adj) thấp/ngắn", wrong1:"(adj) cao", wrong2:"(adj) dài", wrong3:"(adj) rộng"},
-{id:67, question:"long", correct:"(adj) dài", wrong1:"(adj) ngắn", wrong2:"(adj) rộng", wrong3:"(adj) hẹp"},
-{id:68, question:"good", correct:"(adj) tốt", wrong1:"(adj) xấu", wrong2:"(adj) hay", wrong3:"(adj) đẹp"},
-{id:69, question:"bad", correct:"(adj) xấu", wrong1:"(adj) tốt", wrong2:"(adj) đẹp", wrong3:"(adj) hay"},
-{id:70, question:"beautiful", correct:"(adj) đẹp", wrong1:"(adj) xấu", wrong2:"(adj) tốt", wrong3:"(adj) hay"},
-{id:71, question:"ugly", correct:"(adj) xấu", wrong1:"(adj) đẹp", wrong2:"(adj) tốt", wrong3:"(adj) hay"},
-{id:72, question:"happy", correct:"(adj) vui", wrong1:"(adj) buồn", wrong2:"(adj) giận", wrong3:"(adj) sợ"},
-{id:73, question:"sad", correct:"(adj) buồn", wrong1:"(adj) vui", wrong2:"(adj) giận", wrong3:"(adj) sợ"},
-{id:74, question:"angry", correct:"(adj) giận", wrong1:"(adj) vui", wrong2:"(adj) buồn", wrong3:"(adj) sợ"},
-{id:75, question:"tired", correct:"(adj) mệt", wrong1:"(adj) khỏe", wrong2:"(adj) vui", wrong3:"(adj) buồn"},
-{id:76, question:"hungry", correct:"(adj) đói", wrong1:"(adj) khát", wrong2:"(adj) mệt", wrong3:"(adj) khỏe"},
-{id:77, question:"thirsty", correct:"(adj) khát", wrong1:"(adj) đói", wrong2:"(adj) mệt", wrong3:"(adj) khỏe"},
-{id:78, question:"busy", correct:"(adj) bận", wrong1:"(adj) rảnh", wrong2:"(adj) mệt", wrong3:"(adj) vui"},
-{id:79, question:"free", correct:"(adj) rảnh/tự do", wrong1:"(adj) bận", wrong2:"(adj) mệt", wrong3:"(adj) buồn"},
-{id:80, question:"nice", correct:"(adj) tốt/dễ thương", wrong1:"(adj) xấu", wrong2:"(adj) đẹp", wrong3:"(adj) hay"}
-];
+(function() {
+    // ==================== DỮ LIỆU GỐC ====================
+    const STEMS = ["Canh", "Tân", "Nhâm", "Quý", "Giáp", "Ất", "Bính", "Đinh", "Mậu", "Kỷ"];
+    const BRANCHES = ["Tí", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi", "Thân", "Dậu", "Tuất", "Hợi"];
 
-const grammarData = [
-{id:1, question:"I _____ a student.", correct:"am", wrong1:"is", wrong2:"are", wrong3:"be"},
-{id:2, question:"She _____ from Vietnam.", correct:"is", wrong1:"am", wrong2:"are", wrong3:"be"},
-{id:3, question:"They _____ my friends.", correct:"are", wrong1:"is", wrong2:"am", wrong3:"be"},
-{id:4, question:"He _____ tall.", correct:"is", wrong1:"am", wrong2:"are", wrong3:"be"},
-{id:5, question:"We _____ happy.", correct:"are", wrong1:"is", wrong2:"am", wrong3:"be"},
-{id:6, question:"What _____ your name?", correct:"is", wrong1:"am", wrong2:"are", wrong3:"be"},
-{id:7, question:"How old _____ you?", correct:"are", wrong1:"is", wrong2:"am", wrong3:"be"},
-{id:8, question:"Where _____ she live?", correct:"does", wrong1:"do", wrong2:"is", wrong3:"are"},
-{id:9, question:"I _____ to school every day.", correct:"go", wrong1:"goes", wrong2:"going", wrong3:"went"},
-{id:10, question:"She _____ to school every day.", correct:"goes", wrong1:"go", wrong2:"going", wrong3:"went"},
-{id:11, question:"They _____ English.", correct:"study", wrong1:"studies", wrong2:"studying", wrong3:"studied"},
-{id:12, question:"He _____ English.", correct:"studies", wrong1:"study", wrong2:"studying", wrong3:"studied"},
-{id:13, question:"I _____ breakfast at 7 am.", correct:"have", wrong1:"has", wrong2:"having", wrong3:"had"},
-{id:14, question:"She _____ breakfast at 7 am.", correct:"has", wrong1:"have", wrong2:"having", wrong3:"had"},
-{id:15, question:"We _____ in Hanoi.", correct:"live", wrong1:"lives", wrong2:"living", wrong3:"lived"},
-{id:16, question:"He _____ in Hanoi.", correct:"lives", wrong1:"live", wrong2:"living", wrong3:"lived"},
-{id:17, question:"Do you like music? Yes, I _____.", correct:"do", wrong1:"does", wrong2:"am", wrong3:"like"},
-{id:18, question:"Does she like music? Yes, she _____.", correct:"does", wrong1:"do", wrong2:"is", wrong3:"likes"},
-{id:19, question:"Do they play football? No, they _____.", correct:"don't", wrong1:"doesn't", wrong2:"aren't", wrong3:"isn't"},
-{id:20, question:"Does he play football? No, he _____.", correct:"doesn't", wrong1:"don't", wrong2:"isn't", wrong3:"aren't"},
-{id:21, question:"I am _____ student.", correct:"a", wrong1:"an", wrong2:"the", wrong3:"x"},
-{id:22, question:"She is _____ engineer.", correct:"an", wrong1:"a", wrong2:"the", wrong3:"x"},
-{id:23, question:"This is _____ apple.", correct:"an", wrong1:"a", wrong2:"the", wrong3:"x"},
-{id:24, question:"That is _____ book.", correct:"a", wrong1:"an", wrong2:"the", wrong3:"x"},
-{id:25, question:"_____ is my book.", correct:"This", wrong1:"These", wrong2:"Those", wrong3:"That"},
-{id:26, question:"_____ are my pens.", correct:"These", wrong1:"This", wrong2:"That", wrong3:"It"},
-{id:27, question:"_____ is your house.", correct:"That", wrong1:"These", wrong2:"Those", wrong3:"This"},
-{id:28, question:"_____ are your books.", correct:"Those", wrong1:"This", wrong2:"That", wrong3:"It"},
-{id:29, question:"What is _____ name?", correct:"your", wrong1:"you", wrong2:"yours", wrong3:"yourself"},
-{id:30, question:"This is _____ book.", correct:"my", wrong1:"I", wrong2:"mine", wrong3:"me"},
-{id:31, question:"That is _____ car.", correct:"his", wrong1:"he", wrong2:"him", wrong3:"himself"},
-{id:32, question:"This bag is _____ .", correct:"hers", wrong1:"her", wrong2:"she", wrong3:"herself"},
-{id:33, question:"These are _____ pens.", correct:"our", wrong1:"we", wrong2:"us", wrong3:"ours"},
-{id:34, question:"Those books are _____ .", correct:"theirs", wrong1:"their", wrong2:"them", wrong3:"they"},
-{id:35, question:"I can _____ English.", correct:"speak", wrong1:"speaks", wrong2:"speaking", wrong3:"spoke"},
-{id:36, question:"She can _____ the piano.", correct:"play", wrong1:"plays", wrong2:"playing", wrong3:"played"},
-{id:37, question:"He cannot _____ a car.", correct:"drive", wrong1:"drives", wrong2:"driving", wrong3:"drove"},
-{id:38, question:"Can you swim? Yes, I _____.", correct:"can", wrong1:"do", wrong2:"am", wrong3:"swim"},
-{id:39, question:"Can she dance? No, she _____.", correct:"can't", wrong1:"doesn't", wrong2:"isn't", wrong3:"don't"},
-{id:40, question:"There _____ a book on the table.", correct:"is", wrong1:"are", wrong2:"am", wrong3:"be"},
-{id:41, question:"There _____ two pens on the desk.", correct:"are", wrong1:"is", wrong2:"am", wrong3:"be"},
-{id:42, question:"There _____ any milk in the fridge.", correct:"isn't", wrong1:"aren't", wrong2:"don't", wrong3:"doesn't"},
-{id:43, question:"There _____ any students in the classroom.", correct:"aren't", wrong1:"isn't", wrong2:"don't", wrong3:"doesn't"},
-{id:44, question:"How _____ people are there?", correct:"many", wrong1:"much", wrong2:"any", wrong3:"some"},
-{id:45, question:"How _____ water do you need?", correct:"much", wrong1:"many", wrong2:"any", wrong3:"some"},
-{id:46, question:"I have _____ friends.", correct:"many", wrong1:"much", wrong2:"any", wrong3:"a"},
-{id:47, question:"There is _____ milk in the glass.", correct:"some", wrong1:"any", wrong2:"many", wrong3:"a"},
-{id:48, question:"Do you have _____ brothers?", correct:"any", wrong1:"some", wrong2:"much", wrong3:"a"},
-{id:49, question:"My house is _____ than yours.", correct:"bigger", wrong1:"big", wrong2:"biggest", wrong3:"more big"},
-{id:50, question:"She is _____ than her sister.", correct:"taller", wrong1:"tall", wrong2:"tallest", wrong3:"more tall"},
-{id:51, question:"This is the _____ book I have.", correct:"best", wrong1:"good", wrong2:"better", wrong3:"most good"},
-{id:52, question:"He is the _____ student in class.", correct:"smartest", wrong1:"smart", wrong2:"smarter", wrong3:"most smart"},
-{id:53, question:"I like _____ to music.", correct:"listening", wrong1:"listen", wrong2:"listens", wrong3:"listened"},
-{id:54, question:"She enjoys _____ books.", correct:"reading", wrong1:"read", wrong2:"reads", wrong3:"readed"},
-{id:55, question:"We love _____ football.", correct:"playing", wrong1:"play", wrong2:"plays", wrong3:"played"},
-{id:56, question:"He hates _____ up early.", correct:"getting", wrong1:"get", wrong2:"gets", wrong3:"got"},
-{id:57, question:"You should _____ hard.", correct:"study", wrong1:"studying", wrong2:"studies", wrong3:"to study"},
-{id:58, question:"_____ you like some tea?", correct:"Would", wrong1:"Do", wrong2:"Are", wrong3:"Will"},
-{id:59, question:"_____ you play football?", correct:"Do", wrong1:"Are", wrong2:"Is", wrong3:"Does"},
-{id:60, question:"What time _____ you get up?", correct:"do", wrong1:"does", wrong2:"are", wrong3:"is"}
-];
+    // Nạp âm 60 hoa giáp (đầy đủ)
+    const NAP_AM = [
+        { stem: "Giáp", branch: "Tí", name: "Hải Trung Kim", element: "Kim" },
+        { stem: "Ất", branch: "Sửu", name: "Hải Trung Kim", element: "Kim" },
+        { stem: "Bính", branch: "Dần", name: "Lư Trung Hỏa", element: "Hỏa" },
+        { stem: "Đinh", branch: "Mão", name: "Lư Trung Hỏa", element: "Hỏa" },
+        { stem: "Mậu", branch: "Thìn", name: "Đại Lâm Mộc", element: "Mộc" },
+        { stem: "Kỷ", branch: "Tỵ", name: "Đại Lâm Mộc", element: "Mộc" },
+        { stem: "Canh", branch: "Ngọ", name: "Lộ Bàng Thổ", element: "Thổ" },
+        { stem: "Tân", branch: "Mùi", name: "Lộ Bàng Thổ", element: "Thổ" },
+        { stem: "Nhâm", branch: "Thân", name: "Kiếm Phong Kim", element: "Kim" },
+        { stem: "Quý", branch: "Dậu", name: "Kiếm Phong Kim", element: "Kim" },
+        { stem: "Giáp", branch: "Tuất", name: "Sơn Đầu Hỏa", element: "Hỏa" },
+        { stem: "Ất", branch: "Hợi", name: "Sơn Đầu Hỏa", element: "Hỏa" },
+        { stem: "Bính", branch: "Tí", name: "Giản Hạ Thủy", element: "Thủy" },
+        { stem: "Đinh", branch: "Sửu", name: "Giản Hạ Thủy", element: "Thủy" },
+        { stem: "Mậu", branch: "Dần", name: "Thành Đầu Thổ", element: "Thổ" },
+        { stem: "Kỷ", branch: "Mão", name: "Thành Đầu Thổ", element: "Thổ" },
+        { stem: "Canh", branch: "Thìn", name: "Bạch Lạp Kim", element: "Kim" },
+        { stem: "Tân", branch: "Tỵ", name: "Bạch Lạp Kim", element: "Kim" },
+        { stem: "Nhâm", branch: "Ngọ", name: "Dương Liễu Mộc", element: "Mộc" },
+        { stem: "Quý", branch: "Mùi", name: "Dương Liễu Mộc", element: "Mộc" },
+        { stem: "Giáp", branch: "Thân", name: "Tuyền Trung Thủy", element: "Thủy" },
+        { stem: "Ất", branch: "Dậu", name: "Tuyền Trung Thủy", element: "Thủy" },
+        { stem: "Bính", branch: "Tuất", name: "Ốc Thượng Thổ", element: "Thổ" },
+        { stem: "Đinh", branch: "Hợi", name: "Ốc Thượng Thổ", element: "Thổ" },
+        { stem: "Mậu", branch: "Tí", name: "Tích Lịch Hỏa", element: "Hỏa" },
+        { stem: "Kỷ", branch: "Sửu", name: "Tích Lịch Hỏa", element: "Hỏa" },
+        { stem: "Canh", branch: "Dần", name: "Tùng Bách Mộc", element: "Mộc" },
+        { stem: "Tân", branch: "Mão", name: "Tùng Bách Mộc", element: "Mộc" },
+        { stem: "Nhâm", branch: "Thìn", name: "Trường Lưu Thủy", element: "Thủy" },
+        { stem: "Quý", branch: "Tỵ", name: "Trường Lưu Thủy", element: "Thủy" },
+        { stem: "Giáp", branch: "Ngọ", name: "Sa Trung Kim", element: "Kim" },
+        { stem: "Ất", branch: "Mùi", name: "Sa Trung Kim", element: "Kim" },
+        { stem: "Bính", branch: "Thân", name: "Sơn Hạ Hỏa", element: "Hỏa" },
+        { stem: "Đinh", branch: "Dậu", name: "Sơn Hạ Hỏa", element: "Hỏa" },
+        { stem: "Mậu", branch: "Tuất", name: "Bình Địa Mộc", element: "Mộc" },
+        { stem: "Kỷ", branch: "Hợi", name: "Bình Địa Mộc", element: "Mộc" },
+        { stem: "Canh", branch: "Tí", name: "Bích Thượng Thổ", element: "Thổ" },
+        { stem: "Tân", branch: "Sửu", name: "Bích Thượng Thổ", element: "Thổ" },
+        { stem: "Nhâm", branch: "Dần", name: "Kim Bạc Kim", element: "Kim" },
+        { stem: "Quý", branch: "Mão", name: "Kim Bạc Kim", element: "Kim" },
+        { stem: "Giáp", branch: "Thìn", name: "Phú Đăng Hỏa", element: "Hỏa" },
+        { stem: "Ất", branch: "Tỵ", name: "Phú Đăng Hỏa", element: "Hỏa" },
+        { stem: "Bính", branch: "Ngọ", name: "Thiên Hà Thủy", element: "Thủy" },
+        { stem: "Đinh", branch: "Mùi", name: "Thiên Hà Thủy", element: "Thủy" },
+        { stem: "Mậu", branch: "Thân", name: "Đại Dịch Thổ", element: "Thổ" },
+        { stem: "Kỷ", branch: "Dậu", name: "Đại Dịch Thổ", element: "Thổ" },
+        { stem: "Canh", branch: "Tuất", name: "Thoa Xuyến Kim", element: "Kim" },
+        { stem: "Tân", branch: "Hợi", name: "Thoa Xuyến Kim", element: "Kim" },
+        { stem: "Nhâm", branch: "Tí", name: "Tang Đố Mộc", element: "Mộc" },
+        { stem: "Quý", branch: "Sửu", name: "Tang Đố Mộc", element: "Mộc" },
+        { stem: "Giáp", branch: "Dần", name: "Đại Khê Thủy", element: "Thủy" },
+        { stem: "Ất", branch: "Mão", name: "Đại Khê Thủy", element: "Thủy" },
+        { stem: "Bính", branch: "Thìn", name: "Sa Trung Thổ", element: "Thổ" },
+        { stem: "Đinh", branch: "Tỵ", name: "Sa Trung Thổ", element: "Thổ" },
+        { stem: "Mậu", branch: "Ngọ", name: "Thiên Thượng Hỏa", element: "Hỏa" },
+        { stem: "Kỷ", branch: "Mùi", name: "Thiên Thượng Hỏa", element: "Hỏa" },
+        { stem: "Canh", branch: "Thân", name: "Thạch Lựu Mộc", element: "Mộc" },
+        { stem: "Tân", branch: "Dậu", name: "Thạch Lựu Mộc", element: "Mộc" },
+        { stem: "Nhâm", branch: "Tuất", name: "Đại Hải Thủy", element: "Thủy" },
+        { stem: "Quý", branch: "Hợi", name: "Đại Hải Thủy", element: "Thủy" }
+    ];
+    const napAmMap = {};
+    NAP_AM.forEach(item => { napAmMap[item.stem + item.branch] = item; });
 
-const translationData = [
-{id:1, question:"I am a student.", correct:"Tôi là một học sinh.", wrong1:"Tôi là một giáo viên.", wrong2:"Tôi là một bác sĩ.", wrong3:"Tôi là một kĩ sư."},
-{id:2, question:"She is my friend.", correct:"Cô ấy là bạn của tôi.", wrong1:"Cô ấy là chị của tôi.", wrong2:"Cô ấy là mẹ của tôi.", wrong3:"Cô ấy là em gái của tôi."},
-{id:3, question:"He is tall.", correct:"Anh ấy cao.", wrong1:"Anh ấy thấp.", wrong2:"Anh ấy béo.", wrong3:"Anh ấy ốm."},
-{id:4, question:"We are happy.", correct:"Chúng tôi vui vẻ.", wrong1:"Chúng tôi buồn.", wrong2:"Chúng tôi mệt.", wrong3:"Chúng tôi giận."},
-{id:5, question:"They are at school.", correct:"Họ đang ở trường.", wrong1:"Họ đang ở nhà.", wrong2:"Họ đang ở công viên.", wrong3:"Họ đang ở nhà hàng."},
-{id:6, question:"What is your name?", correct:"Tên của bạn là gì?", wrong1:"Bạn bao nhiêu tuổi?", wrong2:"Bạn ở đâu?", wrong3:"Bạn làm gì?"},
-{id:7, question:"How old are you?", correct:"Bạn bao nhiêu tuổi?", wrong1:"Tên của bạn là gì?", wrong2:"Bạn sống ở đâu?", wrong3:"Bạn đi đâu?"},
-{id:8, question:"Where do you live?", correct:"Bạn sống ở đâu?", wrong1:"Bạn đi đâu?", wrong2:"Bạn làm gì?", wrong3:"Bạn học lớp mấy?"},
-{id:9, question:"I go to school every day.", correct:"Tôi đến trường mỗi ngày.", wrong1:"Tôi đi chơi mỗi ngày.", wrong2:"Tôi đi làm mỗi ngày.", wrong3:"Tôi đi ngủ mỗi ngày."},
-{id:10, question:"She studies English.", correct:"Cô ấy học tiếng Anh.", wrong1:"Cô ấy học tiếng Việt.", wrong2:"Cô ấy học tiếng Trung.", wrong3:"Cô ấy học tiếng Nhật."},
-{id:11, question:"He plays football.", correct:"Anh ấy chơi bóng đá.", wrong1:"Anh ấy chơi bóng rổ.", wrong2:"Anh ấy chơi cầu lông.", wrong3:"Anh ấy chơi tennis."},
-{id:12, question:"We have breakfast at 7 am.", correct:"Chúng tôi ăn sáng lúc 7 giờ.", wrong1:"Chúng tôi ăn trưa lúc 7 giờ.", wrong2:"Chúng tôi ăn tối lúc 7 giờ.", wrong3:"Chúng tôi ăn đêm lúc 7 giờ."},
-{id:13, question:"They live in Hanoi.", correct:"Họ sống ở Hà Nội.", wrong1:"Họ sống ở TP.HCM.", wrong2:"Họ sống ở Đà Nẵng.", wrong3:"Họ sống ở Hải Phòng."},
-{id:14, question:"Do you like music?", correct:"Bạn có thích âm nhạc không?", wrong1:"Bạn có thích thể thao không?", wrong2:"Bạn có thích đọc sách không?", wrong3:"Bạn có thích xem phim không?"},
-{id:15, question:"Does she work here?", correct:"Cô ấy có làm ở đây không?", wrong1:"Cô ấy có học ở đây không?", wrong2:"Cô ấy có sống ở đây không?", wrong3:"Cô ấy có chơi ở đây không?"},
-{id:16, question:"I don't like coffee.", correct:"Tôi không thích cà phê.", wrong1:"Tôi thích cà phê.", wrong2:"Tôi uống cà phê.", wrong3:"Tôi mua cà phê."},
-{id:17, question:"She doesn't eat meat.", correct:"Cô ấy không ăn thịt.", wrong1:"Cô ấy ăn thịt.", wrong2:"Cô ấy thích thịt.", wrong3:"Cô ấy mua thịt."},
-{id:18, question:"This is my book.", correct:"Đây là sách của tôi.", wrong1:"Đây là vở của tôi.", wrong2:"Đây là bút của tôi.", wrong3:"Đây là túi của tôi."},
-{id:19, question:"That is your pen.", correct:"Đó là bút của bạn.", wrong1:"Đó là sách của bạn.", wrong2:"Đó là vở của bạn.", wrong3:"Đó là thước của bạn."},
-{id:20, question:"These are my friends.", correct:"Đây là những người bạn của tôi.", wrong1:"Đây là những người thân của tôi.", wrong2:"Đây là những giáo viên của tôi.", wrong3:"Đây là những học sinh của tôi."},
-{id:21, question:"Those are beautiful flowers.", correct:"Đó là những bông hoa đẹp.", wrong1:"Đó là những cây xanh đẹp.", wrong2:"Đó là những quả táo đẹp.", wrong3:"Đó là những cửa sổ đẹp."},
-{id:22, question:"I can swim.", correct:"Tôi biết bơi.", wrong1:"Tôi biết đi.", wrong2:"Tôi biết chạy.", wrong3:"Tôi biết nhảy."},
-{id:23, question:"She can speak English.", correct:"Cô ấy biết nói tiếng Anh.", wrong1:"Cô ấy biết viết tiếng Anh.", wrong2:"Cô ấy biết đọc tiếng Anh.", wrong3:"Cô ấy biết nghe tiếng Anh."},
-{id:24, question:"He can't drive a car.", correct:"Anh ấy không biết lái xe.", wrong1:"Anh ấy biết lái xe.", wrong2:"Anh ấy thích lái xe.", wrong3:"Anh ấy mua xe."},
-{id:25, question:"Can you help me?", correct:"Bạn có thể giúp tôi không?", wrong1:"Bạn muốn giúp tôi không?", wrong2:"Bạn thích giúp tôi không?", wrong3:"Bạn cần giúp tôi không?"},
-{id:26, question:"There is a cat in the room.", correct:"Có một con mèo trong phòng.", wrong1:"Có một con chó trong phòng.", wrong2:"Có một con chim trong phòng.", wrong3:"Có một con cá trong phòng."},
-{id:27, question:"There are five students in class.", correct:"Có năm học sinh trong lớp.", wrong1:"Có năm giáo viên trong lớp.", wrong2:"Có năm người trong lớp.", wrong3:"Có năm bàn ghế trong lớp."},
-{id:28, question:"There isn't any milk.", correct:"Không có sữa nào.", wrong1:"Có một chút sữa.", wrong2:"Có nhiều sữa.", wrong3:"Có ít sữa."},
-{id:29, question:"How many books do you have?", correct:"Bạn có bao nhiêu quyển sách?", wrong1:"Bạn có bao nhiêu bút?", wrong2:"Bạn có bao nhiêu vở?", wrong3:"Bạn có bao nhiêu túi?"},
-{id:30, question:"How much water is there?", correct:"Có bao nhiêu nước?", wrong1:"Có bao nhiêu sách?", wrong2:"Có bao nhiêu bút?", wrong3:"Có bao nhiêu học sinh?"},
-{id:31, question:"My house is big.", correct:"Nhà của tôi to.", wrong1:"Nhà của tôi nhỏ.", wrong2:"Nhà của tôi cao.", wrong3:"Nhà của tôi đẹp."},
-{id:32, question:"Her car is new.", correct:"Xe của cô ấy là mới.", wrong1:"Xe của cô ấy là cũ.", wrong2:"Xe của cô ấy là đẹp.", wrong3:"Xe của cô ấy là to."},
-{id:33, question:"His school is far.", correct:"Trường của anh ấy xa.", wrong1:"Trường của anh ấy gần.", wrong2:"Trường của anh ấy to.", wrong3:"Trường của anh ấy đẹp."},
-{id:34, question:"I like reading books.", correct:"Tôi thích đọc sách.", wrong1:"Tôi thích viết sách.", wrong2:"Tôi thích mua sách.", wrong3:"Tôi thích bán sách."},
-{id:35, question:"She loves cooking.", correct:"Cô ấy thích nấu ăn.", wrong1:"Cô ấy thích ăn uống.", wrong2:"Cô ấy thích mua đồ.", wrong3:"Cô ấy thích đi chơi."},
-{id:36, question:"We enjoy watching movies.", correct:"Chúng tôi thích xem phim.", wrong1:"Chúng tôi thích làm phim.", wrong2:"Chúng tôi thích mua phim.", wrong3:"Chúng tôi thích đi xem."},
-{id:37, question:"He hates getting up early.", correct:"Anh ấy ghét dậy sớm.", wrong1:"Anh ấy thích dậy sớm.", wrong2:"Anh ấy ghét đi ngủ.", wrong3:"Anh ấy thích đi ngủ."},
-{id:38, question:"You should study hard.", correct:"Bạn nên học chăm chỉ.", wrong1:"Bạn phải học chăm chỉ.", wrong2:"Bạn cần học chăm chỉ.", wrong3:"Bạn thích học chăm chỉ."},
-{id:39, question:"Would you like some coffee?", correct:"Bạn có muốn uống cà phê không?", wrong1:"Bạn có thích cà phê không?", wrong2:"Bạn có cần cà phê không?", wrong3:"Bạn có uống cà phê không?"},
-{id:40, question:"What time do you get up?", correct:"Bạn thức dậy lúc mấy giờ?", wrong1:"Bạn đi ngủ lúc mấy giờ?", wrong2:"Bạn ăn sáng lúc mấy giờ?", wrong3:"Bạn đi học lúc mấy giờ?"},
-{id:41, question:"I have two brothers.", correct:"Tôi có hai anh em trai.", wrong1:"Tôi có hai chị em gái.", wrong2:"Tôi có hai người bạn.", wrong3:"Tôi có hai người thân."},
-{id:42, question:"She has a beautiful house.", correct:"Cô ấy có một ngôi nhà đẹp.", wrong1:"Cô ấy có một chiếc xe đẹp.", wrong2:"Cô ấy có một cái túi đẹp.", wrong3:"Cô ấy có một bộ quần áo đẹp."},
-{id:43, question:"They have three children.", correct:"Họ có ba người con.", wrong1:"Họ có ba người bạn.", wrong2:"Họ có ba người thân.", wrong3:"Họ có ba học sinh."},
-{id:44, question:"My mother is a teacher.", correct:"Mẹ tôi là một giáo viên.", wrong1:"Mẹ tôi là một bác sĩ.", wrong2:"Mẹ tôi là một kĩ sư.", wrong3:"Mẹ tôi là một đầu bếp."},
-{id:45, question:"His father is a doctor.", correct:"Bố của anh ấy là bác sĩ.", wrong1:"Bố của anh ấy là giáo viên.", wrong2:"Bố của anh ấy là kĩ sư.", wrong3:"Bố của anh ấy là luật sư."},
-{id:46, question:"I am from Vietnam.", correct:"Tôi đến từ Việt Nam.", wrong1:"Tôi sống ở Việt Nam.", wrong2:"Tôi thích Việt Nam.", wrong3:"Tôi đi Việt Nam."},
-{id:47, question:"Where is she from?", correct:"Cô ấy đến từ đâu?", wrong1:"Cô ấy sống ở đâu?", wrong2:"Cô ấy đi đâu?", wrong3:"Cô ấy làm gì?"},
-{id:48, question:"What do you do?", correct:"Bạn làm nghề gì?", wrong1:"Bạn học gì?", wrong2:"Bạn thích gì?", wrong3:"Bạn cần gì?"},
-{id:49, question:"I am twelve years old.", correct:"Tôi mười hai tuổi.", wrong1:"Tôi mười tuổi.", wrong2:"Tôi mười một tuổi.", wrong3:"Tôi mười ba tuổi."},
-{id:50, question:"She is in grade 6.", correct:"Cô ấy học lớp 6.", wrong1:"Cô ấy học lớp 7.", wrong2:"Cô ấy học lớp 8.", wrong3:"Cô ấy học lớp 9."},
-{id:51, question:"We go to school by bike.", correct:"Chúng tôi đi xe đạp đến trường.", wrong1:"Chúng tôi đi xe máy đến trường.", wrong2:"Chúng tôi đi bộ đến trường.", wrong3:"Chúng tôi đi xe buýt đến trường."},
-{id:52, question:"He walks to school.", correct:"Anh ấy đi bộ đến trường.", wrong1:"Anh ấy đi xe đạp đến trường.", wrong2:"Anh ấy đi xe máy đến trường.", wrong3:"Anh ấy đi xe buýt đến trường."},
-{id:53, question:"What is this?", correct:"Đây là cái gì?", wrong1:"Đó là cái gì?", wrong2:"Cái này là gì?", wrong3:"Cái kia là gì?"},
-{id:54, question:"What are those?", correct:"Đó là những cái gì?", wrong1:"Đây là những cái gì?", wrong2:"Cái này là gì?", wrong3:"Cái kia là gì?"},
-{id:55, question:"It is a ruler.", correct:"Đó là một cái thước.", wrong1:"Đó là một cái bút.", wrong2:"Đó là một cái bảng.", wrong3:"Đó là một quyển sách."},
-{id:56, question:"They are pencils.", correct:"Đó là những cái bút chì.", wrong1:"Đó là những cái bút bi.", wrong2:"Đó là những cái thước.", wrong3:"Đó là những quyển sách."},
-{id:57, question:"Good morning!", correct:"Chào buổi sáng!", wrong1:"Chào buổi trưa!", wrong2:"Chào buổi chiều!", wrong3:"Chào buổi tối!"},
-{id:58, question:"Good evening!", correct:"Chào buổi tối!", wrong1:"Chào buổi sáng!", wrong2:"Chào buổi trưa!", wrong3:"Chào buổi chiều!"},
-{id:59, question:"Nice to meet you!", correct:"Rất vui được gặp bạn!", wrong1:"Chào bạn!", wrong2:"Tạm biệt bạn!", wrong3:"Hẹn gặp lại bạn!"},
-{id:60, question:"See you tomorrow!", correct:"Hẹn gặp lại bạn ngày mai!", wrong1:"Hẹn gặp lại bạn ngày kia!", wrong2:"Hẹn gặp lại bạn tuần sau!", wrong3:"Hẹn gặp lại bạn tháng sau!"}
-];
+    // ----- Cung phi (cải tiến theo tổng các chữ số) -----
+    function getCung(year, gender) {
+        // Tính tổng các chữ số của năm, rút gọn đến 1 chữ số
+        let sum = year.toString().split('').reduce((a, b) => a + parseInt(b), 0);
+        while (sum >= 10) {
+            sum = sum.toString().split('').reduce((a, b) => a + parseInt(b), 0);
+        }
+        let remainder;
+        if (gender === 'male') {
+            remainder = (11 - sum) % 9;
+            if (remainder === 0) remainder = 9;
+        } else {
+            remainder = (sum + 4) % 9;
+            if (remainder === 0) remainder = 9;
+        }
+        const map = {
+            1: "Khảm", 2: "Khôn", 3: "Chấn", 4: "Tốn",
+            5: (gender === 'male' ? "Cấn" : "Ly"),
+            6: "Càn", 7: "Đoài", 8: "Cấn", 9: "Ly"
+        };
+        return map[remainder];
+    }
 
-// ==================== BIEN TOAN CUC ====================
-var playerName = "";
-var currentQuestions = [];
-var currentQuestionIndex = 0;
-var correctCount = 0;
-var startTime = null;
-var endTime = null;
-var totalTimeSpent = 0;
-var questionStartTime = null;
-var answers = [];
-var maxStreak = 0;
-var currentStreak = 0;
-var timerInterval = null;
-var previousScreen = "screen-home";
-var testType = "";
+    const cungElement = { "Khảm":"Thủy","Khôn":"Thổ","Chấn":"Mộc","Tốn":"Mộc","Càn":"Kim","Đoài":"Kim","Cấn":"Thổ","Ly":"Hỏa" };
 
-// ==================== HAM CHINH ====================
-function checkPlayerName() {
-    playerName = document.getElementById("playerName").value.trim();
-    document.getElementById("btn-vocab").disabled = playerName === "";
-    document.getElementById("btn-grammar").disabled = playerName === "";
-    document.getElementById("btn-translation").disabled = playerName === "";
-    document.getElementById("btn-comprehensive").disabled = playerName === "";
-}
+    // ----- Hàm xác định Âm/Dương của Thiên can -----
+    function getAmDuong(stem) {
+        const duong = ["Giáp", "Bính", "Mậu", "Canh", "Nhâm"];
+        return duong.includes(stem) ? "Dương" : "Âm";
+    }
 
-function goToScreen(screenId) {
-    var screens = document.querySelectorAll(".screen");
-    for (var i = 0; i < screens.length; i++) screens[i].classList.remove("active");
-    document.getElementById(screenId).classList.add("active");
-    
-    var playerDisplays = {
-        "screen-vocabulary": "vocab-player",
-        "screen-vocab-test": "vocab-test-player",
-        "screen-grammar": "grammar-player",
-        "screen-translation": "translation-player",
-        "screen-comprehensive": "comprehensive-player"
+    // ----- THIÊN CAN cải tiến -----
+    function getThienCanRelation(can1, can2) {
+        const canElement = ["Kim","Kim","Thủy","Thủy","Mộc","Mộc","Hỏa","Hỏa","Thổ","Thổ"];
+        const i = STEMS.indexOf(can1);
+        const j = STEMS.indexOf(can2);
+        if (i === -1 || j === -1) return ["Lỗi", 0];
+
+        const hopPairs = [[4,9], [5,0], [6,1], [7,2], [8,3]];
+        for (let p of hopPairs) {
+            if ((i === p[0] && j === p[1]) || (i === p[1] && j === p[0])) {
+                return ["Hợp (can hợp)", 2];
+            }
+        }
+        const xungPairs = [[4,0], [5,1], [6,2], [7,3], [8,9]];
+        for (let p of xungPairs) {
+            if ((i === p[0] && j === p[1]) || (i === p[1] && j === p[0])) {
+                return ["Xung (can xung)", 0];
+            }
+        }
+        const elem1 = canElement[i];
+        const elem2 = canElement[j];
+        const relation = getElementRelation(elem1, elem2);
+        if (relation === "Tương Sinh") return ["Tương Sinh (ngũ hành)", 2];
+        else if (relation === "Tương Khắc") return ["Tương Khắc (ngũ hành)", 0];
+        else return ["Bình (cùng hành)", 1];
+    }
+
+    // ----- Địa chi -----
+    function getDiaChiRelation(chi1, chi2) {
+        if (chi1 === chi2) return ["Bình", 1];
+        const pairs = [
+            { type: "Lục hợp", pairs: [["Tí","Sửu"],["Dần","Hợi"],["Mão","Tuất"],["Thìn","Dậu"],["Tỵ","Thân"],["Ngọ","Mùi"]] },
+            { type: "Tam hợp", pairs: [["Thân","Tí"],["Tí","Thìn"],["Thân","Thìn"],["Dần","Ngọ"],["Ngọ","Tuất"],["Dần","Tuất"],["Tỵ","Dậu"],["Dậu","Sửu"],["Tỵ","Sửu"],["Hợi","Mão"],["Mão","Mùi"],["Hợi","Mùi"]] },
+            { type: "Lục xung", pairs: [["Tí","Ngọ"],["Sửu","Mùi"],["Dần","Thân"],["Mão","Dậu"],["Thìn","Tuất"],["Tỵ","Hợi"]] },
+            { type: "Lục phá", pairs: [["Tí","Dậu"],["Sửu","Thìn"],["Dần","Hợi"],["Mão","Ngọ"],["Tỵ","Tuất"],["Mùi","Thân"]] },
+            { type: "Lục hại", pairs: [["Tí","Mùi"],["Sửu","Ngọ"],["Dần","Tỵ"],["Mão","Thìn"],["Thân","Hợi"],["Dậu","Tuất"]] },
+            { type: "Tam hình", pairs: [["Tí","Mão"],["Dần","Tỵ"],["Tỵ","Thân"],["Thân","Dần"],["Sửu","Tuất"],["Tuất","Mùi"],["Mùi","Sửu"]] }
+        ];
+        for (let group of pairs) {
+            for (let [a,b] of group.pairs) {
+                a = a.replace('ý','í'); b = b.replace('ý','í');
+                if ((chi1 === a && chi2 === b) || (chi1 === b && chi2 === a)) {
+                    return (group.type === "Lục hợp" || group.type === "Tam hợp") ? [group.type, 2] : [group.type, 0];
+                }
+            }
+        }
+        return ["Bình", 1];
+    }
+
+    // ----- Cung mệnh (bát trạch) -----
+    const cungIndex = { "Khảm":1,"Khôn":2,"Chấn":3,"Tốn":4,"Càn":5,"Đoài":6,"Cấn":7,"Ly":8 };
+    const cungRel = {
+        "1,2":["Tuyệt Mạng",0],"2,1":["Tuyệt Mạng",0],"1,3":["Thiên Y",2],"3,1":["Thiên Y",2],
+        "1,4":["Sinh Khí",2],"4,1":["Sinh Khí",2],"1,5":["Lục Sát",0],"5,1":["Lục Sát",0],
+        "1,6":["Hoạ Hại",0],"6,1":["Hoạ Hại",0],"1,7":["Ngũ Quỷ",0],"7,1":["Ngũ Quỷ",0],
+        "1,8":["Phúc Đức",2],"8,1":["Phúc Đức",2],"2,3":["Hoạ Hại",0],"3,2":["Hoạ Hại",0],
+        "2,4":["Ngũ Quỷ",0],"4,2":["Ngũ Quỷ",0],"2,5":["Phúc Đức",2],"5,2":["Phúc Đức",2],
+        "2,6":["Thiên Y",2],"6,2":["Thiên Y",2],"2,7":["Sinh Khí",2],"7,2":["Sinh Khí",2],
+        "2,8":["Lục Sát",0],"8,2":["Lục Sát",0],"3,4":["Phúc Đức",2],"4,3":["Phúc Đức",2],
+        "3,5":["Ngũ Quỷ",0],"5,3":["Ngũ Quỷ",0],"3,6":["Tuyệt Mạng",0],"6,3":["Tuyệt Mạng",0],
+        "3,7":["Lục Sát",0],"7,3":["Lục Sát",0],"3,8":["Sinh Khí",2],"8,3":["Sinh Khí",2],
+        "4,5":["Hoạ Hại",0],"5,4":["Hoạ Hại",0],"4,6":["Lục Sát",0],"6,4":["Lục Sát",0],
+        "4,7":["Tuyệt Mạng",0],"7,4":["Tuyệt Mạng",0],"4,8":["Thiên Y",2],"8,4":["Thiên Y",2],
+        "5,6":["Sinh Khí",2],"6,5":["Sinh Khí",2],"5,7":["Thiên Y",2],"7,5":["Thiên Y",2],
+        "5,8":["Tuyệt Mạng",0],"8,5":["Tuyệt Mạng",0],"6,7":["Phúc Đức",2],"7,6":["Phúc Đức",2],
+        "6,8":["Ngũ Quỷ",0],"8,6":["Ngũ Quỷ",0],"7,8":["Hoạ Hại",0],"8,7":["Hoạ Hại",0],
+        "1,1":["Phục Vị",2],"2,2":["Phục Vị",2],"3,3":["Phục Vị",2],"4,4":["Phục Vị",2],
+        "5,5":["Phục Vị",2],"6,6":["Phục Vị",2],"7,7":["Phục Vị",2],"8,8":["Phục Vị",2]
     };
-    if (playerDisplays[screenId]) document.getElementById(playerDisplays[screenId]).textContent = playerName;
-    if (screenId === "screen-vocab-list") renderVocabularyList();
-    
-    var setupScreens = { "screen-vocab-test": "vocab", "screen-grammar": "grammar", "screen-translation": "translation", "screen-comprehensive": "comprehensive" };
-    if (setupScreens[screenId]) {
-        document.getElementById(setupScreens[screenId] + "-setup").style.display = "block";
-        document.getElementById(setupScreens[screenId] + "-playing").style.display = "none";
+    function getCungRelation(cung1, cung2) {
+        const key = cungIndex[cung1] + "," + cungIndex[cung2];
+        return cungRel[key] || ["Lỗi", 0];
     }
-}
 
-function shuffleArray(array) {
-    var newArray = array.slice();
-    for (var i = newArray.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = newArray[i];
-        newArray[i] = newArray[j];
-        newArray[j] = temp;
+    // ----- Ngũ hành chung -----
+    function getElementRelation(e1, e2) {
+        if (e1 === e2) return "Bình";
+        const sinh = { "Kim":"Thủy","Thủy":"Mộc","Mộc":"Hỏa","Hỏa":"Thổ","Thổ":"Kim" };
+        const khac = { "Kim":"Mộc","Mộc":"Thổ","Thổ":"Thủy","Thủy":"Hỏa","Hỏa":"Kim" };
+        if (sinh[e1] === e2) return "Tương Sinh";
+        if (khac[e1] === e2) return "Tương Khắc";
+        return "Bình";
     }
-    return newArray;
-}
 
-function startVocabTest() {
-    testType = "vocab";
-    previousScreen = "screen-vocabulary";
-    currentQuestions = shuffleArray(vocabularyData).slice(0, parseInt(document.getElementById("vocab-question-count").value));
-    startTest("vocab", 8);
-}
-
-function startGrammarTest() {
-    testType = "grammar";
-    previousScreen = "screen-home";
-    currentQuestions = shuffleArray(grammarData).slice(0, parseInt(document.getElementById("grammar-question-count").value));
-    startTest("grammar", 30);
-}
-
-function startTranslationTest() {
-    testType = "translation";
-    previousScreen = "screen-home";
-    currentQuestions = shuffleArray(translationData).slice(0, parseInt(document.getElementById("translation-question-count").value));
-    startTest("translation", 30);
-}
-
-function startComprehensiveTest() {
-    testType = "comprehensive";
-    previousScreen = "screen-home";
-    var allQuestions = [];
-    for (var i = 0; i < vocabularyData.length; i++) allQuestions.push(Object.assign({}, vocabularyData[i], { type: "vocab", timeLimit: 8 }));
-    for (var i = 0; i < grammarData.length; i++) allQuestions.push(Object.assign({}, grammarData[i], { type: "grammar", timeLimit: 30 }));
-    for (var i = 0; i < translationData.length; i++) allQuestions.push(Object.assign({}, translationData[i], { type: "translation", timeLimit: 30 }));
-    currentQuestions = shuffleArray(allQuestions).slice(0, parseInt(document.getElementById("comprehensive-question-count").value));
-    startComprehensiveTestRun();
-}
-
-function startComprehensiveTestRun() {
-    currentQuestionIndex = 0; correctCount = 0; answers = []; maxStreak = 0; currentStreak = 0; totalTimeSpent = 0; startTime = new Date();
-    document.getElementById("comprehensive-setup").style.display = "none";
-    document.getElementById("comprehensive-playing").style.display = "block";
-    document.getElementById("comprehensive-total-q").textContent = currentQuestions.length;
-    showComprehensiveQuestion();
-}
-
-function showComprehensiveQuestion() {
-    if (currentQuestionIndex >= currentQuestions.length) { endComprehensiveTest(); return; }
-    var q = currentQuestions[currentQuestionIndex];
-    document.getElementById("comprehensive-current-q").textContent = currentQuestionIndex + 1;
-    document.getElementById("comprehensive-correct-count").textContent = correctCount;
-    document.getElementById("comprehensive-question-text").textContent = q.question;
-    
-    var options = shuffleArray([q.correct, q.wrong1, q.wrong2, q.wrong3]);
-    var container = document.getElementById("comprehensive-options");
-    container.innerHTML = "";
-    for (var i = 0; i < options.length; i++) {
-        (function(opt, correct) {
-            var btn = document.createElement("button");
-            btn.className = "option-btn";
-            btn.textContent = opt;
-            btn.onclick = function() { selectComprehensiveAnswer(opt, correct); };
-            container.appendChild(btn);
-        })(options[i], q.correct);
+    // ----- Lấy thông tin 1 người -----
+    function getPersonInfo(year, gender) {
+        const stemIdx = year % 10;
+        const branchIdx = (year + 8) % 12;
+        const stem = STEMS[stemIdx];
+        const branch = BRANCHES[branchIdx];
+        const napAmKey = stem + branch;
+        const napAm = napAmMap[napAmKey] || { name: "Không rõ", element: "Thổ" };
+        const cung = getCung(year, gender);
+        return {
+            year, gender, stem, branch,
+            menhName: napAm.name,
+            menhElem: napAm.element,
+            cung: cung,
+            niemMenh: cungElement[cung]
+        };
     }
-    questionStartTime = Date.now();
-    startComprehensiveTimer(q.timeLimit);
-}
 
-function startComprehensiveTimer(seconds) {
-    if (timerInterval) clearInterval(timerInterval);
-    var timeLeft = seconds;
-    var timerBar = document.getElementById("comprehensive-timer-bar");
-    timerBar.style.width = "100%";
-    timerBar.style.backgroundColor = seconds === 8 ? "#f43f5e" : "#f97316";
-    timerInterval = setInterval(function() {
-        timeLeft -= 0.1;
-        timerBar.style.width = Math.max(0, (timeLeft / seconds) * 100) + "%";
-        if (timeLeft <= 0) { clearInterval(timerInterval); selectComprehensiveAnswer("", currentQuestions[currentQuestionIndex].correct); }
-    }, 100);
-}
+    // ========== HƯỚNG NHÀ BÁT TRẠCH ==========
+    const huongCung = {
+        "Bắc": "Khảm",
+        "Nam": "Ly",
+        "Đông": "Chấn",
+        "Tây": "Đoài",
+        "Đông Bắc": "Cấn",
+        "Đông Nam": "Tốn",
+        "Tây Nam": "Khôn",
+        "Tây Bắc": "Càn"
+    };
 
-function selectComprehensiveAnswer(selected, correct) {
-    if (timerInterval) clearInterval(timerInterval);
-    totalTimeSpent += (Date.now() - questionStartTime) / 1000;
-    var isCorrect = selected === correct;
-    if (isCorrect) { correctCount++; currentStreak++; if (currentStreak > maxStreak) maxStreak = currentStreak; }
-    else currentStreak = 0;
-    answers.push({ question: currentQuestions[currentQuestionIndex].question, selected: selected || "(Không chọn)", correct: correct, isCorrect: isCorrect });
-    currentQuestionIndex++;
-    setTimeout(showComprehensiveQuestion, 100);
-}
+    // Mô tả cho từng quan hệ (lấy từ ảnh)
+    const moTaQuanHe = {
+        "Sinh Khí": "Hướng tốt nhất, chỉ về tài vận cực tốt, khỏe mạnh, rất vượng về người.",
+        "Thiên Y": "Hướng tốt thứ 3, bệnh tật thuyên giảm, tài vận cũng tốt, khỏe mạnh sống lâu.",
+        "Phúc Đức": "Hướng tốt nhì, tài vận rất tốt, sống thọ, khoẻ mạnh, vợ chồng hòa khí.",
+        "Phục Vị": "Hướng tốt thứ 4, tài vận tốt thường, khí vận trung bình, sức khoẻ và gia vận trung bình.",
+        "Tuyệt Mạng": "Hướng xấu nhất, tài vận cực kém, nhiều bệnh, tổn thọ, họa tuyệt tự, thương tật bất ngờ.",
+        "Ngũ Quỷ": "Hướng xấu thứ ba, phá tài bại nghiệp, coi chừng hóa hoạn, sức khoẻ kém, tinh thần không ổn định.",
+        "Lục Sát": "Hướng ít xấu thứ nhì, tài vận không tốt, tranh cãi thị phi, tai họa liên tục, nhiều bệnh.",
+        "Hoạ Hại": "Hướng ít xấu nhất, khó tích tụ tiền của, kiện tụng thị phi, thường bị tranh chấp, trộm cướp."
+    };
 
-function endComprehensiveTest() { endTime = new Date(); showReport("TỔNG HỢP - E6U1", "#f43f5e"); }
-
-function startTest(type, timeLimit) {
-    currentQuestionIndex = 0; correctCount = 0; answers = []; maxStreak = 0; currentStreak = 0; totalTimeSpent = 0; startTime = new Date();
-    document.getElementById(type + "-setup").style.display = "none";
-    document.getElementById(type + "-playing").style.display = "block";
-    document.getElementById(type + "-total-q").textContent = currentQuestions.length;
-    showQuestion(type, timeLimit);
-}
-
-function showQuestion(type, timeLimit) {
-    if (currentQuestionIndex >= currentQuestions.length) { endTest(type); return; }
-    var q = currentQuestions[currentQuestionIndex];
-    document.getElementById(type + "-current-q").textContent = currentQuestionIndex + 1;
-    document.getElementById(type + "-correct-count").textContent = correctCount;
-    document.getElementById(type + "-question-text").textContent = q.question;
-    
-    var options = shuffleArray([q.correct, q.wrong1, q.wrong2, q.wrong3]);
-    var container = document.getElementById(type + "-options");
-    container.innerHTML = "";
-    for (var i = 0; i < options.length; i++) {
-        (function(opt, correct, tl, t) {
-            var btn = document.createElement("button");
-            btn.className = "option-btn";
-            btn.textContent = opt;
-            btn.onclick = function() { selectAnswer(t, opt, correct, tl); };
-            container.appendChild(btn);
-        })(options[i], q.correct, timeLimit, type);
+    function getDirections(cungNguoi) {
+        let tot = [];
+        let xau = [];
+        for (let [huong, cungHuong] of Object.entries(huongCung)) {
+            const [tenQH, diem] = getCungRelation(cungNguoi, cungHuong);
+            if (tenQH === "Lỗi") continue;
+            // phân loại dựa trên tên quan hệ (tốt nếu thuộc 4 sao tốt)
+            const saoTot = ["Sinh Khí", "Thiên Y", "Phúc Đức", "Phục Vị"];
+            const item = { huong, tenQH, moTa: moTaQuanHe[tenQH] || "" };
+            if (saoTot.includes(tenQH)) {
+                tot.push(item);
+            } else {
+                xau.push(item);
+            }
+        }
+        // sắp xếp theo thứ tự truyền thống
+        const thuTuTot = ["Sinh Khí", "Thiên Y", "Phúc Đức", "Phục Vị"];
+        const thuTuXau = ["Tuyệt Mạng", "Ngũ Quỷ", "Lục Sát", "Hoạ Hại"];
+        tot.sort((a,b) => thuTuTot.indexOf(a.tenQH) - thuTuTot.indexOf(b.tenQH));
+        xau.sort((a,b) => thuTuXau.indexOf(a.tenQH) - thuTuXau.indexOf(b.tenQH));
+        return { tot, xau };
     }
-    questionStartTime = Date.now();
-    startTimer(type, timeLimit);
-}
 
-function startTimer(type, seconds) {
-    if (timerInterval) clearInterval(timerInterval);
-    var timeLeft = seconds;
-    var timerBar = document.getElementById(type + "-timer-bar");
-    timerBar.style.width = "100%";
-    var colors = { vocab: "#10b981", grammar: "#3b82f6", translation: "#f97316" };
-    timerBar.style.backgroundColor = colors[type] || "#3b82f6";
-    timerInterval = setInterval(function() {
-        timeLeft -= 0.1;
-        timerBar.style.width = Math.max(0, (timeLeft / seconds) * 100) + "%";
-        if (timeLeft <= 0) { clearInterval(timerInterval); selectAnswer(type, "", currentQuestions[currentQuestionIndex].correct, seconds); }
-    }, 100);
-}
+    // ----- Tính điểm 1 cặp và lấy nhãn hiển thị phù hợp -----
+    function tinhDiem(p1, p2) {
+        // Mệnh: xét từ đối phương (p2) sang chính chủ (p1)
+        const menhRel = getElementRelation(p2.menhElem, p1.menhElem);
+        let menhDiem, menhLabel;
+        if (menhRel === "Tương Sinh") {
+            menhDiem = 2;
+            menhLabel = "TỐT TƯƠNG SINH";
+        } else if (menhRel === "Tương Khắc") {
+            menhDiem = 0;
+            menhLabel = "XẤU TƯƠNG KHẮC";
+        } else {
+            // Bình: kiểm tra xem có phải p1 sinh p2 hay không
+            const reverse = getElementRelation(p1.menhElem, p2.menhElem);
+            if (reverse === "Tương Sinh") {
+                menhDiem = 1.5;
+                menhLabel = "ỨNG TƯƠNG SINH";
+            } else if (reverse === "Tương Khắc") {
+                menhDiem = 0.5;
+                menhLabel = "ỨNG TƯƠNG KHẮC";
+            } else {
+                menhDiem = 1;
+                menhLabel = "BÌNH";
+            }
+        }
 
-function selectAnswer(type, selected, correct, timeLimit) {
-    if (timerInterval) clearInterval(timerInterval);
-    totalTimeSpent += (Date.now() - questionStartTime) / 1000;
-    var isCorrect = selected === correct;
-    if (isCorrect) { correctCount++; currentStreak++; if (currentStreak > maxStreak) maxStreak = currentStreak; }
-    else currentStreak = 0;
-    answers.push({ question: currentQuestions[currentQuestionIndex].question, selected: selected || "(Không chọn)", correct: correct, isCorrect: isCorrect });
-    currentQuestionIndex++;
-    setTimeout(function() { showQuestion(type, timeLimit); }, 100);
-}
+        // Thiên can, Địa chi, Cung mệnh là đối xứng
+        const [thienCanRel, thienCanDiem] = getThienCanRelation(p1.stem, p2.stem);
+        const [diaChiRel, diaChiDiem] = getDiaChiRelation(p1.branch, p2.branch);
+        const [cungRel, cungDiem] = getCungRelation(p1.cung, p2.cung);
 
-function endTest(type) {
-    endTime = new Date();
-    var titles = { vocab: "TỪ VỰNG - E6U1", grammar: "NGỮ PHÁP - E6U1", translation: "DỊCH CÂU - E6U1" };
-    var colors = { vocab: "#10b981", grammar: "#3b82f6", translation: "#f97316" };
-    showReport(titles[type], colors[type]);
-}
+        // Niên mệnh: xét từ đối phương (p2) sang chính chủ (p1)
+        const niemRel = getElementRelation(p2.niemMenh, p1.niemMenh);
+        let niemDiem, niemLabel;
+        if (niemRel === "Tương Sinh") {
+            niemDiem = 2;
+            niemLabel = "TỐT TƯƠNG SINH";
+        } else if (niemRel === "Tương Khắc") {
+            niemDiem = 0;
+            niemLabel = "XẤU TƯƠNG KHẮC";
+        } else {
+            const reverse = getElementRelation(p1.niemMenh, p2.niemMenh);
+            if (reverse === "Tương Sinh") {
+                niemDiem = 1.5;
+                niemLabel = "ỨNG TƯƠNG SINH";
+            } else if (reverse === "Tương Khắc") {
+                niemDiem = 0.5;
+                niemLabel = "ỨNG TƯƠNG KHẮC";
+            } else {
+                niemDiem = 1;
+                niemLabel = "BÌNH";
+            }
+        }
 
-function showReport(title, color) {
-    goToScreen("screen-report");
-    document.getElementById("report-title").textContent = title;
-    document.getElementById("report-title").style.color = color;
-    document.getElementById("report-player-name").textContent = playerName;
-    
-    var total = currentQuestions.length;
-    var percent = Math.round((correctCount / total) * 100);
-    var percentColor;
-    if (percent <= 49) percentColor = "#ef4444";
-    else if (percent <= 69) percentColor = "#f59e0b";
-    else if (percent <= 79) percentColor = "#22c55e";
-    else if (percent <= 89) percentColor = "#14b8a6";
-    else if (percent <= 99) percentColor = "#3b82f6";
-    else percentColor = "#8b5cf6";
-    
-    document.getElementById("report-percentage").textContent = percent + "%";
-    document.getElementById("report-percentage").style.color = percentColor;
-    var now = new Date();
-    document.getElementById("report-date").textContent = now.getDate() + "/" + (now.getMonth() + 1) + "/" + now.getFullYear();
-    document.getElementById("report-start").textContent = formatTime(startTime);
-    document.getElementById("report-end").textContent = formatTime(endTime);
-    document.getElementById("report-duration").textContent = formatDuration(totalTimeSpent);
-    document.getElementById("report-streak").textContent = maxStreak + "/" + total;
-    
-    drawChart(percent, percentColor);
-    
-    var tbody = document.getElementById("report-table-body");
-    tbody.innerHTML = "";
-    for (var i = 0; i < answers.length; i++) {
-        var ans = answers[i];
-        var tr = document.createElement("tr");
-        tr.style.backgroundColor = i % 2 === 0 ? "#f9fafb" : "white";
-        var selectedStyle = ans.isCorrect ? "" : "color: #dc2626; background-color: #fef2f2;";
-        var correctStyle = "color: #16a34a; background-color: #f0fdf4;";
-        tr.innerHTML = '<td style="padding: 8px 12px; border-bottom: 1px solid #e5e7eb;">' + (i + 1) + '</td>' +
-            '<td style="padding: 8px 12px; border-bottom: 1px solid #e5e7eb;">' + ans.question + '</td>' +
-            '<td style="padding: 8px 12px; border-bottom: 1px solid #e5e7eb; ' + selectedStyle + '">' + ans.selected + '</td>' +
-            '<td style="padding: 8px 12px; border-bottom: 1px solid #e5e7eb; ' + correctStyle + '">' + ans.correct + '</td>';
-        tbody.appendChild(tr);
+        return {
+            menh: menhLabel,
+            thienCan: thienCanRel,
+            diaChi: diaChiRel,
+            cung: cungRel,
+            niem: niemLabel,
+            diem: menhDiem + thienCanDiem + diaChiDiem + cungDiem + niemDiem
+        };
     }
-}
 
-function formatTime(date) { var h = date.getHours().toString().padStart(2, "0"); var m = date.getMinutes().toString().padStart(2, "0"); var s = date.getSeconds().toString().padStart(2, "0"); return h + ":" + m + ":" + s; }
-function formatDuration(seconds) { var m = Math.floor(seconds / 60); var s = Math.floor(seconds % 60); return m + ":" + s.toString().padStart(2, "0"); }
+    // ----- Hiển thị so sánh chi tiết -----
+    function showCompare(me, partner, relation) {
+        const compareDiv = document.getElementById('compareDetail');
+        compareDiv.style.display = 'block';
 
-function drawChart(percent, color) {
-    var canvas = document.getElementById("report-chart");
-    var ctx = canvas.getContext("2d");
-    var centerX = 100, centerY = 100, outerRadius = 95, innerRadius = 65;
-    ctx.clearRect(0, 0, 200, 200);
-    ctx.beginPath(); ctx.arc(centerX, centerY, outerRadius, 0, 2 * Math.PI); ctx.arc(centerX, centerY, innerRadius, 0, 2 * Math.PI, true); ctx.fillStyle = "#e5e7eb"; ctx.fill();
-    if (percent > 0) {
-        var startAngle = -Math.PI / 2;
-        var endAngle = startAngle + (percent / 100) * 2 * Math.PI;
-        ctx.beginPath(); ctx.arc(centerX, centerY, outerRadius, startAngle, endAngle); ctx.arc(centerX, centerY, innerRadius, endAngle, startAngle, true); ctx.closePath(); ctx.fillStyle = color; ctx.fill();
+        const gioiTinhMe = me.gender === 'male' ? 'Nam' : 'Nữ';
+        const gioiTinhPartner = partner.gender === 'male' ? 'Nam' : 'Nữ';
+
+        const amDuongMe = getAmDuong(me.stem);
+        const amDuongPartner = getAmDuong(partner.stem);
+
+        const menhMe = `${me.menhName} (${amDuongMe} ${me.menhElem})`;
+        const menhPartner = `${partner.menhName} (${amDuongPartner} ${partner.menhElem})`;
+
+        const getBadge = (rel) => {
+            // Các trường hợp tốt
+            if (rel.includes('TỐT') || rel.includes('ỨNG TƯƠNG SINH') || 
+                rel.includes('Hợp') || rel.includes('Lục hợp') || rel.includes('Tam hợp') || 
+                rel.includes('Sinh Khí') || rel.includes('Thiên Y') || rel.includes('Phúc Đức') || rel.includes('Phục Vị')) {
+                return '<span class="badge-good">Tốt</span>';
+            }
+            // Các trường hợp xấu
+            if (rel.includes('XẤU') || rel.includes('ỨNG TƯƠNG KHẮC') ||
+                rel.includes('xung') || rel.includes('phá') || rel.includes('hại') || rel.includes('hình') ||
+                rel.includes('Tuyệt') || rel.includes('Lục Sát') || rel.includes('Hoạ') || rel.includes('Ngũ Quỷ')) {
+                return '<span class="badge-bad">Xấu</span>';
+            }
+            // Còn lại là bình
+            return '<span class="badge-normal">Bình</span>';
+        };
+
+        const getCanHành = (stem) => {
+            if (stem === 'Giáp' || stem === 'Ất') return 'Mộc';
+            if (stem === 'Bính' || stem === 'Đinh') return 'Hỏa';
+            if (stem === 'Mậu' || stem === 'Kỷ') return 'Thổ';
+            if (stem === 'Canh' || stem === 'Tân') return 'Kim';
+            return 'Thủy';
+        };
+
+        const html = `
+            <div class="compare-title">🔍 So sánh chi tiết: ${gioiTinhMe} ${me.year} – ${gioiTinhPartner} ${partner.year}</div>
+            <div class="compare-grid">
+                <div class="compare-item">
+                    <h3>📌 Về Mệnh (nạp âm)</h3>
+                    <p><strong>${gioiTinhMe}:</strong> ${menhMe}</p>
+                    <p><strong>${gioiTinhPartner}:</strong> ${menhPartner}</p>
+                    <p><strong>Quan hệ:</strong> ${relation.menh} ${getBadge(relation.menh)}</p>
+                </div>
+                <div class="compare-item">
+                    <h3>🌿 Về Thiên can</h3>
+                    <p><strong>${gioiTinhMe}:</strong> ${me.stem} (${amDuongMe} ${getCanHành(me.stem)})</p>
+                    <p><strong>${gioiTinhPartner}:</strong> ${partner.stem} (${amDuongPartner} ${getCanHành(partner.stem)})</p>
+                    <p><strong>Quan hệ:</strong> ${relation.thienCan} ${getBadge(relation.thienCan)}</p>
+                </div>
+                <div class="compare-item">
+                    <h3>🐉 Về Địa chi</h3>
+                    <p><strong>${gioiTinhMe}:</strong> ${me.branch}</p>
+                    <p><strong>${gioiTinhPartner}:</strong> ${partner.branch}</p>
+                    <p><strong>Quan hệ:</strong> ${relation.diaChi} ${getBadge(relation.diaChi)}</p>
+                </div>
+                <div class="compare-item">
+                    <h3>🏯 Về Cung phi</h3>
+                    <p><strong>${gioiTinhMe}:</strong> ${me.cung}</p>
+                    <p><strong>${gioiTinhPartner}:</strong> ${partner.cung}</p>
+                    <p><strong>Quan hệ:</strong> ${relation.cung} ${getBadge(relation.cung)}</p>
+                </div>
+                <div class="compare-item">
+                    <h3>⚖️ Về Niên mệnh (hành cung)</h3>
+                    <p><strong>${gioiTinhMe}:</strong> ${me.niemMenh}</p>
+                    <p><strong>${gioiTinhPartner}:</strong> ${partner.niemMenh}</p>
+                    <p><strong>Quan hệ:</strong> ${relation.niem} ${getBadge(relation.niem)}</p>
+                </div>
+            </div>
+        `;
+        compareDiv.innerHTML = html;
     }
-}
 
-function retakeTest() {
-    if (testType === "vocab") { currentQuestions = shuffleArray(vocabularyData).slice(0, parseInt(document.getElementById("vocab-question-count").value)); startTest("vocab", 8); goToScreen("screen-vocab-test"); }
-    else if (testType === "grammar") { currentQuestions = shuffleArray(grammarData).slice(0, parseInt(document.getElementById("grammar-question-count").value)); startTest("grammar", 30); goToScreen("screen-grammar"); }
-    else if (testType === "translation") { currentQuestions = shuffleArray(translationData).slice(0, parseInt(document.getElementById("translation-question-count").value)); startTest("translation", 30); goToScreen("screen-translation"); }
-    else if (testType === "comprehensive") {
-        var allQuestions = [];
-        for (var i = 0; i < vocabularyData.length; i++) allQuestions.push(Object.assign({}, vocabularyData[i], { type: "vocab", timeLimit: 8 }));
-        for (var i = 0; i < grammarData.length; i++) allQuestions.push(Object.assign({}, grammarData[i], { type: "grammar", timeLimit: 30 }));
-        for (var i = 0; i < translationData.length; i++) allQuestions.push(Object.assign({}, translationData[i], { type: "translation", timeLimit: 30 }));
-        currentQuestions = shuffleArray(allQuestions).slice(0, parseInt(document.getElementById("comprehensive-question-count").value));
-        startComprehensiveTestRun(); goToScreen("screen-comprehensive");
+    // ----- Render toàn bộ -----
+    let currentMe = null;
+    let currentRows = [];
+
+    function renderTable(selectedYear, selectedGender) {
+        const me = getPersonInfo(selectedYear, selectedGender);
+        currentMe = me;
+        const oppositeGender = selectedGender === 'male' ? 'female' : 'male';
+
+        let start = Math.max(1945, selectedYear - 50);
+        let end = Math.min(2145, selectedYear + 50);
+        let rows = [];
+
+        for (let y = start; y <= end; y++) {
+            const partner = getPersonInfo(y, oppositeGender);
+            const relation = tinhDiem(me, partner);
+            rows.push({
+                year: y,
+                menh: partner.menhName + " (" + partner.menhElem + ")",
+                menhRel: relation.menh,
+                thienCan: partner.stem,
+                thienCanRel: relation.thienCan,
+                diaChi: partner.branch,
+                diaChiRel: relation.diaChi,
+                cung: partner.cung,
+                cungRel: relation.cung,
+                niem: partner.niemMenh,
+                niemRel: relation.niem,
+                diem: relation.diem,
+                partnerObj: partner,
+                relation: relation
+            });
+        }
+        currentRows = rows;
+
+        // 1. Cột thông tin cá nhân (cập nhật có thêm Đông/Tây tứ trạch)
+        const personalDiv = document.getElementById('personalInfo');
+        personalDiv.style.display = 'block';
+        const loaiTrach = (me.cung === 'Khảm' || me.cung === 'Ly' || me.cung === 'Chấn' || me.cung === 'Tốn') ? 'Đông Tứ Trạch' : 'Tây Tứ Trạch';
+        personalDiv.innerHTML = `
+            <div class="info-row"><span class="info-label">Giới tính</span><span class="info-value">${selectedGender === 'male' ? 'Nam' : 'Nữ'}</span></div>
+            <div class="info-row"><span class="info-label">Năm âm lịch</span><span class="info-value">${me.stem} ${me.branch}</span></div>
+            <div class="info-row"><span class="info-label">Mệnh</span><span class="info-value">${me.menhName}</span></div>
+            <div class="info-row"><span class="info-label">Cung</span><span class="info-value">${me.cung} (${loaiTrach})</span></div>
+            <div class="info-row"><span class="info-label">Niên mệnh</span><span class="info-value">${me.niemMenh}</span></div>
+        `;
+
+        // 2. Hướng tốt / xấu theo bát trạch
+        const { tot, xau } = getDirections(me.cung);
+        const huongTotDiv = document.getElementById('huongTot');
+        const huongXauDiv = document.getElementById('huongXau');
+        huongTotDiv.style.display = 'block';
+        huongXauDiv.style.display = 'block';
+
+        let totHtml = `<div class="huong-title">✅ Hướng tốt (${loaiTrach})</div><ul class="huong-list">`;
+        tot.forEach(item => {
+            totHtml += `<li class="huong-item"><strong>${item.tenQH}:</strong> ${item.huong} <span class="badge-huong">${item.moTa}</span></li>`;
+        });
+        totHtml += `</ul>`;
+        huongTotDiv.innerHTML = totHtml;
+
+        let xauHtml = `<div class="huong-title">❌ Hướng xấu</div><ul class="huong-list">`;
+        xau.forEach(item => {
+            xauHtml += `<li class="huong-item"><strong>${item.tenQH}:</strong> ${item.huong} <span class="badge-huong">${item.moTa}</span></li>`;
+        });
+        xauHtml += `</ul>`;
+        huongXauDiv.innerHTML = xauHtml;
+
+        // 3. Top 10
+        const sorted = [...rows].sort((a,b) => b.diem - a.diem).slice(0,10);
+        const topDiv = document.getElementById('top10Container');
+        topDiv.style.display = 'block';
+        let topHtml = `<div class="top10-title">🔟 Top 10 đối phương hợp nhất (điểm cao nhất)</div>`;
+        topHtml += `<table class="top10-table"><tr><th>Năm</th><th>Giới tính</th><th>Mệnh</th><th>Cung</th><th>Điểm</th></tr>`;
+        sorted.forEach(item => {
+            topHtml += `<tr>
+                <td>${item.year}</td>
+                <td>${oppositeGender === 'male' ? 'Nam' : 'Nữ'}</td>
+                <td>${item.menh}</td>
+                <td>${item.cung}</td>
+                <td><b>${item.diem.toFixed(1)}</b></td>
+            </tr>`;
+        });
+        topHtml += `</table>`;
+        topDiv.innerHTML = topHtml;
+
+        // 4. Bảng chính (có thêm cột thao tác)
+        let html = `<h2 style="margin: 10px 0 5px 0; font-size: 1.5rem;">📋 Danh sách chi tiết (từ ${start} đến ${end})</h2>`;
+        html += `<table><thead><tr>`;
+        html += `<th>Năm<br>đối phương</th><th>Mệnh</th><th>QHệ<br>Mệnh</th><th>Thiên can</th><th>QHệ<br>Thiên can</th><th>Địa chi</th><th>QHệ<br>Địa chi</th><th>Cung</th><th>QHệ<br>Cung</th><th>Niên mệnh</th><th>QHệ<br>Niên</th><th>Điểm</th><th>Thao tác</th>`;
+        html += `</tr></thead><tbody>`;
+
+        rows.forEach((r, index) => {
+            html += `<tr data-index="${index}">`;
+            html += `<td>${r.year}</td>`;
+            html += `<td>${r.menh}</td>`;
+            html += `<td>${r.menhRel}</td>`;
+            html += `<td>${r.thienCan}</td>`;
+            html += `<td>${r.thienCanRel}</td>`;
+            html += `<td>${r.diaChi}</td>`;
+            html += `<td>${r.diaChiRel}</td>`;
+            html += `<td>${r.cung}</td>`;
+            html += `<td>${r.cungRel}</td>`;
+            html += `<td>${r.niem}</td>`;
+            html += `<td>${r.niemRel}</td>`;
+            html += `<td><b>${r.diem.toFixed(1)}</b></td>`;
+            html += `<td><button class="btn-compare" data-index="${index}">🔍 So sánh</button></td>`;
+            html += `</tr>`;
+        });
+        html += `</tbody></table>`;
+        document.getElementById('resultTable').innerHTML = html;
+
+        // Gán sự kiện cho các nút so sánh
+        document.querySelectorAll('.btn-compare').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const index = btn.getAttribute('data-index');
+                if (index !== null) {
+                    const rowData = currentRows[parseInt(index)];
+                    showCompare(currentMe, rowData.partnerObj, rowData.relation);
+                }
+            });
+        });
+
+        // Ẩn compare cũ khi render lại
+        document.getElementById('compareDetail').style.display = 'none';
     }
-}
 
-function goBackFromReport() { goToScreen(previousScreen); }
-
-function renderVocabularyList() {
-    var tbody = document.getElementById("vocab-list-body");
-    tbody.innerHTML = "";
-    for (var i = 0; i < vocabularyData.length; i++) {
-        var vocab = vocabularyData[i];
-        var tr = document.createElement("tr");
-        tr.innerHTML = '<td style="padding: 10px 16px; font-weight: 600;">' + vocab.id + '</td>' +
-            '<td style="padding: 10px 16px;"><button class="speaker-btn" onclick="speakWord(\'' + vocab.question + '\')"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg></button> <span style="font-weight: 500;">' + vocab.question + '</span></td>' +
-            '<td style="padding: 10px 16px; color: #4b5563;">' + vocab.correct + '</td>';
-        tbody.appendChild(tr);
+    // ----- Khởi tạo dropdown năm -----
+    function populateYearSelect() {
+        const select = document.getElementById('yearSelect');
+        for (let y = 1945; y <= 2145; y++) {
+            let option = document.createElement('option');
+            option.value = y;
+            option.textContent = y;
+            select.appendChild(option);
+        }
+        select.value = 1985;
     }
-}
 
-function speakWord(word) { if ('speechSynthesis' in window) { var utterance = new SpeechSynthesisUtterance(word); utterance.lang = 'en-US'; utterance.rate = 0.8; speechSynthesis.speak(utterance); } else alert('Trình duyệt không hỗ trợ phát âm.'); }
-
-document.getElementById("playerName").addEventListener("input", checkPlayerName);
-checkPlayerName();
+    window.onload = function() {
+        populateYearSelect();
+        document.getElementById('xemBtn').addEventListener('click', function() {
+            const year = parseInt(document.getElementById('yearSelect').value);
+            const gender = document.getElementById('genderSelect').value;
+            renderTable(year, gender);
+        });
+        renderTable(1985, 'female');
+    };
+})();
 </script>
 </body>
 </html>
