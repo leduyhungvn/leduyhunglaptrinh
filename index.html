@@ -718,27 +718,33 @@
     const napAmMap = {};
     NAP_AM.forEach(item => { napAmMap[item.stem + item.branch] = item; });
 
-    // ----- Cung phi (cải tiến theo tổng các chữ số) -----
+    // ----- Cung phi (cập nhật theo bảng tra chính xác) -----
     function getCung(year, gender) {
-        // Tính tổng các chữ số của năm, rút gọn đến 1 chữ số
-        let sum = year.toString().split('').reduce((a, b) => a + parseInt(b), 0);
-        while (sum >= 10) {
-            sum = sum.toString().split('').reduce((a, b) => a + parseInt(b), 0);
-        }
-        let remainder;
-        if (gender === 'male') {
-            remainder = (11 - sum) % 9;
-            if (remainder === 0) remainder = 9;
-        } else {
-            remainder = (sum + 4) % 9;
-            if (remainder === 0) remainder = 9;
-        }
-        const map = {
-            1: "Khảm", 2: "Khôn", 3: "Chấn", 4: "Tốn",
-            5: (gender === 'male' ? "Cấn" : "Ly"),
-            6: "Càn", 7: "Đoài", 8: "Cấn", 9: "Ly"
+        const remainder = year % 9; // số dư khi chia cho 9
+        // Mapping theo bảng tra (từ hình ảnh)
+        const mapNam = {
+            0: "Khôn",
+            1: "Khảm",
+            2: "Ly",
+            3: "Càn",
+            4: "Đoài",
+            5: "Càn",
+            6: "Khôn",
+            7: "Tốn",
+            8: "Chấn"
         };
-        return map[remainder];
+        const mapNu = {
+            0: "Tốn",
+            1: "Cấn",
+            2: "Cấn",
+            3: "Đoài",
+            4: "Cấn",
+            5: "Ly",
+            6: "Khảm",
+            7: "Khôn",
+            8: "Chấn"
+        };
+        return gender === 'male' ? mapNam[remainder] : mapNu[remainder];
     }
 
     const cungElement = { "Khảm":"Thủy","Khôn":"Thổ","Chấn":"Mộc","Tốn":"Mộc","Càn":"Kim","Đoài":"Kim","Cấn":"Thổ","Ly":"Hỏa" };
