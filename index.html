@@ -32,10 +32,6 @@
             --grade5-color: #FF9800;
         }
         
-        * {
-            -webkit-tap-highlight-color: transparent;
-        }
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             max-width: 800px;
@@ -45,8 +41,6 @@
             color: #333;
             -webkit-text-size-adjust: 100%;
             -ms-text-size-adjust: 100%;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
         
         .container {
@@ -108,6 +102,7 @@
             transition: all 0.3s ease;
             box-sizing: border-box;
             background-color: #fff;
+            -webkit-tap-highlight-color: rgba(0,0,0,0.1);
         }
         
         select option:disabled {
@@ -131,18 +126,16 @@
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
-            padding: 12px; /* Tăng padding cho dễ bấm mobile */
-            touch-action: manipulation; /* Loại bỏ độ trễ click trên mobile */
-            user-select: none;
+            padding: 10px;
         }
         
         button:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
-        button:active { transform: scale(0.98); }
+        button:active { transform: translateY(0); }
         button:disabled { background-color: #cccccc; cursor: not-allowed; transform: none; box-shadow: none; }
         
         .btn-secondary { background-color: var(--secondary-color); }
         .btn-secondary:hover { background-color: #1a252f; }
-
+        
         .btn-comprehensive { background-color: var(--purple-color); }
         .btn-comprehensive:hover { background-color: #7b1fa2; }
 
@@ -232,7 +225,7 @@
             background: none; border: none; cursor: pointer; width: 36px; height: 36px; padding: 6px;
             border-radius: 50%; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center;
             background-color: rgba(76, 175, 80, 0.1); flex-shrink: 0;
-            touch-action: manipulation;
+            -webkit-tap-highlight-color: rgba(0,0,0,0.1);
         }
         .speaker-btn:hover { background-color: rgba(76, 175, 80, 0.2); transform: scale(1.05); }
         .speaker-btn:active { transform: scale(0.95); }
@@ -247,11 +240,9 @@
             font-size: 16px; 
             font-weight: 500;
             line-height: 1.4;
-            user-select: none;
-            touch-action: manipulation;
+            -webkit-tap-highlight-color: rgba(0,0,0,0.1);
         }
         .option:hover { background-color: #e9e9e9; transform: translateX(3px); }
-        .option:active { background-color: #ddd; }
         .correct { background-color: var(--primary-color) !important; color: var(--white) !important; border-color: var(--primary-dark) !important; }
         .incorrect { background-color: var(--error-color) !important; color: var(--white) !important; border-color: #d32f2f !important; }
         
@@ -571,7 +562,7 @@
 </head>
 <body>
     <div class="container">
-        <!-- Giao diện chọn lớp -->
+        <!-- Giao diện chọn lớp (chỉ còn Lớp 6) + thông tin liên hệ trực tiếp -->
         <div id="grade-selection" class="grade-selection">
             <div class="header">
                 <h1>ÔN TẬP GS TIẾNG ANH (LỚP 6)</h1>
@@ -582,7 +573,7 @@
                 <button id="grade6-btn">ÔN TẬP GS LỚP 6</button>
             </div>
 
-            <!-- Thông tin liên hệ -->
+            <!-- Thông tin liên hệ hiển thị trực tiếp -->
             <div class="contact-info-direct">
                 <h3>Teacher Minho</h3>
                 <p>Giáo viên tiếng Anh cấp 2,3 và ôn luyện đại học theo chuẩn IELTS, PTE</p>
@@ -679,7 +670,7 @@
             </div>
         </div>
 
-        <!-- Màn hình đăng nhập (chọn unit, số câu) -->
+        <!-- Màn hình đăng nhập (chọn unit, số câu) dùng cho tất cả chế độ -->
         <div id="login-screen" class="login-screen hidden">
             <div class="header">
                 <h1 id="login-grade-header"></h1>
@@ -688,7 +679,7 @@
             
             <div class="form-group">
                 <label for="username">Nhập tên của bạn:</label>
-                <input type="text" id="username" placeholder="Tên của bạn" autocomplete="off">
+                <input type="text" id="username" placeholder="Tên của bạn">
             </div>
             
             <div class="form-group">
@@ -857,6 +848,7 @@
         // 1. KHAI BÁO DỮ LIỆU TỪ VỰNG (VOCABULARY DATA) - CHỈ LỚP 6
         // ============================================================
         
+        // --- LEVEL 6 VOCABULARY (Unit 1 - 12) ---
         const L6_U1_VOCAB_DATA = [
             { id: 1, word: "special", correct: "(adj): đặc biệt", wrong1: "(v): đến", wrong2: "(n): vườn", wrong3: "(n): lời khuyên" },
             { id: 2, word: "ready", correct: "(adj): sẵn sàng", wrong1: "(n): làng quê", wrong2: "(n): trường trung học", wrong3: "(n): bí mật" },
@@ -933,18 +925,75 @@
         const L6_U12_VOCAB_DATA = [{ id: 1, word: "L6_U12_Vocab_Word_1", correct: "(n): Nghĩa từ 12.1", wrong1: "(v): Sai 1", wrong2: "(adj): Sai 2", wrong3: "(n): Sai 3" }];
 
         // ============================================================
-        // 2. KHAI BÁO DỮ LIỆU NGỮ PHÁP, DỊCH CÂU, LÝ THUYẾT, SGK
+        // 2. KHAI BÁO DỮ LIỆU NGỮ PHÁP (GRAMMAR DATA) - LỚP 6
         // ============================================================
-        
+
+        // --- LEVEL 6 GRAMMAR (Unit 1 - 12) ---
         const L6_U1_GRAMMAR_DATA = [
             { id: 1, word: "I _____ a student.", correct: "am", wrong1: "is", wrong2: "are", wrong3: "be" },
             { id: 2, word: "She _____ my friend.", correct: "is", wrong1: "am", wrong2: "are", wrong3: "be" },
             { id: 3, word: "They _____ teachers.", correct: "are", wrong1: "am", wrong2: "is", wrong3: "be" },
             { id: 4, word: "He _____ happy.", correct: "is", wrong1: "am", wrong2: "are", wrong3: "be" },
-            { id: 5, word: "We _____ in classroom.", correct: "are", wrong1: "am", wrong2: "is", wrong3: "be" }
+            { id: 5, word: "We _____ in classroom.", correct: "are", wrong1: "am", wrong2: "is", wrong3: "be" },
+            { id: 6, word: "It _____ a cat.", correct: "is", wrong1: "am", wrong2: "are", wrong3: "be" },
+            { id: 7, word: "You _____ late.", correct: "are", wrong1: "am", wrong2: "is", wrong3: "be" },
+            { id: 8, word: "My mother _____ at home.", correct: "is", wrong1: "am", wrong2: "are", wrong3: "be" },
+            { id: 9, word: "Tom and Jerry _____ friends.", correct: "are", wrong1: "am", wrong2: "is", wrong3: "be" },
+            { id: 10, word: "I _____ not hungry.", correct: "am", wrong1: "is", wrong2: "are", wrong3: "do" },
+            { id: 11, word: "_____ she nice?", correct: "Is", wrong1: "Am", wrong2: "Are", wrong3: "Do" },
+            { id: 12, word: "_____ you okay?", correct: "Are", wrong1: "Am", wrong2: "Is", wrong3: "Do" },
+            { id: 13, word: "_____ he tall?", correct: "Is", wrong1: "Am", wrong2: "Are", wrong3: "Do" },
+            { id: 14, word: "_____ they students?", correct: "Are", wrong1: "Am", wrong2: "Is", wrong3: "Do" },
+            { id: 15, word: "No, I _____ not.", correct: "am", wrong1: "is", wrong2: "are", wrong3: "do" },
+            { id: 16, word: "Yes, she _____.", correct: "is", wrong1: "am", wrong2: "are", wrong3: "does" },
+            { id: 17, word: "This _____ my book.", correct: "is", wrong1: "am", wrong2: "are", wrong3: "be" },
+            { id: 18, word: "That _____ a pen.", correct: "is", wrong1: "am", wrong2: "are", wrong3: "be" },
+            { id: 19, word: "These _____ apples.", correct: "are", wrong1: "am", wrong2: "is", wrong3: "be" },
+            { id: 20, word: "Those _____ chairs.", correct: "are", wrong1: "am", wrong2: "is", wrong3: "be" },
+            { id: 21, word: "There _____ a table in room.", correct: "is", wrong1: "are", wrong2: "am", wrong3: "be" },
+            { id: 22, word: "There _____ two chairs there.", correct: "are", wrong1: "is", wrong2: "am", wrong3: "be" },
+            { id: 23, word: "_____ there a lamp?", correct: "Is", wrong1: "Are", wrong2: "Am", wrong3: "Do" },
+            { id: 24, word: "_____ there any books?", correct: "Are", wrong1: "Is", wrong2: "Am", wrong3: "Do" },
+            { id: 25, word: "My name _____ Minh.", correct: "is", wrong1: "am", wrong2: "are", wrong3: "be" },
+            { id: 26, word: "What _____ this?", correct: "is", wrong1: "am", wrong2: "are", wrong3: "do" },
+            { id: 27, word: "Where _____ you from?", correct: "are", wrong1: "is", wrong2: "am", wrong3: "do" },
+            { id: 28, word: "How old _____ she?", correct: "is", wrong1: "are", wrong2: "am", wrong3: "do" },
+            { id: 29, word: "It _____ sunny today.", correct: "is", wrong1: "are", wrong2: "am", wrong3: "be" },
+            { id: 30, word: "We _____ friends.", correct: "are", wrong1: "is", wrong2: "am", wrong3: "be" },
+            { id: 31, word: "I _____ a teacher.", correct: "am", wrong1: "is", wrong2: "are", wrong3: "be" },
+            { id: 32, word: "He _____ a doctor.", correct: "is", wrong1: "am", wrong2: "are", wrong3: "be" },
+            { id: 33, word: "They _____ students.", correct: "are", wrong1: "is", wrong2: "am", wrong3: "be" },
+            { id: 34, word: "She _____ beautiful.", correct: "is", wrong1: "am", wrong2: "are", wrong3: "be" },
+            { id: 35, word: "You _____ tall.", correct: "are", wrong1: "is", wrong2: "am", wrong3: "be" },
+            { id: 36, word: "My father _____ at work.", correct: "is", wrong1: "am", wrong2: "are", wrong3: "be" },
+            { id: 37, word: "The cats _____ cute.", correct: "are", wrong1: "is", wrong2: "am", wrong3: "be" },
+            { id: 38, word: "The dog _____ big.", correct: "is", wrong1: "am", wrong2: "are", wrong3: "be" },
+            { id: 39, word: "I _____ happy.", correct: "am", wrong1: "is", wrong2: "are", wrong3: "be" },
+            { id: 40, word: "We _____ sad.", correct: "are", wrong1: "is", wrong2: "am", wrong3: "be" },
+            { id: 41, word: "He _____ tired.", correct: "is", wrong1: "am", wrong2: "are", wrong3: "be" },
+            { id: 42, word: "She _____ hungry.", correct: "is", wrong1: "am", wrong2: "are", wrong3: "be" },
+            { id: 43, word: "You _____ thirsty.", correct: "are", wrong1: "is", wrong2: "am", wrong3: "be" },
+            { id: 44, word: "They _____ angry.", correct: "are", wrong1: "is", wrong2: "am", wrong3: "be" },
+            { id: 45, word: "It _____ cold.", correct: "is", wrong1: "am", wrong2: "are", wrong3: "be" },
+            { id: 46, word: "_____ he a teacher?", correct: "Is", wrong1: "Are", wrong2: "Am", wrong3: "Do" },
+            { id: 47, word: "_____ they doctors?", correct: "Are", wrong1: "Is", wrong2: "Am", wrong3: "Do" },
+            { id: 48, word: "_____ you a student?", correct: "Are", wrong1: "Is", wrong2: "Am", wrong3: "Do" },
+            { id: 49, word: "_____ I late?", correct: "Am", wrong1: "Is", wrong2: "Are", wrong3: "Do" },
+            { id: 50, word: "_____ it a bird?", correct: "Is", wrong1: "Are", wrong2: "Am", wrong3: "Do" },
+            { id: 51, word: "These books _____ new.", correct: "are", wrong1: "is", wrong2: "am", wrong3: "be" },
+            { id: 52, word: "That car _____ red.", correct: "is", wrong1: "are", wrong2: "am", wrong3: "be" },
+            { id: 53, word: "Those houses _____ big.", correct: "are", wrong1: "is", wrong2: "am", wrong3: "be" },
+            { id: 54, word: "This bag _____ heavy.", correct: "is", wrong1: "are", wrong2: "am", wrong3: "be" },
+            { id: 55, word: "There _____ a ruler on desk.", correct: "is", wrong1: "are", wrong2: "am", wrong3: "be" },
+            { id: 56, word: "There _____ many students in class.", correct: "are", wrong1: "is", wrong2: "am", wrong3: "be" },
+            { id: 57, word: "There _____ some water in glass.", correct: "is", wrong1: "are", wrong2: "am", wrong3: "be" },
+            { id: 58, word: "_____ there any milk?", correct: "Is", wrong1: "Are", wrong2: "Am", wrong3: "Do" },
+            { id: 59, word: "_____ there any eggs?", correct: "Are", wrong1: "Is", wrong2: "Am", wrong3: "Do" },
+            { id: 60, word: "My sister _____ 10 years old.", correct: "is", wrong1: "are", wrong2: "am", wrong3: "be" }
         ];
-        const L6_U2_GRAMMAR_DATA = [{ id: 1, word: "There ___ a table.", correct: "is", wrong1: "are", wrong2: "am", wrong3: "be" }];
-        const L6_U3_GRAMMAR_DATA = [{ id: 1, word: "___ is a book.", correct: "It", wrong1: "They", wrong2: "He", wrong3: "She" }];
+
+        const L6_U2_GRAMMAR_DATA = [{ id: 1, word: "L6_U2_Grammar_Q1", correct: "Correct Ans", wrong1: "Wrong 1", wrong2: "Wrong 2", wrong3: "Wrong 3" }];
+        const L6_U3_GRAMMAR_DATA = [{ id: 1, word: "L6_U3_Grammar_Q1", correct: "Correct Ans", wrong1: "Wrong 1", wrong2: "Wrong 2", wrong3: "Wrong 3" }];
         const L6_U4_GRAMMAR_DATA = [{ id: 1, word: "L6_U4_Grammar_1", correct: "Correct Ans 1.4", wrong1: "Wrong 1", wrong2: "Wrong 2", wrong3: "Wrong 3" }];
         const L6_U5_GRAMMAR_DATA = [{ id: 1, word: "L6_U5_Grammar_1", correct: "Correct Ans 1.5", wrong1: "Wrong 1", wrong2: "Wrong 2", wrong3: "Wrong 3" }];
         const L6_U6_GRAMMAR_DATA = [{ id: 1, word: "L6_U6_Grammar_1", correct: "Correct Ans 1.6", wrong1: "Wrong 1", wrong2: "Wrong 2", wrong3: "Wrong 3" }];
@@ -955,15 +1004,33 @@
         const L6_U11_GRAMMAR_DATA = [{ id: 1, word: "L6_U11_Grammar_1", correct: "Correct Ans 1.11", wrong1: "Wrong 1", wrong2: "Wrong 2", wrong3: "Wrong 3" }];
         const L6_U12_GRAMMAR_DATA = [{ id: 1, word: "L6_U12_Grammar_1", correct: "Correct Ans 1.12", wrong1: "Wrong 1", wrong2: "Wrong 2", wrong3: "Wrong 3" }];
 
+        // ============================================================
+        // 3. KHAI BÁO DỮ LIỆU DỊCH CÂU (TRANSLATION DATA) - LỚP 6
+        // ============================================================
+
+        // --- LEVEL 6 TRANSLATION (Unit 1 - 12) ---
         const L6_U1_TRANSLATION_DATA = [
             { id: 1, word: "I am a student.", correct: "Tôi là một học sinh.", wrong1: "Tôi là một giáo viên.", wrong2: "Anh ấy là một học sinh.", wrong3: "Tôi là một bác sĩ." },
-            { id: 2, word: "She is my friend.", correct: "Cô ấy là bạn của tôi.", wrong1: "Cô ấy là chị của tôi.", wrong2: "Anh ấy là bạn của tôi.", wrong3: "Cô ấy là giáo viên của tôi." }
+            { id: 2, word: "She is my friend.", correct: "Cô ấy là bạn của tôi.", wrong1: "Cô ấy là chị của tôi.", wrong2: "Anh ấy là bạn của tôi.", wrong3: "Cô ấy là giáo viên của tôi." },
+            { id: 3, word: "We are in the classroom.", correct: "Chúng tôi ở trong lớp học.", wrong1: "Chúng tôi ở trong thư viện.", wrong2: "Họ ở trong lớp học.", wrong3: "Chúng tôi ở ngoài sân." },
+            { id: 4, word: "The school is big and beautiful.", correct: "Trường học to và đẹp.", wrong1: "Trường học nhỏ và đẹp.", wrong2: "Ngôi nhà to và đẹp.", wrong3: "Trường học to và xấu." },
+            { id: 5, word: "I usually go to school by bike.", correct: "Tôi thường đi học bằng xe đạp.", wrong1: "Tôi thường đi học bằng xe buýt.", wrong2: "Tôi thỉnh thoảng đi học bằng xe đạp.", wrong3: "Anh ấy thường đi học bằng xe đạp." }
         ];
-        const L6_U2_TRANSLATION_DATA = [{ id: 1, word: "There is a table.", correct: "Có một cái bàn.", wrong1: "Có hai cái bàn.", wrong2: "Có một cái ghế.", wrong3: "Không có cái bàn nào." }];
-        const L6_U3_TRANSLATION_DATA = [{ id: 1, word: "I have an idea.", correct: "Tôi có một ý tưởng.", wrong1: "Tôi có một sách.", wrong2: "Tôi có một cái bàn.", wrong3: "Tôi có một cái ghế." }];
+        const L6_U2_TRANSLATION_DATA = [{ id: 1, word: "There is a table in my room.", correct: "Có một cái bàn trong phòng của tôi.", wrong1: "Có hai cái bàn trong phòng của tôi.", wrong2: "Có một cái ghế trong phòng của tôi.", wrong3: "Không có cái bàn nào trong phòng." }];
+        const L6_U3_TRANSLATION_DATA = [{ id: 1, word: "I have a good idea.", correct: "Tôi có một ý tưởng hay.", wrong1: "Tôi có một ý tưởng tồi.", wrong2: "Anh ấy có một ý tưởng hay.", wrong3: "Tôi không có ý tưởng nào." }];
         const L6_U4_TRANSLATION_DATA = []; const L6_U5_TRANSLATION_DATA = []; const L6_U6_TRANSLATION_DATA = []; const L6_U7_TRANSLATION_DATA = []; const L6_U8_TRANSLATION_DATA = []; const L6_U9_TRANSLATION_DATA = []; const L6_U10_TRANSLATION_DATA = []; const L6_U11_TRANSLATION_DATA = []; const L6_U12_TRANSLATION_DATA = [];
 
-        const L6_U1_THEORY_DATA = [{ id: 1, word: "Thì hiện tại đơn diễn tả?", correct: "Sự thật hiển nhiên", wrong1: "Hành động đang xảy ra", wrong2: "Hành động đã xảy ra", wrong3: "Hành động sẽ xảy ra" }];
+        // ============================================================
+        // 4. KHAI BÁO DỮ LIỆU LÍ THUYẾT (THEORY DATA) - LỚP 6
+        // ============================================================
+        // --- LEVEL 6 THEORY (Unit 1 - 12) ---
+        const L6_U1_THEORY_DATA = [
+            { id: 1, word: "I am a student.", correct: "Tôi là một học sinh.", wrong1: "Tôi là một giáo viên.", wrong2: "Anh ấy là một học sinh.", wrong3: "Tôi là một bác sĩ." },
+            { id: 2, word: "She is my friend.", correct: "Cô ấy là bạn của tôi.", wrong1: "Cô ấy là chị của tôi.", wrong2: "Anh ấy là bạn của tôi.", wrong3: "Cô ấy là giáo viên của tôi." },
+            { id: 3, word: "We are in the classroom.", correct: "Chúng tôi ở trong lớp học.", wrong1: "Chúng tôi ở trong thư viện.", wrong2: "Họ ở trong lớp học.", wrong3: "Chúng tôi ở ngoài sân." },
+            { id: 4, word: "The school is big and beautiful.", correct: "Trường học to và đẹp.", wrong1: "Trường học nhỏ và đẹp.", wrong2: "Ngôi nhà to và đẹp.", wrong3: "Trường học to và xấu." },
+            { id: 5, word: "I usually go to school by bike.", correct: "Tôi thường đi học bằng xe đạp.", wrong1: "Tôi thường đi học bằng xe buýt.", wrong2: "Tôi thỉnh thoảng đi học bằng xe đạp.", wrong3: "Anh ấy thường đi học bằng xe đạp." }
+        ];
         const L6_U2_THEORY_DATA = [];
         const L6_U3_THEORY_DATA = [];
         const L6_U4_THEORY_DATA = [];
@@ -976,7 +1043,17 @@
         const L6_U11_THEORY_DATA = [];
         const L6_U12_THEORY_DATA = [];
 
-        const L6_U1_SGK_DATA = [{ id: 1, word: "SGK Question 1?", correct: "Answer 1", wrong1: "Wrong 1", wrong2: "Wrong 2", wrong3: "Wrong 3" }];
+        // ============================================================
+        // 5. KHAI BÁO DỮ LIỆU ÔN SGK (SGK DATA) - LỚP 6
+        // ============================================================
+        // --- LEVEL 6 SGK (Unit 1 - 12) ---
+        const L6_U1_SGK_DATA = [
+            { id: 1, word: "I am a student.", correct: "Tôi là một học sinh.", wrong1: "Tôi là một giáo viên.", wrong2: "Anh ấy là một học sinh.", wrong3: "Tôi là một bác sĩ." },
+            { id: 2, word: "She is my friend.", correct: "Cô ấy là bạn của tôi.", wrong1: "Cô ấy là chị của tôi.", wrong2: "Anh ấy là bạn của tôi.", wrong3: "Cô ấy là giáo viên của tôi." },
+            { id: 3, word: "We are in the classroom.", correct: "Chúng tôi ở trong lớp học.", wrong1: "Chúng tôi ở trong thư viện.", wrong2: "Họ ở trong lớp học.", wrong3: "Chúng tôi ở ngoài sân." },
+            { id: 4, word: "The school is big and beautiful.", correct: "Trường học to và đẹp.", wrong1: "Trường học nhỏ và đẹp.", wrong2: "Ngôi nhà to và đẹp.", wrong3: "Trường học to và xấu." },
+            { id: 5, word: "I usually go to school by bike.", correct: "Tôi thường đi học bằng xe đạp.", wrong1: "Tôi thường đi học bằng xe buýt.", wrong2: "Tôi thỉnh thoảng đi học bằng xe đạp.", wrong3: "Anh ấy thường đi học bằng xe đạp." }
+        ];
         const L6_U2_SGK_DATA = [];
         const L6_U3_SGK_DATA = [];
         const L6_U4_SGK_DATA = [];
@@ -990,25 +1067,68 @@
         const L6_U12_SGK_DATA = [];
 
         // ============================================================
-        // 3. CẤU TRÚC DỮ LIỆU CHÍNH
+        // 6. CẤU TRÚC DỮ LIỆU CHÍNH (CHỈ LỚP 6)
         // ============================================================
-        const gradeData = { "E6": { units: { "UNIT 1": L6_U1_VOCAB_DATA, "UNIT 2": L6_U2_VOCAB_DATA, "UNIT 3": L6_U3_VOCAB_DATA, "UNIT 4": L6_U4_VOCAB_DATA, "UNIT 5": L6_U5_VOCAB_DATA, "UNIT 6": L6_U6_VOCAB_DATA, "UNIT 7": L6_U7_VOCAB_DATA, "UNIT 8": L6_U8_VOCAB_DATA, "UNIT 9": L6_U9_VOCAB_DATA, "UNIT 10": L6_U10_VOCAB_DATA, "UNIT 11": L6_U11_VOCAB_DATA, "UNIT 12": L6_U12_VOCAB_DATA } } };
-        const grammarData = { "E6": { units: { "UNIT 1": L6_U1_GRAMMAR_DATA, "UNIT 2": L6_U2_GRAMMAR_DATA, "UNIT 3": L6_U3_GRAMMAR_DATA, "UNIT 4": L6_U4_GRAMMAR_DATA, "UNIT 5": L6_U5_GRAMMAR_DATA, "UNIT 6": L6_U6_GRAMMAR_DATA, "UNIT 7": L6_U7_GRAMMAR_DATA, "UNIT 8": L6_U8_GRAMMAR_DATA, "UNIT 9": L6_U9_GRAMMAR_DATA, "UNIT 10": L6_U10_GRAMMAR_DATA, "UNIT 11": L6_U11_GRAMMAR_DATA, "UNIT 12": L6_U12_GRAMMAR_DATA } } };
-        const translationData = { "E6": { units: { "UNIT 1": L6_U1_TRANSLATION_DATA, "UNIT 2": L6_U2_TRANSLATION_DATA, "UNIT 3": L6_U3_TRANSLATION_DATA, "UNIT 4": L6_U4_TRANSLATION_DATA, "UNIT 5": L6_U5_TRANSLATION_DATA, "UNIT 6": L6_U6_TRANSLATION_DATA, "UNIT 7": L6_U7_TRANSLATION_DATA, "UNIT 8": L6_U8_TRANSLATION_DATA, "UNIT 9": L6_U9_TRANSLATION_DATA, "UNIT 10": L6_U10_TRANSLATION_DATA, "UNIT 11": L6_U11_TRANSLATION_DATA, "UNIT 12": L6_U12_TRANSLATION_DATA } } };
-        const theoryData = { "E6": { units: { "UNIT 1": L6_U1_THEORY_DATA, "UNIT 2": L6_U2_THEORY_DATA, "UNIT 3": L6_U3_THEORY_DATA, "UNIT 4": L6_U4_THEORY_DATA, "UNIT 5": L6_U5_THEORY_DATA, "UNIT 6": L6_U6_THEORY_DATA, "UNIT 7": L6_U7_THEORY_DATA, "UNIT 8": L6_U8_THEORY_DATA, "UNIT 9": L6_U9_THEORY_DATA, "UNIT 10": L6_U10_THEORY_DATA, "UNIT 11": L6_U11_THEORY_DATA, "UNIT 12": L6_U12_THEORY_DATA } } };
-        const sgkData = { "E6": { units: { "UNIT 1": L6_U1_SGK_DATA, "UNIT 2": L6_U2_SGK_DATA, "UNIT 3": L6_U3_SGK_DATA, "UNIT 4": L6_U4_SGK_DATA, "UNIT 5": L6_U5_SGK_DATA, "UNIT 6": L6_U6_SGK_DATA, "UNIT 7": L6_U7_SGK_DATA, "UNIT 8": L6_U8_SGK_DATA, "UNIT 9": L6_U9_SGK_DATA, "UNIT 10": L6_U10_SGK_DATA, "UNIT 11": L6_U11_SGK_DATA, "UNIT 12": L6_U12_SGK_DATA } } };
+
+        const gradeData = {
+            "E6": { units: { "UNIT 1": L6_U1_VOCAB_DATA, "UNIT 2": L6_U2_VOCAB_DATA, "UNIT 3": L6_U3_VOCAB_DATA, "UNIT 4": L6_U4_VOCAB_DATA, "UNIT 5": L6_U5_VOCAB_DATA, "UNIT 6": L6_U6_VOCAB_DATA, "UNIT 7": L6_U7_VOCAB_DATA, "UNIT 8": L6_U8_VOCAB_DATA, "UNIT 9": L6_U9_VOCAB_DATA, "UNIT 10": L6_U10_VOCAB_DATA, "UNIT 11": L6_U11_VOCAB_DATA, "UNIT 12": L6_U12_VOCAB_DATA } }
+        };
+
+        const grammarData = {
+            "E6": { units: { "UNIT 1": L6_U1_GRAMMAR_DATA, "UNIT 2": L6_U2_GRAMMAR_DATA, "UNIT 3": L6_U3_GRAMMAR_DATA, "UNIT 4": L6_U4_GRAMMAR_DATA, "UNIT 5": L6_U5_GRAMMAR_DATA, "UNIT 6": L6_U6_GRAMMAR_DATA, "UNIT 7": L6_U7_GRAMMAR_DATA, "UNIT 8": L6_U8_GRAMMAR_DATA, "UNIT 9": L6_U9_GRAMMAR_DATA, "UNIT 10": L6_U10_GRAMMAR_DATA, "UNIT 11": L6_U11_GRAMMAR_DATA, "UNIT 12": L6_U12_GRAMMAR_DATA } }
+        };
+
+        const translationData = {
+            "E6": { units: { "UNIT 1": L6_U1_TRANSLATION_DATA, "UNIT 2": L6_U2_TRANSLATION_DATA, "UNIT 3": L6_U3_TRANSLATION_DATA, "UNIT 4": L6_U4_TRANSLATION_DATA, "UNIT 5": L6_U5_TRANSLATION_DATA, "UNIT 6": L6_U6_TRANSLATION_DATA, "UNIT 7": L6_U7_TRANSLATION_DATA, "UNIT 8": L6_U8_TRANSLATION_DATA, "UNIT 9": L6_U9_TRANSLATION_DATA, "UNIT 10": L6_U10_TRANSLATION_DATA, "UNIT 11": L6_U11_TRANSLATION_DATA, "UNIT 12": L6_U12_TRANSLATION_DATA } }
+        };
+
+        const theoryData = {
+            "E6": { units: { "UNIT 1": L6_U1_THEORY_DATA, "UNIT 2": L6_U2_THEORY_DATA, "UNIT 3": L6_U3_THEORY_DATA, "UNIT 4": L6_U4_THEORY_DATA, "UNIT 5": L6_U5_THEORY_DATA, "UNIT 6": L6_U6_THEORY_DATA, "UNIT 7": L6_U7_THEORY_DATA, "UNIT 8": L6_U8_THEORY_DATA, "UNIT 9": L6_U9_THEORY_DATA, "UNIT 10": L6_U10_THEORY_DATA, "UNIT 11": L6_U11_THEORY_DATA, "UNIT 12": L6_U12_THEORY_DATA } }
+        };
+
+        const sgkData = {
+            "E6": { units: { "UNIT 1": L6_U1_SGK_DATA, "UNIT 2": L6_U2_SGK_DATA, "UNIT 3": L6_U3_SGK_DATA, "UNIT 4": L6_U4_SGK_DATA, "UNIT 5": L6_U5_SGK_DATA, "UNIT 6": L6_U6_SGK_DATA, "UNIT 7": L6_U7_SGK_DATA, "UNIT 8": L6_U8_SGK_DATA, "UNIT 9": L6_U9_SGK_DATA, "UNIT 10": L6_U10_SGK_DATA, "UNIT 11": L6_U11_SGK_DATA, "UNIT 12": L6_U12_SGK_DATA } }
+        };
 
         // ============================================================
-        // 4. LOGIC XỬ LÝ CHÍNH
+        // 7. LOGIC XỬ LÝ CHÍNH (GAME LOGIC) - Giữ nguyên từ bản gốc
         // ============================================================
         
-        let currentQuestionIndex = 0, score = 0, streak = 0, maxStreak = 0, timer, timeLeft, totalTime = 0;
-        let questionTimes = [], selectedQuestions = [], username = "", wrongQuestions = [], answerHistory = [], selectedOptions = [];
-        let startTime, endTime, currentWord = "", questionCount = 30, currentUnit = "", currentGrade = "", currentTestTitle = "", maxUnits = 12;
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let streak = 0;
+        let maxStreak = 0;
+        let timer;
+        let timeLeft;
+        let totalTime = 0;
+        let questionTimes = [];
+        let selectedQuestions = [];
+        let username = "";
+        let wrongQuestions = [];
+        let answerHistory = [];
+        let selectedOptions = [];
+        let startTime;
+        let endTime;
+        let currentWord = "";
+        let questionCount = 30;
+        let currentUnit = ""; 
+        let currentGrade = "";
+        let currentTestTitle = "";
+        let maxUnits = 12;
+        
         let currentMode = 'vocab'; 
-        let autoReviewIndex = 0, autoReviewTimer, autoReviewQuestions = [], autoReviewSpeakTimer1, autoReviewSpeakTimer2;
-        let comprehensivePool = [], isComprehensiveTest = false;
-        let isCheatingDetected = false, transitionTimeout = null;
+        
+        let autoReviewIndex = 0;
+        let autoReviewTimer;
+        let autoReviewQuestions = [];
+        let autoReviewSpeakTimer1;
+        let autoReviewSpeakTimer2;
+        
+        let comprehensivePool = [];
+        let isComprehensiveTest = false;
+
+        let isCheatingDetected = false;
+        let transitionTimeout = null;
 
         const gradeSelection = document.getElementById('grade-selection');
         const mainMenu = document.getElementById('main-menu');
@@ -1020,6 +1140,7 @@
         const autoReviewScreen = document.getElementById('auto-review-screen');
         
         const grade6Btn = document.getElementById('grade6-btn');
+        
         const reviewBtn = document.getElementById('review-btn');
         const practiceBtn = document.getElementById('practice-btn');
         const grammarBtn = document.getElementById('grammar-btn');
@@ -1077,7 +1198,28 @@
         const autoReviewAgainBtn = document.getElementById('auto-review-again-btn');
         const autoReviewBackBtn = document.getElementById('auto-review-back-btn');
         const cheatingAlertBox = document.getElementById('cheating-alert-box');
+
         const rangeButtons12 = document.getElementById('range-buttons-12');
+
+        // Hàm phát âm an toàn trên mọi thiết bị (đã loại bỏ cancel để không xung đột tự động)
+        function safeSpeak(text) {
+            if (typeof window.speechSynthesis !== 'undefined' && window.speechSynthesis) {
+                try {
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    utterance.lang = 'en-US';
+                    utterance.rate = 0.9;
+                    utterance.pitch = 1;
+                    utterance.onerror = function(event) {
+                        console.warn('Speech synthesis error:', event.error);
+                    };
+                    speechSynthesis.speak(utterance);
+                } catch (e) {
+                    console.warn('Speech synthesis exception:', e);
+                }
+            } else {
+                console.warn('Speech synthesis not supported');
+            }
+        }
 
         function showToast(message, type = 'warning') {
             const container = document.getElementById('toast-container');
@@ -1085,7 +1227,11 @@
             toast.className = `toast ${type}`;
             toast.textContent = message;
             container.appendChild(toast);
-            setTimeout(() => { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 3000);
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.parentNode.removeChild(toast);
+                }
+            }, 3000);
         }
 
         function cleanupAll() {
@@ -1097,40 +1243,42 @@
             speechSynthesis.cancel();
         }
 
-        // ===== CHỐNG GIAN LẬN =====
+        // ===== CHỐNG GIAN LẬN – ĐÃ SỬA LỖI HIỂN THỊ =====
         function triggerCheating() {
             if (isCheatingDetected) return;
             isCheatingDetected = true;
-            if (cheatingAlertBox) cheatingAlertBox.style.display = 'block';
+            if (cheatingAlertBox) {
+                cheatingAlertBox.style.display = 'block';
+            }
             cleanupAll();
             endGame();
         }
 
         document.addEventListener("visibilitychange", () => {
-            if (document.hidden && !quizScreen.classList.contains('hidden') && !isCheatingDetected) triggerCheating();
-        });
-        // Note: window.blur có thể quá nhạy cảm trên mobile (khi bàn phím hiện lên), chỉ dùng visibilitychange là đủ an toàn.
-        
-        // ===== KHỞI TẠO AUDIO CHO MOBILE =====
-        function initAudioContext() {
-            // Giải pháp cho iOS/Android: Phát âm thanh rỗng ngay khi bấm nút để kích hoạt loa
-            if ('speechSynthesis' in window) {
-                var msg = new SpeechSynthesisUtterance('');
-                msg.lang = 'en-US';
-                msg.rate = 0.1;
-                window.speechSynthesis.speak(msg);
+            if (document.hidden && !quizScreen.classList.contains('hidden') && !isCheatingDetected) {
+                triggerCheating();
             }
-        }
+        });
+
+        window.addEventListener("blur", () => {
+            if (!quizScreen.classList.contains('hidden') && !isCheatingDetected) {
+                triggerCheating();
+            }
+        });
 
         grade6Btn.addEventListener('click', () => selectGrade('E6'));
 
         function selectGrade(grade) {
             cleanupAll();
             currentGrade = grade;
+            
+            // Lớp 6 có 12 units
             maxUnits = 12;
             rangeButtons12.classList.remove('hidden');
+
             gradeSelection.classList.add('hidden');
             mainMenu.classList.remove('hidden');
+            
             updateHeaderTitles(grade);
             populateUnitDropdowns();
         }
@@ -1138,10 +1286,19 @@
         function populateUnitDropdowns() {
             unitSelect.innerHTML = '<option value="" disabled selected>HÃY CHỌN UNIT</option>';
             reviewUnitSelect.innerHTML = '';
+            
             for (let i = 1; i <= maxUnits; i++) {
                 const unitName = `UNIT ${i}`;
-                const opt1 = document.createElement('option'); opt1.value = unitName; opt1.textContent = unitName; unitSelect.appendChild(opt1);
-                const opt2 = document.createElement('option'); opt2.value = unitName; opt2.textContent = unitName; reviewUnitSelect.appendChild(opt2);
+                
+                const opt1 = document.createElement('option');
+                opt1.value = unitName;
+                opt1.textContent = unitName;
+                unitSelect.appendChild(opt1);
+                
+                const opt2 = document.createElement('option');
+                opt2.value = unitName;
+                opt2.textContent = unitName;
+                reviewUnitSelect.appendChild(opt2);
             }
             if (reviewUnitSelect.options.length > 0) {
                 reviewUnitSelect.value = reviewUnitSelect.options[0].value;
@@ -1152,8 +1309,12 @@
         function updateHeaderTitles(grade) {
             const gradeNumber = grade.replace('E', '');
             const baseTitle = ` ÔN TẬP LỚP ${gradeNumber}`;
-            gradeHeader.textContent = baseTitle; reviewGradeHeader.textContent = baseTitle; vocabGradeHeader.textContent = baseTitle;
-            loginGradeHeader.textContent = baseTitle; quizGradeHeader.textContent = baseTitle; resultGradeHeader.textContent = baseTitle;
+            gradeHeader.textContent = baseTitle;
+            reviewGradeHeader.textContent = baseTitle;
+            vocabGradeHeader.textContent = baseTitle;
+            loginGradeHeader.textContent = baseTitle;
+            quizGradeHeader.textContent = baseTitle;
+            resultGradeHeader.textContent = baseTitle;
             autoReviewGradeHeader.textContent = `ÔN TẬP GS VOCA ${gradeNumber}`;
         }
 
@@ -1162,28 +1323,53 @@
             mainMenu.classList.add('hidden');
             reviewMenu.classList.remove('hidden');
             reviewUnitTitle.textContent = "Chọn đề bài ôn tập";
-            if (reviewUnitSelect.value) currentUnit = reviewUnitSelect.value;
+            if (reviewUnitSelect.value) {
+                currentUnit = reviewUnitSelect.value;
+            }
         });
 
-        practiceBtn.addEventListener('click', () => setModeAndOpenLogin('vocab'));
-        translationBtn.addEventListener('click', () => setModeAndOpenLogin('translation'));
-        grammarBtn.addEventListener('click', () => setModeAndOpenLogin('grammar'));
-        theoryBtn.addEventListener('click', () => setModeAndOpenLogin('theory'));
-        sgkBtn.addEventListener('click', () => setModeAndOpenLogin('sgk'));
+        practiceBtn.addEventListener('click', () => {
+            setModeAndOpenLogin('vocab');
+        });
+
+        translationBtn.addEventListener('click', () => {
+            setModeAndOpenLogin('translation');
+        });
+
+        grammarBtn.addEventListener('click', () => {
+            setModeAndOpenLogin('grammar');
+        });
+
+        theoryBtn.addEventListener('click', () => {
+            setModeAndOpenLogin('theory');
+        });
+
+        sgkBtn.addEventListener('click', () => {
+            setModeAndOpenLogin('sgk');
+        });
 
         function setModeAndOpenLogin(mode) {
             cleanupAll();
             currentMode = mode;
             mainMenu.classList.add('hidden');
             loginScreen.classList.remove('hidden');
+            
             unitSelect.value = "";
             updateQuestionCountOptions();
             currentUnit = "";
-            if (mode === 'vocab') loginUnitTitle.textContent = "Chọn đề bài trắc nghiệm từ vựng";
-            else if (mode === 'translation') loginUnitTitle.textContent = "Chọn bài tập dịch câu";
-            else if (mode === 'grammar') loginUnitTitle.textContent = "Chọn bài tập ngữ pháp";
-            else if (mode === 'theory') loginUnitTitle.textContent = "Chọn bài tập lí thuyết";
-            else if (mode === 'sgk') loginUnitTitle.textContent = "Chọn bài ôn tập SGK";
+            
+            // Cập nhật tiêu đề cho phù hợp với từng mode
+            if (mode === 'vocab') {
+                loginUnitTitle.textContent = "Chọn đề bài trắc nghiệm từ vựng";
+            } else if (mode === 'translation') {
+                loginUnitTitle.textContent = "Chọn bài tập dịch câu";
+            } else if (mode === 'grammar') {
+                loginUnitTitle.textContent = "Chọn bài tập ngữ pháp";
+            } else if (mode === 'theory') {
+                loginUnitTitle.textContent = "Chọn bài tập lí thuyết";
+            } else if (mode === 'sgk') {
+                loginUnitTitle.textContent = "Chọn bài ôn tập SGK";
+            }
         }
 
         showVocabularyBtn.addEventListener('click', showVocabularyList);
@@ -1194,15 +1380,8 @@
         backToGradeBtn.addEventListener('click', backToGradeSelection);
         backToGradeFromResultBtn.addEventListener('click', backToGradeSelection);
 
-        startBtn.addEventListener('click', () => {
-            initAudioContext(); // Kích hoạt audio
-            startGame();
-        });
-        
-        comprehensiveTestBtn.addEventListener('click', () => {
-            initAudioContext();
-            startComprehensiveTest();
-        });
+        startBtn.addEventListener('click', startGame);
+        comprehensiveTestBtn.addEventListener('click', startComprehensiveTest);
         
         document.getElementById('range-u1-u3-btn').addEventListener('click', () => startRangeTest(1, 3, "KIỂM TRA U1-U3"));
         document.getElementById('range-u4-u6-btn').addEventListener('click', () => startRangeTest(4, 6, "KIỂM TRA U4-U6"));
@@ -1214,8 +1393,21 @@
         restartBtn.addEventListener('click', restartGame);
         newGameBtn.addEventListener('click', newGame);
         
-        speakerBtn.addEventListener('click', () => { speak(currentWord); });
-        autoReviewSpeakerBtn.addEventListener('click', () => { speak(autoReviewQuestions[autoReviewIndex].word); });
+        speakerBtn.addEventListener('click', () => {
+            speakerBtn.classList.add('active');
+            setTimeout(() => {
+                speakerBtn.classList.remove('active');
+            }, 200);
+            safeSpeak(currentWord);
+        });
+
+        autoReviewSpeakerBtn.addEventListener('click', () => {
+            autoReviewSpeakerBtn.classList.add('active');
+            setTimeout(() => {
+                autoReviewSpeakerBtn.classList.remove('active');
+            }, 200);
+            safeSpeak(autoReviewQuestions[autoReviewIndex].word);
+        });
         
         autoReviewAgainBtn.addEventListener('click', restartAutoReview);
         autoReviewBackBtn.addEventListener('click', backToReviewMenu);
@@ -1227,198 +1419,440 @@
             resetComprehensiveTestState();
         });
 
-        reviewUnitSelect.addEventListener('change', function() { currentUnit = this.value; });
+        reviewUnitSelect.addEventListener('change', function() {
+            currentUnit = this.value;
+        });
 
         function getQuestionBank() {
             let data = {};
-            if (currentMode === 'vocab') data = gradeData;
-            else if (currentMode === 'translation') data = translationData;
-            else if (currentMode === 'grammar') data = grammarData;
-            else if (currentMode === 'theory') data = theoryData;
-            else if (currentMode === 'sgk') data = sgkData;
+            if (currentMode === 'vocab') {
+                data = gradeData;
+            } else if (currentMode === 'translation') {
+                data = translationData;
+            } else if (currentMode === 'grammar') {
+                data = grammarData;
+            } else if (currentMode === 'theory') {
+                data = theoryData;
+            } else if (currentMode === 'sgk') {
+                data = sgkData;
+            }
 
-            if (!currentGrade || !data[currentGrade] || !data[currentGrade].units[currentUnit]) return [];
+            if (!currentGrade || !data[currentGrade] || !data[currentGrade].units[currentUnit]) {
+                return [];
+            }
             return data[currentGrade].units[currentUnit];
         }
 
         function showVocabularyList() {
-            if (!currentUnit && reviewUnitSelect.value) currentUnit = reviewUnitSelect.value;
+            if (!currentUnit && reviewUnitSelect.value) {
+                currentUnit = reviewUnitSelect.value;
+            }
             const questionBank = getQuestionBank();
-            if (questionBank.length === 0) { showToast("Chưa có dữ liệu cho unit này!", "warning"); return; }
+            
+            if (questionBank.length === 0) {
+                showToast("Chưa có dữ liệu cho unit này!", "warning");
+                return;
+            }
             
             reviewMenu.classList.add('hidden');
             vocabularyList.classList.remove('hidden');
             vocabularyUnitTitle.textContent = currentUnit;
+            
             vocabularyTableBody.innerHTML = '';
             
             questionBank.forEach((question, index) => {
                 const row = document.createElement('tr');
-                row.innerHTML = `<td>${index + 1}</td><td><div class="vocabulary-word"><span>${question.word}</span><button class="speaker-btn" title="Nghe phát âm"><svg class="speaker-icon" viewBox="0 0 24 24"><path d="M3,9v6h4l5,5V4L7,9H3z M16.5,12c0-1.77-1.02-3.29-2.5-4.03v8.05C15.48,15.29,16.5,13.77,16.5,12z M14,3.23v2.06c2.89,.86,5,3.54,5,6.71s-2.11,5.85-5,6.71v2.06c4.01-.91,7-4.49,7-8.77S18.01,4.14,14,3.23z"/></svg></button></div></td><td>${question.correct}</td>`;
-                row.querySelector('.speaker-btn').addEventListener('click', () => speak(question.word));
+                
+                const idCell = document.createElement('td');
+                idCell.textContent = index + 1;
+                row.appendChild(idCell);
+                
+                const wordCell = document.createElement('td');
+                const wordContainer = document.createElement('div');
+                wordContainer.className = 'vocabulary-word';
+                
+                const wordSpan = document.createElement('span');
+                wordSpan.textContent = question.word;
+                
+                const speakerBtn = document.createElement('button');
+                speakerBtn.className = 'speaker-btn'; 
+                speakerBtn.title = 'Nghe phát âm';
+                speakerBtn.innerHTML = `<svg class="speaker-icon" viewBox="0 0 24 24"><path d="M3,9v6h4l5,5V4L7,9H3z M16.5,12c0-1.77-1.02-3.29-2.5-4.03v8.05C15.48,15.29,16.5,13.77,16.5,12z M14,3.23v2.06c2.89,.86,5,3.54,5,6.71s-2.11,5.85-5,6.71v2.06c4.01-.91,7-4.49,7-8.77S18.01,4.14,14,3.23z"/></svg>`;
+                speakerBtn.addEventListener('click', () => safeSpeak(question.word));
+                
+                wordContainer.appendChild(wordSpan);
+                wordContainer.appendChild(speakerBtn);
+                wordCell.appendChild(wordContainer);
+                row.appendChild(wordCell);
+                
+                const meaningCell = document.createElement('td');
+                meaningCell.textContent = question.correct;
+                row.appendChild(meaningCell);
+                
                 vocabularyTableBody.appendChild(row);
             });
         }
 
         function startAutoReview() {
-            if (!currentUnit && reviewUnitSelect.value) currentUnit = reviewUnitSelect.value;
+            if (!currentUnit && reviewUnitSelect.value) {
+                currentUnit = reviewUnitSelect.value;
+            }
             autoReviewQuestions = getQuestionBank();
-            if (autoReviewQuestions.length === 0) { showToast("Chưa có dữ liệu cho unit này!", "warning"); return; }
+            
+            if (autoReviewQuestions.length === 0) {
+                showToast("Chưa có dữ liệu cho unit này!", "warning");
+                return;
+            }
+            
             reviewMenu.classList.add('hidden');
             autoReviewScreen.classList.remove('hidden');
             autoReviewUnitTitle.textContent = currentUnit;
+            
             autoReviewIndex = 0;
             autoReviewEndButtons.classList.add('hidden');
             showAutoReviewQuestion();
         }
 
         function showAutoReviewQuestion() {
-            if (autoReviewIndex >= autoReviewQuestions.length) { endAutoReview(); return; }
+            if (autoReviewIndex >= autoReviewQuestions.length) {
+                endAutoReview();
+                return;
+            }
+            
             const question = autoReviewQuestions[autoReviewIndex];
             autoReviewWord.textContent = question.word;
             autoReviewMeaning.textContent = question.correct;
+            
             autoReviewWord.classList.remove('black');
-            clearTimeout(autoReviewSpeakTimer1); clearTimeout(autoReviewSpeakTimer2);
-            autoReviewSpeakTimer1 = setTimeout(() => speak(question.word), 400);
-            autoReviewSpeakTimer2 = setTimeout(() => speak(question.word), 2400);
-            setTimeout(() => autoReviewWord.classList.add('black'), 2500);
-            autoReviewTimer = setTimeout(() => { autoReviewIndex++; showAutoReviewQuestion(); }, 4000);
+            
+            clearTimeout(autoReviewSpeakTimer1);
+            clearTimeout(autoReviewSpeakTimer2);
+            
+            autoReviewSpeakTimer1 = setTimeout(() => {
+                safeSpeak(question.word);
+            }, 400);
+            
+            autoReviewSpeakTimer2 = setTimeout(() => {
+                safeSpeak(question.word);
+            }, 2400);
+            
+            setTimeout(() => {
+                autoReviewWord.classList.add('black');
+            }, 2500);
+            
+            autoReviewTimer = setTimeout(() => {
+                autoReviewIndex++;
+                showAutoReviewQuestion();
+            }, 4000);
         }
 
         function endAutoReview() {
-            clearTimeout(autoReviewTimer); clearTimeout(autoReviewSpeakTimer1); clearTimeout(autoReviewSpeakTimer2);
+            clearTimeout(autoReviewTimer);
+            clearTimeout(autoReviewSpeakTimer1);
+            clearTimeout(autoReviewSpeakTimer2);
             autoReviewEndButtons.classList.remove('hidden');
+            
             autoReviewWord.textContent = "Hoàn thành!";
             autoReviewMeaning.textContent = `Đã ôn ${autoReviewQuestions.length} từ vựng`;
         }
 
         function restartAutoReview() {
-            clearTimeout(autoReviewTimer); clearTimeout(autoReviewSpeakTimer1); clearTimeout(autoReviewSpeakTimer2);
+            clearTimeout(autoReviewTimer);
+            clearTimeout(autoReviewSpeakTimer1);
+            clearTimeout(autoReviewSpeakTimer2);
+            autoReviewEndButtons.classList.remove('hidden');
+            
             speechSynthesis.cancel();
+            
             autoReviewIndex = 0;
             autoReviewEndButtons.classList.add('hidden');
             showAutoReviewQuestion();
         }
 
         function backToFirstScreen() {
-            cleanupAll(); isCheatingDetected = false; cheatingAlertBox.style.display = 'none'; autoReviewEndButtons.classList.add('hidden');
-            loginScreen.classList.add('hidden'); reviewMenu.classList.add('hidden'); vocabularyList.classList.add('hidden');
-            autoReviewScreen.classList.add('hidden'); quizScreen.classList.add('hidden'); resultScreen.classList.add('hidden');
-            mainMenu.classList.remove('hidden'); unitTitleElement.textContent = "Chọn chế độ"; resetComprehensiveTestState();
+            cleanupAll();
+            isCheatingDetected = false;          
+            cheatingAlertBox.style.display = 'none';
+            autoReviewEndButtons.classList.add('hidden');
+            
+            loginScreen.classList.add('hidden');
+            reviewMenu.classList.add('hidden');
+            vocabularyList.classList.add('hidden');
+            autoReviewScreen.classList.add('hidden');
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            
+            mainMenu.classList.remove('hidden');
+            unitTitleElement.textContent = "Chọn chế độ";
+            resetComprehensiveTestState();
         }
 
         function backToGradeSelection() {
-            cleanupAll(); isCheatingDetected = false; cheatingAlertBox.style.display = 'none';
-            currentGrade = ''; currentUnit = ''; comprehensivePool = []; isComprehensiveTest = false;
-            mainMenu.classList.add('hidden'); reviewMenu.classList.add('hidden'); vocabularyList.classList.add('hidden');
-            autoReviewScreen.classList.add('hidden'); loginScreen.classList.add('hidden'); quizScreen.classList.add('hidden'); resultScreen.classList.add('hidden');
+            cleanupAll();
+            isCheatingDetected = false;          
+            cheatingAlertBox.style.display = 'none';
+            currentGrade = '';
+            currentUnit = '';
+            comprehensivePool = [];
+            isComprehensiveTest = false;
+            
+            mainMenu.classList.add('hidden');
+            reviewMenu.classList.add('hidden');
+            vocabularyList.classList.add('hidden');
+            autoReviewScreen.classList.add('hidden');
+            loginScreen.classList.add('hidden');
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            
             gradeSelection.classList.remove('hidden');
         }
 
         function backToReviewMenu() {
-            cleanupAll(); isCheatingDetected = false; cheatingAlertBox.style.display = 'none'; autoReviewEndButtons.classList.add('hidden');
-            vocabularyList.classList.add('hidden'); autoReviewScreen.classList.add('hidden'); reviewMenu.classList.remove('hidden');
+            cleanupAll();
+            isCheatingDetected = false;          
+            cheatingAlertBox.style.display = 'none';
+            autoReviewEndButtons.classList.add('hidden');
+            
+            vocabularyList.classList.add('hidden');
+            autoReviewScreen.classList.add('hidden');
+            reviewMenu.classList.remove('hidden');
         }
 
         function updateQuestionCountOptions() {
-            const questionBank = getQuestionBank(); const maxQuestions = questionBank.length;
+            const questionBank = getQuestionBank();
+            const maxQuestions = questionBank.length;
+            
             questionCountSelect.innerHTML = '';
-            const defaultOption = document.createElement('option'); defaultOption.value = ""; defaultOption.textContent = "HÃY CHỌN SỐ CÂU HỎI"; defaultOption.disabled = true; defaultOption.selected = true; questionCountSelect.appendChild(defaultOption);
-            if (maxQuestions === 0) return;
-            const options = [10, 20, 30, 40, 50, maxQuestions];
-            const validOptions = options.filter(option => option <= maxQuestions);
-            validOptions.forEach(val => {
-                const opt = document.createElement('option'); opt.value = val; opt.textContent = `${val} câu${val === maxQuestions ? ' (tất cả)' : ''}`; questionCountSelect.appendChild(opt);
+            
+            const defaultOption = document.createElement('option');
+            defaultOption.value = "";
+            defaultOption.textContent = "HÃY CHỌN SỐ CÂU HỎI";
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            questionCountSelect.appendChild(defaultOption);
+            
+            if (maxQuestions === 0) {
+                return;
+            }
+
+            const options = [
+                { value: 10, text: "10 câu" },
+                { value: 20, text: "20 câu" },
+                { value: 30, text: "30 câu" },
+                { value: 40, text: "40 câu" },
+                { value: 50, text: "50 câu" },
+                { value: maxQuestions, text: `${maxQuestions} câu (tất cả)` }
+            ];
+            
+            const validOptions = options.filter(option => option.value <= maxQuestions);
+            
+            validOptions.forEach(option => {
+                const optionElement = document.createElement('option');
+                optionElement.value = option.value;
+                optionElement.textContent = option.text;
+                questionCountSelect.appendChild(optionElement);
             });
         }
 
-        function startComprehensiveTest() { startRangeTest(1, maxUnits, "KIỂM TRA TỔNG HỢP"); }
+        function startComprehensiveTest() {
+            startRangeTest(1, maxUnits, "KIỂM TRA TỔNG HỢP");
+        }
 
         function startRangeTest(startUnitNum, endUnitNum, title) {
             username = usernameInput.value.trim();
-            if (!username) { showToast("Vui lòng nhập tên của bạn!", "error"); return; }
+            if (!username) {
+                showToast("Vui lòng nhập tên của bạn!", "error");
+                return;
+            }
+            
             let dataSource;
-            if (currentMode === 'vocab') dataSource = gradeData; else if (currentMode === 'translation') dataSource = translationData; else if (currentMode === 'grammar') dataSource = grammarData; else if (currentMode === 'theory') dataSource = theoryData; else if (currentMode === 'sgk') dataSource = sgkData;
+            if (currentMode === 'vocab') {
+                dataSource = gradeData;
+            } else if (currentMode === 'translation') {
+                dataSource = translationData;
+            } else if (currentMode === 'grammar') {
+                dataSource = grammarData;
+            } else if (currentMode === 'theory') {
+                dataSource = theoryData;
+            } else if (currentMode === 'sgk') {
+                dataSource = sgkData;
+            }
+            
             comprehensivePool = [];
             const gradeUnits = dataSource[currentGrade].units;
+            
             for (const unitName in gradeUnits) {
                 const unitNum = parseInt(unitName.split(' ')[1]);
+                
                 if (unitNum >= startUnitNum && unitNum <= endUnitNum) {
                     const unitQuestions = gradeUnits[unitName];
                     unitQuestions.forEach(q => {
-                        const questionCopy = Object.assign({}, q); questionCopy.unitAddress = `${unitName} - Câu ${q.id}`; comprehensivePool.push(questionCopy);
+                        const questionCopy = Object.assign({}, q);
+                        questionCopy.unitAddress = `${unitName} - Câu ${q.id}`;
+                        comprehensivePool.push(questionCopy);
                     });
                 }
             }
-            if (comprehensivePool.length === 0) { showToast("Chưa có dữ liệu cho khoảng Unit này!", "error"); return; }
+            
+            if (comprehensivePool.length === 0) {
+                showToast("Chưa có dữ liệu cho khoảng Unit này!", "error");
+                return;
+            }
+            
             isComprehensiveTest = true;
             questionCount = Math.min(40, comprehensivePool.length);
+            
             currentTestTitle = title;
-            questionCountSelect.disabled = true; questionCountSelect.value = questionCount;
-            loadingContainer.classList.remove('hidden'); startBtn.disabled = true; comprehensiveTestBtn.disabled = true;
+            
+            questionCountSelect.disabled = true;
+            questionCountSelect.value = questionCount;
+            
+            loadingContainer.classList.remove('hidden');
+            startBtn.disabled = true;
+            comprehensiveTestBtn.disabled = true;
             document.querySelectorAll('.range-tests-container button').forEach(b => b.disabled = true);
+            
             let progress = 0;
             const loadingInterval = setInterval(() => {
-                progress += 5; loadingBar.style.width = `${progress}%`;
+                progress += 5;
+                loadingBar.style.width = `${progress}%`;
+                
                 if (progress >= 100) {
-                    clearInterval(loadingInterval); loadingContainer.classList.add('hidden'); startBtn.disabled = false; comprehensiveTestBtn.disabled = false;
+                    clearInterval(loadingInterval);
+                    loadingContainer.classList.add('hidden');
+                    startBtn.disabled = false;
+                    comprehensiveTestBtn.disabled = false;
                     document.querySelectorAll('.range-tests-container button').forEach(b => b.disabled = false);
                     startQuizWithPool(comprehensivePool, questionCount, currentTestTitle);
                 }
             }, 50);
         }
 
+        function startQuizWithPool(pool, count, title) {
+            cleanupAll();
+            startTime = new Date();
+            
+            selectedQuestions = getRandomQuestions(pool, count);
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            streak = 0;
+            maxStreak = 0;
+            totalTime = 0;
+            questionTimes = [];
+            wrongQuestions = [];
+            answerHistory = [];
+            selectedOptions = Array(selectedQuestions.length).fill(null);
+            
+            quizUnitTitle.textContent = title;
+            resultUnitTitleElement.textContent = title;
+            
+            loginScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            resultScreen.classList.add('hidden');
+            
+            if (currentMode === 'grammar') {
+                speakerBtn.classList.add('hidden-speaker');
+                questionTextLabel.textContent = "Chọn đáp án đúng cho câu sau:";
+            } else if (currentMode === 'translation') {
+                speakerBtn.classList.remove('hidden-speaker');
+                questionTextLabel.textContent = "Chọn nghĩa đúng cho câu sau:";
+            } else if (currentMode === 'theory') {
+                speakerBtn.classList.add('hidden-speaker');
+                questionTextLabel.textContent = "Chọn đáp án đúng cho câu hỏi lí thuyết:";
+            } else if (currentMode === 'sgk') {
+                speakerBtn.classList.add('hidden-speaker');
+                questionTextLabel.textContent = "Chọn đáp án đúng cho câu hỏi SGK:";
+            } else {
+                speakerBtn.classList.remove('hidden-speaker');
+                questionTextLabel.textContent = "Chọn nghĩa đúng cho từ sau:";
+            }
+            
+            showQuestion();
+        }
+
         function startGame() {
             username = usernameInput.value.trim();
-            if (!username) { showToast("Vui lòng nhập tên của bạn!", "error"); return; }
-            if (!currentUnit) { showToast("Vui lòng chọn đề bài!", "error"); unitSelect.focus(); return; }
+            if (!username) {
+                showToast("Vui lòng nhập tên của bạn!", "error");
+                return;
+            }
+            
+            if (!currentUnit) {
+                showToast("Vui lòng chọn đề bài!", "error");
+                unitSelect.focus();
+                return;
+            }
+            
             const qCountVal = questionCountSelect.value;
-            if (!qCountVal) { showToast("Vui lòng chọn số câu hỏi!", "error"); questionCountSelect.focus(); return; }
+            if (!qCountVal) {
+                showToast("Vui lòng chọn số câu hỏi!", "error");
+                questionCountSelect.focus();
+                return;
+            }
+            
             currentTestTitle = currentUnit;
+            
             questionCount = parseInt(qCountVal);
+            
             const questionBank = getQuestionBank();
-            if (questionCount < 1 || questionCount > questionBank.length) { showToast(`Vui lòng chọn số câu hỏi từ 1 đến ${questionBank.length}`, "error"); return; }
-            loadingContainer.classList.remove('hidden'); startBtn.disabled = true; comprehensiveTestBtn.disabled = true;
+            
+            if (questionCount < 1 || questionCount > questionBank.length) {
+                showToast(`Vui lòng chọn số câu hỏi từ 1 đến ${questionBank.length}`, "error");
+                return;
+            }
+            
+            loadingContainer.classList.remove('hidden');
+            startBtn.disabled = true;
+            comprehensiveTestBtn.disabled = true;
+            
             let progress = 0;
             const loadingInterval = setInterval(() => {
-                progress += 5; loadingBar.style.width = `${progress}%`;
+                progress += 5;
+                loadingBar.style.width = `${progress}%`;
+                
                 if (progress >= 100) {
-                    clearInterval(loadingInterval); loadingContainer.classList.add('hidden'); startBtn.disabled = false; comprehensiveTestBtn.disabled = false;
+                    clearInterval(loadingInterval);
+                    loadingContainer.classList.add('hidden');
+                    startBtn.disabled = false;
+                    comprehensiveTestBtn.disabled = false;
                     startQuizWithPool(questionBank, questionCount, currentUnit);
                 }
             }, 50);
         }
 
-        function startQuizWithPool(pool, count, title) {
-            cleanupAll(); startTime = new Date();
-            selectedQuestions = getRandomQuestions(pool, count);
-            currentQuestionIndex = 0; score = 0; streak = 0; maxStreak = 0; totalTime = 0; questionTimes = []; wrongQuestions = []; answerHistory = []; selectedOptions = Array(selectedQuestions.length).fill(null);
-            quizUnitTitle.textContent = title; resultUnitTitleElement.textContent = title;
-            loginScreen.classList.add('hidden'); quizScreen.classList.remove('hidden'); resultScreen.classList.add('hidden');
-            updateQuestionUI();
-            showQuestion();
+        function getRandomQuestions(questionBank, n) {
+            const shuffled = questionBank.slice();
+            shuffleArray(shuffled);
+            return shuffled.slice(0, n);
         }
-
-        function updateQuestionUI() {
-            if (currentMode === 'grammar') { speakerBtn.classList.add('hidden-speaker'); questionTextLabel.textContent = "Chọn đáp án đúng cho câu sau:"; }
-            else if (currentMode === 'translation') { speakerBtn.classList.remove('hidden-speaker'); questionTextLabel.textContent = "Chọn nghĩa đúng cho câu sau:"; }
-            else if (currentMode === 'theory') { speakerBtn.classList.add('hidden-speaker'); questionTextLabel.textContent = "Chọn đáp án đúng cho câu hỏi lí thuyết:"; }
-            else if (currentMode === 'sgk') { speakerBtn.classList.add('hidden-speaker'); questionTextLabel.textContent = "Chọn đáp án đúng cho câu hỏi SGK:"; }
-            else { speakerBtn.classList.remove('hidden-speaker'); questionTextLabel.textContent = "Chọn nghĩa đúng cho từ sau:"; }
-        }
-
-        function getRandomQuestions(questionBank, n) { const shuffled = questionBank.slice(); shuffleArray(shuffled); return shuffled.slice(0, n); }
 
         function showQuestion() {
             if (isCheatingDetected) return;
-            if (currentQuestionIndex >= selectedQuestions.length) { endGame(); return; }
+
+            if (currentQuestionIndex >= selectedQuestions.length) {
+                endGame();
+                return;
+            }
+            
             const question = selectedQuestions[currentQuestionIndex];
             currentWord = question.word;
             wordElement.textContent = question.word;
+            
             questionCounterElement.textContent = `Câu ${currentQuestionIndex + 1}/${selectedQuestions.length}`;
             streakElement.textContent = `Chuỗi đúng: ${streak}`;
+            
             optionsElement.innerHTML = '';
-            const options = [question.correct, question.wrong1, question.wrong2, question.wrong3];
+            
+            const options = [
+                question.correct,
+                question.wrong1,
+                question.wrong2,
+                question.wrong3
+            ];
+            
             shuffleArray(options);
+            
             options.forEach((option, index) => {
                 const optionButton = document.createElement('div');
                 optionButton.classList.add('option');
@@ -1426,23 +1860,50 @@
                 optionButton.addEventListener('click', () => selectOption(option, question.correct, question.id, question.word));
                 optionsElement.appendChild(optionButton);
             });
+            
             startTimer();
-            if (currentMode === 'vocab' || currentMode === 'translation') setTimeout(() => speak(question.word), 500);
+            
+            if (currentMode === 'vocab') {
+                setTimeout(() => {
+                    safeSpeak(question.word);
+                }, 500);
+            }
         }
 
         function startTimer() {
-            let maxTime = (currentMode === 'grammar' || currentMode === 'translation' || currentMode === 'theory' || currentMode === 'sgk') ? 20 : 8;
-            timeLeft = maxTime;
-            timerBar.style.width = '100%'; timerBar.style.backgroundColor = '#FFD700';
-            if (timer) clearInterval(timer);
+            const startTime = Date.now();
+            
+            let maxTime = 8; 
+            if (currentMode === 'grammar' || currentMode === 'translation' || currentMode === 'theory' || currentMode === 'sgk') {
+                maxTime = 20; // các chế độ này có thời gian dài hơn
+            }
+            
+            timeLeft = maxTime; 
+            timerBar.style.width = '100%';
+            timerBar.style.backgroundColor = '#FFD700';
+            
+            if (timer) {
+                clearInterval(timer);
+            }
+            
             timer = setInterval(() => {
-                if (isCheatingDetected) { clearInterval(timer); return; }
+                if (isCheatingDetected) {
+                    clearInterval(timer);
+                    return;
+                }
+
                 timeLeft -= 0.1;
                 timerBar.style.width = `${(timeLeft / maxTime) * 100}%`;
-                if (timeLeft <= 3) timerBar.style.backgroundColor = '#FF6347';
+                
+                if (timeLeft <= 3) {
+                    timerBar.style.backgroundColor = '#FF6347';
+                }
+                
                 if (timeLeft <= 0) {
                     clearInterval(timer);
-                    questionTimes.push(maxTime); totalTime += maxTime;
+                    const endTime = Date.now();
+                    questionTimes.push(maxTime);
+                    totalTime += maxTime;
                     handleAnswer(false, selectedQuestions[currentQuestionIndex].id, selectedQuestions[currentQuestionIndex].word, "Không chọn");
                 }
             }, 100);
@@ -1450,121 +1911,312 @@
 
         function selectOption(selectedOption, correctAnswer, questionId, questionWord) {
             if (isCheatingDetected) return;
+
+            const endTime = Date.now();
             clearInterval(timer);
             const isCorrect = selectedOption === correctAnswer;
-            let timeTaken = ((currentMode === 'grammar' || currentMode === 'translation' || currentMode === 'theory' || currentMode === 'sgk') ? 20 : 8) - timeLeft;
-            questionTimes.push(timeTaken); totalTime += timeTaken;
+            
+            let timeTaken = 0;
+            if (currentMode === 'grammar' || currentMode === 'translation' || currentMode === 'theory' || currentMode === 'sgk') {
+                 timeTaken = 20 - timeLeft;
+            } else {
+                 timeTaken = 8 - timeLeft;
+            }
+            
+            questionTimes.push(timeTaken);
+            totalTime += timeTaken;
+            
             selectedOptions[currentQuestionIndex] = selectedOption;
+            
             const options = document.querySelectorAll('.option');
             options.forEach(option => {
-                if (option.textContent.includes(correctAnswer)) option.classList.add('correct');
-                if (option.textContent.includes(selectedOption) && !isCorrect) option.classList.add('incorrect');
+                if (option.textContent.includes(correctAnswer)) {
+                    option.classList.add('correct');
+                }
+                if (option.textContent.includes(selectedOption) && !isCorrect) {
+                    option.classList.add('incorrect');
+                }
                 option.style.pointerEvents = 'none';
             });
-            setTimeout(() => handleAnswer(isCorrect, questionId, questionWord, selectedOption), 100);
+            
+            setTimeout(() => {
+                handleAnswer(isCorrect, questionId, questionWord, selectedOption);
+            }, 100);
         }
 
         function handleAnswer(isCorrect, questionId, questionWord, selectedOption) {
             if (isCheatingDetected) return;
+
             const currentQuestion = selectedQuestions[currentQuestionIndex];
-            if (isCorrect) { score++; streak++; if (streak > maxStreak) maxStreak = streak; }
-            else { streak = 0; wrongQuestions.push(questionId); }
-            answerHistory.push({ id: questionId, word: questionWord, selected: selectedOption, correct: currentQuestion.correct, unit: currentUnit, unitAddress: currentQuestion.unitAddress || '' });
+            
+            if (isCorrect) {
+                score++;
+                streak++;
+                if (streak > maxStreak) {
+                    maxStreak = streak;
+                }
+            } else {
+                streak = 0;
+                wrongQuestions.push(questionId);
+            }
+            
+            answerHistory.push({
+                id: questionId,
+                word: questionWord,
+                selected: selectedOption,
+                correct: currentQuestion.correct,
+                unit: currentUnit,
+                unitAddress: currentQuestion.unitAddress || ''
+            });
+            
             currentQuestionIndex++;
-            transitionTimeout = setTimeout(() => showQuestion(), 400);
+            
+            transitionTimeout = setTimeout(() => {
+                showQuestion();
+            }, 400);
         }
 
         function endGame() {
             cleanupAll();
-            quizScreen.classList.add('hidden'); resultScreen.classList.remove('hidden');
-            endTime = new Date();
-            const totalQuestions = selectedQuestions.length;
-            const percentage = Math.round((score / totalQuestions) * 100);
-            const resultName = document.getElementById('result-name');
-            resultName.textContent = username.trim() ? username.trim() : "Học sinh";
-            const resultHeader = document.getElementById('result-grade-header');
             
-            if (isCheatingDetected) cheatingAlertBox.style.display = 'block'; else cheatingAlertBox.style.display = 'none';
-            if (currentMode === 'grammar') { resultName.style.color = 'var(--grammar-blue)'; resultHeader.style.color = 'var(--grammar-blue)'; }
-            else if (currentMode === 'translation') { resultName.style.color = 'var(--translation-color)'; resultHeader.style.color = 'var(--translation-color)'; }
-            else if (currentMode === 'theory') { resultName.style.color = 'var(--theory-color)'; resultHeader.style.color = 'var(--theory-color)'; }
-            else if (currentMode === 'sgk') { resultName.style.color = 'var(--sgk-color)'; resultHeader.style.color = 'var(--sgk-color)'; }
-            else { resultName.style.color = 'var(--vocab-dark-green)'; resultHeader.style.color = 'var(--vocab-dark-green)'; }
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            
+            endTime = new Date();
+            
+            const totalQuestions = selectedQuestions.length; 
+            
+            const percentage = Math.round((score / totalQuestions) * 100);
+
+            const resultName = document.getElementById('result-name');
+            
+            resultName.textContent = username.trim() ? username.trim() : "Học sinh";
+
+            const resultHeader = document.getElementById('result-grade-header');
+            const resultScreenEl = document.getElementById('result-screen');
+
+            if (isCheatingDetected) {
+                cheatingAlertBox.style.display = 'block';
+            } else {
+                cheatingAlertBox.style.display = 'none';
+            }
+
+            // Điều chỉnh màu sắc theo mode
+            if (currentMode === 'grammar') {
+                resultName.style.color = 'var(--grammar-blue)'; 
+                resultHeader.style.color = 'var(--grammar-blue)';
+            } else if (currentMode === 'translation') {
+                resultName.style.color = 'var(--translation-color)'; 
+                resultHeader.style.color = 'var(--translation-color)';
+            } else if (currentMode === 'theory') {
+                resultName.style.color = 'var(--theory-color)'; 
+                resultHeader.style.color = 'var(--theory-color)';
+            } else if (currentMode === 'sgk') {
+                resultName.style.color = 'var(--sgk-color)'; 
+                resultHeader.style.color = 'var(--sgk-color)';
+            } else {
+                resultName.style.color = 'var(--vocab-dark-green)'; 
+                resultHeader.style.color = 'var(--vocab-dark-green)';
+            }
 
             document.getElementById('result-date-summary').textContent = startTime.toLocaleDateString('vi-VN');
+
             document.getElementById('result-score-correct').textContent = score;
             document.getElementById('result-score-total').textContent = totalQuestions;
             document.getElementById('score-percentage-text').textContent = `${percentage}%`;
+
             const circlePath = document.getElementById('score-circle-path');
             circlePath.style.strokeDasharray = `${percentage}, 100`;
-            let scoreColor = '#f5222d'; if (percentage >= 50) scoreColor = '#faad14'; if (percentage >= 70) scoreColor = '#52c41a'; if (percentage >= 80) scoreColor = '#13c2c2'; if (percentage >= 90) scoreColor = '#1890ff'; if (percentage === 100) scoreColor = '#722ed1';
+            
+            let scoreColor = '#f5222d'; 
+            if (percentage >= 50 && percentage <= 69) { scoreColor = '#faad14'; } 
+            else if (percentage >= 70 && percentage <= 79) { scoreColor = '#52c41a'; } 
+            else if (percentage >= 80 && percentage <= 89) { scoreColor = '#13c2c2'; } 
+            else if (percentage >= 90 && percentage <= 99) { scoreColor = '#1890ff'; } 
+            else if (percentage === 100) { scoreColor = '#722ed1'; }
+            
             if (isCheatingDetected) scoreColor = '#f44336';
+            
             circlePath.style.stroke = scoreColor;
-            document.getElementById('score-percentage-text').style.fill = scoreColor;
+            
+            const percentageText = document.getElementById('score-percentage-text');
+            percentageText.style.fill = scoreColor;
+
             const startOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+            const startDateOptions = { day: '2-digit', month: '2-digit' };
+            
             document.getElementById('result-start-time').textContent = startTime.toLocaleTimeString('vi-VN', startOptions);
-            document.getElementById('result-start-date').textContent = startTime.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit' });
-            document.getElementById('result-end-time').textContent = endTime.toLocaleTimeString('vi-VN', startOptions);
-            document.getElementById('result-end-date').textContent = endTime.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit' });
+            document.getElementById('result-start-date').textContent = startTime.toLocaleDateString('vi-VN', startDateOptions);
+
+            const endOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+            const endDateOptions = { day: '2-digit', month: '2-digit' };
+            
+            document.getElementById('result-end-time').textContent = endTime.toLocaleTimeString('vi-VN', endOptions);
+            document.getElementById('result-end-date').textContent = endTime.toLocaleDateString('vi-VN', endDateOptions);
+
             document.getElementById('result-max-streak').textContent = maxStreak;
             document.getElementById('result-total-time').textContent = `${totalTime.toFixed(1)}s`;
 
             let modeText = "TỪ VỰNG";
-            if (currentMode === 'grammar') modeText = "NGỮ PHÁP"; else if (currentMode === 'translation') modeText = "DỊCH CÂU"; else if (currentMode === 'theory') modeText = "LÍ THUYẾT"; else if (currentMode === 'sgk') modeText = "ÔN SGK";
+            if (currentMode === 'grammar') {
+                modeText = "NGỮ PHÁP";
+            } else if (currentMode === 'translation') {
+                modeText = "DỊCH CÂU";
+            } else if (currentMode === 'theory') {
+                modeText = "LÍ THUYẾT";
+            } else if (currentMode === 'sgk') {
+                modeText = "ÔN SGK";
+            }
             document.getElementById('result-grade-header').textContent = `ÔN TẬP LỚP ${currentGrade.replace('E','')} – ${modeText}`;
 
             wrongQuestionsElement.innerHTML = '';
-            if (wrongQuestions.length === 0) wrongQuestionsElement.innerHTML = '<li style="color:#4CAF50;font-weight:bold;">Không có câu sai nào! Xuất sắc!</li>';
-            else {
-                const wrongQuestionsInOrder = answerHistory.filter(item => item.selected !== item.correct).map(item => item.unitAddress || `${item.unit} - Câu ${item.id}`);
-                wrongQuestionsInOrder.forEach(item => { const li = document.createElement('li'); li.textContent = item; wrongQuestionsElement.appendChild(li); });
+            if (wrongQuestions.length === 0) {
+                wrongQuestionsElement.innerHTML = '<li style="color:#4CAF50;font-weight:bold;">Không có câu sai nào! Xuất sắc!</li>';
+            } else {
+                const wrongQuestionsInOrder = answerHistory
+                    .filter(item => item.selected !== item.correct)
+                    .map(item => item.unitAddress || `${item.unit} - Câu ${item.id}`);
+                    
+                wrongQuestionsInOrder.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = item;
+                    wrongQuestionsElement.appendChild(li);
+                });
             }
             
             answerHistoryBody.innerHTML = '';
             answerHistory.forEach((item, index) => {
                 const row = document.createElement('tr');
-                row.innerHTML = `<td>${index + 1}</td><td><div class="vocabulary-word"><span>${item.unitAddress ? `[${item.unitAddress}] ` : ''}${item.word}</span>${(currentMode === 'vocab' || currentMode === 'translation') ? `<button class="speaker-btn"><svg class="speaker-icon" viewBox="0 0 24 24"><path d="M3,9v6h4l5,5V4L7,9H3z M16.5,12c0-1.77-1.02-3.29-2.5-4.03v8.05C15.48,15.29,16.5,13.77,16.5,12z M14,3.23v2.06c2.89,.86,5,3.54,5,6.71s-2.11,5.85-5,6.71v2.06c4.01-.91,7-4.49,7-8.77S18.01,4.14,14,3.23z"/></svg></button>` : ''}</div></td><td style="${item.selected !== item.correct ? 'color:#f44336;font-weight:bold' : ''}">${item.selected}</td><td style="font-weight:bold">${item.correct}</td>`;
-                const speaker = row.querySelector('.speaker-btn');
-                if(speaker) speaker.addEventListener('click', () => speak(item.word));
+                
+                const idCell = document.createElement('td');
+                idCell.textContent = index + 1;
+                row.appendChild(idCell);
+                
+                const wordCell = document.createElement('td');
+                const wordContainer = document.createElement('div');
+                wordContainer.className = 'vocabulary-word';
+                
+                const wordSpan = document.createElement('span');
+                if (item.unitAddress) {
+                    wordSpan.textContent = `[${item.unitAddress}] ${item.word}`;
+                } else {
+                    wordSpan.textContent = item.word;
+                }
+                
+                if (currentMode === 'vocab' || currentMode === 'translation') {
+                    const speakerBtn = document.createElement('button');
+                    speakerBtn.className = 'speaker-btn'; 
+                    speakerBtn.title = 'Nghe phát âm';
+                    speakerBtn.innerHTML = `<svg class="speaker-icon" viewBox="0 0 24 24"><path d="M3,9v6h4l5,5V4L7,9H3z M16.5,12c0-1.77-1.02-3.29-2.5-4.03v8.05C15.48,15.29,16.5,13.77,16.5,12z M14,3.23v2.06c2.89,.86,5,3.54,5,6.71s-2.11,5.85-5,6.71v2.06c4.01-.91,7-4.49,7-8.77S18.01,4.14,14,3.23z"/></svg>`;
+                    speakerBtn.addEventListener('click', () => safeSpeak(item.word));
+                    wordContainer.appendChild(wordSpan);
+                    wordContainer.appendChild(speakerBtn);
+                } else {
+                    wordContainer.appendChild(wordSpan);
+                }
+                
+                wordCell.appendChild(wordContainer);
+                row.appendChild(wordCell);
+                
+                const selectedCell = document.createElement('td');
+                selectedCell.textContent = item.selected;
+                if (item.selected !== item.correct) {
+                    selectedCell.style.color = '#f44336';
+                    selectedCell.style.fontWeight = 'bold';
+                }
+                row.appendChild(selectedCell);
+                
+                const correctCell = document.createElement('td');
+                correctCell.textContent = item.correct;
+                correctCell.style.fontWeight = 'bold';
+                row.appendChild(correctCell);
+                
                 answerHistoryBody.appendChild(row);
             });
         }
 
         function restartGame() {
-            cleanupAll(); isCheatingDetected = false;
-            let pool = (isComprehensiveTest && comprehensivePool.length > 0) ? comprehensivePool : getQuestionBank();
+            cleanupAll();
+            isCheatingDetected = false;
+            
+            let pool = [];
+            if (isComprehensiveTest && comprehensivePool.length > 0) {
+                pool = comprehensivePool;
+            } else {
+                pool = getQuestionBank();
+            }
             selectedQuestions = getRandomQuestions(pool, selectedQuestions.length);
-            currentQuestionIndex = 0; score = 0; streak = 0; totalTime = 0; questionTimes = []; wrongQuestions = []; answerHistory = []; selectedOptions = Array(selectedQuestions.length).fill(null);
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            streak = 0;
+            totalTime = 0;
+            questionTimes = [];
+            wrongQuestions = [];
+            answerHistory = [];
+            selectedOptions = Array(selectedQuestions.length).fill(null);
+            
             startTime = new Date();
-            resultScreen.classList.add('hidden'); quizScreen.classList.remove('hidden');
-            updateQuestionUI();
+            resultScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            if (currentMode === 'grammar') {
+                speakerBtn.classList.add('hidden-speaker');
+                questionTextLabel.textContent = "Chọn đáp án đúng cho câu sau:";
+            } else if (currentMode === 'translation') {
+                speakerBtn.classList.remove('hidden-speaker');
+                questionTextLabel.textContent = "Chọn nghĩa đúng cho câu sau:";
+            } else if (currentMode === 'theory') {
+                speakerBtn.classList.add('hidden-speaker');
+                questionTextLabel.textContent = "Chọn đáp án đúng cho câu hỏi lí thuyết:";
+            } else if (currentMode === 'sgk') {
+                speakerBtn.classList.add('hidden-speaker');
+                questionTextLabel.textContent = "Chọn đáp án đúng cho câu hỏi SGK:";
+            } else {
+                speakerBtn.classList.remove('hidden-speaker');
+                questionTextLabel.textContent = "Chọn nghĩa đúng cho từ sau:";
+            }
+            
             showQuestion();
         }
 
         function newGame() {
-            cleanupAll(); isCheatingDetected = false; cheatingAlertBox.style.display = 'none';
+            cleanupAll();
+            isCheatingDetected = false;
+            cheatingAlertBox.style.display = 'none';
             resetComprehensiveTestState();
-            resultScreen.classList.add('hidden'); loginScreen.classList.remove('hidden');
-            unitSelect.value = ""; updateQuestionCountOptions();
-            if (currentMode === 'vocab') loginUnitTitle.textContent = "Chọn đề bài trắc nghiệm từ vựng";
-            else if (currentMode === 'translation') loginUnitTitle.textContent = "Chọn bài tập dịch câu";
-            else if (currentMode === 'grammar') loginUnitTitle.textContent = "Chọn đề bài tập ngữ pháp";
-            else if (currentMode === 'theory') loginUnitTitle.textContent = "Chọn bài tập lí thuyết";
-            else if (currentMode === 'sgk') loginUnitTitle.textContent = "Chọn bài ôn tập SGK";
-        }
-
-        function speak(text) {
-            if ('speechSynthesis' in window) {
-                speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'en-US'; utterance.rate = 0.9; utterance.pitch = 1;
-                utterance.onerror = (e) => console.error('Speech error:', e.error);
-                speechSynthesis.speak(utterance);
+            resultScreen.classList.add('hidden');
+            loginScreen.classList.remove('hidden');
+            
+            unitSelect.value = "";
+            updateQuestionCountOptions();
+            
+            if (currentMode === 'vocab') {
+                loginUnitTitle.textContent = "Chọn đề bài trắc nghiệm từ vựng";
+            } else if (currentMode === 'translation') {
+                loginUnitTitle.textContent = "Chọn bài tập dịch câu";
+            } else if (currentMode === 'grammar') {
+                loginUnitTitle.textContent = "Chọn đề bài tập ngữ pháp";
+            } else if (currentMode === 'theory') {
+                loginUnitTitle.textContent = "Chọn bài tập lí thuyết";
+            } else if (currentMode === 'sgk') {
+                loginUnitTitle.textContent = "Chọn bài ôn tập SGK";
             }
         }
 
-        function shuffleArray(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } return array; }
-        function resetComprehensiveTestState() { isComprehensiveTest = false; comprehensivePool = []; questionCountSelect.disabled = false; }
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+        
+        function resetComprehensiveTestState() {
+            isComprehensiveTest = false;
+            comprehensivePool = [];
+            questionCountSelect.disabled = false;
+        }
         
         updateQuestionCountOptions();
     </script>
