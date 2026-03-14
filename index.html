@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <!-- Viewport tối ưu cho mobile, cho phép scaling nhưng vẫn giữ layout tốt -->
+    <!-- Viewport tối ưu cho mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>ÔN TẬP GS TIẾNG ANH (LỚP 6)</title>
@@ -94,7 +94,7 @@
         
         input, button, select {
             width: 100%;
-            padding: 12px 12px;  /* tăng padding cho dễ chạm */
+            padding: 12px 12px;
             margin: 5px 0;
             border: 1px solid #ddd;
             border-radius: var(--border-radius);
@@ -102,8 +102,10 @@
             transition: all 0.3s ease;
             box-sizing: border-box;
             background-color: #fff;
-            /* đảm bảo kích thước tối thiểu cho ngón tay */
             min-height: 44px;
+            /* Cải thiện thao tác cảm ứng */
+            touch-action: manipulation;
+            cursor: pointer;
         }
         
         select option:disabled {
@@ -128,7 +130,7 @@
             -moz-appearance: none;
             appearance: none;
             padding: 12px;
-            /* xóa transform hover trên mobile để tránh giật */
+            touch-action: manipulation;
         }
         
         button:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
@@ -176,11 +178,12 @@
             flex: 1; 
             min-width: 45%;
             font-size: 14px;
-            padding: 12px 5px;  /* tăng padding */
+            padding: 12px 5px;
             text-align: center; 
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            touch-action: manipulation;
         }
         
         .btn-range-u1-u3 { background-color: #00BCD4; } .btn-range-u1-u3:hover { background-color: #0097A7; }
@@ -219,6 +222,7 @@
             background: none; border: none; cursor: pointer; width: 44px; height: 44px; padding: 8px;
             border-radius: 50%; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center;
             background-color: rgba(76, 175, 80, 0.1); flex-shrink: 0;
+            touch-action: manipulation;
         }
         .speaker-btn:hover { background-color: rgba(76, 175, 80, 0.2); transform: scale(1.05); }
         .speaker-btn:active { transform: scale(0.95); background-color: rgba(76, 175, 80, 0.3); }
@@ -227,16 +231,16 @@
         
         .options { display: flex; flex-direction: column; gap: 8px; }
         .option {
-            padding: 14px;  /* tăng padding */
+            padding: 14px;
             background-color: #f9f9f9; border: 1px solid #ddd; border-radius: var(--border-radius);
             cursor: pointer; text-align: left; transition: all 0.2s ease; word-wrap: break-word;
             font-size: 16px; 
             font-weight: 500;
             line-height: 1.4;
-            /* vùng chạm rộng */
             min-height: 44px;
             display: flex;
             align-items: center;
+            touch-action: manipulation;
         }
         .option:hover { background-color: #e9e9e9; transform: translateX(3px); }
         .option:active { background-color: #d9d9d9; }
@@ -518,7 +522,6 @@
             }
         }
 
-        /* Rất nhỏ (dưới 400px) */
         @media (max-width: 400px) {
             .word { font-size: 20px; }
             .option { font-size: 14px; padding: 10px; }
@@ -1061,1126 +1064,1130 @@
         // 7. LOGIC XỬ LÝ CHÍNH (GAME LOGIC) - Giữ nguyên từ bản gốc
         // ============================================================
         
-        let currentQuestionIndex = 0;
-        let score = 0;
-        let streak = 0;
-        let maxStreak = 0;
-        let timer;
-        let timeLeft;
-        let totalTime = 0;
-        let questionTimes = [];
-        let selectedQuestions = [];
-        let username = "";
-        let wrongQuestions = [];
-        let answerHistory = [];
-        let selectedOptions = [];
-        let startTime;
-        let endTime;
-        let currentWord = "";
-        let questionCount = 30;
-        let currentUnit = ""; 
-        let currentGrade = "";
-        let currentTestTitle = "";
-        let maxUnits = 12;
-        
-        let currentMode = 'vocab'; 
-        
-        let autoReviewIndex = 0;
-        let autoReviewTimer;
-        let autoReviewQuestions = [];
-        let autoReviewSpeakTimer1;
-        let autoReviewSpeakTimer2;
-        
-        let comprehensivePool = [];
-        let isComprehensiveTest = false;
+        // Đợi DOM tải xong mới gán sự kiện và khởi tạo
+        document.addEventListener('DOMContentLoaded', function() {
+            // Khai báo biến toàn cục trong phạm vi này
+            let currentQuestionIndex = 0;
+            let score = 0;
+            let streak = 0;
+            let maxStreak = 0;
+            let timer;
+            let timeLeft;
+            let totalTime = 0;
+            let questionTimes = [];
+            let selectedQuestions = [];
+            let username = "";
+            let wrongQuestions = [];
+            let answerHistory = [];
+            let selectedOptions = [];
+            let startTime;
+            let endTime;
+            let currentWord = "";
+            let questionCount = 30;
+            let currentUnit = ""; 
+            let currentGrade = "";
+            let currentTestTitle = "";
+            let maxUnits = 12;
+            
+            let currentMode = 'vocab'; 
+            
+            let autoReviewIndex = 0;
+            let autoReviewTimer;
+            let autoReviewQuestions = [];
+            let autoReviewSpeakTimer1;
+            let autoReviewSpeakTimer2;
+            
+            let comprehensivePool = [];
+            let isComprehensiveTest = false;
 
-        let isCheatingDetected = false;
-        let transitionTimeout = null;
+            let isCheatingDetected = false;
+            let transitionTimeout = null;
 
-        const gradeSelection = document.getElementById('grade-selection');
-        const mainMenu = document.getElementById('main-menu');
-        const reviewMenu = document.getElementById('review-menu');
-        const vocabularyList = document.getElementById('vocabulary-list');
-        const loginScreen = document.getElementById('login-screen');
-        const quizScreen = document.getElementById('quiz-screen');
-        const resultScreen = document.getElementById('result-screen');
-        const autoReviewScreen = document.getElementById('auto-review-screen');
-        
-        const grade6Btn = document.getElementById('grade6-btn');
-        
-        const reviewBtn = document.getElementById('review-btn');
-        const practiceBtn = document.getElementById('practice-btn');
-        const grammarBtn = document.getElementById('grammar-btn');
-        const translationBtn = document.getElementById('translation-btn');
-        const theoryBtn = document.getElementById('theory-btn');
-        const sgkBtn = document.getElementById('sgk-btn');
-        
-        const showVocabularyBtn = document.getElementById('show-vocabulary-btn');
-        const autoReviewBtn = document.getElementById('auto-review-btn');
-        const backToMainBtn = document.getElementById('back-to-main-btn');
-        const backToReviewBtn = document.getElementById('back-to-review-btn');
-        const backToMainFromLoginBtn = document.getElementById('back-to-main-from-login-btn');
-        const backToGradeBtn = document.getElementById('back-to-grade-btn');
-        const backToGradeFromResultBtn = document.getElementById('back-to-grade-from-result-btn');
-        
-        const startBtn = document.getElementById('start-btn');
-        const comprehensiveTestBtn = document.getElementById('comprehensive-test-btn');
-        const usernameInput = document.getElementById('username');
-        const questionCountSelect = document.getElementById('question-count');
-        const unitSelect = document.getElementById('unit-select');
-        const reviewUnitSelect = document.getElementById('review-unit-select');
-        const wordElement = document.getElementById('word');
-        const optionsElement = document.getElementById('options');
-        const timerBar = document.getElementById('timer-bar');
-        const streakElement = document.getElementById('streak');
-        const questionCounterElement = document.getElementById('question-counter');
-        const restartBtn = document.getElementById('restart-btn');
-        const newGameBtn = document.getElementById('new-game-btn');
-        const wrongQuestionsElement = document.getElementById('wrong-questions');
-        const answerHistoryBody = document.getElementById('answer-history-body');
-        const speakerBtn = document.getElementById('speaker-btn');
-        const unitTitleElement = document.getElementById('unit-title');
-        const resultUnitTitleElement = document.getElementById('result-unit-title');
-        const loadingContainer = document.getElementById('loading-container');
-        const loadingBar = document.getElementById('loading-bar');
-        const vocabularyTableBody = document.getElementById('vocabulary-table-body');
-        const vocabularyUnitTitle = document.getElementById('vocabulary-unit-title');
-        const gradeHeader = document.getElementById('grade-header');
-        const reviewGradeHeader = document.getElementById('review-grade-header');
-        const vocabGradeHeader = document.getElementById('vocab-grade-header');
-        const loginGradeHeader = document.getElementById('login-grade-header');
-        const quizGradeHeader = document.getElementById('quiz-grade-header');
-        const resultGradeHeader = document.getElementById('result-grade-header');
-        const autoReviewGradeHeader = document.getElementById('auto-review-grade-header');
-        const quizUnitTitle = document.getElementById('quiz-unit-title');
-        const reviewUnitTitle = document.getElementById('review-unit-title');
-        const loginUnitTitle = document.getElementById('login-unit-title');
-        const autoReviewUnitTitle = document.getElementById('auto-review-unit-title');
-        const questionTextLabel = document.getElementById('question-text-label');
-        
-        const autoReviewWord = document.getElementById('auto-review-word');
-        const autoReviewMeaning = document.getElementById('auto-review-meaning');
-        const autoReviewSpeakerBtn = document.getElementById('auto-review-speaker-btn');
-        const autoReviewEndButtons = document.getElementById('auto-review-end-buttons');
-        const autoReviewAgainBtn = document.getElementById('auto-review-again-btn');
-        const autoReviewBackBtn = document.getElementById('auto-review-back-btn');
-        const cheatingAlertBox = document.getElementById('cheating-alert-box');
+            // Lấy các phần tử DOM
+            const gradeSelection = document.getElementById('grade-selection');
+            const mainMenu = document.getElementById('main-menu');
+            const reviewMenu = document.getElementById('review-menu');
+            const vocabularyList = document.getElementById('vocabulary-list');
+            const loginScreen = document.getElementById('login-screen');
+            const quizScreen = document.getElementById('quiz-screen');
+            const resultScreen = document.getElementById('result-screen');
+            const autoReviewScreen = document.getElementById('auto-review-screen');
+            
+            const grade6Btn = document.getElementById('grade6-btn');
+            
+            const reviewBtn = document.getElementById('review-btn');
+            const practiceBtn = document.getElementById('practice-btn');
+            const grammarBtn = document.getElementById('grammar-btn');
+            const translationBtn = document.getElementById('translation-btn');
+            const theoryBtn = document.getElementById('theory-btn');
+            const sgkBtn = document.getElementById('sgk-btn');
+            
+            const showVocabularyBtn = document.getElementById('show-vocabulary-btn');
+            const autoReviewBtn = document.getElementById('auto-review-btn');
+            const backToMainBtn = document.getElementById('back-to-main-btn');
+            const backToReviewBtn = document.getElementById('back-to-review-btn');
+            const backToMainFromLoginBtn = document.getElementById('back-to-main-from-login-btn');
+            const backToGradeBtn = document.getElementById('back-to-grade-btn');
+            const backToGradeFromResultBtn = document.getElementById('back-to-grade-from-result-btn');
+            
+            const startBtn = document.getElementById('start-btn');
+            const comprehensiveTestBtn = document.getElementById('comprehensive-test-btn');
+            const usernameInput = document.getElementById('username');
+            const questionCountSelect = document.getElementById('question-count');
+            const unitSelect = document.getElementById('unit-select');
+            const reviewUnitSelect = document.getElementById('review-unit-select');
+            const wordElement = document.getElementById('word');
+            const optionsElement = document.getElementById('options');
+            const timerBar = document.getElementById('timer-bar');
+            const streakElement = document.getElementById('streak');
+            const questionCounterElement = document.getElementById('question-counter');
+            const restartBtn = document.getElementById('restart-btn');
+            const newGameBtn = document.getElementById('new-game-btn');
+            const wrongQuestionsElement = document.getElementById('wrong-questions');
+            const answerHistoryBody = document.getElementById('answer-history-body');
+            const speakerBtn = document.getElementById('speaker-btn');
+            const unitTitleElement = document.getElementById('unit-title');
+            const resultUnitTitleElement = document.getElementById('result-unit-title');
+            const loadingContainer = document.getElementById('loading-container');
+            const loadingBar = document.getElementById('loading-bar');
+            const vocabularyTableBody = document.getElementById('vocabulary-table-body');
+            const vocabularyUnitTitle = document.getElementById('vocabulary-unit-title');
+            const gradeHeader = document.getElementById('grade-header');
+            const reviewGradeHeader = document.getElementById('review-grade-header');
+            const vocabGradeHeader = document.getElementById('vocab-grade-header');
+            const loginGradeHeader = document.getElementById('login-grade-header');
+            const quizGradeHeader = document.getElementById('quiz-grade-header');
+            const resultGradeHeader = document.getElementById('result-grade-header');
+            const autoReviewGradeHeader = document.getElementById('auto-review-grade-header');
+            const quizUnitTitle = document.getElementById('quiz-unit-title');
+            const reviewUnitTitle = document.getElementById('review-unit-title');
+            const loginUnitTitle = document.getElementById('login-unit-title');
+            const autoReviewUnitTitle = document.getElementById('auto-review-unit-title');
+            const questionTextLabel = document.getElementById('question-text-label');
+            
+            const autoReviewWord = document.getElementById('auto-review-word');
+            const autoReviewMeaning = document.getElementById('auto-review-meaning');
+            const autoReviewSpeakerBtn = document.getElementById('auto-review-speaker-btn');
+            const autoReviewEndButtons = document.getElementById('auto-review-end-buttons');
+            const autoReviewAgainBtn = document.getElementById('auto-review-again-btn');
+            const autoReviewBackBtn = document.getElementById('auto-review-back-btn');
+            const cheatingAlertBox = document.getElementById('cheating-alert-box');
 
-        const rangeButtons12 = document.getElementById('range-buttons-12');
+            const rangeButtons12 = document.getElementById('range-buttons-12');
 
-        function showToast(message, type = 'warning') {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
-            toast.textContent = message;
-            container.appendChild(toast);
-            setTimeout(() => {
-                if (toast.parentNode) {
-                    toast.parentNode.removeChild(toast);
-                }
-            }, 3000);
-        }
-
-        function cleanupAll() {
-            if (timer) clearInterval(timer);
-            if (transitionTimeout) clearTimeout(transitionTimeout);
-            if (autoReviewTimer) clearTimeout(autoReviewTimer);
-            if (autoReviewSpeakTimer1) clearTimeout(autoReviewSpeakTimer1);
-            if (autoReviewSpeakTimer2) clearTimeout(autoReviewSpeakTimer2);
-            speechSynthesis.cancel();
-        }
-
-        // ===== CHỐNG GIAN LẬN – CHỈ GIỮ VISIBILITYCHANGE (BỎ BLUR) =====
-        function triggerCheating() {
-            if (isCheatingDetected) return;
-            isCheatingDetected = true;
-            if (cheatingAlertBox) {
-                cheatingAlertBox.style.display = 'block';
-            }
-            cleanupAll();
-            endGame();
-        }
-
-        document.addEventListener("visibilitychange", () => {
-            if (document.hidden && !quizScreen.classList.contains('hidden') && !isCheatingDetected) {
-                triggerCheating();
-            }
-        });
-
-        // ĐÃ LOẠI BỎ SỰ KIỆN BLUR ĐỂ TRÁNH BẮT GIAN LẬN GIẢ TRÊN MOBILE
-
-        grade6Btn.addEventListener('click', () => selectGrade('E6'));
-
-        function selectGrade(grade) {
-            cleanupAll();
-            currentGrade = grade;
-            
-            // Lớp 6 có 12 units
-            maxUnits = 12;
-            rangeButtons12.classList.remove('hidden');
-
-            gradeSelection.classList.add('hidden');
-            mainMenu.classList.remove('hidden');
-            
-            updateHeaderTitles(grade);
-            populateUnitDropdowns();
-        }
-
-        function populateUnitDropdowns() {
-            unitSelect.innerHTML = '<option value="" disabled selected>HÃY CHỌN UNIT</option>';
-            reviewUnitSelect.innerHTML = '';
-            
-            for (let i = 1; i <= maxUnits; i++) {
-                const unitName = `UNIT ${i}`;
-                
-                const opt1 = document.createElement('option');
-                opt1.value = unitName;
-                opt1.textContent = unitName;
-                unitSelect.appendChild(opt1);
-                
-                const opt2 = document.createElement('option');
-                opt2.value = unitName;
-                opt2.textContent = unitName;
-                reviewUnitSelect.appendChild(opt2);
-            }
-            if (reviewUnitSelect.options.length > 0) {
-                reviewUnitSelect.value = reviewUnitSelect.options[0].value;
-                currentUnit = reviewUnitSelect.value;
-            }
-        }
-
-        function updateHeaderTitles(grade) {
-            const gradeNumber = grade.replace('E', '');
-            const baseTitle = ` ÔN TẬP LỚP ${gradeNumber}`;
-            gradeHeader.textContent = baseTitle;
-            reviewGradeHeader.textContent = baseTitle;
-            vocabGradeHeader.textContent = baseTitle;
-            loginGradeHeader.textContent = baseTitle;
-            quizGradeHeader.textContent = baseTitle;
-            resultGradeHeader.textContent = baseTitle;
-            autoReviewGradeHeader.textContent = `ÔN TẬP GS VOCA ${gradeNumber}`;
-        }
-
-        reviewBtn.addEventListener('click', () => {
-            cleanupAll();
-            mainMenu.classList.add('hidden');
-            reviewMenu.classList.remove('hidden');
-            reviewUnitTitle.textContent = "Chọn đề bài ôn tập";
-            if (reviewUnitSelect.value) {
-                currentUnit = reviewUnitSelect.value;
-            }
-        });
-
-        practiceBtn.addEventListener('click', () => {
-            setModeAndOpenLogin('vocab');
-        });
-
-        translationBtn.addEventListener('click', () => {
-            setModeAndOpenLogin('translation');
-        });
-
-        grammarBtn.addEventListener('click', () => {
-            setModeAndOpenLogin('grammar');
-        });
-
-        theoryBtn.addEventListener('click', () => {
-            setModeAndOpenLogin('theory');
-        });
-
-        sgkBtn.addEventListener('click', () => {
-            setModeAndOpenLogin('sgk');
-        });
-
-        function setModeAndOpenLogin(mode) {
-            cleanupAll();
-            currentMode = mode;
-            mainMenu.classList.add('hidden');
-            loginScreen.classList.remove('hidden');
-            
-            unitSelect.value = "";
-            updateQuestionCountOptions();
-            currentUnit = "";
-            
-            // Cập nhật tiêu đề cho phù hợp với từng mode
-            if (mode === 'vocab') {
-                loginUnitTitle.textContent = "Chọn đề bài trắc nghiệm từ vựng";
-            } else if (mode === 'translation') {
-                loginUnitTitle.textContent = "Chọn bài tập dịch câu";
-            } else if (mode === 'grammar') {
-                loginUnitTitle.textContent = "Chọn bài tập ngữ pháp";
-            } else if (mode === 'theory') {
-                loginUnitTitle.textContent = "Chọn bài tập lí thuyết";
-            } else if (mode === 'sgk') {
-                loginUnitTitle.textContent = "Chọn bài ôn tập SGK";
-            }
-        }
-
-        showVocabularyBtn.addEventListener('click', showVocabularyList);
-        autoReviewBtn.addEventListener('click', startAutoReview);
-        backToMainBtn.addEventListener('click', backToFirstScreen);
-        backToReviewBtn.addEventListener('click', backToReviewMenu);
-        backToMainFromLoginBtn.addEventListener('click', backToFirstScreen);
-        backToGradeBtn.addEventListener('click', backToGradeSelection);
-        backToGradeFromResultBtn.addEventListener('click', backToGradeSelection);
-
-        startBtn.addEventListener('click', startGame);
-        comprehensiveTestBtn.addEventListener('click', startComprehensiveTest);
-        
-        document.getElementById('range-u1-u3-btn').addEventListener('click', () => startRangeTest(1, 3, "KIỂM TRA U1-U3"));
-        document.getElementById('range-u4-u6-btn').addEventListener('click', () => startRangeTest(4, 6, "KIỂM TRA U4-U6"));
-        document.getElementById('range-u1-u6-btn').addEventListener('click', () => startRangeTest(1, 6, "KIỂM TRA U1-U6"));
-        document.getElementById('range-u7-u9-btn').addEventListener('click', () => startRangeTest(7, 9, "KIỂM TRA U7-U9"));
-        document.getElementById('range-u10-u12-btn').addEventListener('click', () => startRangeTest(10, 12, "KIỂM TRA U10-U12"));
-        document.getElementById('range-u7-u12-btn').addEventListener('click', () => startRangeTest(7, 12, "KIỂM TRA U7-U12"));
-
-        restartBtn.addEventListener('click', restartGame);
-        newGameBtn.addEventListener('click', newGame);
-        
-        speakerBtn.addEventListener('click', () => {
-            speakerBtn.classList.add('active');
-            setTimeout(() => {
-                speakerBtn.classList.remove('active');
-            }, 200);
-            speak(currentWord);
-        });
-
-        autoReviewSpeakerBtn.addEventListener('click', () => {
-            autoReviewSpeakerBtn.classList.add('active');
-            setTimeout(() => {
-                autoReviewSpeakerBtn.classList.remove('active');
-            }, 200);
-            speak(autoReviewQuestions[autoReviewIndex].word);
-        });
-        
-        autoReviewAgainBtn.addEventListener('click', restartAutoReview);
-        autoReviewBackBtn.addEventListener('click', backToReviewMenu);
-        
-        unitSelect.addEventListener('change', function() {
-            currentUnit = this.value;
-            quizUnitTitle.textContent = currentUnit;
-            updateQuestionCountOptions();
-            resetComprehensiveTestState();
-        });
-
-        reviewUnitSelect.addEventListener('change', function() {
-            currentUnit = this.value;
-        });
-
-        function getQuestionBank() {
-            let data = {};
-            if (currentMode === 'vocab') {
-                data = gradeData;
-            } else if (currentMode === 'translation') {
-                data = translationData;
-            } else if (currentMode === 'grammar') {
-                data = grammarData;
-            } else if (currentMode === 'theory') {
-                data = theoryData;
-            } else if (currentMode === 'sgk') {
-                data = sgkData;
-            }
-
-            if (!currentGrade || !data[currentGrade] || !data[currentGrade].units[currentUnit]) {
-                return [];
-            }
-            return data[currentGrade].units[currentUnit];
-        }
-
-        function showVocabularyList() {
-            if (!currentUnit && reviewUnitSelect.value) {
-                currentUnit = reviewUnitSelect.value;
-            }
-            const questionBank = getQuestionBank();
-            
-            if (questionBank.length === 0) {
-                showToast("Chưa có dữ liệu cho unit này!", "warning");
-                return;
-            }
-            
-            reviewMenu.classList.add('hidden');
-            vocabularyList.classList.remove('hidden');
-            vocabularyUnitTitle.textContent = currentUnit;
-            
-            vocabularyTableBody.innerHTML = '';
-            
-            questionBank.forEach((question, index) => {
-                const row = document.createElement('tr');
-                
-                const idCell = document.createElement('td');
-                idCell.textContent = index + 1;
-                row.appendChild(idCell);
-                
-                const wordCell = document.createElement('td');
-                const wordContainer = document.createElement('div');
-                wordContainer.className = 'vocabulary-word';
-                
-                const wordSpan = document.createElement('span');
-                wordSpan.textContent = question.word;
-                
-                const speakerBtn = document.createElement('button');
-                speakerBtn.className = 'speaker-btn'; 
-                speakerBtn.title = 'Nghe phát âm';
-                speakerBtn.innerHTML = `<svg class="speaker-icon" viewBox="0 0 24 24"><path d="M3,9v6h4l5,5V4L7,9H3z M16.5,12c0-1.77-1.02-3.29-2.5-4.03v8.05C15.48,15.29,16.5,13.77,16.5,12z M14,3.23v2.06c2.89,.86,5,3.54,5,6.71s-2.11,5.85-5,6.71v2.06c4.01-.91,7-4.49,7-8.77S18.01,4.14,14,3.23z"/></svg>`;
-                speakerBtn.addEventListener('click', () => speak(question.word));
-                
-                wordContainer.appendChild(wordSpan);
-                wordContainer.appendChild(speakerBtn);
-                wordCell.appendChild(wordContainer);
-                row.appendChild(wordCell);
-                
-                const meaningCell = document.createElement('td');
-                meaningCell.textContent = question.correct;
-                row.appendChild(meaningCell);
-                
-                vocabularyTableBody.appendChild(row);
-            });
-        }
-
-        function startAutoReview() {
-            if (!currentUnit && reviewUnitSelect.value) {
-                currentUnit = reviewUnitSelect.value;
-            }
-            autoReviewQuestions = getQuestionBank();
-            
-            if (autoReviewQuestions.length === 0) {
-                showToast("Chưa có dữ liệu cho unit này!", "warning");
-                return;
-            }
-            
-            reviewMenu.classList.add('hidden');
-            autoReviewScreen.classList.remove('hidden');
-            autoReviewUnitTitle.textContent = currentUnit;
-            
-            autoReviewIndex = 0;
-            autoReviewEndButtons.classList.add('hidden');
-            showAutoReviewQuestion();
-        }
-
-        function showAutoReviewQuestion() {
-            if (autoReviewIndex >= autoReviewQuestions.length) {
-                endAutoReview();
-                return;
-            }
-            
-            const question = autoReviewQuestions[autoReviewIndex];
-            autoReviewWord.textContent = question.word;
-            autoReviewMeaning.textContent = question.correct;
-            
-            autoReviewWord.classList.remove('black');
-            
-            clearTimeout(autoReviewSpeakTimer1);
-            clearTimeout(autoReviewSpeakTimer2);
-            
-            autoReviewSpeakTimer1 = setTimeout(() => {
-                speak(question.word);
-            }, 400);
-            
-            autoReviewSpeakTimer2 = setTimeout(() => {
-                speak(question.word);
-            }, 2400);
-            
-            setTimeout(() => {
-                autoReviewWord.classList.add('black');
-            }, 2500);
-            
-            autoReviewTimer = setTimeout(() => {
-                autoReviewIndex++;
-                showAutoReviewQuestion();
-            }, 4000);
-        }
-
-        function endAutoReview() {
-            clearTimeout(autoReviewTimer);
-            clearTimeout(autoReviewSpeakTimer1);
-            clearTimeout(autoReviewSpeakTimer2);
-            autoReviewEndButtons.classList.remove('hidden');
-            
-            autoReviewWord.textContent = "Hoàn thành!";
-            autoReviewMeaning.textContent = `Đã ôn ${autoReviewQuestions.length} từ vựng`;
-        }
-
-        function restartAutoReview() {
-            clearTimeout(autoReviewTimer);
-            clearTimeout(autoReviewSpeakTimer1);
-            clearTimeout(autoReviewSpeakTimer2);
-            autoReviewEndButtons.classList.remove('hidden');
-            
-            speechSynthesis.cancel();
-            
-            autoReviewIndex = 0;
-            autoReviewEndButtons.classList.add('hidden');
-            showAutoReviewQuestion();
-        }
-
-        function backToFirstScreen() {
-            cleanupAll();
-            isCheatingDetected = false;          
-            cheatingAlertBox.style.display = 'none';
-            autoReviewEndButtons.classList.add('hidden');
-            
-            loginScreen.classList.add('hidden');
-            reviewMenu.classList.add('hidden');
-            vocabularyList.classList.add('hidden');
-            autoReviewScreen.classList.add('hidden');
-            quizScreen.classList.add('hidden');
-            resultScreen.classList.add('hidden');
-            
-            mainMenu.classList.remove('hidden');
-            unitTitleElement.textContent = "Chọn chế độ";
-            resetComprehensiveTestState();
-        }
-
-        function backToGradeSelection() {
-            cleanupAll();
-            isCheatingDetected = false;          
-            cheatingAlertBox.style.display = 'none';
-            currentGrade = '';
-            currentUnit = '';
-            comprehensivePool = [];
-            isComprehensiveTest = false;
-            
-            mainMenu.classList.add('hidden');
-            reviewMenu.classList.add('hidden');
-            vocabularyList.classList.add('hidden');
-            autoReviewScreen.classList.add('hidden');
-            loginScreen.classList.add('hidden');
-            quizScreen.classList.add('hidden');
-            resultScreen.classList.add('hidden');
-            
-            gradeSelection.classList.remove('hidden');
-        }
-
-        function backToReviewMenu() {
-            cleanupAll();
-            isCheatingDetected = false;          
-            cheatingAlertBox.style.display = 'none';
-            autoReviewEndButtons.classList.add('hidden');
-            
-            vocabularyList.classList.add('hidden');
-            autoReviewScreen.classList.add('hidden');
-            reviewMenu.classList.remove('hidden');
-        }
-
-        function updateQuestionCountOptions() {
-            const questionBank = getQuestionBank();
-            const maxQuestions = questionBank.length;
-            
-            questionCountSelect.innerHTML = '';
-            
-            const defaultOption = document.createElement('option');
-            defaultOption.value = "";
-            defaultOption.textContent = "HÃY CHỌN SỐ CÂU HỎI";
-            defaultOption.disabled = true;
-            defaultOption.selected = true;
-            questionCountSelect.appendChild(defaultOption);
-            
-            if (maxQuestions === 0) {
-                return;
-            }
-
-            const options = [
-                { value: 10, text: "10 câu" },
-                { value: 20, text: "20 câu" },
-                { value: 30, text: "30 câu" },
-                { value: 40, text: "40 câu" },
-                { value: 50, text: "50 câu" },
-                { value: maxQuestions, text: `${maxQuestions} câu (tất cả)` }
-            ];
-            
-            const validOptions = options.filter(option => option.value <= maxQuestions);
-            
-            validOptions.forEach(option => {
-                const optionElement = document.createElement('option');
-                optionElement.value = option.value;
-                optionElement.textContent = option.text;
-                questionCountSelect.appendChild(optionElement);
-            });
-        }
-
-        function startComprehensiveTest() {
-            startRangeTest(1, maxUnits, "KIỂM TRA TỔNG HỢP");
-        }
-
-        function startRangeTest(startUnitNum, endUnitNum, title) {
-            username = usernameInput.value.trim();
-            if (!username) {
-                showToast("Vui lòng nhập tên của bạn!", "error");
-                return;
-            }
-            
-            let dataSource;
-            if (currentMode === 'vocab') {
-                dataSource = gradeData;
-            } else if (currentMode === 'translation') {
-                dataSource = translationData;
-            } else if (currentMode === 'grammar') {
-                dataSource = grammarData;
-            } else if (currentMode === 'theory') {
-                dataSource = theoryData;
-            } else if (currentMode === 'sgk') {
-                dataSource = sgkData;
-            }
-            
-            comprehensivePool = [];
-            const gradeUnits = dataSource[currentGrade].units;
-            
-            for (const unitName in gradeUnits) {
-                const unitNum = parseInt(unitName.split(' ')[1]);
-                
-                if (unitNum >= startUnitNum && unitNum <= endUnitNum) {
-                    const unitQuestions = gradeUnits[unitName];
-                    unitQuestions.forEach(q => {
-                        const questionCopy = Object.assign({}, q);
-                        questionCopy.unitAddress = `${unitName} - Câu ${q.id}`;
-                        comprehensivePool.push(questionCopy);
-                    });
-                }
-            }
-            
-            if (comprehensivePool.length === 0) {
-                showToast("Chưa có dữ liệu cho khoảng Unit này!", "error");
-                return;
-            }
-            
-            isComprehensiveTest = true;
-            questionCount = Math.min(40, comprehensivePool.length);
-            
-            currentTestTitle = title;
-            
-            questionCountSelect.disabled = true;
-            questionCountSelect.value = questionCount;
-            
-            loadingContainer.classList.remove('hidden');
-            startBtn.disabled = true;
-            comprehensiveTestBtn.disabled = true;
-            document.querySelectorAll('.range-tests-container button').forEach(b => b.disabled = true);
-            
-            let progress = 0;
-            const loadingInterval = setInterval(() => {
-                progress += 5;
-                loadingBar.style.width = `${progress}%`;
-                
-                if (progress >= 100) {
-                    clearInterval(loadingInterval);
-                    loadingContainer.classList.add('hidden');
-                    startBtn.disabled = false;
-                    comprehensiveTestBtn.disabled = false;
-                    document.querySelectorAll('.range-tests-container button').forEach(b => b.disabled = false);
-                    startQuizWithPool(comprehensivePool, questionCount, currentTestTitle);
-                }
-            }, 50);
-        }
-
-        function startQuizWithPool(pool, count, title) {
-            cleanupAll();
-            startTime = new Date();
-            
-            selectedQuestions = getRandomQuestions(pool, count);
-            
-            currentQuestionIndex = 0;
-            score = 0;
-            streak = 0;
-            maxStreak = 0;
-            totalTime = 0;
-            questionTimes = [];
-            wrongQuestions = [];
-            answerHistory = [];
-            selectedOptions = Array(selectedQuestions.length).fill(null);
-            
-            quizUnitTitle.textContent = title;
-            resultUnitTitleElement.textContent = title;
-            
-            loginScreen.classList.add('hidden');
-            quizScreen.classList.remove('hidden');
-            resultScreen.classList.add('hidden');
-            
-            if (currentMode === 'grammar') {
-                speakerBtn.classList.add('hidden-speaker');
-                questionTextLabel.textContent = "Chọn đáp án đúng cho câu sau:";
-            } else if (currentMode === 'translation') {
-                speakerBtn.classList.remove('hidden-speaker');
-                questionTextLabel.textContent = "Chọn nghĩa đúng cho câu sau:";
-            } else if (currentMode === 'theory') {
-                speakerBtn.classList.add('hidden-speaker');
-                questionTextLabel.textContent = "Chọn đáp án đúng cho câu hỏi lí thuyết:";
-            } else if (currentMode === 'sgk') {
-                speakerBtn.classList.add('hidden-speaker');
-                questionTextLabel.textContent = "Chọn đáp án đúng cho câu hỏi SGK:";
-            } else {
-                speakerBtn.classList.remove('hidden-speaker');
-                questionTextLabel.textContent = "Chọn nghĩa đúng cho từ sau:";
-            }
-            
-            showQuestion();
-        }
-
-        function startGame() {
-            username = usernameInput.value.trim();
-            if (!username) {
-                showToast("Vui lòng nhập tên của bạn!", "error");
-                return;
-            }
-            
-            if (!currentUnit) {
-                showToast("Vui lòng chọn đề bài!", "error");
-                unitSelect.focus();
-                return;
-            }
-            
-            const qCountVal = questionCountSelect.value;
-            if (!qCountVal) {
-                showToast("Vui lòng chọn số câu hỏi!", "error");
-                questionCountSelect.focus();
-                return;
-            }
-            
-            currentTestTitle = currentUnit;
-            
-            questionCount = parseInt(qCountVal);
-            
-            const questionBank = getQuestionBank();
-            
-            if (questionCount < 1 || questionCount > questionBank.length) {
-                showToast(`Vui lòng chọn số câu hỏi từ 1 đến ${questionBank.length}`, "error");
-                return;
-            }
-            
-            loadingContainer.classList.remove('hidden');
-            startBtn.disabled = true;
-            comprehensiveTestBtn.disabled = true;
-            
-            let progress = 0;
-            const loadingInterval = setInterval(() => {
-                progress += 5;
-                loadingBar.style.width = `${progress}%`;
-                
-                if (progress >= 100) {
-                    clearInterval(loadingInterval);
-                    loadingContainer.classList.add('hidden');
-                    startBtn.disabled = false;
-                    comprehensiveTestBtn.disabled = false;
-                    startQuizWithPool(questionBank, questionCount, currentUnit);
-                }
-            }, 50);
-        }
-
-        function getRandomQuestions(questionBank, n) {
-            const shuffled = questionBank.slice();
-            shuffleArray(shuffled);
-            return shuffled.slice(0, n);
-        }
-
-        function showQuestion() {
-            if (isCheatingDetected) return;
-
-            if (currentQuestionIndex >= selectedQuestions.length) {
-                endGame();
-                return;
-            }
-            
-            const question = selectedQuestions[currentQuestionIndex];
-            currentWord = question.word;
-            wordElement.textContent = question.word;
-            
-            questionCounterElement.textContent = `Câu ${currentQuestionIndex + 1}/${selectedQuestions.length}`;
-            streakElement.textContent = `Chuỗi đúng: ${streak}`;
-            
-            optionsElement.innerHTML = '';
-            
-            const options = [
-                question.correct,
-                question.wrong1,
-                question.wrong2,
-                question.wrong3
-            ];
-            
-            shuffleArray(options);
-            
-            options.forEach((option, index) => {
-                const optionButton = document.createElement('div');
-                optionButton.classList.add('option');
-                optionButton.textContent = `${String.fromCharCode(65 + index)}. ${option}`;
-                optionButton.addEventListener('click', () => selectOption(option, question.correct, question.id, question.word));
-                optionsElement.appendChild(optionButton);
-            });
-            
-            startTimer();
-            
-            if (currentMode === 'vocab') {
+            function showToast(message, type = 'warning') {
+                const container = document.getElementById('toast-container');
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                toast.textContent = message;
+                container.appendChild(toast);
                 setTimeout(() => {
-                    speak(question.word);
-                }, 500);
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
+                }, 3000);
             }
-        }
 
-        function startTimer() {
-            const startTime = Date.now();
-            
-            let maxTime = 8; 
-            if (currentMode === 'grammar' || currentMode === 'translation' || currentMode === 'theory' || currentMode === 'sgk') {
-                maxTime = 20; // các chế độ này có thời gian dài hơn
+            function cleanupAll() {
+                if (timer) clearInterval(timer);
+                if (transitionTimeout) clearTimeout(transitionTimeout);
+                if (autoReviewTimer) clearTimeout(autoReviewTimer);
+                if (autoReviewSpeakTimer1) clearTimeout(autoReviewSpeakTimer1);
+                if (autoReviewSpeakTimer2) clearTimeout(autoReviewSpeakTimer2);
+                speechSynthesis.cancel();
             }
-            
-            timeLeft = maxTime; 
-            timerBar.style.width = '100%';
-            timerBar.style.backgroundColor = '#FFD700';
-            
-            if (timer) {
-                clearInterval(timer);
+
+            // ===== CHỐNG GIAN LẬN – CHỈ GIỮ VISIBILITYCHANGE =====
+            function triggerCheating() {
+                if (isCheatingDetected) return;
+                isCheatingDetected = true;
+                if (cheatingAlertBox) {
+                    cheatingAlertBox.style.display = 'block';
+                }
+                cleanupAll();
+                endGame();
             }
+
+            document.addEventListener("visibilitychange", () => {
+                if (document.hidden && !quizScreen.classList.contains('hidden') && !isCheatingDetected) {
+                    triggerCheating();
+                }
+            });
+
+            // Gán sự kiện cho các nút
+            grade6Btn.addEventListener('click', () => selectGrade('E6'));
+
+            function selectGrade(grade) {
+                cleanupAll();
+                currentGrade = grade;
+                
+                // Lớp 6 có 12 units
+                maxUnits = 12;
+                rangeButtons12.classList.remove('hidden');
+
+                gradeSelection.classList.add('hidden');
+                mainMenu.classList.remove('hidden');
+                
+                updateHeaderTitles(grade);
+                populateUnitDropdowns();
+            }
+
+            function populateUnitDropdowns() {
+                unitSelect.innerHTML = '<option value="" disabled selected>HÃY CHỌN UNIT</option>';
+                reviewUnitSelect.innerHTML = '';
+                
+                for (let i = 1; i <= maxUnits; i++) {
+                    const unitName = `UNIT ${i}`;
+                    
+                    const opt1 = document.createElement('option');
+                    opt1.value = unitName;
+                    opt1.textContent = unitName;
+                    unitSelect.appendChild(opt1);
+                    
+                    const opt2 = document.createElement('option');
+                    opt2.value = unitName;
+                    opt2.textContent = unitName;
+                    reviewUnitSelect.appendChild(opt2);
+                }
+                if (reviewUnitSelect.options.length > 0) {
+                    reviewUnitSelect.value = reviewUnitSelect.options[0].value;
+                    currentUnit = reviewUnitSelect.value;
+                }
+            }
+
+            function updateHeaderTitles(grade) {
+                const gradeNumber = grade.replace('E', '');
+                const baseTitle = ` ÔN TẬP LỚP ${gradeNumber}`;
+                gradeHeader.textContent = baseTitle;
+                reviewGradeHeader.textContent = baseTitle;
+                vocabGradeHeader.textContent = baseTitle;
+                loginGradeHeader.textContent = baseTitle;
+                quizGradeHeader.textContent = baseTitle;
+                resultGradeHeader.textContent = baseTitle;
+                autoReviewGradeHeader.textContent = `ÔN TẬP GS VOCA ${gradeNumber}`;
+            }
+
+            reviewBtn.addEventListener('click', () => {
+                cleanupAll();
+                mainMenu.classList.add('hidden');
+                reviewMenu.classList.remove('hidden');
+                reviewUnitTitle.textContent = "Chọn đề bài ôn tập";
+                if (reviewUnitSelect.value) {
+                    currentUnit = reviewUnitSelect.value;
+                }
+            });
+
+            practiceBtn.addEventListener('click', () => {
+                setModeAndOpenLogin('vocab');
+            });
+
+            translationBtn.addEventListener('click', () => {
+                setModeAndOpenLogin('translation');
+            });
+
+            grammarBtn.addEventListener('click', () => {
+                setModeAndOpenLogin('grammar');
+            });
+
+            theoryBtn.addEventListener('click', () => {
+                setModeAndOpenLogin('theory');
+            });
+
+            sgkBtn.addEventListener('click', () => {
+                setModeAndOpenLogin('sgk');
+            });
+
+            function setModeAndOpenLogin(mode) {
+                cleanupAll();
+                currentMode = mode;
+                mainMenu.classList.add('hidden');
+                loginScreen.classList.remove('hidden');
+                
+                unitSelect.value = "";
+                updateQuestionCountOptions();
+                currentUnit = "";
+                
+                if (mode === 'vocab') {
+                    loginUnitTitle.textContent = "Chọn đề bài trắc nghiệm từ vựng";
+                } else if (mode === 'translation') {
+                    loginUnitTitle.textContent = "Chọn bài tập dịch câu";
+                } else if (mode === 'grammar') {
+                    loginUnitTitle.textContent = "Chọn bài tập ngữ pháp";
+                } else if (mode === 'theory') {
+                    loginUnitTitle.textContent = "Chọn bài tập lí thuyết";
+                } else if (mode === 'sgk') {
+                    loginUnitTitle.textContent = "Chọn bài ôn tập SGK";
+                }
+            }
+
+            showVocabularyBtn.addEventListener('click', showVocabularyList);
+            autoReviewBtn.addEventListener('click', startAutoReview);
+            backToMainBtn.addEventListener('click', backToFirstScreen);
+            backToReviewBtn.addEventListener('click', backToReviewMenu);
+            backToMainFromLoginBtn.addEventListener('click', backToFirstScreen);
+            backToGradeBtn.addEventListener('click', backToGradeSelection);
+            backToGradeFromResultBtn.addEventListener('click', backToGradeSelection);
+
+            startBtn.addEventListener('click', startGame);
+            comprehensiveTestBtn.addEventListener('click', startComprehensiveTest);
             
-            timer = setInterval(() => {
-                if (isCheatingDetected) {
-                    clearInterval(timer);
+            document.getElementById('range-u1-u3-btn').addEventListener('click', () => startRangeTest(1, 3, "KIỂM TRA U1-U3"));
+            document.getElementById('range-u4-u6-btn').addEventListener('click', () => startRangeTest(4, 6, "KIỂM TRA U4-U6"));
+            document.getElementById('range-u1-u6-btn').addEventListener('click', () => startRangeTest(1, 6, "KIỂM TRA U1-U6"));
+            document.getElementById('range-u7-u9-btn').addEventListener('click', () => startRangeTest(7, 9, "KIỂM TRA U7-U9"));
+            document.getElementById('range-u10-u12-btn').addEventListener('click', () => startRangeTest(10, 12, "KIỂM TRA U10-U12"));
+            document.getElementById('range-u7-u12-btn').addEventListener('click', () => startRangeTest(7, 12, "KIỂM TRA U7-U12"));
+
+            restartBtn.addEventListener('click', restartGame);
+            newGameBtn.addEventListener('click', newGame);
+            
+            speakerBtn.addEventListener('click', () => {
+                speakerBtn.classList.add('active');
+                setTimeout(() => {
+                    speakerBtn.classList.remove('active');
+                }, 200);
+                speak(currentWord);
+            });
+
+            autoReviewSpeakerBtn.addEventListener('click', () => {
+                autoReviewSpeakerBtn.classList.add('active');
+                setTimeout(() => {
+                    autoReviewSpeakerBtn.classList.remove('active');
+                }, 200);
+                speak(autoReviewQuestions[autoReviewIndex].word);
+            });
+            
+            autoReviewAgainBtn.addEventListener('click', restartAutoReview);
+            autoReviewBackBtn.addEventListener('click', backToReviewMenu);
+            
+            unitSelect.addEventListener('change', function() {
+                currentUnit = this.value;
+                quizUnitTitle.textContent = currentUnit;
+                updateQuestionCountOptions();
+                resetComprehensiveTestState();
+            });
+
+            reviewUnitSelect.addEventListener('change', function() {
+                currentUnit = this.value;
+            });
+
+            function getQuestionBank() {
+                let data = {};
+                if (currentMode === 'vocab') {
+                    data = gradeData;
+                } else if (currentMode === 'translation') {
+                    data = translationData;
+                } else if (currentMode === 'grammar') {
+                    data = grammarData;
+                } else if (currentMode === 'theory') {
+                    data = theoryData;
+                } else if (currentMode === 'sgk') {
+                    data = sgkData;
+                }
+
+                if (!currentGrade || !data[currentGrade] || !data[currentGrade].units[currentUnit]) {
+                    return [];
+                }
+                return data[currentGrade].units[currentUnit];
+            }
+
+            function showVocabularyList() {
+                if (!currentUnit && reviewUnitSelect.value) {
+                    currentUnit = reviewUnitSelect.value;
+                }
+                const questionBank = getQuestionBank();
+                
+                if (questionBank.length === 0) {
+                    showToast("Chưa có dữ liệu cho unit này!", "warning");
                     return;
                 }
-
-                timeLeft -= 0.1;
-                timerBar.style.width = `${(timeLeft / maxTime) * 100}%`;
                 
-                if (timeLeft <= 3) {
-                    timerBar.style.backgroundColor = '#FF6347';
-                }
+                reviewMenu.classList.add('hidden');
+                vocabularyList.classList.remove('hidden');
+                vocabularyUnitTitle.textContent = currentUnit;
                 
-                if (timeLeft <= 0) {
-                    clearInterval(timer);
-                    const endTime = Date.now();
-                    questionTimes.push(maxTime);
-                    totalTime += maxTime;
-                    handleAnswer(false, selectedQuestions[currentQuestionIndex].id, selectedQuestions[currentQuestionIndex].word, "Không chọn");
-                }
-            }, 100);
-        }
-
-        function selectOption(selectedOption, correctAnswer, questionId, questionWord) {
-            if (isCheatingDetected) return;
-
-            const endTime = Date.now();
-            clearInterval(timer);
-            const isCorrect = selectedOption === correctAnswer;
-            
-            let timeTaken = 0;
-            if (currentMode === 'grammar' || currentMode === 'translation' || currentMode === 'theory' || currentMode === 'sgk') {
-                 timeTaken = 20 - timeLeft;
-            } else {
-                 timeTaken = 8 - timeLeft;
-            }
-            
-            questionTimes.push(timeTaken);
-            totalTime += timeTaken;
-            
-            selectedOptions[currentQuestionIndex] = selectedOption;
-            
-            const options = document.querySelectorAll('.option');
-            options.forEach(option => {
-                if (option.textContent.includes(correctAnswer)) {
-                    option.classList.add('correct');
-                }
-                if (option.textContent.includes(selectedOption) && !isCorrect) {
-                    option.classList.add('incorrect');
-                }
-                option.style.pointerEvents = 'none';
-            });
-            
-            setTimeout(() => {
-                handleAnswer(isCorrect, questionId, questionWord, selectedOption);
-            }, 100);
-        }
-
-        function handleAnswer(isCorrect, questionId, questionWord, selectedOption) {
-            if (isCheatingDetected) return;
-
-            const currentQuestion = selectedQuestions[currentQuestionIndex];
-            
-            if (isCorrect) {
-                score++;
-                streak++;
-                if (streak > maxStreak) {
-                    maxStreak = streak;
-                }
-            } else {
-                streak = 0;
-                wrongQuestions.push(questionId);
-            }
-            
-            answerHistory.push({
-                id: questionId,
-                word: questionWord,
-                selected: selectedOption,
-                correct: currentQuestion.correct,
-                unit: currentUnit,
-                unitAddress: currentQuestion.unitAddress || ''
-            });
-            
-            currentQuestionIndex++;
-            
-            transitionTimeout = setTimeout(() => {
-                showQuestion();
-            }, 400);
-        }
-
-        function endGame() {
-            cleanupAll();
-            
-            quizScreen.classList.add('hidden');
-            resultScreen.classList.remove('hidden');
-            
-            endTime = new Date();
-            
-            const totalQuestions = selectedQuestions.length; 
-            
-            const percentage = Math.round((score / totalQuestions) * 100);
-
-            const resultName = document.getElementById('result-name');
-            
-            resultName.textContent = username.trim() ? username.trim() : "Học sinh";
-
-            const resultHeader = document.getElementById('result-grade-header');
-            const resultScreenEl = document.getElementById('result-screen');
-
-            if (isCheatingDetected) {
-                cheatingAlertBox.style.display = 'block';
-            } else {
-                cheatingAlertBox.style.display = 'none';
-            }
-
-            // Điều chỉnh màu sắc theo mode
-            if (currentMode === 'grammar') {
-                resultName.style.color = 'var(--grammar-blue)'; 
-                resultHeader.style.color = 'var(--grammar-blue)';
-            } else if (currentMode === 'translation') {
-                resultName.style.color = 'var(--translation-color)'; 
-                resultHeader.style.color = 'var(--translation-color)';
-            } else if (currentMode === 'theory') {
-                resultName.style.color = 'var(--theory-color)'; 
-                resultHeader.style.color = 'var(--theory-color)';
-            } else if (currentMode === 'sgk') {
-                resultName.style.color = 'var(--sgk-color)'; 
-                resultHeader.style.color = 'var(--sgk-color)';
-            } else {
-                resultName.style.color = 'var(--vocab-dark-green)'; 
-                resultHeader.style.color = 'var(--vocab-dark-green)';
-            }
-
-            document.getElementById('result-date-summary').textContent = startTime.toLocaleDateString('vi-VN');
-
-            document.getElementById('result-score-correct').textContent = score;
-            document.getElementById('result-score-total').textContent = totalQuestions;
-            document.getElementById('score-percentage-text').textContent = `${percentage}%`;
-
-            const circlePath = document.getElementById('score-circle-path');
-            circlePath.style.strokeDasharray = `${percentage}, 100`;
-            
-            let scoreColor = '#f5222d'; 
-            if (percentage >= 50 && percentage <= 69) { scoreColor = '#faad14'; } 
-            else if (percentage >= 70 && percentage <= 79) { scoreColor = '#52c41a'; } 
-            else if (percentage >= 80 && percentage <= 89) { scoreColor = '#13c2c2'; } 
-            else if (percentage >= 90 && percentage <= 99) { scoreColor = '#1890ff'; } 
-            else if (percentage === 100) { scoreColor = '#722ed1'; }
-            
-            if (isCheatingDetected) scoreColor = '#f44336';
-            
-            circlePath.style.stroke = scoreColor;
-            
-            const percentageText = document.getElementById('score-percentage-text');
-            percentageText.style.fill = scoreColor;
-
-            const startOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-            const startDateOptions = { day: '2-digit', month: '2-digit' };
-            
-            document.getElementById('result-start-time').textContent = startTime.toLocaleTimeString('vi-VN', startOptions);
-            document.getElementById('result-start-date').textContent = startTime.toLocaleDateString('vi-VN', startDateOptions);
-
-            const endOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-            const endDateOptions = { day: '2-digit', month: '2-digit' };
-            
-            document.getElementById('result-end-time').textContent = endTime.toLocaleTimeString('vi-VN', endOptions);
-            document.getElementById('result-end-date').textContent = endTime.toLocaleDateString('vi-VN', endDateOptions);
-
-            document.getElementById('result-max-streak').textContent = maxStreak;
-            document.getElementById('result-total-time').textContent = `${totalTime.toFixed(1)}s`;
-
-            let modeText = "TỪ VỰNG";
-            if (currentMode === 'grammar') {
-                modeText = "NGỮ PHÁP";
-            } else if (currentMode === 'translation') {
-                modeText = "DỊCH CÂU";
-            } else if (currentMode === 'theory') {
-                modeText = "LÍ THUYẾT";
-            } else if (currentMode === 'sgk') {
-                modeText = "ÔN SGK";
-            }
-            document.getElementById('result-grade-header').textContent = `ÔN TẬP LỚP ${currentGrade.replace('E','')} – ${modeText}`;
-
-            wrongQuestionsElement.innerHTML = '';
-            if (wrongQuestions.length === 0) {
-                wrongQuestionsElement.innerHTML = '<li style="color:#4CAF50;font-weight:bold;">Không có câu sai nào! Xuất sắc!</li>';
-            } else {
-                const wrongQuestionsInOrder = answerHistory
-                    .filter(item => item.selected !== item.correct)
-                    .map(item => item.unitAddress || `${item.unit} - Câu ${item.id}`);
+                vocabularyTableBody.innerHTML = '';
+                
+                questionBank.forEach((question, index) => {
+                    const row = document.createElement('tr');
                     
-                wrongQuestionsInOrder.forEach(item => {
-                    const li = document.createElement('li');
-                    li.textContent = item;
-                    wrongQuestionsElement.appendChild(li);
-                });
-            }
-            
-            answerHistoryBody.innerHTML = '';
-            answerHistory.forEach((item, index) => {
-                const row = document.createElement('tr');
-                
-                const idCell = document.createElement('td');
-                idCell.textContent = index + 1;
-                row.appendChild(idCell);
-                
-                const wordCell = document.createElement('td');
-                const wordContainer = document.createElement('div');
-                wordContainer.className = 'vocabulary-word';
-                
-                const wordSpan = document.createElement('span');
-                if (item.unitAddress) {
-                    wordSpan.textContent = `[${item.unitAddress}] ${item.word}`;
-                } else {
-                    wordSpan.textContent = item.word;
-                }
-                
-                if (currentMode === 'vocab' || currentMode === 'translation') {
+                    const idCell = document.createElement('td');
+                    idCell.textContent = index + 1;
+                    row.appendChild(idCell);
+                    
+                    const wordCell = document.createElement('td');
+                    const wordContainer = document.createElement('div');
+                    wordContainer.className = 'vocabulary-word';
+                    
+                    const wordSpan = document.createElement('span');
+                    wordSpan.textContent = question.word;
+                    
                     const speakerBtn = document.createElement('button');
                     speakerBtn.className = 'speaker-btn'; 
                     speakerBtn.title = 'Nghe phát âm';
                     speakerBtn.innerHTML = `<svg class="speaker-icon" viewBox="0 0 24 24"><path d="M3,9v6h4l5,5V4L7,9H3z M16.5,12c0-1.77-1.02-3.29-2.5-4.03v8.05C15.48,15.29,16.5,13.77,16.5,12z M14,3.23v2.06c2.89,.86,5,3.54,5,6.71s-2.11,5.85-5,6.71v2.06c4.01-.91,7-4.49,7-8.77S18.01,4.14,14,3.23z"/></svg>`;
-                    speakerBtn.addEventListener('click', () => speak(item.word));
+                    speakerBtn.addEventListener('click', () => speak(question.word));
+                    
                     wordContainer.appendChild(wordSpan);
                     wordContainer.appendChild(speakerBtn);
-                } else {
-                    wordContainer.appendChild(wordSpan);
+                    wordCell.appendChild(wordContainer);
+                    row.appendChild(wordCell);
+                    
+                    const meaningCell = document.createElement('td');
+                    meaningCell.textContent = question.correct;
+                    row.appendChild(meaningCell);
+                    
+                    vocabularyTableBody.appendChild(row);
+                });
+            }
+
+            function startAutoReview() {
+                if (!currentUnit && reviewUnitSelect.value) {
+                    currentUnit = reviewUnitSelect.value;
+                }
+                autoReviewQuestions = getQuestionBank();
+                
+                if (autoReviewQuestions.length === 0) {
+                    showToast("Chưa có dữ liệu cho unit này!", "warning");
+                    return;
                 }
                 
-                wordCell.appendChild(wordContainer);
-                row.appendChild(wordCell);
+                reviewMenu.classList.add('hidden');
+                autoReviewScreen.classList.remove('hidden');
+                autoReviewUnitTitle.textContent = currentUnit;
                 
-                const selectedCell = document.createElement('td');
-                selectedCell.textContent = item.selected;
-                if (item.selected !== item.correct) {
-                    selectedCell.style.color = '#f44336';
-                    selectedCell.style.fontWeight = 'bold';
+                autoReviewIndex = 0;
+                autoReviewEndButtons.classList.add('hidden');
+                showAutoReviewQuestion();
+            }
+
+            function showAutoReviewQuestion() {
+                if (autoReviewIndex >= autoReviewQuestions.length) {
+                    endAutoReview();
+                    return;
                 }
-                row.appendChild(selectedCell);
                 
-                const correctCell = document.createElement('td');
-                correctCell.textContent = item.correct;
-                correctCell.style.fontWeight = 'bold';
-                row.appendChild(correctCell);
+                const question = autoReviewQuestions[autoReviewIndex];
+                autoReviewWord.textContent = question.word;
+                autoReviewMeaning.textContent = question.correct;
                 
-                answerHistoryBody.appendChild(row);
-            });
-        }
-
-        function restartGame() {
-            cleanupAll();
-            isCheatingDetected = false;
-            
-            let pool = [];
-            if (isComprehensiveTest && comprehensivePool.length > 0) {
-                pool = comprehensivePool;
-            } else {
-                pool = getQuestionBank();
+                autoReviewWord.classList.remove('black');
+                
+                clearTimeout(autoReviewSpeakTimer1);
+                clearTimeout(autoReviewSpeakTimer2);
+                
+                autoReviewSpeakTimer1 = setTimeout(() => {
+                    speak(question.word);
+                }, 400);
+                
+                autoReviewSpeakTimer2 = setTimeout(() => {
+                    speak(question.word);
+                }, 2400);
+                
+                setTimeout(() => {
+                    autoReviewWord.classList.add('black');
+                }, 2500);
+                
+                autoReviewTimer = setTimeout(() => {
+                    autoReviewIndex++;
+                    showAutoReviewQuestion();
+                }, 4000);
             }
-            selectedQuestions = getRandomQuestions(pool, selectedQuestions.length);
-            
-            currentQuestionIndex = 0;
-            score = 0;
-            streak = 0;
-            totalTime = 0;
-            questionTimes = [];
-            wrongQuestions = [];
-            answerHistory = [];
-            selectedOptions = Array(selectedQuestions.length).fill(null);
-            
-            startTime = new Date();
-            resultScreen.classList.add('hidden');
-            quizScreen.classList.remove('hidden');
-            
-            if (currentMode === 'grammar') {
-                speakerBtn.classList.add('hidden-speaker');
-                questionTextLabel.textContent = "Chọn đáp án đúng cho câu sau:";
-            } else if (currentMode === 'translation') {
-                speakerBtn.classList.remove('hidden-speaker');
-                questionTextLabel.textContent = "Chọn nghĩa đúng cho câu sau:";
-            } else if (currentMode === 'theory') {
-                speakerBtn.classList.add('hidden-speaker');
-                questionTextLabel.textContent = "Chọn đáp án đúng cho câu hỏi lí thuyết:";
-            } else if (currentMode === 'sgk') {
-                speakerBtn.classList.add('hidden-speaker');
-                questionTextLabel.textContent = "Chọn đáp án đúng cho câu hỏi SGK:";
-            } else {
-                speakerBtn.classList.remove('hidden-speaker');
-                questionTextLabel.textContent = "Chọn nghĩa đúng cho từ sau:";
-            }
-            
-            showQuestion();
-        }
 
-        function newGame() {
-            cleanupAll();
-            isCheatingDetected = false;
-            cheatingAlertBox.style.display = 'none';
-            resetComprehensiveTestState();
-            resultScreen.classList.add('hidden');
-            loginScreen.classList.remove('hidden');
-            
-            unitSelect.value = "";
-            updateQuestionCountOptions();
-            
-            if (currentMode === 'vocab') {
-                loginUnitTitle.textContent = "Chọn đề bài trắc nghiệm từ vựng";
-            } else if (currentMode === 'translation') {
-                loginUnitTitle.textContent = "Chọn bài tập dịch câu";
-            } else if (currentMode === 'grammar') {
-                loginUnitTitle.textContent = "Chọn đề bài tập ngữ pháp";
-            } else if (currentMode === 'theory') {
-                loginUnitTitle.textContent = "Chọn bài tập lí thuyết";
-            } else if (currentMode === 'sgk') {
-                loginUnitTitle.textContent = "Chọn bài ôn tập SGK";
+            function endAutoReview() {
+                clearTimeout(autoReviewTimer);
+                clearTimeout(autoReviewSpeakTimer1);
+                clearTimeout(autoReviewSpeakTimer2);
+                autoReviewEndButtons.classList.remove('hidden');
+                
+                autoReviewWord.textContent = "Hoàn thành!";
+                autoReviewMeaning.textContent = `Đã ôn ${autoReviewQuestions.length} từ vựng`;
             }
-        }
 
-        function speak(text) {
-            if ('speechSynthesis' in window) {
+            function restartAutoReview() {
+                clearTimeout(autoReviewTimer);
+                clearTimeout(autoReviewSpeakTimer1);
+                clearTimeout(autoReviewSpeakTimer2);
+                autoReviewEndButtons.classList.remove('hidden');
+                
                 speechSynthesis.cancel();
                 
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'en-US';
-                utterance.rate = 0.9;
-                utterance.pitch = 1;
-                
-                utterance.onerror = function(event) {
-                    console.error('Speech synthesis error:', event.error);
-                };
-                
-                speechSynthesis.speak(utterance);
-            } else {
-                console.warn('Speech synthesis not supported in this browser');
+                autoReviewIndex = 0;
+                autoReviewEndButtons.classList.add('hidden');
+                showAutoReviewQuestion();
             }
-        }
 
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
+            function backToFirstScreen() {
+                cleanupAll();
+                isCheatingDetected = false;          
+                cheatingAlertBox.style.display = 'none';
+                autoReviewEndButtons.classList.add('hidden');
+                
+                loginScreen.classList.add('hidden');
+                reviewMenu.classList.add('hidden');
+                vocabularyList.classList.add('hidden');
+                autoReviewScreen.classList.add('hidden');
+                quizScreen.classList.add('hidden');
+                resultScreen.classList.add('hidden');
+                
+                mainMenu.classList.remove('hidden');
+                unitTitleElement.textContent = "Chọn chế độ";
+                resetComprehensiveTestState();
             }
-            return array;
-        }
-        
-        function resetComprehensiveTestState() {
-            isComprehensiveTest = false;
-            comprehensivePool = [];
-            questionCountSelect.disabled = false;
-        }
-        
-        updateQuestionCountOptions();
+
+            function backToGradeSelection() {
+                cleanupAll();
+                isCheatingDetected = false;          
+                cheatingAlertBox.style.display = 'none';
+                currentGrade = '';
+                currentUnit = '';
+                comprehensivePool = [];
+                isComprehensiveTest = false;
+                
+                mainMenu.classList.add('hidden');
+                reviewMenu.classList.add('hidden');
+                vocabularyList.classList.add('hidden');
+                autoReviewScreen.classList.add('hidden');
+                loginScreen.classList.add('hidden');
+                quizScreen.classList.add('hidden');
+                resultScreen.classList.add('hidden');
+                
+                gradeSelection.classList.remove('hidden');
+            }
+
+            function backToReviewMenu() {
+                cleanupAll();
+                isCheatingDetected = false;          
+                cheatingAlertBox.style.display = 'none';
+                autoReviewEndButtons.classList.add('hidden');
+                
+                vocabularyList.classList.add('hidden');
+                autoReviewScreen.classList.add('hidden');
+                reviewMenu.classList.remove('hidden');
+            }
+
+            function updateQuestionCountOptions() {
+                const questionBank = getQuestionBank();
+                const maxQuestions = questionBank.length;
+                
+                questionCountSelect.innerHTML = '';
+                
+                const defaultOption = document.createElement('option');
+                defaultOption.value = "";
+                defaultOption.textContent = "HÃY CHỌN SỐ CÂU HỎI";
+                defaultOption.disabled = true;
+                defaultOption.selected = true;
+                questionCountSelect.appendChild(defaultOption);
+                
+                if (maxQuestions === 0) {
+                    return;
+                }
+
+                const options = [
+                    { value: 10, text: "10 câu" },
+                    { value: 20, text: "20 câu" },
+                    { value: 30, text: "30 câu" },
+                    { value: 40, text: "40 câu" },
+                    { value: 50, text: "50 câu" },
+                    { value: maxQuestions, text: `${maxQuestions} câu (tất cả)` }
+                ];
+                
+                const validOptions = options.filter(option => option.value <= maxQuestions);
+                
+                validOptions.forEach(option => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = option.value;
+                    optionElement.textContent = option.text;
+                    questionCountSelect.appendChild(optionElement);
+                });
+            }
+
+            function startComprehensiveTest() {
+                startRangeTest(1, maxUnits, "KIỂM TRA TỔNG HỢP");
+            }
+
+            function startRangeTest(startUnitNum, endUnitNum, title) {
+                username = usernameInput.value.trim();
+                if (!username) {
+                    showToast("Vui lòng nhập tên của bạn!", "error");
+                    return;
+                }
+                
+                let dataSource;
+                if (currentMode === 'vocab') {
+                    dataSource = gradeData;
+                } else if (currentMode === 'translation') {
+                    dataSource = translationData;
+                } else if (currentMode === 'grammar') {
+                    dataSource = grammarData;
+                } else if (currentMode === 'theory') {
+                    dataSource = theoryData;
+                } else if (currentMode === 'sgk') {
+                    dataSource = sgkData;
+                }
+                
+                comprehensivePool = [];
+                const gradeUnits = dataSource[currentGrade].units;
+                
+                for (const unitName in gradeUnits) {
+                    const unitNum = parseInt(unitName.split(' ')[1]);
+                    
+                    if (unitNum >= startUnitNum && unitNum <= endUnitNum) {
+                        const unitQuestions = gradeUnits[unitName];
+                        unitQuestions.forEach(q => {
+                            const questionCopy = Object.assign({}, q);
+                            questionCopy.unitAddress = `${unitName} - Câu ${q.id}`;
+                            comprehensivePool.push(questionCopy);
+                        });
+                    }
+                }
+                
+                if (comprehensivePool.length === 0) {
+                    showToast("Chưa có dữ liệu cho khoảng Unit này!", "error");
+                    return;
+                }
+                
+                isComprehensiveTest = true;
+                questionCount = Math.min(40, comprehensivePool.length);
+                
+                currentTestTitle = title;
+                
+                questionCountSelect.disabled = true;
+                questionCountSelect.value = questionCount;
+                
+                loadingContainer.classList.remove('hidden');
+                startBtn.disabled = true;
+                comprehensiveTestBtn.disabled = true;
+                document.querySelectorAll('.range-tests-container button').forEach(b => b.disabled = true);
+                
+                let progress = 0;
+                const loadingInterval = setInterval(() => {
+                    progress += 5;
+                    loadingBar.style.width = `${progress}%`;
+                    
+                    if (progress >= 100) {
+                        clearInterval(loadingInterval);
+                        loadingContainer.classList.add('hidden');
+                        startBtn.disabled = false;
+                        comprehensiveTestBtn.disabled = false;
+                        document.querySelectorAll('.range-tests-container button').forEach(b => b.disabled = false);
+                        startQuizWithPool(comprehensivePool, questionCount, currentTestTitle);
+                    }
+                }, 50);
+            }
+
+            function startQuizWithPool(pool, count, title) {
+                cleanupAll();
+                startTime = new Date();
+                
+                selectedQuestions = getRandomQuestions(pool, count);
+                
+                currentQuestionIndex = 0;
+                score = 0;
+                streak = 0;
+                maxStreak = 0;
+                totalTime = 0;
+                questionTimes = [];
+                wrongQuestions = [];
+                answerHistory = [];
+                selectedOptions = Array(selectedQuestions.length).fill(null);
+                
+                quizUnitTitle.textContent = title;
+                resultUnitTitleElement.textContent = title;
+                
+                loginScreen.classList.add('hidden');
+                quizScreen.classList.remove('hidden');
+                resultScreen.classList.add('hidden');
+                
+                if (currentMode === 'grammar') {
+                    speakerBtn.classList.add('hidden-speaker');
+                    questionTextLabel.textContent = "Chọn đáp án đúng cho câu sau:";
+                } else if (currentMode === 'translation') {
+                    speakerBtn.classList.remove('hidden-speaker');
+                    questionTextLabel.textContent = "Chọn nghĩa đúng cho câu sau:";
+                } else if (currentMode === 'theory') {
+                    speakerBtn.classList.add('hidden-speaker');
+                    questionTextLabel.textContent = "Chọn đáp án đúng cho câu hỏi lí thuyết:";
+                } else if (currentMode === 'sgk') {
+                    speakerBtn.classList.add('hidden-speaker');
+                    questionTextLabel.textContent = "Chọn đáp án đúng cho câu hỏi SGK:";
+                } else {
+                    speakerBtn.classList.remove('hidden-speaker');
+                    questionTextLabel.textContent = "Chọn nghĩa đúng cho từ sau:";
+                }
+                
+                showQuestion();
+            }
+
+            function startGame() {
+                username = usernameInput.value.trim();
+                if (!username) {
+                    showToast("Vui lòng nhập tên của bạn!", "error");
+                    return;
+                }
+                
+                if (!currentUnit) {
+                    showToast("Vui lòng chọn đề bài!", "error");
+                    unitSelect.focus();
+                    return;
+                }
+                
+                const qCountVal = questionCountSelect.value;
+                if (!qCountVal) {
+                    showToast("Vui lòng chọn số câu hỏi!", "error");
+                    questionCountSelect.focus();
+                    return;
+                }
+                
+                currentTestTitle = currentUnit;
+                
+                questionCount = parseInt(qCountVal);
+                
+                const questionBank = getQuestionBank();
+                
+                if (questionCount < 1 || questionCount > questionBank.length) {
+                    showToast(`Vui lòng chọn số câu hỏi từ 1 đến ${questionBank.length}`, "error");
+                    return;
+                }
+                
+                loadingContainer.classList.remove('hidden');
+                startBtn.disabled = true;
+                comprehensiveTestBtn.disabled = true;
+                
+                let progress = 0;
+                const loadingInterval = setInterval(() => {
+                    progress += 5;
+                    loadingBar.style.width = `${progress}%`;
+                    
+                    if (progress >= 100) {
+                        clearInterval(loadingInterval);
+                        loadingContainer.classList.add('hidden');
+                        startBtn.disabled = false;
+                        comprehensiveTestBtn.disabled = false;
+                        startQuizWithPool(questionBank, questionCount, currentUnit);
+                    }
+                }, 50);
+            }
+
+            function getRandomQuestions(questionBank, n) {
+                const shuffled = questionBank.slice();
+                shuffleArray(shuffled);
+                return shuffled.slice(0, n);
+            }
+
+            function showQuestion() {
+                if (isCheatingDetected) return;
+
+                if (currentQuestionIndex >= selectedQuestions.length) {
+                    endGame();
+                    return;
+                }
+                
+                const question = selectedQuestions[currentQuestionIndex];
+                currentWord = question.word;
+                wordElement.textContent = question.word;
+                
+                questionCounterElement.textContent = `Câu ${currentQuestionIndex + 1}/${selectedQuestions.length}`;
+                streakElement.textContent = `Chuỗi đúng: ${streak}`;
+                
+                optionsElement.innerHTML = '';
+                
+                const options = [
+                    question.correct,
+                    question.wrong1,
+                    question.wrong2,
+                    question.wrong3
+                ];
+                
+                shuffleArray(options);
+                
+                options.forEach((option, index) => {
+                    const optionButton = document.createElement('div');
+                    optionButton.classList.add('option');
+                    optionButton.textContent = `${String.fromCharCode(65 + index)}. ${option}`;
+                    optionButton.addEventListener('click', () => selectOption(option, question.correct, question.id, question.word));
+                    optionsElement.appendChild(optionButton);
+                });
+                
+                startTimer();
+                
+                if (currentMode === 'vocab') {
+                    setTimeout(() => {
+                        speak(question.word);
+                    }, 500);
+                }
+            }
+
+            function startTimer() {
+                const startTime = Date.now();
+                
+                let maxTime = 8; 
+                if (currentMode === 'grammar' || currentMode === 'translation' || currentMode === 'theory' || currentMode === 'sgk') {
+                    maxTime = 20; // các chế độ này có thời gian dài hơn
+                }
+                
+                timeLeft = maxTime; 
+                timerBar.style.width = '100%';
+                timerBar.style.backgroundColor = '#FFD700';
+                
+                if (timer) {
+                    clearInterval(timer);
+                }
+                
+                timer = setInterval(() => {
+                    if (isCheatingDetected) {
+                        clearInterval(timer);
+                        return;
+                    }
+
+                    timeLeft -= 0.1;
+                    timerBar.style.width = `${(timeLeft / maxTime) * 100}%`;
+                    
+                    if (timeLeft <= 3) {
+                        timerBar.style.backgroundColor = '#FF6347';
+                    }
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(timer);
+                        const endTime = Date.now();
+                        questionTimes.push(maxTime);
+                        totalTime += maxTime;
+                        handleAnswer(false, selectedQuestions[currentQuestionIndex].id, selectedQuestions[currentQuestionIndex].word, "Không chọn");
+                    }
+                }, 100);
+            }
+
+            function selectOption(selectedOption, correctAnswer, questionId, questionWord) {
+                if (isCheatingDetected) return;
+
+                const endTime = Date.now();
+                clearInterval(timer);
+                const isCorrect = selectedOption === correctAnswer;
+                
+                let timeTaken = 0;
+                if (currentMode === 'grammar' || currentMode === 'translation' || currentMode === 'theory' || currentMode === 'sgk') {
+                     timeTaken = 20 - timeLeft;
+                } else {
+                     timeTaken = 8 - timeLeft;
+                }
+                
+                questionTimes.push(timeTaken);
+                totalTime += timeTaken;
+                
+                selectedOptions[currentQuestionIndex] = selectedOption;
+                
+                const options = document.querySelectorAll('.option');
+                options.forEach(option => {
+                    if (option.textContent.includes(correctAnswer)) {
+                        option.classList.add('correct');
+                    }
+                    if (option.textContent.includes(selectedOption) && !isCorrect) {
+                        option.classList.add('incorrect');
+                    }
+                    option.style.pointerEvents = 'none';
+                });
+                
+                setTimeout(() => {
+                    handleAnswer(isCorrect, questionId, questionWord, selectedOption);
+                }, 100);
+            }
+
+            function handleAnswer(isCorrect, questionId, questionWord, selectedOption) {
+                if (isCheatingDetected) return;
+
+                const currentQuestion = selectedQuestions[currentQuestionIndex];
+                
+                if (isCorrect) {
+                    score++;
+                    streak++;
+                    if (streak > maxStreak) {
+                        maxStreak = streak;
+                    }
+                } else {
+                    streak = 0;
+                    wrongQuestions.push(questionId);
+                }
+                
+                answerHistory.push({
+                    id: questionId,
+                    word: questionWord,
+                    selected: selectedOption,
+                    correct: currentQuestion.correct,
+                    unit: currentUnit,
+                    unitAddress: currentQuestion.unitAddress || ''
+                });
+                
+                currentQuestionIndex++;
+                
+                transitionTimeout = setTimeout(() => {
+                    showQuestion();
+                }, 400);
+            }
+
+            function endGame() {
+                cleanupAll();
+                
+                quizScreen.classList.add('hidden');
+                resultScreen.classList.remove('hidden');
+                
+                endTime = new Date();
+                
+                const totalQuestions = selectedQuestions.length; 
+                
+                const percentage = Math.round((score / totalQuestions) * 100);
+
+                const resultName = document.getElementById('result-name');
+                
+                resultName.textContent = username.trim() ? username.trim() : "Học sinh";
+
+                const resultHeader = document.getElementById('result-grade-header');
+                const resultScreenEl = document.getElementById('result-screen');
+
+                if (isCheatingDetected) {
+                    cheatingAlertBox.style.display = 'block';
+                } else {
+                    cheatingAlertBox.style.display = 'none';
+                }
+
+                // Điều chỉnh màu sắc theo mode
+                if (currentMode === 'grammar') {
+                    resultName.style.color = 'var(--grammar-blue)'; 
+                    resultHeader.style.color = 'var(--grammar-blue)';
+                } else if (currentMode === 'translation') {
+                    resultName.style.color = 'var(--translation-color)'; 
+                    resultHeader.style.color = 'var(--translation-color)';
+                } else if (currentMode === 'theory') {
+                    resultName.style.color = 'var(--theory-color)'; 
+                    resultHeader.style.color = 'var(--theory-color)';
+                } else if (currentMode === 'sgk') {
+                    resultName.style.color = 'var(--sgk-color)'; 
+                    resultHeader.style.color = 'var(--sgk-color)';
+                } else {
+                    resultName.style.color = 'var(--vocab-dark-green)'; 
+                    resultHeader.style.color = 'var(--vocab-dark-green)';
+                }
+
+                document.getElementById('result-date-summary').textContent = startTime.toLocaleDateString('vi-VN');
+
+                document.getElementById('result-score-correct').textContent = score;
+                document.getElementById('result-score-total').textContent = totalQuestions;
+                document.getElementById('score-percentage-text').textContent = `${percentage}%`;
+
+                const circlePath = document.getElementById('score-circle-path');
+                circlePath.style.strokeDasharray = `${percentage}, 100`;
+                
+                let scoreColor = '#f5222d'; 
+                if (percentage >= 50 && percentage <= 69) { scoreColor = '#faad14'; } 
+                else if (percentage >= 70 && percentage <= 79) { scoreColor = '#52c41a'; } 
+                else if (percentage >= 80 && percentage <= 89) { scoreColor = '#13c2c2'; } 
+                else if (percentage >= 90 && percentage <= 99) { scoreColor = '#1890ff'; } 
+                else if (percentage === 100) { scoreColor = '#722ed1'; }
+                
+                if (isCheatingDetected) scoreColor = '#f44336';
+                
+                circlePath.style.stroke = scoreColor;
+                
+                const percentageText = document.getElementById('score-percentage-text');
+                percentageText.style.fill = scoreColor;
+
+                const startOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+                const startDateOptions = { day: '2-digit', month: '2-digit' };
+                
+                document.getElementById('result-start-time').textContent = startTime.toLocaleTimeString('vi-VN', startOptions);
+                document.getElementById('result-start-date').textContent = startTime.toLocaleDateString('vi-VN', startDateOptions);
+
+                const endOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+                const endDateOptions = { day: '2-digit', month: '2-digit' };
+                
+                document.getElementById('result-end-time').textContent = endTime.toLocaleTimeString('vi-VN', endOptions);
+                document.getElementById('result-end-date').textContent = endTime.toLocaleDateString('vi-VN', endDateOptions);
+
+                document.getElementById('result-max-streak').textContent = maxStreak;
+                document.getElementById('result-total-time').textContent = `${totalTime.toFixed(1)}s`;
+
+                let modeText = "TỪ VỰNG";
+                if (currentMode === 'grammar') {
+                    modeText = "NGỮ PHÁP";
+                } else if (currentMode === 'translation') {
+                    modeText = "DỊCH CÂU";
+                } else if (currentMode === 'theory') {
+                    modeText = "LÍ THUYẾT";
+                } else if (currentMode === 'sgk') {
+                    modeText = "ÔN SGK";
+                }
+                document.getElementById('result-grade-header').textContent = `ÔN TẬP LỚP ${currentGrade.replace('E','')} – ${modeText}`;
+
+                wrongQuestionsElement.innerHTML = '';
+                if (wrongQuestions.length === 0) {
+                    wrongQuestionsElement.innerHTML = '<li style="color:#4CAF50;font-weight:bold;">Không có câu sai nào! Xuất sắc!</li>';
+                } else {
+                    const wrongQuestionsInOrder = answerHistory
+                        .filter(item => item.selected !== item.correct)
+                        .map(item => item.unitAddress || `${item.unit} - Câu ${item.id}`);
+                        
+                    wrongQuestionsInOrder.forEach(item => {
+                        const li = document.createElement('li');
+                        li.textContent = item;
+                        wrongQuestionsElement.appendChild(li);
+                    });
+                }
+                
+                answerHistoryBody.innerHTML = '';
+                answerHistory.forEach((item, index) => {
+                    const row = document.createElement('tr');
+                    
+                    const idCell = document.createElement('td');
+                    idCell.textContent = index + 1;
+                    row.appendChild(idCell);
+                    
+                    const wordCell = document.createElement('td');
+                    const wordContainer = document.createElement('div');
+                    wordContainer.className = 'vocabulary-word';
+                    
+                    const wordSpan = document.createElement('span');
+                    if (item.unitAddress) {
+                        wordSpan.textContent = `[${item.unitAddress}] ${item.word}`;
+                    } else {
+                        wordSpan.textContent = item.word;
+                    }
+                    
+                    if (currentMode === 'vocab' || currentMode === 'translation') {
+                        const speakerBtn = document.createElement('button');
+                        speakerBtn.className = 'speaker-btn'; 
+                        speakerBtn.title = 'Nghe phát âm';
+                        speakerBtn.innerHTML = `<svg class="speaker-icon" viewBox="0 0 24 24"><path d="M3,9v6h4l5,5V4L7,9H3z M16.5,12c0-1.77-1.02-3.29-2.5-4.03v8.05C15.48,15.29,16.5,13.77,16.5,12z M14,3.23v2.06c2.89,.86,5,3.54,5,6.71s-2.11,5.85-5,6.71v2.06c4.01-.91,7-4.49,7-8.77S18.01,4.14,14,3.23z"/></svg>`;
+                        speakerBtn.addEventListener('click', () => speak(item.word));
+                        wordContainer.appendChild(wordSpan);
+                        wordContainer.appendChild(speakerBtn);
+                    } else {
+                        wordContainer.appendChild(wordSpan);
+                    }
+                    
+                    wordCell.appendChild(wordContainer);
+                    row.appendChild(wordCell);
+                    
+                    const selectedCell = document.createElement('td');
+                    selectedCell.textContent = item.selected;
+                    if (item.selected !== item.correct) {
+                        selectedCell.style.color = '#f44336';
+                        selectedCell.style.fontWeight = 'bold';
+                    }
+                    row.appendChild(selectedCell);
+                    
+                    const correctCell = document.createElement('td');
+                    correctCell.textContent = item.correct;
+                    correctCell.style.fontWeight = 'bold';
+                    row.appendChild(correctCell);
+                    
+                    answerHistoryBody.appendChild(row);
+                });
+            }
+
+            function restartGame() {
+                cleanupAll();
+                isCheatingDetected = false;
+                
+                let pool = [];
+                if (isComprehensiveTest && comprehensivePool.length > 0) {
+                    pool = comprehensivePool;
+                } else {
+                    pool = getQuestionBank();
+                }
+                selectedQuestions = getRandomQuestions(pool, selectedQuestions.length);
+                
+                currentQuestionIndex = 0;
+                score = 0;
+                streak = 0;
+                totalTime = 0;
+                questionTimes = [];
+                wrongQuestions = [];
+                answerHistory = [];
+                selectedOptions = Array(selectedQuestions.length).fill(null);
+                
+                startTime = new Date();
+                resultScreen.classList.add('hidden');
+                quizScreen.classList.remove('hidden');
+                
+                if (currentMode === 'grammar') {
+                    speakerBtn.classList.add('hidden-speaker');
+                    questionTextLabel.textContent = "Chọn đáp án đúng cho câu sau:";
+                } else if (currentMode === 'translation') {
+                    speakerBtn.classList.remove('hidden-speaker');
+                    questionTextLabel.textContent = "Chọn nghĩa đúng cho câu sau:";
+                } else if (currentMode === 'theory') {
+                    speakerBtn.classList.add('hidden-speaker');
+                    questionTextLabel.textContent = "Chọn đáp án đúng cho câu hỏi lí thuyết:";
+                } else if (currentMode === 'sgk') {
+                    speakerBtn.classList.add('hidden-speaker');
+                    questionTextLabel.textContent = "Chọn đáp án đúng cho câu hỏi SGK:";
+                } else {
+                    speakerBtn.classList.remove('hidden-speaker');
+                    questionTextLabel.textContent = "Chọn nghĩa đúng cho từ sau:";
+                }
+                
+                showQuestion();
+            }
+
+            function newGame() {
+                cleanupAll();
+                isCheatingDetected = false;
+                cheatingAlertBox.style.display = 'none';
+                resetComprehensiveTestState();
+                resultScreen.classList.add('hidden');
+                loginScreen.classList.remove('hidden');
+                
+                unitSelect.value = "";
+                updateQuestionCountOptions();
+                
+                if (currentMode === 'vocab') {
+                    loginUnitTitle.textContent = "Chọn đề bài trắc nghiệm từ vựng";
+                } else if (currentMode === 'translation') {
+                    loginUnitTitle.textContent = "Chọn bài tập dịch câu";
+                } else if (currentMode === 'grammar') {
+                    loginUnitTitle.textContent = "Chọn đề bài tập ngữ pháp";
+                } else if (currentMode === 'theory') {
+                    loginUnitTitle.textContent = "Chọn bài tập lí thuyết";
+                } else if (currentMode === 'sgk') {
+                    loginUnitTitle.textContent = "Chọn bài ôn tập SGK";
+                }
+            }
+
+            function speak(text) {
+                if ('speechSynthesis' in window) {
+                    speechSynthesis.cancel();
+                    
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    utterance.lang = 'en-US';
+                    utterance.rate = 0.9;
+                    utterance.pitch = 1;
+                    
+                    utterance.onerror = function(event) {
+                        console.error('Speech synthesis error:', event.error);
+                    };
+                    
+                    speechSynthesis.speak(utterance);
+                } else {
+                    console.warn('Speech synthesis not supported in this browser');
+                }
+            }
+
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+            
+            function resetComprehensiveTestState() {
+                isComprehensiveTest = false;
+                comprehensivePool = [];
+                questionCountSelect.disabled = false;
+            }
+            
+            // Khởi tạo dropdown (gọi lần đầu)
+            updateQuestionCountOptions();
+        });
     </script>
 </body>
 </html>
