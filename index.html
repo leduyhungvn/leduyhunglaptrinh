@@ -568,6 +568,14 @@
             else if (currentScreen === 'report') renderReport();
         }
 
+        // Hàm cuộn lên đầu trang
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
         // ------- MAIN SCREEN --------
         function renderMain() {
             let html = `
@@ -626,8 +634,10 @@
                 userAnswers = [];
                 audioEnabled = false;
                 render();
+                // Cuộn lên đầu trang khi vào quiz
+                scrollToTop();
             });
-            document.getElementById('scrollTopMain').addEventListener('click', (e)=>{ e.preventDefault(); window.scrollTo({top:0,behavior:'smooth'}); });
+            document.getElementById('scrollTopMain').addEventListener('click', (e)=>{ e.preventDefault(); scrollToTop(); });
         }
 
         function prepareQuizData() {
@@ -808,8 +818,9 @@
             document.getElementById('backToMainBtn').addEventListener('click', ()=>{ 
                 stopAllAudio();
                 currentScreen = 'main'; render();
+                scrollToTop();
             });
-            document.getElementById('scrollTopQuiz').addEventListener('click', (e)=>{ e.preventDefault(); window.scrollTo({top:0,behavior:'smooth'}); });
+            document.getElementById('scrollTopQuiz').addEventListener('click', (e)=>{ e.preventDefault(); scrollToTop(); });
             
             document.getElementById('playSpeaker').addEventListener('click', ()=>{
                 if (!audioEnabled) { startTime = Date.now(); audioEnabled = true; }
@@ -834,6 +845,8 @@
                 stopAllAudio();
                 currentScreen = 'report';
                 render();
+                // CUỘN LÊN ĐẦU TRANG KHI VÀO BÁO CÁO
+                scrollToTop();
             });
         }
 
@@ -917,8 +930,13 @@
                 </div>`;
             app.innerHTML = html;
             
-            document.getElementById('backToMainBtnReport').addEventListener('click',()=>{ stopAllAudio(); currentScreen='main';render(); });
-            document.getElementById('scrollTopReport').addEventListener('click',(e)=>{e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});});
+            document.getElementById('backToMainBtnReport').addEventListener('click',()=>{ 
+                stopAllAudio(); 
+                currentScreen='main'; 
+                render();
+                scrollToTop();
+            });
+            document.getElementById('scrollTopReport').addEventListener('click',(e)=>{ e.preventDefault(); scrollToTop(); });
             document.getElementById('togglePassageBtn').addEventListener('click',(e)=>{
                 let c=document.getElementById('passageContainer'); c.style.display=c.style.display==='none'?'block':'none';
             });
