@@ -316,23 +316,19 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            font-weight: 800;
-            font-size: 2.5rem;
-            color: white;
-            text-shadow: 2px 2px 4px black;
             box-shadow: 0 10px 20px #00000030;
         }
         .pie span {
-            background: white;
-            color: #1e2f4d;
-            width: 120px;  /* tăng 20% so với 100px */
+            width: 120px;
             height: 120px;
             border-radius: 50%;
+            background: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
-            font-size: 2.2rem;
+            font-weight: 800;
+            font-size: 2.5rem;
+            color: #1e2f4d; /* màu mặc định, sẽ được thay đổi theo thuật toán trong code */
         }
         .stats-grid {
             display: grid;
@@ -346,7 +342,7 @@
             font-weight: 600;
             box-shadow: 0 5px 0 #b8c3d0;
             text-align: center;
-            font-size: 1.2rem;  /* tăng kích thước chữ */
+            font-size: 1.2rem;
             word-break: break-word;
             display: flex;
             flex-direction: column;
@@ -856,7 +852,7 @@
                         <div class="chart-box">
                             <div style="font-weight:800; font-size:2.4rem; color:blue; margin-bottom:10px;">${studentName}</div>
                             <div class="pie" style="background: conic-gradient(${color} 0deg ${percent*3.6}deg, #e0e0e0 ${percent*3.6}deg 360deg);">
-                                <span style="background:white; color:black; display:flex; align-items:center; justify-content:center;">${Math.round(percent)}%</span>
+                                <span style="color: ${color};">${Math.round(percent)}%</span>
                             </div>
                             <div style="font-weight:bold; color:#1e3c72; margin-top:15px;">${new Date().toLocaleDateString()}</div>
                         </div>
