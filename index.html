@@ -323,13 +323,16 @@
             box-shadow: 0 10px 20px #00000030;
         }
         .pie span {
-            background: rgba(0,0,0,0.5);
-            width: 80px;
-            height: 80px;
+            background: white;
+            color: #1e2f4d;
+            width: 120px;  /* tăng 20% so với 100px */
+            height: 120px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+            font-size: 2.2rem;
         }
         .stats-grid {
             display: grid;
@@ -339,13 +342,39 @@
         .stat-item {
             background: white;
             border-radius: 32px;
-            padding: 18px 12px;
+            padding: 20px 12px;
             font-weight: 600;
             box-shadow: 0 5px 0 #b8c3d0;
             text-align: center;
-            font-size: 1rem;
+            font-size: 1.2rem;  /* tăng kích thước chữ */
             word-break: break-word;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100px;
         }
+        .stat-item div:first-child {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: #1e2f4d;
+        }
+        .stat-item div:last-child {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2a5298;
+        }
+        /* Mobile adjustments */
+        @media (max-width: 700px) {
+            .stat-item {
+                font-size: 1rem;
+                padding: 15px 8px;
+                min-height: 80px;
+            }
+            .stat-item div:first-child { font-size: 0.95rem; }
+            .stat-item div:last-child { font-size: 1.2rem; }
+        }
+        
         .hidden-passage {
             background: #f0f5ff;
             border-radius: 36px;
@@ -399,14 +428,6 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-        }
-        
-        /* Mobile adjustments */
-        @media (max-width: 700px) {
-            .report-chart-grid { grid-template-columns: 1fr; }
-            .pie { width: 180px; height: 180px; }
-            .action-buttons-container .btn-back { padding: 12px 24px; font-size: 1.1rem; }
-            .scroll-top { width: 50px; height: 50px; font-size: 2rem; }
         }
         
         /* không dịch */
@@ -833,17 +854,29 @@
                     
                     <div class="report-chart-grid">
                         <div class="chart-box">
-                            <div style="font-weight:800; font-size:2rem; color:blue;">${studentName}</div>
+                            <div style="font-weight:800; font-size:2.4rem; color:blue; margin-bottom:10px;">${studentName}</div>
                             <div class="pie" style="background: conic-gradient(${color} 0deg ${percent*3.6}deg, #e0e0e0 ${percent*3.6}deg 360deg);">
-                                <span style="background:white; color:black; width:80px; height:80px;">${Math.round(percent)}%</span>
+                                <span style="background:white; color:black; display:flex; align-items:center; justify-content:center;">${Math.round(percent)}%</span>
                             </div>
-                            <div style="font-weight:bold; color:#1e3c72;">${new Date().toLocaleDateString()}  Đúng: ${correctCount}/${total}</div>
+                            <div style="font-weight:bold; color:#1e3c72; margin-top:15px;">${new Date().toLocaleDateString()}</div>
                         </div>
                         <div class="stats-grid">
-                            <div class="stat-item">⏱️ START<br>${startStr}</div>
-                            <div class="stat-item">⌛ END<br>${endStr}</div>
-                            <div class="stat-item">🔗 CHUỖI<br>${maxStreak}/${correctCount}/${total}</div>
-                            <div class="stat-item">⏳ Tổng<br>${totalTime}s</div>
+                            <div class="stat-item">
+                                <div>⏱️ START</div>
+                                <div>${startStr}</div>
+                            </div>
+                            <div class="stat-item">
+                                <div>⌛ END</div>
+                                <div>${endStr}</div>
+                            </div>
+                            <div class="stat-item">
+                                <div>🔗 CHUỖI</div>
+                                <div>${maxStreak}/${correctCount}/${total}</div>
+                            </div>
+                            <div class="stat-item">
+                                <div>⏳ Tổng</div>
+                                <div>${totalTime}s</div>
+                            </div>
                         </div>
                     </div>
 
