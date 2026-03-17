@@ -49,7 +49,15 @@
         }
         h2 {
             font-size: 1.4rem;
-            margin-bottom: 12px;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+        .title-sub {
+            font-size: 1.2rem;
+            color: #1e3c72;
+            margin-bottom: 16px;
+            font-weight: 500;
+            padding-left: 4px;
         }
         .flex-col {
             display: flex;
@@ -152,12 +160,15 @@
             margin-bottom: 16px;
             gap: 10px;
         }
-        /* Nút mũi tên lên đầu - đặt ở cuối trang */
-        .scroll-top-container {
+        /* Nút mũi tên lên đầu và nút quay lại - đặt ở cuối trang */
+        .action-buttons-container {
             display: flex;
-            justify-content: flex-end;
-            margin-top: 20px;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 24px;
             margin-bottom: 5px;
+            gap: 12px;
+            flex-wrap: wrap;
         }
         .scroll-top {
             background: white;
@@ -173,10 +184,25 @@
             text-decoration: none;
             color: #1e2f4d;
             transition: 0.2s;
+            flex-shrink: 0;
         }
         .scroll-top:active {
             box-shadow: inset 3px 3px 8px #b8c3d0;
             transform: scale(0.95);
+        }
+        .btn-back {
+            background: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 4px 4px 12px #b8c3d0, -4px -4px 12px #ffffff;
+            cursor: pointer;
+            color: #1e2f4d;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
         .audio-panel {
             background: #eef3fc;
@@ -532,7 +558,8 @@
                         <p class="zalo">📞 Zalo: 0967.095.025</p>
                     </div>
                     <!-- nút lên đầu trang cho main -->
-                    <div class="scroll-top-container">
+                    <div class="action-buttons-container">
+                        <div></div> <!-- placeholder cho cân bằng -->
                         <a href="#" class="scroll-top" id="scrollTopMain">⬆️</a>
                     </div>
                 </div>
@@ -682,10 +709,9 @@
             let titleBai = selectedBai === 'KIỂM TRA NGẪU NHIÊN' ? 'KTRA' : selectedBai;
             let html = `
                 <div class="main-card">
-                    <div class="top-bar">
-                        <button class="btn" id="backToMainBtn">◀ QUAY LẠI</button>
-                    </div>
-                    <h2>📘 LỚP 6 - ${selectedUnit} - ${titleBai}  |  ${selectedDang}</h2>
+                    <h2>📘 LỚP 6 - ${selectedUnit} - ${titleBai}</h2>
+                    <div class="title-sub">${selectedDang}</div>
+                    
                     <div class="audio-panel" id="audioPanel">
                         <span class="speaker-icon" id="playSpeaker">🔊</span>
                         <select id="gapTimeSelect">
@@ -699,8 +725,10 @@
                     </div>
                     <div id="quizQuestions"></div>
                     <div class="btn-group"><button class="btn primary" id="submitQuizBtn">📩 NỘP BÀI</button></div>
-                    <!-- nút lên đầu trang ở cuối -->
-                    <div class="scroll-top-container">
+                    
+                    <!-- nút quay lại và lên đầu trang ở cuối -->
+                    <div class="action-buttons-container">
+                        <button class="btn-back" id="backToMainBtn">◀ QUAY LẠI</button>
                         <a href="#" class="scroll-top" id="scrollTopQuiz">⬆️</a>
                     </div>
                 </div>
@@ -776,12 +804,12 @@
             userAnswers.forEach((a,i)=> { if(a?.chosen===quizData[i]?.correct) streak++; else { maxStreak=Math.max(maxStreak,streak); streak=0; } });
             maxStreak=Math.max(maxStreak,streak);
             let totalTime = endTime && startTime ? Math.round((endTime-startTime)/1000) : 0;
+            
+            let titleBai = selectedBai === 'KIỂM TRA NGẪU NHIÊN' ? 'KIỂM TRA' : selectedBai;
             let html = `
                 <div class="main-card">
-                    <div class="top-bar">
-                        <button class="btn" id="backToMainBtnReport">◀ QUAY LẠI</button>
-                    </div>
-                    <h2>📊 BÁO CÁO LỚP 6 - ${selectedUnit} - ${selectedBai} - ${selectedDang}</h2>
+                    <h2>📊 BÁO CÁO LỚP 6 - ${selectedUnit} - ${titleBai}</h2>
+                    <div class="title-sub">${selectedDang}</div>
                     
                     <div class="report-chart-grid">
                         <div class="chart-box">
@@ -825,7 +853,8 @@
                 </tr>`;
             });
             html += `</table><br>
-                    <div class="scroll-top-container">
+                    <div class="action-buttons-container">
+                        <button class="btn-back" id="backToMainBtnReport">◀ QUAY LẠI</button>
                         <a href="#" class="scroll-top" id="scrollTopReport">⬆️</a>
                     </div>
                 </div>`;
