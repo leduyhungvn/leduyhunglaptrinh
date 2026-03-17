@@ -17,79 +17,100 @@
         body {
             background: linear-gradient(145deg, #f0f4fa 0%, #e6ecf5 100%);
             min-height: 100vh;
-            padding: 10px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+        /* Container chính để căn giữa và đồng bộ chiều ngang */
+        .app-container {
+            width: 100%;
+            max-width: 900px; /* đồng bộ chiều ngang tối đa cho cả 3 màn */
+            margin: 0 auto;
+        }
         .main-card {
-            max-width: 1200px;
             width: 100%;
             background: rgba(255,255,255,0.85);
             backdrop-filter: blur(12px);
-            border-radius: 32px;
-            padding: 20px 16px;
-            box-shadow: 0 20px 40px -8px rgba(0,20,40,0.25);
+            border-radius: 48px;
+            padding: 30px 32px;
+            box-shadow: 0 25px 50px -8px rgba(0,20,40,0.3);
             border: 1px solid rgba(255,255,255,0.6);
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
+        /* Responsive: trên mobile vẫn giữ padding nhỏ hơn */
+        @media (max-width: 700px) {
+            body { padding: 10px; }
+            .main-card { padding: 20px 16px; border-radius: 32px; }
+        }
+        
         h1, h2, h3 {
             font-weight: 600;
             letter-spacing: -0.02em;
             word-break: break-word;
         }
         h1 {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             background: linear-gradient(135deg, #1e3c72, #2a5298);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-            border-left: 6px solid #2a5298;
-            padding-left: 16px;
+            margin-bottom: 25px;
+            border-left: 8px solid #2a5298;
+            padding-left: 20px;
         }
+        @media (max-width: 700px) {
+            h1 { font-size: 1.8rem; border-left-width: 6px; padding-left: 16px; }
+        }
+        
         h2 {
-            font-size: 1.4rem;
-            margin-bottom: 4px;
+            font-size: 1.6rem;
+            margin-bottom: 8px;
             line-height: 1.3;
+            color: #1e3c72;
         }
         .title-sub {
-            font-size: 1.2rem;
-            color: #1e3c72;
-            margin-bottom: 16px;
+            font-size: 1.3rem;
+            color: #2a5298;
+            margin-bottom: 20px;
             font-weight: 500;
             padding-left: 4px;
         }
+        @media (max-width: 700px) {
+            h2 { font-size: 1.4rem; }
+            .title-sub { font-size: 1.2rem; }
+        }
+        
         .flex-col {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 20px;
         }
         .row {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 20px;
             align-items: center;
         }
         .label-input {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
             background: white;
-            padding: 6px 16px;
-            border-radius: 40px;
-            box-shadow: inset 2px 2px 6px #b8c3d0, inset -3px -3px 6px #ffffff;
+            padding: 10px 24px;
+            border-radius: 60px;
+            box-shadow: inset 2px 2px 8px #b8c3d0, inset -4px -4px 8px #ffffff;
             width: 100%;
         }
         .label-input label {
             font-weight: 600;
             color: #1e2f4d;
-            font-size: 0.95rem;
+            font-size: 1rem;
             white-space: nowrap;
         }
         .label-input input, .label-input select {
             border: none;
             background: transparent;
-            font-size: 0.95rem;
+            font-size: 1rem;
             padding: 8px 0;
             outline: none;
             font-weight: 500;
@@ -99,176 +120,129 @@
         .btn-group {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
-            margin: 16px 0 8px;
+            gap: 16px;
+            margin: 20px 0 10px;
             justify-content: center;
         }
         .btn {
             background: white;
             border: none;
-            padding: 12px 24px;
-            border-radius: 40px;
+            padding: 14px 32px;
+            border-radius: 60px;
             font-weight: 600;
-            font-size: 1.1rem;
-            box-shadow: 4px 4px 12px #b8c3d0, -4px -4px 12px #ffffff;
+            font-size: 1.2rem;
+            box-shadow: 6px 6px 16px #b8c3d0, -6px -6px 16px #ffffff;
             cursor: pointer;
             transition: 0.15s;
             color: #1e2f4d;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            flex: 1 1 auto;
+            gap: 8px;
+            flex: 0 1 auto;
             justify-content: center;
         }
         .btn:active {
-            box-shadow: inset 4px 4px 8px #b8c3d0, inset -4px -4px 8px #ffffff;
-            transform: scale(0.98);
+            box-shadow: inset 6px 6px 12px #b8c3d0, inset -6px -6px 12px #ffffff;
+            transform: scale(0.97);
         }
         .btn.primary {
             background: #2a5298;
             color: white;
-            box-shadow: 4px 4px 12px #1e3c72, -4px -4px 12px #3f6ab3;
+            box-shadow: 6px 6px 16px #1e3c72, -6px -6px 16px #3f6ab3;
         }
+        @media (max-width: 700px) {
+            .btn { padding: 12px 24px; font-size: 1.1rem; }
+        }
+        
         .footer-info {
-            margin-top: 24px;
+            margin-top: 30px;
             background: #d9e2ef;
-            border-radius: 28px;
-            padding: 16px 20px;
+            border-radius: 40px;
+            padding: 20px 30px;
             text-align: center;
             font-weight: 500;
             color: #102a4c;
             border: 1px solid #ffffff80;
         }
         .footer-info p {
-            margin: 4px 0;
-            font-size: 0.95rem;
+            margin: 6px 0;
+            font-size: 1rem;
         }
         .footer-info .zalo {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 700;
             background: #0068ff20;
             display: inline-block;
-            padding: 4px 24px;
-            border-radius: 40px;
+            padding: 6px 32px;
+            border-radius: 60px;
         }
+        
         /* giao diện làm bài / báo cáo */
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            margin-bottom: 16px;
-            gap: 10px;
-        }
-        /* Nút mũi tên lên đầu và nút quay lại - đặt ở cuối trang */
-        .action-buttons-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 24px;
-            margin-bottom: 5px;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .scroll-top {
-            background: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            box-shadow: 3px 3px 10px #b8c3d0;
-            cursor: pointer;
-            text-decoration: none;
-            color: #1e2f4d;
-            transition: 0.2s;
-            flex-shrink: 0;
-        }
-        .scroll-top:active {
-            box-shadow: inset 3px 3px 8px #b8c3d0;
-            transform: scale(0.95);
-        }
-        .btn-back {
-            background: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            box-shadow: 4px 4px 12px #b8c3d0, -4px -4px 12px #ffffff;
-            cursor: pointer;
-            color: #1e2f4d;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
         .audio-panel {
             background: #eef3fc;
-            border-radius: 40px;
-            padding: 12px 16px;
+            border-radius: 60px;
+            padding: 16px 24px;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            gap: 12px;
-            margin: 16px 0 20px;
-            box-shadow: inset 1px 1px 5px #b8c3d0, inset -3px -3px 8px white;
+            gap: 16px;
+            margin: 20px 0 25px;
+            box-shadow: inset 2px 2px 8px #b8c3d0, inset -4px -4px 10px white;
         }
         .audio-panel select, .audio-panel button {
             background: white;
             border: none;
-            padding: 8px 14px;
-            border-radius: 30px;
-            font-size: 0.9rem;
+            padding: 10px 18px;
+            border-radius: 40px;
+            font-size: 0.95rem;
             font-weight: 600;
-            box-shadow: 2px 2px 5px #b8c3d0;
+            box-shadow: 3px 3px 8px #b8c3d0;
             flex: 1 0 auto;
-            min-width: 70px;
+            min-width: 80px;
         }
         .speaker-icon {
-            font-size: 1.8rem;
+            font-size: 2rem;
             cursor: pointer;
             background: #2a5298;
             color: white;
-            width: 48px;
-            height: 48px;
+            width: 56px;
+            height: 56px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 30px;
-            box-shadow: 0 4px 0 #102a4c;
+            border-radius: 40px;
+            box-shadow: 0 5px 0 #102a4c;
             flex-shrink: 0;
         }
         .question-item {
             background: white;
-            border-radius: 24px;
-            padding: 18px 16px;
-            margin-bottom: 16px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+            border-radius: 32px;
+            padding: 22px 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
         }
         .question-text {
             font-weight: 600;
-            margin-bottom: 14px;
-            font-size: 1rem;
-            line-height: 1.4;
+            margin-bottom: 18px;
+            font-size: 1.1rem;
+            line-height: 1.5;
         }
         .options {
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            margin-left: 4px;
+            gap: 12px;
+            margin-left: 8px;
         }
         .option {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
             background: #f3f7ff;
-            padding: 10px 16px;
-            border-radius: 40px;
+            padding: 12px 20px;
+            border-radius: 60px;
             cursor: pointer;
             border: 2px solid transparent;
-            font-size: 0.95rem;
+            font-size: 1rem;
             word-break: break-word;
         }
         .option.selected {
@@ -277,28 +251,28 @@
         }
         .option input {
             accent-color: #2a5298;
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             flex-shrink: 0;
         }
         table {
             width: 100%;
             border-collapse: collapse;
             background: white;
-            border-radius: 24px;
+            border-radius: 28px;
             overflow: hidden;
-            box-shadow: 0 8px 16px #00000015;
-            font-size: 0.9rem;
+            box-shadow: 0 10px 25px #00000015;
+            font-size: 0.95rem;
         }
         th {
             background: #2a5298;
             color: white;
-            padding: 10px 6px;
+            padding: 14px 10px;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.95rem;
         }
         td {
-            padding: 10px 6px;
+            padding: 12px 10px;
             border-bottom: 1px solid #d0ddef;
             word-break: break-word;
         }
@@ -306,43 +280,35 @@
             background: #ffccc7;
             color: #a8071a;
             font-weight: 600;
-            border-radius: 20px;
-            padding: 3px 8px;
+            border-radius: 30px;
+            padding: 4px 12px;
             display: inline-block;
         }
         .correct-answer {
             background: #b7eb8f;
             color: #237804;
             font-weight: 600;
-            border-radius: 20px;
-            padding: 3px 8px;
+            border-radius: 30px;
+            padding: 4px 12px;
             display: inline-block;
             border: 2px solid #52c41a;
         }
         .report-chart-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-            margin: 20px 0;
-        }
-        @media (min-width: 700px) {
-            .report-chart-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .label-input {
-                width: auto;
-            }
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 25px 0;
         }
         .chart-box {
             background: white;
-            border-radius: 40px;
-            padding: 20px;
-            box-shadow: 0 10px 20px #0000001a;
+            border-radius: 48px;
+            padding: 25px;
+            box-shadow: 0 15px 30px #0000001a;
             text-align: center;
         }
         .pie {
-            width: 180px;
-            height: 180px;
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
             margin: 15px auto;
             background: conic-gradient(#f5222d 0deg 180deg, #faad14 180deg 360deg);
@@ -351,15 +317,15 @@
             justify-content: center;
             position: relative;
             font-weight: 800;
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             color: white;
             text-shadow: 2px 2px 4px black;
-            box-shadow: 0 8px 16px #00000030;
+            box-shadow: 0 10px 20px #00000030;
         }
         .pie span {
             background: rgba(0,0,0,0.5);
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -368,27 +334,81 @@
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            gap: 16px;
         }
         .stat-item {
             background: white;
-            border-radius: 24px;
-            padding: 14px 8px;
+            border-radius: 32px;
+            padding: 18px 12px;
             font-weight: 600;
-            box-shadow: 0 4px 0 #b8c3d0;
+            box-shadow: 0 5px 0 #b8c3d0;
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 1rem;
             word-break: break-word;
         }
         .hidden-passage {
             background: #f0f5ff;
-            border-radius: 28px;
-            padding: 18px;
-            margin: 20px 0;
+            border-radius: 36px;
+            padding: 25px;
+            margin: 25px 0;
             white-space: pre-line;
-            font-size: 0.95rem;
-            line-height: 1.5;
+            font-size: 1rem;
+            line-height: 1.6;
         }
+        
+        /* Nút quay lại và lên đầu trang - đặt ở cuối */
+        .action-buttons-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            margin-bottom: 5px;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .scroll-top {
+            background: white;
+            width: 56px;
+            height: 56px;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            box-shadow: 4px 4px 14px #b8c3d0;
+            cursor: pointer;
+            text-decoration: none;
+            color: #1e2f4d;
+            transition: 0.2s;
+            flex-shrink: 0;
+        }
+        .scroll-top:active {
+            box-shadow: inset 4px 4px 10px #b8c3d0;
+            transform: scale(0.95);
+        }
+        .btn-back {
+            background: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            box-shadow: 6px 6px 16px #b8c3d0, -6px -6px 16px #ffffff;
+            cursor: pointer;
+            color: #1e2f4d;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* Mobile adjustments */
+        @media (max-width: 700px) {
+            .report-chart-grid { grid-template-columns: 1fr; }
+            .pie { width: 180px; height: 180px; }
+            .action-buttons-container .btn-back { padding: 12px 24px; font-size: 1.1rem; }
+            .scroll-top { width: 50px; height: 50px; font-size: 2rem; }
+        }
+        
         /* không dịch */
         * {
             -webkit-tap-highlight-color: transparent;
@@ -396,7 +416,7 @@
     </style>
 </head>
 <body>
-<div id="app"></div>
+<div class="app-container" id="app"></div>
 <script>
     (function(){
         // ---------- KHAI BÁO BIẾN ĐẦY ĐỦ (chỉ cần dán nội dung vào là xong) ----------
@@ -813,9 +833,9 @@
                     
                     <div class="report-chart-grid">
                         <div class="chart-box">
-                            <div style="font-weight:800; font-size:1.8rem; color:blue;">${studentName}</div>
+                            <div style="font-weight:800; font-size:2rem; color:blue;">${studentName}</div>
                             <div class="pie" style="background: conic-gradient(${color} 0deg ${percent*3.6}deg, #e0e0e0 ${percent*3.6}deg 360deg);">
-                                <span style="background:white; color:black; width:70px; height:70px;">${Math.round(percent)}%</span>
+                                <span style="background:white; color:black; width:80px; height:80px;">${Math.round(percent)}%</span>
                             </div>
                             <div style="font-weight:bold; color:#1e3c72;">${new Date().toLocaleDateString()}  Đúng: ${correctCount}/${total}</div>
                         </div>
