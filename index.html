@@ -295,10 +295,18 @@
         }
         .report-chart-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1fr; /* Desktop: 2 cột */
             gap: 30px;
             margin: 25px 0;
         }
+        /* Mobile: chuyển thành 1 cột */
+        @media (max-width: 700px) {
+            .report-chart-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+        
         .chart-box {
             background: white;
             border-radius: 48px;
@@ -316,7 +324,7 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            box-shadow: 0 10px 20px #00000030;
+            /* Đã xóa box-shadow để bỏ bóng mờ bên ngoài */
         }
         .pie span {
             width: 120px;
