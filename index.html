@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Luyện nghe TA Lớp 6 (KT Ngẫu nhiên mặc định)</title>
+    <title>Luyện nghe TA Lớp 6 (P5 có id cho từng câu)</title>
     <!-- Chống tự động dịch thuật -->
     <meta name="google" content="notranslate">
     <meta http-equiv="Content-Language" content="en">
     <style>
+        /* (Giữ nguyên style như các phiên bản trước) */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -463,7 +464,7 @@
 <div class="app-container" id="app"></div>
 <script>
     (function(){
-        // ---------- DỮ LIỆU MẪU: UNIT 1 BÀI 1 (ĐÃ HỢP NHẤT P5) ----------
+        // ---------- DỮ LIỆU MẪU: UNIT 1 BÀI 1 (ĐÃ HỢP NHẤT P5 VÀ CÓ ID) ----------
         const E6_U1_B1 = {
             P1: [ // trắc nghiệm trả lời câu hỏi
                 { id: 1, word: "Where does Miss Lien live?", correct: "in a small house in Hanoi", wrong1: "in a big apartment", wrong2: "in the countryside" },
@@ -502,17 +503,17 @@
                 { id: 10, word: "She always goes to bed ______ ten o'clock.", correct: "at", wrong1: "in", wrong2: "on" }
             ],
             P4: "Miss Lien lives in a small house in Hanoi. She teaches English at a school there. She usually has breakfast at seven in the morning and she has lunch at twelve o'clock in the canteen of the school. She teaches her students in the morning. She teaches them dialogues on Wednesdays and Fridays. On Mondays, she teaches them grammar. In the evening, she usually stays at home and listens to music. She sometimes goes to the movie theatre. She always goes to bed at ten o'clock.",
-            // Hợp nhất P5: chứa tất cả câu cho audio
+            // Hợp nhất P5: MẢNG CÁC OBJECT CÓ ID để phân biệt lẻ/chẵn
             P5: [
-                "Miss Lien lives in a small house in Hanoi.",
-                "She teaches English at a school there.",
-                "She usually has breakfast at seven in the morning and she has lunch at twelve o'clock in the canteen of the school.",
-                "She teaches her students in the morning.",
-                "She teaches them dialogues on Wednesdays and Fridays.",
-                "On Mondays, she teaches them grammar.",
-                "In the evening, she usually stays at home and listens to music.",
-                "She sometimes goes to the movie theatre.",
-                "She always goes to bed at ten o'clock."
+                { id: 1, word: "Miss Lien lives in a small house in Hanoi." },
+                { id: 2, word: "She teaches English at a school there." },
+                { id: 3, word: "She usually has breakfast at seven in the morning and she has lunch at twelve o'clock in the canteen of the school." },
+                { id: 4, word: "She teaches her students in the morning." },
+                { id: 5, word: "She teaches them dialogues on Wednesdays and Fridays." },
+                { id: 6, word: "On Mondays, she teaches them grammar." },
+                { id: 7, word: "In the evening, she usually stays at home and listens to music." },
+                { id: 8, word: "She sometimes goes to the movie theatre." },
+                { id: 9, word: "She always goes to bed at ten o'clock." }
             ]
         };
 
@@ -581,22 +582,22 @@
             }
         }
 
-        // Lấy giọng phù hợp dựa vào index (0-based) cho 2 giọng
-        function getVoiceForIndex(index) {
+        // Lấy giọng phù hợp dựa vào id của câu (dùng id gốc từ P5)
+        function getVoiceForId(id) {
             if (voiceMode === 1) return singleVoice;
-            // index chẵn (0,2,4...) là câu lẻ (1,3,5) -> oddVoice, index lẻ -> evenVoice
-            return (index % 2 === 0) ? oddVoice : evenVoice;
+            // Nếu id là số lẻ -> oddVoice, số chẵn -> evenVoice
+            return (id % 2 === 1) ? oddVoice : evenVoice;
         }
 
-        // sentences: mảng các câu (string), gapSec, loop: số lần lặp mỗi câu
+        // sentences: mảng các object {id, word}, gapSec, loop: số lần lặp mỗi câu
         function playAudioSentences(sentences, gapSec, loop) {
             stopAllAudio();
             if (!sentences || sentences.length === 0) return;
 
             // Tạo hàng chờ: mỗi câu được lặp lại 'loop' lần
-            sentences.forEach((s, idx) => {
+            sentences.forEach(item => {
                 for (let i = 0; i < loop; i++) {
-                    audioQueue.push({ text: s, originalIndex: idx });
+                    audioQueue.push({ text: item.word, id: item.id });
                 }
             });
 
@@ -610,8 +611,8 @@
                 const utterance = new SpeechSynthesisUtterance(item.text);
                 utterance.lang = 'en-GB';
                 
-                // Gán giọng theo chỉ số câu gốc (originalIndex)
-                const voice = getVoiceForIndex(item.originalIndex);
+                // Gán giọng dựa trên id của câu
+                const voice = getVoiceForId(item.id);
                 if (voice) utterance.voice = voice;
 
                 utterance.onend = () => {
@@ -634,12 +635,12 @@
         }
 
         // Đọc một câu đơn (cho nút loa cạnh mỗi câu hỏi)
-        function speakSingleText(text, originalIndex) {
+        function speakSingleText(text, id) {
             if (!text || text.trim() === '') return;
             speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'en-GB';
-            const voice = getVoiceForIndex(originalIndex);
+            const voice = getVoiceForId(id);
             if (voice) utterance.voice = voice;
             speechSynthesis.speak(utterance);
         }
@@ -829,8 +830,8 @@
                             <label>Giọng: <select id="voiceSelect" style="min-width:180px; padding:6px;"></select></label>
                         </div>
                         <div id="dualVoiceContainer" style="display: none; align-items:center; gap: 10px; flex-wrap:wrap;">
-                            <label>Giọng lẻ (1,3...): <select id="oddVoiceSelect" style="min-width:160px;"></select></label>
-                            <label>Giọng chẵn (2,4...): <select id="evenVoiceSelect" style="min-width:160px;"></select></label>
+                            <label>Giọng lẻ (1,3,5...): <select id="oddVoiceSelect" style="min-width:160px;"></select></label>
+                            <label>Giọng chẵn (2,4,6...): <select id="evenVoiceSelect" style="min-width:160px;"></select></label>
                         </div>
                     </div>
 
@@ -849,7 +850,7 @@
             quizData.forEach((q, idx) => {
                 let qHtml = `<div class="question-item" data-qidx="${idx}">
                     <div class="question-text">
-                        <span class="speaker-btn" data-text="${q.question.replace(/"/g, '&quot;')}" data-index="${idx}">🔊</span>
+                        <span class="speaker-btn" data-text="${q.question.replace(/"/g, '&quot;')}" data-id="${q.id}">🔊</span>
                         ${idx+1}. ${q.question}
                     </div>
                     <div class="options">`;
@@ -876,13 +877,13 @@
                 });
             });
 
-            // Speaker cho từng câu
+            // Speaker cho từng câu - sử dụng data-id
             document.querySelectorAll('.speaker-btn[data-text]').forEach(btn => {
                 btn.addEventListener('click', e => {
                     e.stopPropagation();
                     const text = btn.getAttribute('data-text');
-                    const idx = parseInt(btn.getAttribute('data-index'));
-                    speakSingleText(text, idx);
+                    const id = parseInt(btn.getAttribute('data-id'));
+                    speakSingleText(text, id);
                 });
             });
 
