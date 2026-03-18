@@ -703,7 +703,7 @@
 
     const app = document.getElementById('app');
 
-    // ---------- HÀM PHÁT ÂM ----------
+    // ---------- HÀM PHÁT ÂM (đã sửa để xử lý dấu gạch dưới) ----------
     function stopAllAudio() {
         speechSynthesis.cancel();
         if (audioTimeout) {
@@ -780,14 +780,84 @@
         playNext();
     }
 
+    // Hàm phụ trợ: tách câu thành các phần text và blank
+    function splitTextWithUnderscores(text) {
+        const parts = [];
+        let lastIndex = 0;
+        const regex = /_+/g;
+        let match;
+        while ((match = regex.exec(text)) !== null) {
+            // Phần text trước dấu gạch dưới
+            if (match.index > lastIndex) {
+                parts.push({ type: 'text', content: text.substring(lastIndex, match.index) });
+            }
+            // Phần gạch dưới
+            parts.push({ type: 'blank', content: match[0] });
+            lastIndex = match.index + match[0].length;
+        }
+        // Phần text còn lại sau dấu gạch dưới cuối cùng
+        if (lastIndex < text.length) {
+            parts.push({ type: 'text', content: text.substring(lastIndex) });
+        }
+        return parts;
+    }
+
+    // Hàm phát âm một câu (đã sửa)
     function speakSingleText(text, id) {
         if (!text || text.trim() === '') return;
+        const parts = splitTextWithUnderscores(text);
+        
+        // Nếu không có blank, đọc bình thường
+        if (parts.length === 1 && parts[0].type === 'text') {
+            speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-GB';
+            const voice = getVoiceForId(id);
+            if (voice) utterance.voice = voice;
+            speechSynthesis.speak(utterance);
+            return;
+        }
+
+        // Hủy mọi phát âm đang thực hiện
         speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'en-GB';
-        const voice = getVoiceForId(id);
-        if (voice) utterance.voice = voice;
-        speechSynthesis.speak(utterance);
+
+        let currentIndex = 0;
+
+        const speakNext = () => {
+            if (currentIndex >= parts.length) return;
+            const part = parts[currentIndex];
+            let textToSpeak = part.content;
+            if (part.type === 'blank') {
+                textToSpeak = 'blank'; // thay dấu gạch dưới bằng từ "blank"
+            }
+            const utterance = new SpeechSynthesisUtterance(textToSpeak);
+            utterance.lang = 'en-GB';
+            const voice = getVoiceForId(id);
+            if (voice) utterance.voice = voice;
+
+            utterance.onend = () => {
+                currentIndex++;
+                if (part.type === 'blank') {
+                    // Sau khi đọc "blank", chờ 1 giây rồi đọc tiếp
+                    setTimeout(speakNext, 1000);
+                } else {
+                    // Đọc phần tiếp theo ngay lập tức
+                    speakNext();
+                }
+            };
+            utterance.onerror = () => {
+                // Nếu lỗi vẫn tiếp tục (tránh treo)
+                currentIndex++;
+                if (part.type === 'blank') {
+                    setTimeout(speakNext, 1000);
+                } else {
+                    speakNext();
+                }
+            };
+            speechSynthesis.speak(utterance);
+        };
+
+        speakNext();
     }
 
     function populateVoiceList() {
