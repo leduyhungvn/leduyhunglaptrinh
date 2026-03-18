@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Luyện nghe TA Lớp 6</title>
+    <title>Luyện nghe TA Lớp 6 (Giọng David mặc định)</title>
     <!-- Chống tự động dịch thuật -->
     <meta name="google" content="notranslate">
     <meta http-equiv="Content-Language" content="en">
@@ -22,10 +22,9 @@
             flex-direction: column;
             align-items: center;
         }
-        /* Container chính để căn giữa và đồng bộ chiều ngang */
         .app-container {
             width: 100%;
-            max-width: 900px; /* đồng bộ chiều ngang tối đa cho cả 3 màn */
+            max-width: 900px;
             margin: 0 auto;
         }
         .main-card {
@@ -38,7 +37,6 @@
             border: 1px solid rgba(255,255,255,0.6);
             margin-bottom: 20px;
         }
-        /* Responsive: trên mobile vẫn giữ padding nhỏ hơn */
         @media (max-width: 700px) {
             body { padding: 10px; }
             .main-card { padding: 20px 16px; border-radius: 32px; }
@@ -177,7 +175,7 @@
             border-radius: 60px;
         }
         
-        /* giao diện làm bài / báo cáo */
+        /* AUDIO PANEL cải tiến với chọn giọng */
         .audio-panel {
             background: #eef3fc;
             border-radius: 60px;
@@ -214,6 +212,30 @@
             box-shadow: 0 5px 0 #102a4c;
             flex-shrink: 0;
         }
+        .voice-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            background: rgba(255,255,255,0.4);
+            border-radius: 40px;
+            padding: 10px 18px;
+        }
+        .voice-container label {
+            font-weight: 600;
+            color: #1e2f4d;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        .voice-container select {
+            background: white;
+            border: 1px solid #2a5298;
+            border-radius: 40px;
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            min-width: 180px;
+        }
         .question-item {
             background: white;
             border-radius: 32px;
@@ -226,6 +248,23 @@
             margin-bottom: 18px;
             font-size: 1.1rem;
             line-height: 1.5;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .question-text .speaker-btn {
+            font-size: 1.8rem;
+            cursor: pointer;
+            background: #2a5298;
+            color: white;
+            width: 44px;
+            height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 40px;
+            box-shadow: 0 3px 0 #102a4c;
+            flex-shrink: 0;
         }
         .options {
             display: flex;
@@ -269,12 +308,10 @@
             color: white;
             padding: 14px 10px;
             font-weight: 600;
-            font-size: 0.95rem;
         }
         td {
             padding: 12px 10px;
             border-bottom: 1px solid #d0ddef;
-            word-break: break-word;
         }
         .wrong-answer {
             background: #ffccc7;
@@ -295,11 +332,10 @@
         }
         .report-chart-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* Desktop: 2 cột */
+            grid-template-columns: 1fr 1fr;
             gap: 30px;
             margin: 25px 0;
         }
-        /* Mobile: chuyển thành 1 cột */
         @media (max-width: 700px) {
             .report-chart-grid {
                 grid-template-columns: 1fr;
@@ -323,8 +359,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            /* Đã xóa box-shadow để bỏ bóng mờ bên ngoài */
         }
         .pie span {
             width: 120px;
@@ -336,7 +370,7 @@
             justify-content: center;
             font-weight: 800;
             font-size: 2.5rem;
-            color: #1e2f4d; /* màu mặc định, sẽ được thay đổi theo thuật toán trong code */
+            color: #1e2f4d;
         }
         .stats-grid {
             display: grid;
@@ -358,23 +392,10 @@
             align-items: center;
             min-height: 100px;
         }
-        .stat-item div:first-child {
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-            color: #1e2f4d;
-        }
-        .stat-item div:last-child {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #2a5298;
-        }
-        /* Mobile adjustments */
+        .stat-item div:first-child { font-size: 1.1rem; margin-bottom: 8px; color: #1e2f4d; }
+        .stat-item div:last-child { font-size: 1.4rem; font-weight: 700; color: #2a5298; }
         @media (max-width: 700px) {
-            .stat-item {
-                font-size: 1rem;
-                padding: 15px 8px;
-                min-height: 80px;
-            }
+            .stat-item { font-size: 1rem; padding: 15px 8px; min-height: 80px; }
             .stat-item div:first-child { font-size: 0.95rem; }
             .stat-item div:last-child { font-size: 1.2rem; }
         }
@@ -389,7 +410,6 @@
             line-height: 1.6;
         }
         
-        /* Nút quay lại và lên đầu trang - đặt ở cuối */
         .action-buttons-container {
             display: flex;
             justify-content: space-between;
@@ -434,7 +454,6 @@
             gap: 8px;
         }
         
-        /* không dịch */
         * {
             -webkit-tap-highlight-color: transparent;
         }
@@ -444,10 +463,9 @@
 <div class="app-container" id="app"></div>
 <script>
     (function(){
-        // ---------- KHAI BÁO BIẾN ĐẦY ĐỦ (chỉ cần dán nội dung vào là xong) ----------
-        // E6_U1_B1 : UNIT 1 BÀI 1 (mẫu)
+        // ---------- DỮ LIỆU MẪU: UNIT 1 BÀI 1 (ĐÃ HỢP NHẤT P5) ----------
         const E6_U1_B1 = {
-            P1: [ // trắc nghiệm trả lời câu hỏi (10 câu)
+            P1: [ // trắc nghiệm trả lời câu hỏi
                 { id: 1, word: "Where does Miss Lien live?", correct: "in a small house in Hanoi", wrong1: "in a big apartment", wrong2: "in the countryside" },
                 { id: 2, word: "What does Miss Lien do?", correct: "She teaches English", wrong1: "She is a doctor", wrong2: "She works in a factory" },
                 { id: 3, word: "What time does she have breakfast?", correct: "at seven", wrong1: "at six", wrong2: "at eight" },
@@ -459,7 +477,7 @@
                 { id: 9, word: "What time does she go to bed?", correct: "at ten o'clock", wrong1: "at nine o'clock", wrong2: "at eleven" },
                 { id: 10, word: "Who is Miss Lien?", correct: "an English teacher", wrong1: "a student", wrong2: "a nurse" }
             ],
-            P2: [ // TRUE - FALSE - NOT GIVEN (10 câu)
+            P2: [ // TRUE - FALSE - NOT GIVEN
                 { id: 1, word: "Miss Lien lives in a small house in Hanoi.", correct: "True", wrong1: "False", wrong2: "Not Given" },
                 { id: 2, word: "She teaches Math at a school.", correct: "False", wrong1: "True", wrong2: "Not Given" },
                 { id: 3, word: "She has lunch at home.", correct: "False", wrong1: "True", wrong2: "Not Given" },
@@ -471,7 +489,7 @@
                 { id: 9, word: "She always goes to bed at ten.", correct: "True", wrong1: "False", wrong2: "Not Given" },
                 { id: 10, word: "Her school is in Hanoi.", correct: "True", wrong1: "False", wrong2: "Not Given" }
             ],
-            P3: [ // Điền khuyết (10 câu)
+            P3: [ // Điền khuyết
                 { id: 1, word: "Miss Lien lives in a small house ______ Hanoi.", correct: "in", wrong1: "on", wrong2: "at" },
                 { id: 2, word: "She teaches English ______ a school there.", correct: "at", wrong1: "in", wrong2: "on" },
                 { id: 3, word: "She usually has breakfast ______ seven.", correct: "at", wrong1: "in", wrong2: "on" },
@@ -484,59 +502,26 @@
                 { id: 10, word: "She always goes to bed ______ ten o'clock.", correct: "at", wrong1: "in", wrong2: "on" }
             ],
             P4: "Miss Lien lives in a small house in Hanoi. She teaches English at a school there. She usually has breakfast at seven in the morning and she has lunch at twelve o'clock in the canteen of the school. She teaches her students in the morning. She teaches them dialogues on Wednesdays and Fridays. On Mondays, she teaches them grammar. In the evening, she usually stays at home and listens to music. She sometimes goes to the movie theatre. She always goes to bed at ten o'clock.",
-            P5A: [ // giọng nam UK google (đồng bộ)
-                { id: 1, word: "Miss Lien lives in a small house in Hanoi." },
-                { id: 2, word: "She teaches English at a school there." },
-                { id: 3, word: "She usually has breakfast at seven in the morning and she has lunch at twelve o'clock in the canteen of the school." },
-                { id: 4, word: "She teaches her students in the morning." },
-                { id: 5, word: "She teaches them dialogues on Wednesdays and Fridays." },
-                { id: 6, word: "On Mondays, she teaches them grammar." },
-                { id: 7, word: "In the evening, she usually stays at home and listens to music." },
-                { id: 8, word: "She sometimes goes to the movie theatre." },
-                { id: 9, word: "She always goes to bed at ten o'clock." }
-            ],
-            P5B: [ // giọng nữ UK google (giữ nguyên text)
-                { id: 1, word: "Miss Lien lives in a small house in Hanoi." },
-                { id: 2, word: "She teaches English at a school there." },
-                { id: 3, word: "She usually has breakfast at seven in the morning and she has lunch at twelve o'clock in the canteen of the school." },
-                { id: 4, word: "She teaches her students in the morning." },
-                { id: 5, word: "She teaches them dialogues on Wednesdays and Fridays." },
-                { id: 6, word: "On Mondays, she teaches them grammar." },
-                { id: 7, word: "In the evening, she usually stays at home and listens to music." },
-                { id: 8, word: "She sometimes goes to the movie theatre." },
-                { id: 9, word: "She always goes to bed at ten o'clock." }
-            ],
-            P5C: [ // nam UK cho id lẻ, nữ UK cho id chẵn
-                { id: 1, word: "Miss Lien lives in a small house in Hanoi." },
-                { id: 2, word: "She teaches English at a school there." },
-                { id: 3, word: "She usually has breakfast at seven in the morning and she has lunch at twelve o'clock in the canteen of the school." },
-                { id: 4, word: "She teaches her students in the morning." },
-                { id: 5, word: "She teaches them dialogues on Wednesdays and Fridays." },
-                { id: 6, word: "On Mondays, she teaches them grammar." },
-                { id: 7, word: "In the evening, she usually stays at home and listens to music." },
-                { id: 8, word: "She sometimes goes to the movie theatre." },
-                { id: 9, word: "She always goes to bed at ten o'clock." }
-            ],
-            P5D: [ // nữ UK cho id lẻ, nam UK cho id chẵn
-                { id: 1, word: "Miss Lien lives in a small house in Hanoi." },
-                { id: 2, word: "She teaches English at a school there." },
-                { id: 3, word: "She usually has breakfast at seven in the morning and she has lunch at twelve o'clock in the canteen of the school." },
-                { id: 4, word: "She teaches her students in the morning." },
-                { id: 5, word: "She teaches them dialogues on Wednesdays and Fridays." },
-                { id: 6, word: "On Mondays, she teaches them grammar." },
-                { id: 7, word: "In the evening, she usually stays at home and listens to music." },
-                { id: 8, word: "She sometimes goes to the movie theatre." },
-                { id: 9, word: "She always goes to bed at ten o'clock." }
+            // Hợp nhất P5: chứa tất cả câu cho audio
+            P5: [
+                "Miss Lien lives in a small house in Hanoi.",
+                "She teaches English at a school there.",
+                "She usually has breakfast at seven in the morning and she has lunch at twelve o'clock in the canteen of the school.",
+                "She teaches her students in the morning.",
+                "She teaches them dialogues on Wednesdays and Fridays.",
+                "On Mondays, she teaches them grammar.",
+                "In the evening, she usually stays at home and listens to music.",
+                "She sometimes goes to the movie theatre.",
+                "She always goes to bed at ten o'clock."
             ]
         };
 
-        // TODO: sau này dán thêm E6_U1_B2, E6_U2_B1 ... chỉ cần đúng cấu trúc. Ví dụ thêm giữ liệu unit 2 bài 1 trống báo chưa có ND
+        // Biến mẫu cho UNIT 2 BÀI 1 (chưa có nội dung)
         const E6_U2_B1 = {
-            P1: [], P2: [], P3: [], P4: "Chưa có nội dung", P5A: [], P5B: [], P5C: [], P5D: []
+            P1: [], P2: [], P3: [], P4: "Chưa có nội dung", P5: []
         };
-        // KHAI BÁO CÁC BIẾN KHÁC CÓ THỂ ĐỂ SAU NÀY DÁN: E6_U1_B2, E6_U1_B3... 
-        // nhưng hiện tại chỉ mình E6_U1_B1 có dữ liệu đầy đủ.
 
+        // Danh sách UNIT, BÀI, DẠNG
         const UNIT_ITEMS = ['UNIT 1','UNIT 2','UNIT 3','UNIT 4','UNIT 5','UNIT 6','UNIT 7','UNIT 8','UNIT 9','UNIT 10','UNIT 11','UNIT 12'];
         const BAI_ITEMS = ['BÀI 1','BÀI 2','BÀI 3','BÀI 4','BÀI 5','BÀI 6','BÀI 7','BÀI 8','BÀI 9','BÀI 10','BÀI 11','BÀI 12','BÀI 13','BÀI 14','BÀI 15','BÀI 16','BÀI 17','BÀI 18','BÀI 19','BÀI 20','KIỂM TRA NGẪU NHIÊN'];
         const DANG_BAI = ['TRẮC NGHIỆM TRẢ LỜI CÂU HỎI','TRẮC NGHIỆM TRUE – FALSE – NOT GIVEN','TRẮC NGHIỆM ĐIỀN KHUYẾT'];
@@ -545,151 +530,29 @@
         let currentScreen = 'main'; // main, quiz, report
         let studentName = '';
         let selectedUnit = 'UNIT 1';
-        let selectedBai = 'KIỂM TRA NGẪU NHIÊN';
+        let selectedBai = 'BÀI 1';
         let selectedDang = DANG_BAI[0];
-        let quizData = null;         // chứa 5 câu hỏi hiện tại { id, word, options (trộn), correct }
-        let userAnswers = [];         // mảng {qid, chosen, isCorrect?}
+        let quizData = null;         // 5 câu hỏi hiện tại { id, question, options, correct }
+        let userAnswers = [];         // mảng { chosen }
         let startTime = null;
         let endTime = null;
-        let timeSpentPerQuestion = 0; // giả lập tổng thời gian (s)
-        let intervalTimer = null;
-        let currentAudioInterval = null;
-        let audioEnabled = false;      // dùng để bắt đầu tính giờ khi nhấn loa lần đầu (theo yêu cầu)
-        let audioQueue = [];            // hàng chờ audio sentences
+        
+        // Audio state & settings (giống tool)
+        let voiceList = [];
+        let voiceMode = 1;            // 1: 1 giọng, 2: 2 giọng (lẻ/chẵn)
+        let singleVoice = null;
+        let oddVoice = null;
+        let evenVoice = null;
         let isPaused = false;
+        let audioQueue = [];
         let audioTimeout = null;
+        let audioEnabled = false;      // dùng để bắt đầu tính giờ khi nhấn loa lần đầu
 
-        // DOM gốc
         const app = document.getElementById('app');
 
-        function render() {
-            if (currentScreen === 'main') renderMain();
-            else if (currentScreen === 'quiz') renderQuiz();
-            else if (currentScreen === 'report') renderReport();
-        }
-
-        // Hàm cuộn lên đầu trang
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-
-        // ------- MAIN SCREEN --------
-        function renderMain() {
-            let html = `
-                <div class="main-card">
-                    <h1>🔊 LUYỆN NGHE TIẾNG ANH LỚP 6</h1>
-                    <div class="flex-col">
-                        <div class="label-input">
-                            <label>👤 TÊN</label>
-                            <input type="text" id="studentNameInput" maxlength="30" placeholder="Nhập tên" value="${studentName}">
-                        </div>
-                        <div class="label-input">
-                            <label>📚 UNIT</label>
-                            <select id="unitSelect">${UNIT_ITEMS.map(u => `<option value="${u}" ${selectedUnit===u?'selected':''}>${u}</option>`).join('')}
-                            </select>
-                        </div>
-                        <div class="label-input">
-                            <label>📖 BÀI</label>
-                            <select id="baiSelect">${BAI_ITEMS.map(b => `<option value="${b}" ${selectedBai===b?'selected':''}>${b}</option>`).join('')}
-                            </select>
-                        </div>
-                        <div class="label-input">
-                            <label>🎯 DẠNG</label>
-                            <select id="dangSelect">${DANG_BAI.map(d => `<option value="${d}" ${selectedDang===d?'selected':''}>${d}</option>`).join('')}
-                            </select>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn primary" id="startBtn">▶ LÀM BÀI</button>
-                        </div>
-                    </div>
-                    <div class="footer-info">
-                        <p>👨‍🏫 Thầy Hùng</p>
-                        <p>Giáo viên dạy kèm Toán, tiếng Anh</p>
-                        <p class="zalo">📞 Zalo: 0967.095.025</p>
-                    </div>
-                    <!-- nút lên đầu trang cho main -->
-                    <div class="action-buttons-container">
-                        <div></div> <!-- placeholder cho cân bằng -->
-                        <a href="#" class="scroll-top" id="scrollTopMain">⬆️</a>
-                    </div>
-                </div>
-            `;
-            app.innerHTML = html;
-            document.getElementById('studentNameInput').addEventListener('input', (e) => studentName = e.target.value);
-            document.getElementById('unitSelect').addEventListener('change', (e) => selectedUnit = e.target.value);
-            document.getElementById('baiSelect').addEventListener('change', (e) => selectedBai = e.target.value);
-            document.getElementById('dangSelect').addEventListener('change', (e) => selectedDang = e.target.value);
-            document.getElementById('startBtn').addEventListener('click', () => {
-                if (!studentName.trim()) { alert('Vui lòng nhập tên'); return; }
-                if (!prepareQuizData()) {
-                    alert('Bài học chưa có nội dung (vui lòng khai báo biến).');
-                    return;
-                }
-                currentScreen = 'quiz';
-                startTime = Date.now();
-                endTime = null;
-                userAnswers = [];
-                audioEnabled = false;
-                render();
-                // Cuộn lên đầu trang khi vào quiz
-                scrollToTop();
-            });
-            document.getElementById('scrollTopMain').addEventListener('click', (e)=>{ e.preventDefault(); scrollToTop(); });
-        }
-
-        function prepareQuizData() {
-            const unitKey = selectedUnit.replace('UNIT ','U');
-            const baiKey = selectedBai.replace('BÀI ','B').replace('KIỂM TRA NGẪU NHIÊN','random');
-            let dataKey = '';
-            if (baiKey.includes('random')) {
-                const r = Math.floor(Math.random() * 12) + 1;
-                dataKey = `E6_${unitKey}_B${r}`;
-            } else {
-                dataKey = `E6_${unitKey}_${baiKey}`;
-            }
-            // @ts-ignore
-            let rawData = window[dataKey];
-            if (!rawData) {
-                alert(`Chưa có nội dung cho ${dataKey}, dùng bài mẫu U1_B1 thay thế.`);
-                rawData = E6_U1_B1; 
-            }
-            let questionPool = [];
-            if (selectedDang.includes('TRẮC NGHIỆM TRẢ LỜI CÂU HỎI')) questionPool = rawData.P1 || [];
-            else if (selectedDang.includes('TRUE – FALSE')) questionPool = rawData.P2 || [];
-            else if (selectedDang.includes('ĐIỀN KHUYẾT')) questionPool = rawData.P3 || [];
-
-            if (!questionPool.length) {
-                alert('Dạng bài này chưa có câu hỏi.');
-                return false;
-            }
-
-            const shuffled = [...questionPool].sort(()=>0.5-Math.random()).slice(0,5);
-            quizData = shuffled.map(q => {
-                let opts = [q.correct, q.wrong1, q.wrong2];
-                for (let i = opts.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [opts[i], opts[j]] = [opts[j], opts[i]];
-                }
-                return {
-                    id: q.id,
-                    question: q.word,
-                    options: opts,
-                    correct: q.correct
-                };
-            });
-            return true;
-        }
-
-        // ----- AUDIO HELPERS -----
+        // ---------- HÀM PHÁT ÂM (hỗ trợ 1 hoặc 2 giọng) ----------
         function stopAllAudio() {
             speechSynthesis.cancel();
-            if (currentAudioInterval) {
-                clearInterval(currentAudioInterval);
-                currentAudioInterval = null;
-            }
             if (audioTimeout) {
                 clearTimeout(audioTimeout);
                 audioTimeout = null;
@@ -702,10 +565,6 @@
             if (speechSynthesis.speaking) {
                 speechSynthesis.pause();
                 isPaused = true;
-            }
-            if (currentAudioInterval) {
-                clearInterval(currentAudioInterval);
-                currentAudioInterval = null;
             }
             if (audioTimeout) {
                 clearTimeout(audioTimeout);
@@ -721,14 +580,22 @@
             }
         }
 
+        // Lấy giọng phù hợp dựa vào index (0-based) cho 2 giọng
+        function getVoiceForIndex(index) {
+            if (voiceMode === 1) return singleVoice;
+            // index chẵn (0,2,4...) là câu lẻ (1,3,5) -> oddVoice, index lẻ -> evenVoice
+            return (index % 2 === 0) ? oddVoice : evenVoice;
+        }
+
+        // sentences: mảng các câu (string), gapSec, loop: số lần lặp mỗi câu
         function playAudioSentences(sentences, gapSec, loop) {
             stopAllAudio();
             if (!sentences || sentences.length === 0) return;
-            
-            audioQueue = [];
-            sentences.forEach(s => {
+
+            // Tạo hàng chờ: mỗi câu được lặp lại 'loop' lần
+            sentences.forEach((s, idx) => {
                 for (let i = 0; i < loop; i++) {
-                    audioQueue.push(s.word);
+                    audioQueue.push({ text: s, originalIndex: idx });
                 }
             });
 
@@ -738,8 +605,14 @@
                     stopAllAudio();
                     return;
                 }
-                const utterance = new SpeechSynthesisUtterance(audioQueue[index]);
+                const item = audioQueue[index];
+                const utterance = new SpeechSynthesisUtterance(item.text);
                 utterance.lang = 'en-GB';
+                
+                // Gán giọng theo chỉ số câu gốc (originalIndex)
+                const voice = getVoiceForIndex(item.originalIndex);
+                if (voice) utterance.voice = voice;
+
                 utterance.onend = () => {
                     index++;
                     if (index < audioQueue.length && !isPaused) {
@@ -759,40 +632,216 @@
             playNext();
         }
 
-        // ------- QUIZ SCREEN --------
+        // Đọc một câu đơn (cho nút loa cạnh mỗi câu hỏi)
+        function speakSingleText(text, originalIndex) {
+            if (!text || text.trim() === '') return;
+            speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-GB';
+            const voice = getVoiceForIndex(originalIndex);
+            if (voice) utterance.voice = voice;
+            speechSynthesis.speak(utterance);
+        }
+
+        // Populate voice dropdowns và ưu tiên chọn giọng "David" (không phân biệt hoa thường)
+        function populateVoiceList() {
+            if (!('speechSynthesis' in window)) return;
+            const voices = speechSynthesis.getVoices();
+            voiceList = voices;
+
+            // Tìm giọng David (ưu tiên giọng UK hoặc US có tên chứa "David")
+            const davidVoice = voiceList.find(v => 
+                v.name.toLowerCase().includes('david') && 
+                (v.lang.includes('en-GB') || v.lang.includes('en-US'))
+            );
+
+            // Cập nhật các dropdown hiện có trong DOM
+            updateVoiceDropdowns(davidVoice);
+        }
+
+        function updateVoiceDropdowns(preferredVoice = null) {
+            // Cập nhật các dropdown hiện có trong DOM
+            const singleSelect = document.getElementById('voiceSelect');
+            const oddSelect = document.getElementById('oddVoiceSelect');
+            const evenSelect = document.getElementById('evenVoiceSelect');
+            if (!singleSelect || !oddSelect || !evenSelect) return;
+
+            const fillSelect = (select) => {
+                select.innerHTML = ''; // Xóa hết option cũ
+                // Thêm option trống
+                const emptyOpt = document.createElement('option');
+                emptyOpt.value = '';
+                emptyOpt.textContent = '-- Chọn giọng --';
+                select.appendChild(emptyOpt);
+
+                voiceList.forEach(v => {
+                    const opt = document.createElement('option');
+                    opt.value = v.voiceURI;
+                    opt.textContent = `${v.name} (${v.lang})${v.default ? ' [Mặc định]' : ''}`;
+                    // Nếu có giọng ưu tiên (David) và khớp thì chọn
+                    if (preferredVoice && v.voiceURI === preferredVoice.voiceURI) {
+                        opt.selected = true;
+                    }
+                    select.appendChild(opt);
+                });
+            };
+            fillSelect(singleSelect);
+            fillSelect(oddSelect);
+            fillSelect(evenSelect);
+
+            // Gán lại biến voice
+            singleVoice = singleSelect.value ? voiceList.find(v => v.voiceURI === singleSelect.value) : null;
+            oddVoice = oddSelect.value ? voiceList.find(v => v.voiceURI === oddSelect.value) : null;
+            evenVoice = evenSelect.value ? voiceList.find(v => v.voiceURI === evenSelect.value) : null;
+        }
+
+        if ('speechSynthesis' in window) {
+            speechSynthesis.onvoiceschanged = populateVoiceList;
+            // Gọi ngay lập tức nếu voices đã có sẵn
+            if (speechSynthesis.getVoices().length > 0) {
+                populateVoiceList();
+            }
+        }
+
+        // ---------- RENDER CORE ----------
+        function render() {
+            if (currentScreen === 'main') renderMain();
+            else if (currentScreen === 'quiz') renderQuiz();
+            else if (currentScreen === 'report') renderReport();
+        }
+
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+        // ---------- MAIN ----------
+        function renderMain() {
+            let html = `
+                <div class="main-card">
+                    <h1>🔊 LUYỆN NGHE TIẾNG ANH LỚP 6</h1>
+                    <div class="flex-col">
+                        <div class="label-input"><label>👤 TÊN</label><input type="text" id="studentNameInput" value="${studentName}"></div>
+                        <div class="label-input"><label>📚 UNIT</label><select id="unitSelect">${UNIT_ITEMS.map(u => `<option ${selectedUnit===u?'selected':''}>${u}</option>`).join('')}</select></div>
+                        <div class="label-input"><label>📖 BÀI</label><select id="baiSelect">${BAI_ITEMS.map(b => `<option ${selectedBai===b?'selected':''}>${b}</option>`).join('')}</select></div>
+                        <div class="label-input"><label>🎯 DẠNG</label><select id="dangSelect">${DANG_BAI.map(d => `<option ${selectedDang===d?'selected':''}>${d}</option>`).join('')}</select></div>
+                        <div class="btn-group"><button class="btn primary" id="startBtn">▶ LÀM BÀI</button></div>
+                    </div>
+                    <div class="footer-info"><p>👨‍🏫 Thầy Hùng</p><p>Giáo viên dạy kèm Toán, tiếng Anh</p><p class="zalo">📞 Zalo: 0967.095.025</p></div>
+                    <div class="action-buttons-container"><div></div><a href="#" class="scroll-top" id="scrollTopMain">⬆️</a></div>
+                </div>`;
+            app.innerHTML = html;
+            document.getElementById('studentNameInput').addEventListener('input', e => studentName = e.target.value);
+            document.getElementById('unitSelect').addEventListener('change', e => selectedUnit = e.target.value);
+            document.getElementById('baiSelect').addEventListener('change', e => selectedBai = e.target.value);
+            document.getElementById('dangSelect').addEventListener('change', e => selectedDang = e.target.value);
+            document.getElementById('startBtn').addEventListener('click', () => {
+                if (!studentName.trim()) { alert('Vui lòng nhập tên'); return; }
+                if (!prepareQuizData()) { alert('Bài học chưa có nội dung.'); return; }
+                currentScreen = 'quiz';
+                startTime = Date.now();
+                endTime = null;
+                userAnswers = [];
+                audioEnabled = false;
+                render();
+                scrollToTop();
+            });
+            document.getElementById('scrollTopMain').addEventListener('click', (e)=>{ e.preventDefault(); scrollToTop(); });
+        }
+
+        function prepareQuizData() {
+            const unitKey = selectedUnit.replace('UNIT ','U');
+            let baiKey = selectedBai.replace('BÀI ','B');
+            if (selectedBai === 'KIỂM TRA NGẪU NHIÊN') {
+                const r = Math.floor(Math.random() * 12) + 1;
+                baiKey = `B${r}`;
+            }
+            const dataKey = `E6_${unitKey}_${baiKey}`;
+            let rawData = window[dataKey];
+            if (!rawData) {
+                alert(`Chưa có nội dung cho ${dataKey}, dùng bài mẫu U1_B1.`);
+                rawData = E6_U1_B1;
+            }
+            let questionPool = [];
+            if (selectedDang.includes('TRẮC NGHIỆM TRẢ LỜI CÂU HỎI')) questionPool = rawData.P1 || [];
+            else if (selectedDang.includes('TRUE – FALSE')) questionPool = rawData.P2 || [];
+            else if (selectedDang.includes('ĐIỀN KHUYẾT')) questionPool = rawData.P3 || [];
+
+            if (!questionPool.length) { alert('Dạng bài này chưa có câu hỏi.'); return false; }
+
+            const shuffled = [...questionPool].sort(()=>0.5-Math.random()).slice(0,5);
+            quizData = shuffled.map(q => {
+                let opts = [q.correct, q.wrong1, q.wrong2];
+                for (let i = opts.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [opts[i], opts[j]] = [opts[j], opts[i]];
+                }
+                return {
+                    id: q.id,
+                    question: q.word,
+                    options: opts,
+                    correct: q.correct
+                };
+            });
+            return true;
+        }
+
+        // ---------- QUIZ SCREEN ----------
         function renderQuiz() {
-            let titleBai = selectedBai === 'KIỂM TRA NGẪU NHIÊN' ? 'KTRA' : selectedBai;
+            let titleBai = selectedBai === 'KIỂM TRA NGẪU NHIÊN' ? 'KIỂM TRA' : selectedBai;
             let html = `
                 <div class="main-card">
                     <h2>📘 LỚP 6 - ${selectedUnit} - ${titleBai}</h2>
                     <div class="title-sub">${selectedDang}</div>
                     
+                    <!-- AUDIO PANEL cải tiến với chọn giọng -->
                     <div class="audio-panel" id="audioPanel">
                         <span class="speaker-icon" id="playSpeaker">🔊</span>
                         <select id="gapTimeSelect">
                             <option value="0.5">0.5s</option><option value="1" selected>1s</option><option value="2">2s</option><option value="3">3s</option><option value="4">4s</option><option value="5">5s</option><option value="6">6s</option>
                         </select>
                         <select id="loopCountSelect">
-                            <option value="1">1 lần</option><option value="2">2 lần</option><option value="3">3 lần</option><option value="4">4 lần</option>
+                            <option value="1" selected>1 lần</option>
+                            <option value="2">2 lần</option>
+                            <option value="3">3 lần</option>
+                            <option value="4">4 lần</option>
                         </select>
                         <button id="pauseAudioBtn">⏸️</button>
                         <button id="stopAudioBtn">⏹️</button>
                     </div>
+                    <!-- Tùy chọn giọng đọc -->
+                    <div style="display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 20px; align-items: center; background: #e0ebf9; padding: 12px 20px; border-radius: 40px;">
+                        <label style="font-weight:600;">Số giọng:
+                            <select id="voiceModeSelect" style="padding:6px 12px; border-radius:40px;">
+                                <option value="1" selected>1 giọng</option>
+                                <option value="2">2 giọng (lẻ/chẵn)</option>
+                            </select>
+                        </label>
+                        <div id="singleVoiceContainer" style="display: flex; align-items:center; gap: 10px;">
+                            <label>Giọng: <select id="voiceSelect" style="min-width:180px; padding:6px;"></select></label>
+                        </div>
+                        <div id="dualVoiceContainer" style="display: none; align-items:center; gap: 10px; flex-wrap:wrap;">
+                            <label>Giọng lẻ (1,3...): <select id="oddVoiceSelect" style="min-width:160px;"></select></label>
+                            <label>Giọng chẵn (2,4...): <select id="evenVoiceSelect" style="min-width:160px;"></select></label>
+                        </div>
+                    </div>
+
                     <div id="quizQuestions"></div>
                     <div class="btn-group"><button class="btn primary" id="submitQuizBtn">📩 NỘP BÀI</button></div>
                     
-                    <!-- nút quay lại và lên đầu trang ở cuối -->
                     <div class="action-buttons-container">
                         <button class="btn-back" id="backToMainBtn">◀ QUAY LẠI</button>
                         <a href="#" class="scroll-top" id="scrollTopQuiz">⬆️</a>
                     </div>
-                </div>
-            `;
+                </div>`;
             app.innerHTML = html;
 
+            // Render câu hỏi
             let qDiv = document.getElementById('quizQuestions');
             quizData.forEach((q, idx) => {
-                let qHtml = `<div class="question-item" data-qidx="${idx}"><div class="question-text">${idx+1}. ${q.question}</div><div class="options">`;
+                let qHtml = `<div class="question-item" data-qidx="${idx}">
+                    <div class="question-text">
+                        <span class="speaker-btn" data-text="${q.question.replace(/"/g, '&quot;')}" data-index="${idx}">🔊</span>
+                        ${idx+1}. ${q.question}
+                    </div>
+                    <div class="options">`;
                 q.options.forEach((opt, optIdx) => {
                     let checked = (userAnswers[idx] && userAnswers[idx].chosen === opt) ? 'checked' : '';
                     qHtml += `<label class="option ${checked ? 'selected' : ''}"><input type="radio" name="q${idx}" value="${opt}" ${checked}> ${opt}</label>`;
@@ -801,6 +850,7 @@
                 qDiv.innerHTML += qHtml;
             });
 
+            // Radio change
             document.querySelectorAll('.question-item input[type=radio]').forEach(radio => {
                 radio.addEventListener('change', function(e) {
                     let name = this.name;
@@ -815,37 +865,65 @@
                 });
             });
 
-            document.getElementById('backToMainBtn').addEventListener('click', ()=>{ 
-                stopAllAudio();
-                currentScreen = 'main'; render();
-                scrollToTop();
+            // Speaker cho từng câu
+            document.querySelectorAll('.speaker-btn[data-text]').forEach(btn => {
+                btn.addEventListener('click', e => {
+                    e.stopPropagation();
+                    const text = btn.getAttribute('data-text');
+                    const idx = parseInt(btn.getAttribute('data-index'));
+                    speakSingleText(text, idx);
+                });
             });
-            document.getElementById('scrollTopQuiz').addEventListener('click', (e)=>{ e.preventDefault(); scrollToTop(); });
-            
+
+            // Voice dropdowns populate
+            if (voiceList.length) {
+                // Tìm giọng David để ưu tiên chọn
+                const davidVoice = voiceList.find(v => 
+                    v.name.toLowerCase().includes('david') && 
+                    (v.lang.includes('en-GB') || v.lang.includes('en-US'))
+                );
+                updateVoiceDropdowns(davidVoice);
+            } else {
+                populateVoiceList();
+            }
+
+            // Sự kiện chọn giọng
+            document.getElementById('voiceModeSelect').addEventListener('change', function(e) {
+                voiceMode = parseInt(e.target.value);
+                document.getElementById('singleVoiceContainer').style.display = voiceMode === 1 ? 'flex' : 'none';
+                document.getElementById('dualVoiceContainer').style.display = voiceMode === 2 ? 'flex' : 'none';
+            });
+            document.getElementById('voiceSelect')?.addEventListener('change', e => {
+                singleVoice = e.target.value ? voiceList.find(v => v.voiceURI === e.target.value) : null;
+            });
+            document.getElementById('oddVoiceSelect')?.addEventListener('change', e => {
+                oddVoice = e.target.value ? voiceList.find(v => v.voiceURI === e.target.value) : null;
+            });
+            document.getElementById('evenVoiceSelect')?.addEventListener('change', e => {
+                evenVoice = e.target.value ? voiceList.find(v => v.voiceURI === e.target.value) : null;
+            });
+
+            // Audio controls
             document.getElementById('playSpeaker').addEventListener('click', ()=>{
                 if (!audioEnabled) { startTime = Date.now(); audioEnabled = true; }
                 let raw = window[`E6_${selectedUnit.replace('UNIT ','U')}_B1`] || E6_U1_B1;
-                let sentences = raw.P5A || [];
+                let sentences = raw.P5 || E6_U1_B1.P5;
                 let gap = parseFloat(document.getElementById('gapTimeSelect').value);
                 let loop = parseInt(document.getElementById('loopCountSelect').value);
                 playAudioSentences(sentences, gap, loop);
             });
-
             document.getElementById('pauseAudioBtn').addEventListener('click', ()=>{
                 if (isPaused) resumeAudio(); else pauseAudio();
             });
-
-            document.getElementById('stopAudioBtn').addEventListener('click', ()=>{
-                stopAllAudio();
-            });
-
+            document.getElementById('stopAudioBtn').addEventListener('click', stopAllAudio);
+            document.getElementById('backToMainBtn').addEventListener('click', ()=>{ stopAllAudio(); currentScreen='main'; render(); scrollToTop(); });
+            document.getElementById('scrollTopQuiz').addEventListener('click', e=>{ e.preventDefault(); scrollToTop(); });
             document.getElementById('submitQuizBtn').addEventListener('click', ()=>{
                 if (userAnswers.filter(a=>a?.chosen).length !== 5) { alert('Vui lòng trả lời đủ 5 câu'); return; }
                 endTime = Date.now();
                 stopAllAudio();
                 currentScreen = 'report';
                 render();
-                // CUỘN LÊN ĐẦU TRANG KHI VÀO BÁO CÁO
                 scrollToTop();
             });
         }
@@ -862,8 +940,12 @@
             userAnswers.forEach((a,i)=> { if(a?.chosen===quizData[i]?.correct) streak++; else { maxStreak=Math.max(maxStreak,streak); streak=0; } });
             maxStreak=Math.max(maxStreak,streak);
             let totalTime = endTime && startTime ? Math.round((endTime-startTime)/1000) : 0;
-            
+
             let titleBai = selectedBai === 'KIỂM TRA NGẪU NHIÊN' ? 'KIỂM TRA' : selectedBai;
+            let raw = window[`E6_${selectedUnit.replace('UNIT ','U')}_B1`] || E6_U1_B1;
+            let passageText = raw.P4 || E6_U1_B1.P4;
+            let sentences = raw.P5 || E6_U1_B1.P5;
+
             let html = `
                 <div class="main-card">
                     <h2>📊 BÁO CÁO LỚP 6 - ${selectedUnit} - ${titleBai}</h2>
@@ -878,49 +960,47 @@
                             <div style="font-weight:bold; color:#1e3c72; margin-top:15px;">${new Date().toLocaleDateString()}</div>
                         </div>
                         <div class="stats-grid">
-                            <div class="stat-item">
-                                <div>⏱️ START</div>
-                                <div>${startStr}</div>
-                            </div>
-                            <div class="stat-item">
-                                <div>⌛ END</div>
-                                <div>${endStr}</div>
-                            </div>
-                            <div class="stat-item">
-                                <div>🔗 CHUỖI</div>
-                                <div>${maxStreak}/${correctCount}/${total}</div>
-                            </div>
-                            <div class="stat-item">
-                                <div>⏳ Tổng</div>
-                                <div>${totalTime}s</div>
-                            </div>
+                            <div class="stat-item"><div>⏱️ START</div><div>${startStr}</div></div>
+                            <div class="stat-item"><div>⌛ END</div><div>${endStr}</div></div>
+                            <div class="stat-item"><div>🔗 CHUỖI</div><div>${maxStreak}/${correctCount}/${total}</div></div>
+                            <div class="stat-item"><div>⏳ Tổng</div><div>${totalTime}s</div></div>
                         </div>
                     </div>
 
-                    <!-- Audio Panel dưới thông tin -->
+                    <!-- Audio Panel Report (giống quiz) -->
                     <div class="audio-panel" id="audioPanelReport">
                         <span class="speaker-icon" id="playSpeakerReport">🔊</span>
-                        <select id="gapTimeSelectReport"><option value="0.5">0.5s</option><option value="1">1s</option><option value="2">2s</option><option value="3">3s</option><option value="4">4s</option><option value="5">5s</option><option value="6">6s</option></select>
-                        <select id="loopCountSelectReport"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select>
+                        <select id="gapTimeSelectReport"><option value="0.5">0.5s</option><option value="1" selected>1s</option><option value="2">2s</option><option value="3">3s</option><option value="4">4s</option><option value="5">5s</option><option value="6">6s</option></select>
+                        <select id="loopCountSelectReport"><option value="1" selected>1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select>
                         <button id="pauseAudioBtnReport">⏸️</button><button id="stopAudioBtnReport">⏹️</button>
+                    </div>
+                    <!-- Chọn giọng trong report -->
+                    <div style="display: flex; flex-wrap: wrap; gap: 16px; margin: 10px 0 20px; align-items: center; background: #e0ebf9; padding: 12px 20px; border-radius: 40px;">
+                        <label style="font-weight:600;">Số giọng:
+                            <select id="voiceModeSelectReport" style="padding:6px 12px;">
+                                <option value="1" selected>1 giọng</option>
+                                <option value="2">2 giọng</option>
+                            </select>
+                        </label>
+                        <div id="singleVoiceContainerReport" style="display: flex; gap:10px;">
+                            <label>Giọng: <select id="voiceSelectReport"></select></label>
+                        </div>
+                        <div id="dualVoiceContainerReport" style="display: none; gap:10px; flex-wrap:wrap;">
+                            <label>Giọng lẻ: <select id="oddVoiceSelectReport"></select></label>
+                            <label>Giọng chẵn: <select id="evenVoiceSelectReport"></select></label>
+                        </div>
                     </div>
 
                     <button class="btn" id="togglePassageBtn">📄 HIỆN đoạn văn P4</button>
-                    <div id="passageContainer" style="display:none;" class="hidden-passage">${(window[`E6_${selectedUnit.replace('UNIT ','U')}_B1`]||E6_U1_B1).P4}</div>
+                    <div id="passageContainer" style="display:none;" class="hidden-passage">${passageText}</div>
+                    
                     <h3>📋 Chi tiết câu hỏi</h3>
-                    <table>
-                        <tr><th>STT</th><th>Nội dung</th><th>Đáp án chọn</th><th>Đáp án đúng</th></tr>`;
+                    <table><tr><th>STT</th><th>Nội dung</th><th>Đáp án chọn</th><th>Đáp án đúng</th></tr>`;
             quizData.forEach((q,i)=>{
                 let chosen = userAnswers[i]?.chosen || '—';
                 let correct = q.correct;
                 let wrongClass = (chosen !== correct) ? 'wrong-answer' : '';
-                let correctDisplay = `<span class="correct-answer">${correct}</span>`;
-                html += `<tr>
-                    <td>${i+1}</td>
-                    <td>${q.question}</td>
-                    <td class="${wrongClass}">${chosen}</td>
-                    <td>${correctDisplay}</td>
-                </tr>`;
+                html += `<tr><td>${i+1}</td><td>${q.question}</td><td class="${wrongClass}">${chosen}</td><td><span class="correct-answer">${correct}</span></td></tr>`;
             });
             html += `</table><br>
                     <div class="action-buttons-container">
@@ -929,38 +1009,78 @@
                     </div>
                 </div>`;
             app.innerHTML = html;
-            
-            document.getElementById('backToMainBtnReport').addEventListener('click',()=>{ 
-                stopAllAudio(); 
-                currentScreen='main'; 
-                render();
-                scrollToTop();
+
+            // Xử lý voice dropdowns trong report
+            if (voiceList.length) {
+                const davidVoice = voiceList.find(v => 
+                    v.name.toLowerCase().includes('david') && 
+                    (v.lang.includes('en-GB') || v.lang.includes('en-US'))
+                );
+                const singleSel = document.getElementById('voiceSelectReport');
+                const oddSel = document.getElementById('oddVoiceSelectReport');
+                const evenSel = document.getElementById('evenVoiceSelectReport');
+                if (singleSel && oddSel && evenSel) {
+                    const fill = (sel) => {
+                        sel.innerHTML = '';
+                        const emptyOpt = document.createElement('option');
+                        emptyOpt.value = '';
+                        emptyOpt.textContent = '-- Chọn giọng --';
+                        sel.appendChild(emptyOpt);
+                        voiceList.forEach(v => {
+                            let opt = document.createElement('option');
+                            opt.value = v.voiceURI;
+                            opt.textContent = `${v.name} (${v.lang})`;
+                            if (davidVoice && v.voiceURI === davidVoice.voiceURI) opt.selected = true;
+                            sel.appendChild(opt);
+                        });
+                    };
+                    fill(singleSel);
+                    fill(oddSel);
+                    fill(evenSel);
+                }
+            }
+
+            // Sự kiện chuyển chế độ giọng report
+            const modeSel = document.getElementById('voiceModeSelectReport');
+            const singleDiv = document.getElementById('singleVoiceContainerReport');
+            const dualDiv = document.getElementById('dualVoiceContainerReport');
+            modeSel.addEventListener('change', e => {
+                voiceMode = parseInt(e.target.value);
+                singleDiv.style.display = voiceMode === 1 ? 'flex' : 'none';
+                dualDiv.style.display = voiceMode === 2 ? 'flex' : 'none';
             });
-            document.getElementById('scrollTopReport').addEventListener('click',(e)=>{ e.preventDefault(); scrollToTop(); });
-            document.getElementById('togglePassageBtn').addEventListener('click',(e)=>{
-                let c=document.getElementById('passageContainer'); c.style.display=c.style.display==='none'?'block':'none';
+            document.getElementById('voiceSelectReport')?.addEventListener('change', e => {
+                singleVoice = e.target.value ? voiceList.find(v => v.voiceURI === e.target.value) : null;
             });
-            
-            document.getElementById('playSpeakerReport').addEventListener('click',()=>{
-                let raw = window[`E6_${selectedUnit.replace('UNIT ','U')}_B1`] || E6_U1_B1;
-                let sentences = raw.P5A || [];
+            document.getElementById('oddVoiceSelectReport')?.addEventListener('change', e => {
+                oddVoice = e.target.value ? voiceList.find(v => v.voiceURI === e.target.value) : null;
+            });
+            document.getElementById('evenVoiceSelectReport')?.addEventListener('change', e => {
+                evenVoice = e.target.value ? voiceList.find(v => v.voiceURI === e.target.value) : null;
+            });
+
+            // Audio report
+            document.getElementById('playSpeakerReport').addEventListener('click', ()=>{
                 let gap = parseFloat(document.getElementById('gapTimeSelectReport').value);
                 let loop = parseInt(document.getElementById('loopCountSelectReport').value);
                 playAudioSentences(sentences, gap, loop);
             });
-
             document.getElementById('pauseAudioBtnReport').addEventListener('click', ()=>{
                 if (isPaused) resumeAudio(); else pauseAudio();
             });
-
-            document.getElementById('stopAudioBtnReport').addEventListener('click', ()=>{
-                stopAllAudio();
+            document.getElementById('stopAudioBtnReport').addEventListener('click', stopAllAudio);
+            document.getElementById('togglePassageBtn').addEventListener('click', ()=>{
+                let c = document.getElementById('passageContainer');
+                c.style.display = c.style.display === 'none' ? 'block' : 'none';
             });
+            document.getElementById('backToMainBtnReport').addEventListener('click', ()=>{ stopAllAudio(); currentScreen='main'; render(); scrollToTop(); });
+            document.getElementById('scrollTopReport').addEventListener('click', e=>{ e.preventDefault(); scrollToTop(); });
         }
-        // khởi tạo
-        render();
+
+        // Khởi tạo
         window.E6_U1_B1 = E6_U1_B1;
         window.E6_U2_B1 = E6_U2_B1;
+        render();
     })();
 </script>
 </body>
