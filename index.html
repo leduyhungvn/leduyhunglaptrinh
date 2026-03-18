@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Luyện nghe TA Lớp 6 (0.5s mặc định + 0.25s, 0.75s)</title>
+    <title>Luyện nghe TA Lớp 6 (KT Ngẫu nhiên mặc định)</title>
     <!-- Chống tự động dịch thuật -->
     <meta name="google" content="notranslate">
     <meta http-equiv="Content-Language" content="en">
@@ -523,14 +523,15 @@
 
         // Danh sách UNIT, BÀI, DẠNG
         const UNIT_ITEMS = ['UNIT 1','UNIT 2','UNIT 3','UNIT 4','UNIT 5','UNIT 6','UNIT 7','UNIT 8','UNIT 9','UNIT 10','UNIT 11','UNIT 12'];
-        const BAI_ITEMS = ['BÀI 1','BÀI 2','BÀI 3','BÀI 4','BÀI 5','BÀI 6','BÀI 7','BÀI 8','BÀI 9','BÀI 10','BÀI 11','BÀI 12','BÀI 13','BÀI 14','BÀI 15','BÀI 16','BÀI 17','BÀI 18','BÀI 19','BÀI 20','KIỂM TRA NGẪU NHIÊN'];
+        // Sắp xếp lại BÀI: KIỂM TRA NGẪU NHIÊN lên đầu, sau đó đến BÀI 1, BÀI 2,...
+        const BAI_ITEMS = ['KIỂM TRA NGẪU NHIÊN', ...Array.from({ length: 20 }, (_, i) => `BÀI ${i+1}`)];
         const DANG_BAI = ['TRẮC NGHIỆM TRẢ LỜI CÂU HỎI','TRẮC NGHIỆM TRUE – FALSE – NOT GIVEN','TRẮC NGHIỆM ĐIỀN KHUYẾT'];
 
         // ---- state toàn cục ----
         let currentScreen = 'main'; // main, quiz, report
         let studentName = '';
         let selectedUnit = 'UNIT 1';
-        let selectedBai = 'BÀI 1';
+        let selectedBai = 'KIỂM TRA NGẪU NHIÊN'; // Mặc định là KIỂM TRA NGẪU NHIÊN
         let selectedDang = DANG_BAI[0];
         let quizData = null;         // 5 câu hỏi hiện tại { id, question, options, correct }
         let userAnswers = [];         // mảng { chosen }
@@ -748,11 +749,13 @@
 
         function prepareQuizData() {
             const unitKey = selectedUnit.replace('UNIT ','U');
-            let baiKey = selectedBai.replace('BÀI ','B');
+            let baiKey = selectedBai;
             if (selectedBai === 'KIỂM TRA NGẪU NHIÊN') {
                 const r = Math.floor(Math.random() * 12) + 1;
-                baiKey = `B${r}`;
+                baiKey = `BÀI ${r}`;
             }
+            // Chuyển "BÀI X" thành "BX"
+            baiKey = baiKey.replace('BÀI ', 'B');
             const dataKey = `E6_${unitKey}_${baiKey}`;
             let rawData = window[dataKey];
             if (!rawData) {
