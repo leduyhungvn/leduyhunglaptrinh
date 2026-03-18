@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Luyện nghe TA Lớp 6 (Giọng David mặc định)</title>
+    <title>Luyện nghe TA Lớp 6 (0.5s mặc định + 0.25s, 0.75s)</title>
     <!-- Chống tự động dịch thuật -->
     <meta name="google" content="notranslate">
     <meta http-equiv="Content-Language" content="en">
@@ -795,7 +795,15 @@
                     <div class="audio-panel" id="audioPanel">
                         <span class="speaker-icon" id="playSpeaker">🔊</span>
                         <select id="gapTimeSelect">
-                            <option value="0.5">0.5s</option><option value="1" selected>1s</option><option value="2">2s</option><option value="3">3s</option><option value="4">4s</option><option value="5">5s</option><option value="6">6s</option>
+                            <option value="0.25">0.25s</option>
+                            <option value="0.5" selected>0.5s</option>
+                            <option value="0.75">0.75s</option>
+                            <option value="1">1s</option>
+                            <option value="2">2s</option>
+                            <option value="3">3s</option>
+                            <option value="4">4s</option>
+                            <option value="5">5s</option>
+                            <option value="6">6s</option>
                         </select>
                         <select id="loopCountSelect">
                             <option value="1" selected>1 lần</option>
@@ -970,8 +978,23 @@
                     <!-- Audio Panel Report (giống quiz) -->
                     <div class="audio-panel" id="audioPanelReport">
                         <span class="speaker-icon" id="playSpeakerReport">🔊</span>
-                        <select id="gapTimeSelectReport"><option value="0.5">0.5s</option><option value="1" selected>1s</option><option value="2">2s</option><option value="3">3s</option><option value="4">4s</option><option value="5">5s</option><option value="6">6s</option></select>
-                        <select id="loopCountSelectReport"><option value="1" selected>1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select>
+                        <select id="gapTimeSelectReport">
+                            <option value="0.25">0.25s</option>
+                            <option value="0.5" selected>0.5s</option>
+                            <option value="0.75">0.75s</option>
+                            <option value="1">1s</option>
+                            <option value="2">2s</option>
+                            <option value="3">3s</option>
+                            <option value="4">4s</option>
+                            <option value="5">5s</option>
+                            <option value="6">6s</option>
+                        </select>
+                        <select id="loopCountSelectReport">
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
                         <button id="pauseAudioBtnReport">⏸️</button><button id="stopAudioBtnReport">⏹️</button>
                     </div>
                     <!-- Chọn giọng trong report -->
