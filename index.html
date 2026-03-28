@@ -868,64 +868,77 @@
         speakNext();
     }
 
-    // ----- HÀM GIỚI HẠN GIỌNG (5 NAM + 5 NỮ CHO en-GB, 5 NAM + 5 NỮ CHO en-US) -----
-    function isMaleVoice(name) {
-        const maleNames = ['david', 'mark', 'daniel', 'oliver', 'michael', 'john', 'james', 'william', 'alex', 'bruce', 'evan', 'fred', 'ralph', 'junior', 'nathan', 'eddy', 'reed', 'grandpa', 'rocko', 'boing', 'wobble', 'superstar'];
-        return maleNames.some(m => name.toLowerCase().includes(m));
+    // ----- HÀM XÁC ĐỊNH THIẾT BỊ -----
+    function getDeviceType() {
+        const ua = navigator.userAgent;
+        if (/iPhone|iPad|iPod/i.test(ua)) return 'ios';
+        if (/Android/i.test(ua)) return 'android';
+        return 'desktop';
     }
 
-    function isFemaleVoice(name) {
-        const femaleNames = ['zira', 'susan', 'mary', 'linda', 'ava', 'allison', 'eloquence', 'joelle', 'kathy', 'noelle', 'samantha', 'siri', 'serena', 'stephanie', 'agnes', 'grandma', 'bells', 'whisper', 'trinoids', 'tessa'];
-        return femaleNames.some(f => name.toLowerCase().includes(f));
-    }
-
-    function filterLimitedVoices(allVoices) {
-        // Lấy các giọng en-GB và en-US
-        const gbVoices = allVoices.filter(v => v.lang === 'en-GB');
-        const usVoices = allVoices.filter(v => v.lang === 'en-US');
-
-        // Hàm chọn tối đa 5 nam và 5 nữ từ một mảng
-        function selectLimited(voices) {
-            const males = voices.filter(v => isMaleVoice(v.name));
-            const females = voices.filter(v => isFemaleVoice(v.name));
-            const others = voices.filter(v => !isMaleVoice(v.name) && !isFemaleVoice(v.name));
-            
-            // Lấy 5 nam đầu, nếu thiếu thì bổ sung từ others (ưu tiên others có tên không rõ giới tính)
-            let selectedMales = males.slice(0, 5);
-            if (selectedMales.length < 5) {
-                const needed = 5 - selectedMales.length;
-                selectedMales = selectedMales.concat(others.slice(0, needed));
-            }
-            let selectedFemales = females.slice(0, 5);
-            if (selectedFemales.length < 5) {
-                const needed = 5 - selectedFemales.length;
-                selectedFemales = selectedFemales.concat(others.slice(0, needed));
-            }
-            // Kết hợp và sắp xếp theo tên
-            return [...selectedMales, ...selectedFemales].sort((a,b) => a.name.localeCompare(b.name));
+    // ----- HÀM LỌC GIỌNG THEO THIẾT BỊ -----
+    function filterVoicesByDevice(allVoices) {
+        const device = getDeviceType();
+        const englishVoices = allVoices.filter(v => v.lang.startsWith('en-GB') || v.lang.startsWith('en-US'));
+        
+        // Danh sách ưu tiên theo thiết bị
+        let priorityNames = [];
+        if (device === 'ios') {
+            // UK: Daniel, Siri, Kate, Jamie, Oliver, Serena
+            // US: Samantha, Susan, Tom, Zoe, Alex, Alison
+            priorityNames = [
+                'Daniel', 'Siri', 'Kate', 'Jamie', 'Oliver', 'Serena',
+                'Samantha', 'Susan', 'Tom', 'Zoe', 'Alex', 'Alison'
+            ];
+        } else if (device === 'android') {
+            // Android: thường có Google voices
+            priorityNames = [
+                'Google UK English Male', 'Google UK English Female',
+                'Google US English', 'Google US English Male', 'Google US English Female'
+            ];
+        } else {
+            // desktop: Microsoft voices và Google voices
+            priorityNames = [
+                'Microsoft David', 'Microsoft Mark', 'Microsoft Zira',
+                'Google UK English Male', 'Google UK English Female', 'Google US English'
+            ];
         }
 
-        const gbSelected = selectLimited(gbVoices);
-        const usSelected = selectLimited(usVoices);
+        // Lấy giọng theo ưu tiên (khớp tên không phân biệt hoa thường)
+        const priorityVoices = [];
+        priorityNames.forEach(pName => {
+            const found = englishVoices.find(v => v.name.toLowerCase().includes(pName.toLowerCase()));
+            if (found && !priorityVoices.some(pv => pv.voiceURI === found.voiceURI)) {
+                priorityVoices.push(found);
+            }
+        });
 
-        // Trả về mảng tổng hợp, ưu tiên giọng en-GB trước
-        return [...gbSelected, ...usSelected];
+        // Nếu đã có đủ giọng (ít nhất 5) thì dùng, nếu không thì bổ sung thêm các giọng en-GB/en-US khác
+        let result = [...priorityVoices];
+        if (result.length < 5) {
+            const remaining = englishVoices.filter(v => !result.some(r => r.voiceURI === v.voiceURI));
+            result = result.concat(remaining.slice(0, 5 - result.length));
+        }
+        // Sắp xếp theo tên
+        result.sort((a,b) => a.name.localeCompare(b.name));
+        return result;
     }
 
     function populateVoiceList() {
         if (!('speechSynthesis' in window)) return;
         const allVoices = speechSynthesis.getVoices();
-        // Lọc chỉ giọng en-GB và en-US, sau đó giới hạn
-        const englishVoices = allVoices.filter(v => v.lang.startsWith('en-GB') || v.lang.startsWith('en-US'));
-        voiceList = filterLimitedVoices(englishVoices);
+        voiceList = filterVoicesByDevice(allVoices);
 
-        // Tìm giọng David làm mặc định (nếu có)
-        const davidVoice = voiceList.find(v => 
-            v.name.toLowerCase().includes('david') && 
-            (v.lang.includes('en-GB') || v.lang.includes('en-US'))
-        );
-
-        updateVoiceDropdowns(davidVoice);
+        // Tìm giọng David hoặc Google UK English Male để làm mặc định
+        let defaultVoice = null;
+        if (getDeviceType() === 'ios') {
+            defaultVoice = voiceList.find(v => v.name === 'Daniel' || v.name === 'Samantha');
+        } else if (getDeviceType() === 'android') {
+            defaultVoice = voiceList.find(v => v.name.includes('Google UK English Male') || v.name.includes('Google US English'));
+        } else {
+            defaultVoice = voiceList.find(v => v.name.includes('David') || v.name.includes('Google UK English Male'));
+        }
+        updateVoiceDropdowns(defaultVoice);
     }
 
     function updateVoiceDropdowns(preferredVoice = null) {
@@ -1049,7 +1062,7 @@
         return true;
     }
 
-    // ---------- RENDER CÁC MÀN HÌNH (giữ nguyên logic, chỉ sửa tên lớp) ----------
+    // ---------- RENDER CÁC MÀN HÌNH (giữ nguyên logic) ----------
     function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
     function renderMain() {
@@ -1182,13 +1195,16 @@
         if (voiceList.length === 0 && 'speechSynthesis' in window) {
             populateVoiceList();
         } else {
-            // Chỉ cập nhật dropdown nếu voiceList đã có
             if (voiceList.length) {
-                const davidVoice = voiceList.find(v => 
-                    v.name.toLowerCase().includes('david') && 
-                    (v.lang.includes('en-GB') || v.lang.includes('en-US'))
-                );
-                updateVoiceDropdowns(davidVoice);
+                let defaultVoice = null;
+                if (getDeviceType() === 'ios') {
+                    defaultVoice = voiceList.find(v => v.name === 'Daniel' || v.name === 'Samantha');
+                } else if (getDeviceType() === 'android') {
+                    defaultVoice = voiceList.find(v => v.name.includes('Google UK English Male') || v.name.includes('Google US English'));
+                } else {
+                    defaultVoice = voiceList.find(v => v.name.includes('David') || v.name.includes('Google UK English Male'));
+                }
+                updateVoiceDropdowns(defaultVoice);
             }
         }
 
@@ -1312,9 +1328,9 @@
                 <div id="passageContainer" style="display:none;" class="hidden-passage">${passageText}</div>
                 
                 <h3>📋 Chi tiết câu hỏi</h3>
-                 <table>
+                <table>
                     <thead>
-                        <tr><th>STT</th><th>Nội dung</th><th>Đáp án chọn</th><th>Đáp án đúng</th> </tr>
+                        <tr><th>STT</th><th>Nội dung</th><th>Đáp án chọn</th><th>Đáp án đúng</th></tr>
                     </thead>
                     <tbody>`;
         quizData.forEach((q,i)=>{
@@ -1324,7 +1340,7 @@
             html += `<tr><td>${i+1}</td><td>${q.question}</td><td class="${wrongClass}">${chosen}</td><td><span class="correct-answer">${correct}</span></td></tr>`;
         });
         html += `</tbody>
-                 </table>
+                </table>
                 <br>
                 <div class="action-buttons-container">
                     <button class="btn-back" id="backToMainBtnReport">◀ QUAY LẠI</button>
@@ -1338,10 +1354,14 @@
             populateVoiceList();
         }
         if (voiceList.length) {
-            const davidVoice = voiceList.find(v => 
-                v.name.toLowerCase().includes('david') && 
-                (v.lang.includes('en-GB') || v.lang.includes('en-US'))
-            );
+            let defaultVoice = null;
+            if (getDeviceType() === 'ios') {
+                defaultVoice = voiceList.find(v => v.name === 'Daniel' || v.name === 'Samantha');
+            } else if (getDeviceType() === 'android') {
+                defaultVoice = voiceList.find(v => v.name.includes('Google UK English Male') || v.name.includes('Google US English'));
+            } else {
+                defaultVoice = voiceList.find(v => v.name.includes('David') || v.name.includes('Google UK English Male'));
+            }
             const singleSel = document.getElementById('voiceSelectReport');
             const oddSel = document.getElementById('oddVoiceSelectReport');
             const evenSel = document.getElementById('evenVoiceSelectReport');
@@ -1356,7 +1376,7 @@
                         let opt = document.createElement('option');
                         opt.value = v.voiceURI;
                         opt.textContent = `${v.name} (${v.lang})`;
-                        if (davidVoice && v.voiceURI === davidVoice.voiceURI) opt.selected = true;
+                        if (defaultVoice && v.voiceURI === defaultVoice.voiceURI) opt.selected = true;
                         sel.appendChild(opt);
                     });
                 };
