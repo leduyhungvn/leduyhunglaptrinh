@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Luyện nghe TA Lớp 6 (thêm dạng tổng hợp)</title>
+    <title>Luyện nghe TA Lớp 5 (thêm dạng tổng hợp)</title>
     <meta name="google" content="notranslate">
     <meta http-equiv="Content-Language" content="en">
     <style>
-        /* Toàn bộ style giữ nguyên như bản trước (đã copy từ file cũ) */
+        /* Toàn bộ style giữ nguyên như bản trước */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -453,46 +453,40 @@
 <div class="app-container" id="app"></div>
 <script>
     // =====================================================
-    // HỆ THỐNG TỰ ĐỘNG THU THẬP CÁC BÀI HỌC
-    // Chỉ cần khai báo biến với tên theo mẫu E{lop}_U{unit}_B{bai}
-    // Ví dụ: var E6_U1_B2 = { ... }; là đủ.
+    // HỆ THỐNG TỰ ĐỘNG THU THẬP CÁC BÀI HỌC (LỚP 5)
+    // Chỉ cần khai báo biến với tên theo mẫu E5_U{unit}_B{bai}
     // =====================================================
 
     // Registry chứa tất cả các bài học
     window.LESSON_REGISTRY = {};
 
-    // Hàm quét window để tìm các biến có tên dạng E..._U..._B...
+    // Hàm quét window để tìm các biến có tên dạng E5_..._...
     function scanLessons() {
-        const lessonRegex = /^E(\d+)_U(\d+)_B(\d+)$/; // ví dụ E6_U1_B2
+        const lessonRegex = /^E5_U(\d+)_B(\d+)$/; // Lớp 5
         for (let key in window) {
             if (window.hasOwnProperty(key)) {
                 const match = key.match(lessonRegex);
                 if (match) {
-                    const lop = match[1]; // lớp, ví dụ "6"
-                    const unit = match[2]; // unit, ví dụ "1"
-                    const bai = match[3];  // bài, ví dụ "2"
+                    const unit = match[1]; // unit, ví dụ "1"
+                    const bai = match[2];  // bài, ví dụ "2"
                     const data = window[key];
                     // Kiểm tra xem data có cấu trúc bài học không (có P1, P2,...)
                     if (data && typeof data === 'object' && data.P1 !== undefined) {
-                        if (!LESSON_REGISTRY[lop]) LESSON_REGISTRY[lop] = {};
-                        if (!LESSON_REGISTRY[lop][`U${unit}`]) LESSON_REGISTRY[lop][`U${unit}`] = {};
-                        LESSON_REGISTRY[lop][`U${unit}`][`B${bai}`] = data;
+                        if (!LESSON_REGISTRY['5']) LESSON_REGISTRY['5'] = {};
+                        if (!LESSON_REGISTRY['5'][`U${unit}`]) LESSON_REGISTRY['5'][`U${unit}`] = {};
+                        LESSON_REGISTRY['5'][`U${unit}`][`B${bai}`] = data;
                     }
                 }
             }
         }
     }
 
-    // Gọi quét ngay sau khi script load
-    scanLessons();
-
     // =====================================================
-    // KHAI BÁO DỮ LIỆU CÁC BÀI (chỉ cần var, không cần gán thêm)
-    // Bạn có thể thêm bất kỳ bài nào theo mẫu, hệ thống tự nhận
+    // KHAI BÁO DỮ LIỆU CÁC BÀI (chuyển từ lớp 4, giữ nguyên nội dung)
     // =====================================================
 
     // ---------- UNIT 1 BÀI 1 ----------
-    var E6_U1_B1 = {
+    var E5_U1_B1 = {
         P1: [ // trắc nghiệm trả lời câu hỏi
             { id: 1, word: "Where does Miss Lien live?", correct: "in a small house in Hanoi", wrong1: "in a big apartment", wrong2: "in the countryside" },
             { id: 2, word: "What does Miss Lien do?", correct: "She teaches English", wrong1: "She is a doctor", wrong2: "She works in a factory" },
@@ -544,7 +538,7 @@
     };
 
     // ---------- UNIT 1 BÀI 2 ----------
-    var E6_U1_B2 = {
+    var E5_U1_B2 = {
         P1: [
             { id: 1, word: "How old is Janet?", correct: "eleven years old", wrong1: "ten years old", wrong2: "twelve years old" },
             { id: 2, word: "Which school does Janet go to?", correct: "Palmer School", wrong1: "Park School", wrong2: "Parker School" },
@@ -598,7 +592,7 @@
     };
 
     // ---------- UNIT 1 BÀI 3 ----------
-    var E6_U1_B3 = {
+    var E5_U1_B3 = {
         P1: [
             { id: 1, word: "Where is Sunrise boarding school?", correct: "in Sydney", wrong1: "in Bac Giang", wrong2: "in London" },
             { id: 2, word: "How many students go to Sunrise?", correct: "about 1,200", wrong1: "about 1,500", wrong2: "about 800" },
@@ -655,41 +649,65 @@
         ]
     };
 
-    // ---------- UNIT 2 BÀI 1 (mẫu trống) ----------
-    var E6_U2_B1 = {
-        P1: [],
-        P2: [],
-        P3: [],
-        P4: "Chưa có nội dung",
-        P5: []
-    };
+    // ---------- UNIT 1 BÀI 4 đến BÀI 10 (rỗng) ----------
+    var E5_U1_B4 = { P1: [], P2: [], P3: [], P4: "Chưa có nội dung", P5: [] };
+    var E5_U1_B5 = { P1: [], P2: [], P3: [], P4: "Chưa có nội dung", P5: [] };
+    var E5_U1_B6 = { P1: [], P2: [], P3: [], P4: "Chưa có nội dung", P5: [] };
+    var E5_U1_B7 = { P1: [], P2: [], P3: [], P4: "Chưa có nội dung", P5: [] };
+    var E5_U1_B8 = { P1: [], P2: [], P3: [], P4: "Chưa có nội dung", P5: [] };
+    var E5_U1_B9 = { P1: [], P2: [], P3: [], P4: "Chưa có nội dung", P5: [] };
+    var E5_U1_B10 = { P1: [], P2: [], P3: [], P4: "Chưa có nội dung", P5: [] };
 
-    // Bạn có thể thêm bất kỳ bài nào khác theo mẫu trên, ví dụ:
-    // var E6_U1_B4 = { ... };
-    // var E7_U1_B1 = { ... };
-    // Sau khi thêm, hệ thống tự động nhận diện.
+    // ---------- UNIT 2 đến UNIT 20, mỗi unit 10 bài rỗng ----------
+    (function createEmptyLessons() {
+        for (let unit = 2; unit <= 20; unit++) {
+            for (let bai = 1; bai <= 10; bai++) {
+                let varName = 'E5_U' + unit + '_B' + bai;
+                if (typeof window[varName] === 'undefined') {
+                    window[varName] = {
+                        P1: [],
+                        P2: [],
+                        P3: [],
+                        P4: "Chưa có nội dung",
+                        P5: []
+                    };
+                }
+            }
+        }
+    })();
 
-    // Quét lại sau khi khai báo thêm (nếu cần)
+    // Quét registry sau khi khai báo tất cả
     scanLessons();
 
     // =====================================================
-    // CÁC BIẾN VÀ HÀM XỬ LÝ (dùng LESSON_REGISTRY)
+    // HÀM KIỂM TRA BÀI HỢP LỆ (CÓ DỮ LIỆU)
     // =====================================================
-    const UNIT_ITEMS = ['UNIT 1','UNIT 2','UNIT 3','UNIT 4','UNIT 5','UNIT 6','UNIT 7','UNIT 8','UNIT 9','UNIT 10','UNIT 11','UNIT 12'];
-    const BAI_ITEMS = ['KIỂM TRA NGẪU NHIÊN', ...Array.from({ length: 20 }, (_, i) => `BÀI ${i+1}`)];
-    // Thêm dạng tổng hợp lên đầu
+    function isLessonValid(lesson) {
+        return (lesson.P1 && lesson.P1.length > 0) ||
+               (lesson.P2 && lesson.P2.length > 0) ||
+               (lesson.P3 && lesson.P3.length > 0) ||
+               (lesson.P4 && lesson.P4 !== "Chưa có nội dung");
+    }
+
+    // =====================================================
+    // CÁC BIẾN VÀ HÀM XỬ LÝ (dùng LESSON_REGISTRY, lớp 5)
+    // =====================================================
+    const UNIT_ITEMS = [];
+    for (let i = 1; i <= 20; i++) UNIT_ITEMS.push(`UNIT ${i}`);
+    
+    const BAI_ITEMS = ['KIỂM TRA NGẪU NHIÊN', ...Array.from({ length: 10 }, (_, i) => `BÀI ${i+1}`)];
     const DANG_BAI = ['TRẮC NGHIỆM TỔNG HỢP', 'TRẮC NGHIỆM TRẢ LỜI CÂU HỎI', 'TRẮC NGHIỆM TRUE – FALSE – NOT GIVEN', 'TRẮC NGHIỆM ĐIỀN KHUYẾT'];
 
     let currentScreen = 'main';
     let studentName = '';
     let selectedUnit = 'UNIT 1';
     let selectedBai = 'KIỂM TRA NGẪU NHIÊN';
-    let selectedDang = DANG_BAI[0]; // mặc định là tổng hợp
+    let selectedDang = DANG_BAI[0];
     let quizData = null;
     let userAnswers = [];
     let startTime = null;
     let endTime = null;
-    let currentLessonData = null; // lưu raw data của bài đang làm (để đọc P5)
+    let currentLessonData = null;
 
     let voiceList = [];
     let voiceMode = 1;
@@ -703,7 +721,7 @@
 
     const app = document.getElementById('app');
 
-    // ---------- HÀM PHÁT ÂM (đã sửa để xử lý dấu gạch dưới) ----------
+    // ---------- HÀM PHÁT ÂM (giữ nguyên) ----------
     function stopAllAudio() {
         speechSynthesis.cancel();
         if (audioTimeout) {
@@ -764,7 +782,7 @@
             utterance.onend = () => {
                 index++;
                 if (index < audioQueue.length && !isPaused) {
-                    audioTimeout = setTimeout(playNext, gapSec * 1000);
+                    audioTimeout = setTimeout(playNext, gapSec * 300);
                 } else if (index >= audioQueue.length) {
                     stopAllAudio();
                 }
@@ -772,7 +790,7 @@
             utterance.onerror = () => {
                 index++;
                 if (index < audioQueue.length && !isPaused) {
-                    audioTimeout = setTimeout(playNext, gapSec * 1000);
+                    audioTimeout = setTimeout(playNext, gapSec * 300);
                 }
             };
             speechSynthesis.speak(utterance);
@@ -780,34 +798,28 @@
         playNext();
     }
 
-    // Hàm phụ trợ: tách câu thành các phần text và blank
     function splitTextWithUnderscores(text) {
         const parts = [];
         let lastIndex = 0;
         const regex = /_+/g;
         let match;
         while ((match = regex.exec(text)) !== null) {
-            // Phần text trước dấu gạch dưới
             if (match.index > lastIndex) {
                 parts.push({ type: 'text', content: text.substring(lastIndex, match.index) });
             }
-            // Phần gạch dưới
             parts.push({ type: 'blank', content: match[0] });
             lastIndex = match.index + match[0].length;
         }
-        // Phần text còn lại sau dấu gạch dưới cuối cùng
         if (lastIndex < text.length) {
             parts.push({ type: 'text', content: text.substring(lastIndex) });
         }
         return parts;
     }
 
-    // Hàm phát âm một câu (đã sửa)
     function speakSingleText(text, id) {
         if (!text || text.trim() === '') return;
         const parts = splitTextWithUnderscores(text);
         
-        // Nếu không có blank, đọc bình thường
         if (parts.length === 1 && parts[0].type === 'text') {
             speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(text);
@@ -818,7 +830,6 @@
             return;
         }
 
-        // Hủy mọi phát âm đang thực hiện
         speechSynthesis.cancel();
 
         let currentIndex = 0;
@@ -828,7 +839,7 @@
             const part = parts[currentIndex];
             let textToSpeak = part.content;
             if (part.type === 'blank') {
-                textToSpeak = 'blank'; // thay dấu gạch dưới bằng từ "blank"
+                textToSpeak = 'blank';
             }
             const utterance = new SpeechSynthesisUtterance(textToSpeak);
             utterance.lang = 'en-GB';
@@ -838,18 +849,15 @@
             utterance.onend = () => {
                 currentIndex++;
                 if (part.type === 'blank') {
-                    // Sau khi đọc "blank", chờ 1 giây rồi đọc tiếp
-                    setTimeout(speakNext, 1000);
+                    setTimeout(speakNext, 300);
                 } else {
-                    // Đọc phần tiếp theo ngay lập tức
                     speakNext();
                 }
             };
             utterance.onerror = () => {
-                // Nếu lỗi vẫn tiếp tục (tránh treo)
                 currentIndex++;
                 if (part.type === 'blank') {
-                    setTimeout(speakNext, 1000);
+                    setTimeout(speakNext, 300);
                 } else {
                     speakNext();
                 }
@@ -860,11 +868,17 @@
         speakNext();
     }
 
+    // ----- LỌC GIỌNG TIẾNG ANH (ANH-ANH VÀ ANH-MỸ) -----
+    function getEnglishVoices(voices) {
+        return voices.filter(v => v.lang.startsWith('en-GB') || v.lang.startsWith('en-US'));
+    }
+
     function populateVoiceList() {
         if (!('speechSynthesis' in window)) return;
         const voices = speechSynthesis.getVoices();
-        voiceList = voices;
+        voiceList = getEnglishVoices(voices);
 
+        // Tìm giọng David để làm mặc định nếu có
         const davidVoice = voiceList.find(v => 
             v.name.toLowerCase().includes('david') && 
             (v.lang.includes('en-GB') || v.lang.includes('en-US'))
@@ -912,32 +926,38 @@
         }
     }
 
-    // ---------- HÀM CHUẨN BỊ DỮ LIỆU (dùng LESSON_REGISTRY) ----------
+    // ---------- HÀM CHUẨN BỊ DỮ LIỆU (lớp 5) ----------
     function prepareQuizData() {
         const unitKey = selectedUnit.replace('UNIT ', 'U'); // "U1"
         let baiNumber = null;
         let rawData = null;
 
         if (selectedBai === 'KIỂM TRA NGẪU NHIÊN') {
-            // Lấy danh sách các bài có trong unit hiện tại (chỉ xét lớp 6, có thể mở rộng sau)
-            const lop = '6'; // mặc định lớp 6, có thể lấy từ tên biến nhưng đơn giản ta fix
-            const unitLessons = LESSON_REGISTRY[lop]?.[unitKey];
+            const unitLessons = LESSON_REGISTRY['5']?.[unitKey];
             if (!unitLessons) {
                 alert(`Unit ${selectedUnit} chưa có bài nào.`);
                 return false;
             }
-            const availableBais = Object.keys(unitLessons); // ["B1","B2",...]
-            if (availableBais.length === 0) {
-                alert(`Unit ${selectedUnit} chưa có bài nào.`);
+            const availableBais = Object.keys(unitLessons);
+            const validBais = availableBais.filter(b => isLessonValid(unitLessons[b]));
+            if (validBais.length === 0) {
+                alert(`Unit ${selectedUnit} chưa có bài nào có dữ liệu.`);
                 return false;
             }
-            const randomBai = availableBais[Math.floor(Math.random() * availableBais.length)];
-            baiNumber = randomBai.substring(1); // lấy số
+            const randomBai = validBais[Math.floor(Math.random() * validBais.length)];
+            baiNumber = randomBai.substring(1);
             rawData = unitLessons[randomBai];
         } else {
             baiNumber = selectedBai.replace('BÀI ', '');
-            const lop = '6';
-            rawData = LESSON_REGISTRY[lop]?.[unitKey]?.[`B${baiNumber}`];
+            rawData = LESSON_REGISTRY['5']?.[unitKey]?.[`B${baiNumber}`];
+            if (!rawData) {
+                alert(`Không tìm thấy dữ liệu cho ${selectedUnit} - ${selectedBai}.`);
+                return false;
+            }
+            if (!isLessonValid(rawData)) {
+                alert(`Bài ${selectedBai} trong ${selectedUnit} chưa có nội dung.`);
+                return false;
+            }
         }
 
         if (!rawData) {
@@ -945,18 +965,17 @@
             return false;
         }
 
-        currentLessonData = rawData; // lưu lại để dùng trong phát âm
+        currentLessonData = rawData;
 
         let questionPool = [];
-        let numberOfQuestions = 5; // mặc định cho các dạng riêng
+        let numberOfQuestions = 5;
 
         if (selectedDang === 'TRẮC NGHIỆM TỔNG HỢP') {
-            // Gộp tất cả câu hỏi từ P1, P2, P3
             const p1 = rawData.P1 || [];
             const p2 = rawData.P2 || [];
             const p3 = rawData.P3 || [];
             questionPool = [...p1, ...p2, ...p3];
-            numberOfQuestions = 10; // tổng hợp lấy 10 câu
+            numberOfQuestions = 10;
         } else if (selectedDang.includes('TRẮC NGHIỆM TRẢ LỜI CÂU HỎI')) {
             questionPool = rawData.P1 || [];
         } else if (selectedDang.includes('TRUE – FALSE')) {
@@ -970,13 +989,11 @@
             return false;
         }
 
-        // Xáo trộn và lấy numberOfQuestions câu
         const shuffled = [...questionPool].sort(() => 0.5 - Math.random());
         const selected = shuffled.slice(0, Math.min(numberOfQuestions, shuffled.length));
 
         quizData = selected.map(q => {
             let opts = [q.correct, q.wrong1, q.wrong2];
-            // Xáo trộn đáp án
             for (let i = opts.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [opts[i], opts[j]] = [opts[j], opts[i]];
@@ -991,13 +1008,13 @@
         return true;
     }
 
-    // ---------- RENDER CÁC MÀN HÌNH (giữ nguyên logic cũ, chỉ sửa cách lấy P5) ----------
+    // ---------- RENDER CÁC MÀN HÌNH (giữ nguyên logic, chỉ sửa tên lớp) ----------
     function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
     function renderMain() {
         let html = `
             <div class="main-card">
-                <h1>🔊 LUYỆN NGHE TIẾNG ANH LỚP 6</h1>
+                <h1>🔊 LUYỆN NGHE TIẾNG ANH LỚP 5</h1>
                 <div class="flex-col">
                     <div class="label-input"><label>👤 TÊN</label><input type="text" id="studentNameInput" value="${studentName}"></div>
                     <div class="label-input"><label>📚 UNIT</label><select id="unitSelect">${UNIT_ITEMS.map(u => `<option ${selectedUnit===u?'selected':''}>${u}</option>`).join('')}</select></div>
@@ -1031,7 +1048,7 @@
         let titleBai = selectedBai === 'KIỂM TRA NGẪU NHIÊN' ? 'KIỂM TRA' : selectedBai;
         let html = `
             <div class="main-card">
-                <h2>📘 LỚP 6 - ${selectedUnit} - ${titleBai}</h2>
+                <h2>📘 LỚP 5 - ${selectedUnit} - ${titleBai}</h2>
                 <div class="title-sub">${selectedDang}</div>
                 
                 <div class="audio-panel" id="audioPanel">
@@ -1121,14 +1138,17 @@
             });
         });
 
-        if (voiceList.length) {
-            const davidVoice = voiceList.find(v => 
-                v.name.toLowerCase().includes('david') && 
-                (v.lang.includes('en-GB') || v.lang.includes('en-US'))
-            );
-            updateVoiceDropdowns(davidVoice);
-        } else {
+        if (voiceList.length === 0 && 'speechSynthesis' in window) {
             populateVoiceList();
+        } else {
+            // Chỉ cập nhật dropdown nếu voiceList đã có
+            if (voiceList.length) {
+                const davidVoice = voiceList.find(v => 
+                    v.name.toLowerCase().includes('david') && 
+                    (v.lang.includes('en-GB') || v.lang.includes('en-US'))
+                );
+                updateVoiceDropdowns(davidVoice);
+            }
         }
 
         document.getElementById('voiceModeSelect').addEventListener('change', function(e) {
@@ -1183,7 +1203,7 @@
         let streak = 0, maxStreak=0;
         userAnswers.forEach((a,i)=> { if(a?.chosen===quizData[i]?.correct) streak++; else { maxStreak=Math.max(maxStreak,streak); streak=0; } });
         maxStreak=Math.max(maxStreak,streak);
-        let totalTime = endTime && startTime ? Math.round((endTime-startTime)/1000) : 0;
+        let totalTime = endTime && startTime ? Math.round((endTime-startTime)/300) : 0;
 
         let titleBai = selectedBai === 'KIỂM TRA NGẪU NHIÊN' ? 'KIỂM TRA' : selectedBai;
         let passageText = currentLessonData?.P4 || 'Chưa có nội dung';
@@ -1191,7 +1211,7 @@
 
         let html = `
             <div class="main-card">
-                <h2>📊 BÁO CÁO LỚP 6 - ${selectedUnit} - ${titleBai}</h2>
+                <h2>📊 BÁO CÁO LỚP 5 - ${selectedUnit} - ${titleBai}</h2>
                 <div class="title-sub">${selectedDang}</div>
                 
                 <div class="report-chart-grid">
@@ -1251,14 +1271,20 @@
                 <div id="passageContainer" style="display:none;" class="hidden-passage">${passageText}</div>
                 
                 <h3>📋 Chi tiết câu hỏi</h3>
-                <table><tr><th>STT</th><th>Nội dung</th><th>Đáp án chọn</th><th>Đáp án đúng</th></tr>`;
+                <table>
+                    <thead>
+                        <tr><th>STT</th><th>Nội dung</th><th>Đáp án chọn</th><th>Đáp án đúng</th></tr>
+                    </thead>
+                    <tbody>`;
         quizData.forEach((q,i)=>{
             let chosen = userAnswers[i]?.chosen || '—';
             let correct = q.correct;
             let wrongClass = (chosen !== correct) ? 'wrong-answer' : '';
             html += `<tr><td>${i+1}</td><td>${q.question}</td><td class="${wrongClass}">${chosen}</td><td><span class="correct-answer">${correct}</span></td></tr>`;
         });
-        html += `</table><br>
+        html += `</tbody>
+                </table>
+                <br>
                 <div class="action-buttons-container">
                     <button class="btn-back" id="backToMainBtnReport">◀ QUAY LẠI</button>
                     <a href="#" class="scroll-top" id="scrollTopReport">⬆️</a>
@@ -1267,6 +1293,9 @@
         app.innerHTML = html;
 
         // Xử lý voice dropdowns trong report
+        if (voiceList.length === 0 && 'speechSynthesis' in window) {
+            populateVoiceList();
+        }
         if (voiceList.length) {
             const davidVoice = voiceList.find(v => 
                 v.name.toLowerCase().includes('david') && 
