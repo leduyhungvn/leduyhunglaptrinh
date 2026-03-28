@@ -454,23 +454,19 @@
 <script>
     // =====================================================
     // HỆ THỐNG TỰ ĐỘNG THU THẬP CÁC BÀI HỌC (LỚP 5)
-    // Chỉ cần khai báo biến với tên theo mẫu E5_U{unit}_B{bai}
     // =====================================================
 
-    // Registry chứa tất cả các bài học
     window.LESSON_REGISTRY = {};
 
-    // Hàm quét window để tìm các biến có tên dạng E5_..._...
     function scanLessons() {
-        const lessonRegex = /^E5_U(\d+)_B(\d+)$/; // Lớp 5
+        const lessonRegex = /^E5_U(\d+)_B(\d+)$/;
         for (let key in window) {
             if (window.hasOwnProperty(key)) {
                 const match = key.match(lessonRegex);
                 if (match) {
-                    const unit = match[1]; // unit, ví dụ "1"
-                    const bai = match[2];  // bài, ví dụ "2"
+                    const unit = match[1];
+                    const bai = match[2];
                     const data = window[key];
-                    // Kiểm tra xem data có cấu trúc bài học không (có P1, P2,...)
                     if (data && typeof data === 'object' && data.P1 !== undefined) {
                         if (!LESSON_REGISTRY['5']) LESSON_REGISTRY['5'] = {};
                         if (!LESSON_REGISTRY['5'][`U${unit}`]) LESSON_REGISTRY['5'][`U${unit}`] = {};
@@ -481,13 +477,9 @@
         }
     }
 
-    // =====================================================
-    // KHAI BÁO DỮ LIỆU CÁC BÀI (chuyển từ lớp 4, giữ nguyên nội dung)
-    // =====================================================
-
-    // ---------- UNIT 1 BÀI 1 ----------
+    // ---------- DỮ LIỆU BÀI HỌC (giữ nguyên như cũ) ----------
     var E5_U1_B1 = {
-        P1: [ // trắc nghiệm trả lời câu hỏi
+        P1: [
             { id: 1, word: "Where does Miss Lien live?", correct: "in a small house in Hanoi", wrong1: "in a big apartment", wrong2: "in the countryside" },
             { id: 2, word: "What does Miss Lien do?", correct: "She teaches English", wrong1: "She is a doctor", wrong2: "She works in a factory" },
             { id: 3, word: "What time does she have breakfast?", correct: "at seven", wrong1: "at six", wrong2: "at eight" },
@@ -499,7 +491,7 @@
             { id: 9, word: "What time does she go to bed?", correct: "at ten o'clock", wrong1: "at nine o'clock", wrong2: "at eleven" },
             { id: 10, word: "Who is Miss Lien?", correct: "an English teacher", wrong1: "a student", wrong2: "a nurse" }
         ],
-        P2: [ // TRUE - FALSE - NOT GIVEN
+        P2: [
             { id: 1, word: "Miss Lien lives in a small house in Hanoi.", correct: "True", wrong1: "False", wrong2: "Not Given" },
             { id: 2, word: "She teaches Math at a school.", correct: "False", wrong1: "True", wrong2: "Not Given" },
             { id: 3, word: "She has lunch at home.", correct: "False", wrong1: "True", wrong2: "Not Given" },
@@ -511,7 +503,7 @@
             { id: 9, word: "She always goes to bed at ten.", correct: "True", wrong1: "False", wrong2: "Not Given" },
             { id: 10, word: "Her school is in Hanoi.", correct: "True", wrong1: "False", wrong2: "Not Given" }
         ],
-        P3: [ // Điền khuyết
+        P3: [
             { id: 1, word: "Miss Lien lives in a small house ______ Hanoi.", correct: "in", wrong1: "on", wrong2: "at" },
             { id: 2, word: "She teaches English ______ a school there.", correct: "at", wrong1: "in", wrong2: "on" },
             { id: 3, word: "She usually has breakfast ______ seven.", correct: "at", wrong1: "in", wrong2: "on" },
@@ -537,7 +529,6 @@
         ]
     };
 
-    // ---------- UNIT 1 BÀI 2 ----------
     var E5_U1_B2 = {
         P1: [
             { id: 1, word: "How old is Janet?", correct: "eleven years old", wrong1: "ten years old", wrong2: "twelve years old" },
@@ -591,7 +582,6 @@
         ]
     };
 
-    // ---------- UNIT 1 BÀI 3 ----------
     var E5_U1_B3 = {
         P1: [
             { id: 1, word: "Where is Sunrise boarding school?", correct: "in Sydney", wrong1: "in Bac Giang", wrong2: "in London" },
@@ -649,7 +639,6 @@
         ]
     };
 
-    // ---------- UNIT 1 BÀI 4 đến BÀI 10 (rỗng) ----------
     var E5_U1_B4 = { P1: [], P2: [], P3: [], P4: "Chưa có nội dung", P5: [] };
     var E5_U1_B5 = { P1: [], P2: [], P3: [], P4: "Chưa có nội dung", P5: [] };
     var E5_U1_B6 = { P1: [], P2: [], P3: [], P4: "Chưa có nội dung", P5: [] };
@@ -658,7 +647,6 @@
     var E5_U1_B9 = { P1: [], P2: [], P3: [], P4: "Chưa có nội dung", P5: [] };
     var E5_U1_B10 = { P1: [], P2: [], P3: [], P4: "Chưa có nội dung", P5: [] };
 
-    // ---------- UNIT 2 đến UNIT 20, mỗi unit 10 bài rỗng ----------
     (function createEmptyLessons() {
         for (let unit = 2; unit <= 20; unit++) {
             for (let bai = 1; bai <= 10; bai++) {
@@ -676,12 +664,8 @@
         }
     })();
 
-    // Quét registry sau khi khai báo tất cả
     scanLessons();
 
-    // =====================================================
-    // HÀM KIỂM TRA BÀI HỢP LỆ (CÓ DỮ LIỆU)
-    // =====================================================
     function isLessonValid(lesson) {
         return (lesson.P1 && lesson.P1.length > 0) ||
                (lesson.P2 && lesson.P2.length > 0) ||
@@ -689,12 +673,8 @@
                (lesson.P4 && lesson.P4 !== "Chưa có nội dung");
     }
 
-    // =====================================================
-    // CÁC BIẾN VÀ HÀM XỬ LÝ (dùng LESSON_REGISTRY, lớp 5)
-    // =====================================================
     const UNIT_ITEMS = [];
     for (let i = 1; i <= 20; i++) UNIT_ITEMS.push(`UNIT ${i}`);
-    
     const BAI_ITEMS = ['KIỂM TRA NGẪU NHIÊN', ...Array.from({ length: 10 }, (_, i) => `BÀI ${i+1}`)];
     const DANG_BAI = ['TRẮC NGHIỆM TỔNG HỢP', 'TRẮC NGHIỆM TRẢ LỜI CÂU HỎI', 'TRẮC NGHIỆM TRUE – FALSE – NOT GIVEN', 'TRẮC NGHIỆM ĐIỀN KHUYẾT'];
 
@@ -721,7 +701,7 @@
 
     const app = document.getElementById('app');
 
-    // ---------- HÀM PHÁT ÂM (giữ nguyên) ----------
+    // ---------- HÀM PHÁT ÂM ----------
     function stopAllAudio() {
         speechSynthesis.cancel();
         if (audioTimeout) {
@@ -876,35 +856,28 @@
         return 'desktop';
     }
 
-    // ----- HÀM LỌC GIỌNG THEO THIẾT BỊ -----
+    // ----- HÀM LỌC GIỌNG THEO THIẾT BỊ (CHỈ HIỂN THỊ GIỌNG ƯU TIÊN) -----
     function filterVoicesByDevice(allVoices) {
         const device = getDeviceType();
         const englishVoices = allVoices.filter(v => v.lang.startsWith('en-GB') || v.lang.startsWith('en-US'));
         
-        // Danh sách ưu tiên theo thiết bị
         let priorityNames = [];
         if (device === 'ios') {
-            // UK: Daniel, Siri, Kate, Jamie, Oliver, Serena
-            // US: Samantha, Susan, Tom, Zoe, Alex, Alison
-            priorityNames = [
-                'Daniel', 'Siri', 'Kate', 'Jamie', 'Oliver', 'Serena',
-                'Samantha', 'Susan', 'Tom', 'Zoe', 'Alex', 'Alison'
-            ];
+            // UK voices mong muốn
+            priorityNames.push('Daniel', 'Siri', 'Kate', 'Jamie', 'Oliver', 'Serena');
+            // US voices mong muốn
+            priorityNames.push('Samantha', 'Susan', 'Tom', 'Zoe', 'Alex', 'Alison');
         } else if (device === 'android') {
-            // Android: thường có Google voices
-            priorityNames = [
-                'Google UK English Male', 'Google UK English Female',
-                'Google US English', 'Google US English Male', 'Google US English Female'
-            ];
+            // Giọng Google phổ biến trên Android
+            priorityNames.push('Google UK English Male', 'Google UK English Female', 
+                               'Google US English Male', 'Google US English Female', 'Google US English');
         } else {
-            // desktop: Microsoft voices và Google voices
-            priorityNames = [
-                'Microsoft David', 'Microsoft Mark', 'Microsoft Zira',
-                'Google UK English Male', 'Google UK English Female', 'Google US English'
-            ];
+            // Giọng trên Windows (Microsoft + Google)
+            priorityNames.push('Microsoft David', 'Microsoft Mark', 'Microsoft Zira',
+                               'Google UK English Male', 'Google UK English Female', 'Google US English');
         }
 
-        // Lấy giọng theo ưu tiên (khớp tên không phân biệt hoa thường)
+        // Lấy các giọng khớp với priorityNames (không phân biệt hoa thường)
         const priorityVoices = [];
         priorityNames.forEach(pName => {
             const found = englishVoices.find(v => v.name.toLowerCase().includes(pName.toLowerCase()));
@@ -913,15 +886,14 @@
             }
         });
 
-        // Nếu đã có đủ giọng (ít nhất 5) thì dùng, nếu không thì bổ sung thêm các giọng en-GB/en-US khác
-        let result = [...priorityVoices];
-        if (result.length < 5) {
-            const remaining = englishVoices.filter(v => !result.some(r => r.voiceURI === v.voiceURI));
-            result = result.concat(remaining.slice(0, 5 - result.length));
+        // Nếu không tìm thấy giọng ưu tiên nào, lấy tất cả giọng en-GB/en-US (giới hạn 10)
+        if (priorityVoices.length === 0) {
+            return englishVoices.slice(0, 10);
         }
-        // Sắp xếp theo tên
-        result.sort((a,b) => a.name.localeCompare(b.name));
-        return result;
+        
+        // Sắp xếp theo tên để dễ nhìn
+        priorityVoices.sort((a,b) => a.name.localeCompare(b.name));
+        return priorityVoices;
     }
 
     function populateVoiceList() {
@@ -929,11 +901,12 @@
         const allVoices = speechSynthesis.getVoices();
         voiceList = filterVoicesByDevice(allVoices);
 
-        // Tìm giọng David hoặc Google UK English Male để làm mặc định
+        // Chọn giọng mặc định ưu tiên
         let defaultVoice = null;
-        if (getDeviceType() === 'ios') {
+        const device = getDeviceType();
+        if (device === 'ios') {
             defaultVoice = voiceList.find(v => v.name === 'Daniel' || v.name === 'Samantha');
-        } else if (getDeviceType() === 'android') {
+        } else if (device === 'android') {
             defaultVoice = voiceList.find(v => v.name.includes('Google UK English Male') || v.name.includes('Google US English'));
         } else {
             defaultVoice = voiceList.find(v => v.name.includes('David') || v.name.includes('Google UK English Male'));
@@ -980,9 +953,9 @@
         }
     }
 
-    // ---------- HÀM CHUẨN BỊ DỮ LIỆU (lớp 5) ----------
+    // ---------- HÀM CHUẨN BỊ DỮ LIỆU ----------
     function prepareQuizData() {
-        const unitKey = selectedUnit.replace('UNIT ', 'U'); // "U1"
+        const unitKey = selectedUnit.replace('UNIT ', 'U');
         let baiNumber = null;
         let rawData = null;
 
@@ -1062,7 +1035,7 @@
         return true;
     }
 
-    // ---------- RENDER CÁC MÀN HÌNH (giữ nguyên logic) ----------
+    // ---------- RENDER ----------
     function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
     function renderMain() {
@@ -1197,9 +1170,10 @@
         } else {
             if (voiceList.length) {
                 let defaultVoice = null;
-                if (getDeviceType() === 'ios') {
+                const device = getDeviceType();
+                if (device === 'ios') {
                     defaultVoice = voiceList.find(v => v.name === 'Daniel' || v.name === 'Samantha');
-                } else if (getDeviceType() === 'android') {
+                } else if (device === 'android') {
                     defaultVoice = voiceList.find(v => v.name.includes('Google UK English Male') || v.name.includes('Google US English'));
                 } else {
                     defaultVoice = voiceList.find(v => v.name.includes('David') || v.name.includes('Google UK English Male'));
@@ -1349,15 +1323,15 @@
             </div>`;
         app.innerHTML = html;
 
-        // Xử lý voice dropdowns trong report
         if (voiceList.length === 0 && 'speechSynthesis' in window) {
             populateVoiceList();
         }
         if (voiceList.length) {
             let defaultVoice = null;
-            if (getDeviceType() === 'ios') {
+            const device = getDeviceType();
+            if (device === 'ios') {
                 defaultVoice = voiceList.find(v => v.name === 'Daniel' || v.name === 'Samantha');
-            } else if (getDeviceType() === 'android') {
+            } else if (device === 'android') {
                 defaultVoice = voiceList.find(v => v.name.includes('Google UK English Male') || v.name.includes('Google US English'));
             } else {
                 defaultVoice = voiceList.find(v => v.name.includes('David') || v.name.includes('Google UK English Male'));
