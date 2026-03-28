@@ -7,7 +7,7 @@
     <meta name="google" content="notranslate">
     <meta http-equiv="Content-Language" content="en">
     <style>
-        /* Toàn bộ style giữ nguyên */
+        /* Toàn bộ style giữ nguyên như bản trước */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -856,40 +856,42 @@
         return 'desktop';
     }
 
-    // ----- LỌC GIỌNG THEO THIẾT BỊ -----
+    // ----- LỌC GIỌNG: LẤY TẤT CẢ GIỌNG en-GB/en-US, SẮP XẾP ƯU TIÊN -----
     function getPrioritizedVoices(allVoices) {
         const device = getDeviceType();
         // Lấy tất cả giọng en-GB và en-US
         let englishVoices = allVoices.filter(v => v.lang.startsWith('en-GB') || v.lang.startsWith('en-US'));
         if (englishVoices.length === 0) return [];
 
-        if (device === 'ios') {
-            // iOS: hiển thị tất cả giọng tiếng Anh có sẵn, sắp xếp theo tên
-            englishVoices.sort((a, b) => a.name.localeCompare(b.name));
-            return englishVoices;
-        }
-
-        // Android và Desktop: ưu tiên giọng phổ biến
+        // Danh sách từ khóa ưu tiên theo thiết bị
         let priorityKeywords = [];
-        if (device === 'android') {
-            priorityKeywords = ['google uk english male', 'google uk english female',
-                                'google us english male', 'google us english female', 'google us english'];
+        if (device === 'ios') {
+            // UK voices
+            priorityKeywords.push('daniel', 'siri', 'kate', 'jamie', 'oliver', 'serena');
+            // US voices
+            priorityKeywords.push('samantha', 'susan', 'tom', 'zoe', 'alex', 'alison');
+        } else if (device === 'android') {
+            priorityKeywords.push('google uk english male', 'google uk english female',
+                                  'google us english male', 'google us english female', 'google us english');
         } else {
-            priorityKeywords = ['microsoft david', 'microsoft mark', 'microsoft zira',
-                                'google uk english male', 'google uk english female', 'google us english'];
+            priorityKeywords.push('microsoft david', 'microsoft mark', 'microsoft zira',
+                                  'google uk english male', 'google uk english female', 'google us english');
         }
 
+        // Đánh dấu giọng nào khớp với từ khóa ưu tiên
         const voicesWithPriority = englishVoices.map(v => {
             const lowerName = v.name.toLowerCase();
             const matched = priorityKeywords.some(kw => lowerName.includes(kw));
             return { voice: v, priority: matched };
         });
 
+        // Sắp xếp: giọng ưu tiên lên trước, sau đó sắp xếp theo tên
         voicesWithPriority.sort((a, b) => {
-            if (a.priority !== b.priority) return b.priority - a.priority;
+            if (a.priority !== b.priority) return b.priority - a.priority; // true (1) lên trước
             return a.voice.name.localeCompare(b.voice.name);
         });
 
+        // Trả về danh sách giọng (giữ nguyên thứ tự)
         return voicesWithPriority.map(vwp => vwp.voice);
     }
 
@@ -898,6 +900,7 @@
         const allVoices = speechSynthesis.getVoices();
         voiceList = getPrioritizedVoices(allVoices);
 
+        // Chọn giọng mặc định (ưu tiên giọng đầu tiên trong danh sách ưu tiên)
         let defaultVoice = null;
         if (voiceList.length > 0) {
             defaultVoice = voiceList[0];
@@ -937,30 +940,28 @@
         evenVoice = evenSelect.value ? voiceList.find(v => v.voiceURI === evenSelect.value) : (voiceList[0] || null);
     }
 
-    // Retry đảm bảo voiceList được tải
-    let voiceLoadAttempts = 0;
-    function ensureVoiceListLoaded() {
-        if (voiceList.length > 0) return;
-        if (voiceLoadAttempts < 5) {
-            voiceLoadAttempts++;
-            setTimeout(() => {
-                if (speechSynthesis.getVoices().length > 0) {
-                    populateVoiceList();
-                }
-                ensureVoiceListLoaded();
-            }, 500);
-        }
-    }
-
+    // =====================================================
+    // SỬA LỖI IOS: DÙNG CƠ CHẾ POLLING (THĂM DÒ LIÊN TỤC)
+    // =====================================================
     if ('speechSynthesis' in window) {
-        speechSynthesis.onvoiceschanged = () => {
-            populateVoiceList();
-            ensureVoiceListLoaded();
-        };
-        if (speechSynthesis.getVoices().length > 0) {
-            populateVoiceList();
-        }
-        ensureVoiceListLoaded();
+        // 1. Lắng nghe sự kiện chuẩn
+        speechSynthesis.onvoiceschanged = populateVoiceList;
+
+        // 2. Dùng Interval để ép buộc tải trên iOS nếu sự kiện không fire ngay
+        let iosVoiceRetryCount = 0;
+        const iosVoiceInterval = setInterval(() => {
+            const voices = speechSynthesis.getVoices();
+            if (voices.length > 0) {
+                populateVoiceList(); // Cập nhật lần cuối
+                clearInterval(iosVoiceInterval); // Dừng kiểm tra
+            } else {
+                iosVoiceRetryCount++;
+                // Thử tối đa 20 lần (10 giây), sau đó bỏ qua để tránh treo script
+                if (iosVoiceRetryCount > 20) {
+                    clearInterval(iosVoiceInterval);
+                }
+            }
+        }, 500); // Kiểm tra mỗi 0.5 giây
     }
 
     // ---------- HÀM CHUẨN BỊ DỮ LIỆU ----------
@@ -1175,17 +1176,20 @@
             });
         });
 
-        if (voiceList.length === 0 && 'speechSynthesis' in window) {
-            populateVoiceList();
-            ensureVoiceListLoaded();
-            setTimeout(() => {
-                if (voiceList.length === 0) populateVoiceList();
-                updateVoiceDropdowns();
-            }, 1000);
+        // --- XỬ LÝ GIỌNG ĐỌC TRONG QUIZ ---
+        // Gọi update để nạp dữ liệu vào dropdown (nếu voiceList đã có từ trước)
+        if (voiceList.length > 0) {
+            updateVoiceDropdowns(voiceList[0]);
         } else {
-            if (voiceList.length) {
-                let defaultVoice = voiceList[0];
-                updateVoiceDropdowns(defaultVoice);
+            // Thêm listener để cập nhật dropdown ngay khi voiceList được tải xong (bởi interval)
+            if (!window.voiceLoadedListenerAdded) {
+                const checkVoicesReady = setInterval(() => {
+                    if (voiceList.length > 0) {
+                        updateVoiceDropdowns(voiceList[0]);
+                        clearInterval(checkVoicesReady);
+                    }
+                }, 200);
+                window.voiceLoadedListenerAdded = true;
             }
         }
 
@@ -1329,38 +1333,42 @@
             </div>`;
         app.innerHTML = html;
 
-        // Xử lý voice dropdowns trong report
-        if (voiceList.length === 0 && 'speechSynthesis' in window) {
-            populateVoiceList();
-            ensureVoiceListLoaded();
-            setTimeout(() => {
-                if (voiceList.length === 0) populateVoiceList();
-                updateVoiceDropdowns();
-            }, 1000);
-        }
-        if (voiceList.length) {
-            let defaultVoice = voiceList[0];
-            const singleSel = document.getElementById('voiceSelectReport');
-            const oddSel = document.getElementById('oddVoiceSelectReport');
-            const evenSel = document.getElementById('evenVoiceSelectReport');
-            if (singleSel && oddSel && evenSel) {
-                const fill = (sel) => {
-                    sel.innerHTML = '';
-                    const emptyOpt = document.createElement('option');
-                    emptyOpt.value = '';
-                    emptyOpt.textContent = '-- Chọn giọng --';
-                    sel.appendChild(emptyOpt);
-                    voiceList.forEach(v => {
-                        let opt = document.createElement('option');
-                        opt.value = v.voiceURI;
-                        opt.textContent = `${v.name} (${v.lang})`;
-                        if (defaultVoice && v.voiceURI === defaultVoice.voiceURI) opt.selected = true;
-                        sel.appendChild(opt);
-                    });
-                };
-                fill(singleSel);
-                fill(oddSel);
-                fill(evenSel);
+        // --- XỬ LÝ GIỌNG ĐỌC TRONG REPORT ---
+        const singleSel = document.getElementById('voiceSelectReport');
+        const oddSel = document.getElementById('oddVoiceSelectReport');
+        const evenSel = document.getElementById('evenVoiceSelectReport');
+        
+        const fillReportSelect = (select) => {
+            if (!select) return;
+            select.innerHTML = '';
+            const emptyOpt = document.createElement('option');
+            emptyOpt.value = '';
+            emptyOpt.textContent = '-- Chọn giọng --';
+            select.appendChild(emptyOpt);
+            voiceList.forEach(v => {
+                let opt = document.createElement('option');
+                opt.value = v.voiceURI;
+                opt.textContent = `${v.name} (${v.lang})`;
+                if (voiceList[0] && v.voiceURI === voiceList[0].voiceURI) opt.selected = true;
+                select.appendChild(opt);
+            });
+        };
+
+        if (voiceList.length > 0) {
+            fillReportSelect(singleSel);
+            fillReportSelect(oddSel);
+            fillReportSelect(evenSel);
+        } else {
+            if (!window.voiceLoadedListenerAddedReport) {
+                const checkVoicesReady = setInterval(() => {
+                    if (voiceList.length > 0) {
+                        fillReportSelect(singleSel);
+                        fillReportSelect(oddSel);
+                        fillReportSelect(evenSel);
+                        clearInterval(checkVoicesReady);
+                    }
+                }, 200);
+                window.voiceLoadedListenerAddedReport = true;
             }
         }
 
