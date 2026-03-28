@@ -7,7 +7,7 @@
     <meta name="google" content="notranslate">
     <meta http-equiv="Content-Language" content="en">
     <style>
-        /* Toàn bộ style giữ nguyên như bản trước */
+        /* Toàn bộ style giữ nguyên */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -477,7 +477,7 @@
         }
     }
 
-    // ---------- DỮ LIỆU BÀI HỌC (giữ nguyên như cũ) ----------
+    // ---------- DỮ LIỆU BÀI HỌC (giữ nguyên) ----------
     var E5_U1_B1 = {
         P1: [
             { id: 1, word: "Where does Miss Lien live?", correct: "in a small house in Hanoi", wrong1: "in a big apartment", wrong2: "in the countryside" },
@@ -701,7 +701,7 @@
 
     const app = document.getElementById('app');
 
-    // ---------- HÀM PHÁT ÂM ----------
+    // ---------- HÀM PHÁT ÂM (giữ nguyên) ----------
     function stopAllAudio() {
         speechSynthesis.cancel();
         if (audioTimeout) {
@@ -848,7 +848,7 @@
         speakNext();
     }
 
-    // ----- HÀM XÁC ĐỊNH THIẾT BỊ -----
+    // ----- XÁC ĐỊNH THIẾT BỊ -----
     function getDeviceType() {
         const ua = navigator.userAgent;
         if (/iPhone|iPad|iPod/i.test(ua)) return 'ios';
@@ -856,28 +856,26 @@
         return 'desktop';
     }
 
-    // ----- HÀM LỌC GIỌNG THEO THIẾT BỊ (CHỈ HIỂN THỊ GIỌNG ƯU TIÊN) -----
+    // ----- LỌC GIỌNG THEO THIẾT BỊ (ƯU TIÊN DANH SÁCH YÊU CẦU) -----
     function filterVoicesByDevice(allVoices) {
         const device = getDeviceType();
         const englishVoices = allVoices.filter(v => v.lang.startsWith('en-GB') || v.lang.startsWith('en-US'));
         
         let priorityNames = [];
         if (device === 'ios') {
-            // UK voices mong muốn
+            // UK voices
             priorityNames.push('Daniel', 'Siri', 'Kate', 'Jamie', 'Oliver', 'Serena');
-            // US voices mong muốn
+            // US voices
             priorityNames.push('Samantha', 'Susan', 'Tom', 'Zoe', 'Alex', 'Alison');
         } else if (device === 'android') {
-            // Giọng Google phổ biến trên Android
             priorityNames.push('Google UK English Male', 'Google UK English Female', 
                                'Google US English Male', 'Google US English Female', 'Google US English');
         } else {
-            // Giọng trên Windows (Microsoft + Google)
             priorityNames.push('Microsoft David', 'Microsoft Mark', 'Microsoft Zira',
                                'Google UK English Male', 'Google UK English Female', 'Google US English');
         }
 
-        // Lấy các giọng khớp với priorityNames (không phân biệt hoa thường)
+        // Lấy các giọng khớp (không phân biệt hoa thường)
         const priorityVoices = [];
         priorityNames.forEach(pName => {
             const found = englishVoices.find(v => v.name.toLowerCase().includes(pName.toLowerCase()));
@@ -886,14 +884,13 @@
             }
         });
 
-        // Nếu không tìm thấy giọng ưu tiên nào, lấy tất cả giọng en-GB/en-US (giới hạn 10)
-        if (priorityVoices.length === 0) {
-            return englishVoices.slice(0, 10);
+        if (priorityVoices.length > 0) {
+            priorityVoices.sort((a,b) => a.name.localeCompare(b.name));
+            return priorityVoices;
         }
         
-        // Sắp xếp theo tên để dễ nhìn
-        priorityVoices.sort((a,b) => a.name.localeCompare(b.name));
-        return priorityVoices;
+        // Fallback: trả về tất cả giọng en-GB/en-US (tối đa 15)
+        return englishVoices.slice(0, 15);
     }
 
     function populateVoiceList() {
@@ -1165,8 +1162,15 @@
             });
         });
 
+        // Đảm bảo voiceList đã có dữ liệu
         if (voiceList.length === 0 && 'speechSynthesis' in window) {
             populateVoiceList();
+            if (voiceList.length === 0) {
+                setTimeout(() => {
+                    if (voiceList.length === 0) populateVoiceList();
+                    updateVoiceDropdowns();
+                }, 200);
+            }
         } else {
             if (voiceList.length) {
                 let defaultVoice = null;
@@ -1238,7 +1242,6 @@
 
         let titleBai = selectedBai === 'KIỂM TRA NGẪU NHIÊN' ? 'KIỂM TRA' : selectedBai;
         let passageText = currentLessonData?.P4 || 'Chưa có nội dung';
-        let sentences = currentLessonData?.P5 || [];
 
         let html = `
             <div class="main-card">
@@ -1302,9 +1305,9 @@
                 <div id="passageContainer" style="display:none;" class="hidden-passage">${passageText}</div>
                 
                 <h3>📋 Chi tiết câu hỏi</h3>
-                <table>
+                 <table>
                     <thead>
-                        <tr><th>STT</th><th>Nội dung</th><th>Đáp án chọn</th><th>Đáp án đúng</th></tr>
+                         <tr><th>STT</th><th>Nội dung</th><th>Đáp án chọn</th><th>Đáp án đúng</th></tr>
                     </thead>
                     <tbody>`;
         quizData.forEach((q,i)=>{
@@ -1314,7 +1317,7 @@
             html += `<tr><td>${i+1}</td><td>${q.question}</td><td class="${wrongClass}">${chosen}</td><td><span class="correct-answer">${correct}</span></td></tr>`;
         });
         html += `</tbody>
-                </table>
+                 </table>
                 <br>
                 <div class="action-buttons-container">
                     <button class="btn-back" id="backToMainBtnReport">◀ QUAY LẠI</button>
@@ -1323,8 +1326,15 @@
             </div>`;
         app.innerHTML = html;
 
+        // Xử lý voice dropdowns trong report
         if (voiceList.length === 0 && 'speechSynthesis' in window) {
             populateVoiceList();
+            if (voiceList.length === 0) {
+                setTimeout(() => {
+                    if (voiceList.length === 0) populateVoiceList();
+                    updateVoiceDropdowns();
+                }, 200);
+            }
         }
         if (voiceList.length) {
             let defaultVoice = null;
