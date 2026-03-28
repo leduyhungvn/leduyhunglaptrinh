@@ -7,7 +7,7 @@
     <meta name="google" content="notranslate">
     <meta http-equiv="Content-Language" content="en">
     <style>
-        /* Toàn bộ style giữ nguyên */
+        /* Toàn bộ style giữ nguyên như bản trước */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -940,13 +940,32 @@
         evenVoice = evenSelect.value ? voiceList.find(v => v.voiceURI === evenSelect.value) : (voiceList[0] || null);
     }
 
+    // Hàm retry để đảm bảo voiceList được cập nhật
+    let voiceLoadAttempts = 0;
+    function ensureVoiceListLoaded() {
+        if (voiceList.length > 0) return;
+        if (voiceLoadAttempts < 5) {
+            voiceLoadAttempts++;
+            setTimeout(() => {
+                if (speechSynthesis.getVoices().length > 0) {
+                    populateVoiceList();
+                }
+                ensureVoiceListLoaded();
+            }, 500);
+        }
+    }
+
     // Khởi tạo voice list khi sẵn sàng
     if ('speechSynthesis' in window) {
-        speechSynthesis.onvoiceschanged = populateVoiceList;
-        // Gọi ngay nếu đã có voices (trường hợp load nhanh)
+        speechSynthesis.onvoiceschanged = () => {
+            populateVoiceList();
+            ensureVoiceListLoaded();
+        };
+        // Gọi ngay nếu đã có voices
         if (speechSynthesis.getVoices().length > 0) {
             populateVoiceList();
         }
+        ensureVoiceListLoaded();
     }
 
     // ---------- HÀM CHUẨN BỊ DỮ LIỆU ----------
@@ -1164,12 +1183,12 @@
         // Đảm bảo voiceList đã có dữ liệu
         if (voiceList.length === 0 && 'speechSynthesis' in window) {
             populateVoiceList();
-            if (voiceList.length === 0) {
-                setTimeout(() => {
-                    if (voiceList.length === 0) populateVoiceList();
-                    updateVoiceDropdowns();
-                }, 200);
-            }
+            ensureVoiceListLoaded();
+            // Cập nhật lại sau 1 giây nếu chưa có
+            setTimeout(() => {
+                if (voiceList.length === 0) populateVoiceList();
+                updateVoiceDropdowns();
+            }, 1000);
         } else {
             if (voiceList.length) {
                 let defaultVoice = voiceList[0];
@@ -1296,9 +1315,9 @@
                 <div id="passageContainer" style="display:none;" class="hidden-passage">${passageText}</div>
                 
                 <h3>📋 Chi tiết câu hỏi</h3>
-                <table>
+                 <table>
                     <thead>
-                        <tr><th>STT</th><th>Nội dung</th><th>Đáp án chọn</th><th>Đáp án đúng</th></tr>
+                         <tr><th>STT</th><th>Nội dung</th><th>Đáp án chọn</th><th>Đáp án đúng</th></tr>
                     </thead>
                     <tbody>`;
         quizData.forEach((q,i)=>{
@@ -1308,7 +1327,7 @@
             html += `<tr><td>${i+1}</td><td>${q.question}</td><td class="${wrongClass}">${chosen}</td><td><span class="correct-answer">${correct}</span></td></tr>`;
         });
         html += `</tbody>
-                </table>
+                 </table>
                 <br>
                 <div class="action-buttons-container">
                     <button class="btn-back" id="backToMainBtnReport">◀ QUAY LẠI</button>
@@ -1320,12 +1339,11 @@
         // Xử lý voice dropdowns trong report
         if (voiceList.length === 0 && 'speechSynthesis' in window) {
             populateVoiceList();
-            if (voiceList.length === 0) {
-                setTimeout(() => {
-                    if (voiceList.length === 0) populateVoiceList();
-                    updateVoiceDropdowns();
-                }, 200);
-            }
+            ensureVoiceListLoaded();
+            setTimeout(() => {
+                if (voiceList.length === 0) populateVoiceList();
+                updateVoiceDropdowns();
+            }, 1000);
         }
         if (voiceList.length) {
             let defaultVoice = voiceList[0];
