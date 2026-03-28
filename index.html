@@ -856,57 +856,54 @@
         return 'desktop';
     }
 
-    // ----- LỌC GIỌNG THEO THIẾT BỊ (ƯU TIÊN DANH SÁCH YÊU CẦU) -----
-    function filterVoicesByDevice(allVoices) {
+    // ----- LỌC GIỌNG: LẤY TẤT CẢ GIỌNG en-GB/en-US, SẮP XẾP ƯU TIÊN -----
+    function getPrioritizedVoices(allVoices) {
         const device = getDeviceType();
-        const englishVoices = allVoices.filter(v => v.lang.startsWith('en-GB') || v.lang.startsWith('en-US'));
-        
-        let priorityNames = [];
+        // Lấy tất cả giọng en-GB và en-US
+        let englishVoices = allVoices.filter(v => v.lang.startsWith('en-GB') || v.lang.startsWith('en-US'));
+        if (englishVoices.length === 0) return [];
+
+        // Danh sách từ khóa ưu tiên theo thiết bị
+        let priorityKeywords = [];
         if (device === 'ios') {
             // UK voices
-            priorityNames.push('Daniel', 'Siri', 'Kate', 'Jamie', 'Oliver', 'Serena');
+            priorityKeywords.push('daniel', 'siri', 'kate', 'jamie', 'oliver', 'serena');
             // US voices
-            priorityNames.push('Samantha', 'Susan', 'Tom', 'Zoe', 'Alex', 'Alison');
+            priorityKeywords.push('samantha', 'susan', 'tom', 'zoe', 'alex', 'alison');
         } else if (device === 'android') {
-            priorityNames.push('Google UK English Male', 'Google UK English Female', 
-                               'Google US English Male', 'Google US English Female', 'Google US English');
+            priorityKeywords.push('google uk english male', 'google uk english female',
+                                  'google us english male', 'google us english female', 'google us english');
         } else {
-            priorityNames.push('Microsoft David', 'Microsoft Mark', 'Microsoft Zira',
-                               'Google UK English Male', 'Google UK English Female', 'Google US English');
+            priorityKeywords.push('microsoft david', 'microsoft mark', 'microsoft zira',
+                                  'google uk english male', 'google uk english female', 'google us english');
         }
 
-        // Lấy các giọng khớp (không phân biệt hoa thường)
-        const priorityVoices = [];
-        priorityNames.forEach(pName => {
-            const found = englishVoices.find(v => v.name.toLowerCase().includes(pName.toLowerCase()));
-            if (found && !priorityVoices.some(pv => pv.voiceURI === found.voiceURI)) {
-                priorityVoices.push(found);
-            }
+        // Đánh dấu giọng nào khớp với từ khóa ưu tiên
+        const voicesWithPriority = englishVoices.map(v => {
+            const lowerName = v.name.toLowerCase();
+            const matched = priorityKeywords.some(kw => lowerName.includes(kw));
+            return { voice: v, priority: matched };
         });
 
-        if (priorityVoices.length > 0) {
-            priorityVoices.sort((a,b) => a.name.localeCompare(b.name));
-            return priorityVoices;
-        }
-        
-        // Fallback: trả về tất cả giọng en-GB/en-US (tối đa 15)
-        return englishVoices.slice(0, 15);
+        // Sắp xếp: giọng ưu tiên lên trước, sau đó sắp xếp theo tên
+        voicesWithPriority.sort((a, b) => {
+            if (a.priority !== b.priority) return b.priority - a.priority; // true (1) lên trước
+            return a.voice.name.localeCompare(b.voice.name);
+        });
+
+        // Trả về danh sách giọng (giữ nguyên thứ tự)
+        return voicesWithPriority.map(vwp => vwp.voice);
     }
 
     function populateVoiceList() {
         if (!('speechSynthesis' in window)) return;
         const allVoices = speechSynthesis.getVoices();
-        voiceList = filterVoicesByDevice(allVoices);
+        voiceList = getPrioritizedVoices(allVoices);
 
-        // Chọn giọng mặc định ưu tiên
+        // Chọn giọng mặc định (ưu tiên giọng đầu tiên trong danh sách ưu tiên)
         let defaultVoice = null;
-        const device = getDeviceType();
-        if (device === 'ios') {
-            defaultVoice = voiceList.find(v => v.name === 'Daniel' || v.name === 'Samantha');
-        } else if (device === 'android') {
-            defaultVoice = voiceList.find(v => v.name.includes('Google UK English Male') || v.name.includes('Google US English'));
-        } else {
-            defaultVoice = voiceList.find(v => v.name.includes('David') || v.name.includes('Google UK English Male'));
+        if (voiceList.length > 0) {
+            defaultVoice = voiceList[0];
         }
         updateVoiceDropdowns(defaultVoice);
     }
@@ -938,13 +935,15 @@
         fillSelect(oddSelect);
         fillSelect(evenSelect);
 
-        singleVoice = singleSelect.value ? voiceList.find(v => v.voiceURI === singleSelect.value) : null;
-        oddVoice = oddSelect.value ? voiceList.find(v => v.voiceURI === oddSelect.value) : null;
-        evenVoice = evenSelect.value ? voiceList.find(v => v.voiceURI === evenSelect.value) : null;
+        singleVoice = singleSelect.value ? voiceList.find(v => v.voiceURI === singleSelect.value) : (voiceList[0] || null);
+        oddVoice = oddSelect.value ? voiceList.find(v => v.voiceURI === oddSelect.value) : (voiceList[0] || null);
+        evenVoice = evenSelect.value ? voiceList.find(v => v.voiceURI === evenSelect.value) : (voiceList[0] || null);
     }
 
+    // Khởi tạo voice list khi sẵn sàng
     if ('speechSynthesis' in window) {
         speechSynthesis.onvoiceschanged = populateVoiceList;
+        // Gọi ngay nếu đã có voices (trường hợp load nhanh)
         if (speechSynthesis.getVoices().length > 0) {
             populateVoiceList();
         }
@@ -1173,15 +1172,7 @@
             }
         } else {
             if (voiceList.length) {
-                let defaultVoice = null;
-                const device = getDeviceType();
-                if (device === 'ios') {
-                    defaultVoice = voiceList.find(v => v.name === 'Daniel' || v.name === 'Samantha');
-                } else if (device === 'android') {
-                    defaultVoice = voiceList.find(v => v.name.includes('Google UK English Male') || v.name.includes('Google US English'));
-                } else {
-                    defaultVoice = voiceList.find(v => v.name.includes('David') || v.name.includes('Google UK English Male'));
-                }
+                let defaultVoice = voiceList[0];
                 updateVoiceDropdowns(defaultVoice);
             }
         }
@@ -1305,9 +1296,9 @@
                 <div id="passageContainer" style="display:none;" class="hidden-passage">${passageText}</div>
                 
                 <h3>📋 Chi tiết câu hỏi</h3>
-                 <table>
+                <table>
                     <thead>
-                         <tr><th>STT</th><th>Nội dung</th><th>Đáp án chọn</th><th>Đáp án đúng</th></tr>
+                        <tr><th>STT</th><th>Nội dung</th><th>Đáp án chọn</th><th>Đáp án đúng</th></tr>
                     </thead>
                     <tbody>`;
         quizData.forEach((q,i)=>{
@@ -1317,7 +1308,7 @@
             html += `<tr><td>${i+1}</td><td>${q.question}</td><td class="${wrongClass}">${chosen}</td><td><span class="correct-answer">${correct}</span></td></tr>`;
         });
         html += `</tbody>
-                 </table>
+                </table>
                 <br>
                 <div class="action-buttons-container">
                     <button class="btn-back" id="backToMainBtnReport">◀ QUAY LẠI</button>
@@ -1337,15 +1328,7 @@
             }
         }
         if (voiceList.length) {
-            let defaultVoice = null;
-            const device = getDeviceType();
-            if (device === 'ios') {
-                defaultVoice = voiceList.find(v => v.name === 'Daniel' || v.name === 'Samantha');
-            } else if (device === 'android') {
-                defaultVoice = voiceList.find(v => v.name.includes('Google UK English Male') || v.name.includes('Google US English'));
-            } else {
-                defaultVoice = voiceList.find(v => v.name.includes('David') || v.name.includes('Google UK English Male'));
-            }
+            let defaultVoice = voiceList[0];
             const singleSel = document.getElementById('voiceSelectReport');
             const oddSel = document.getElementById('oddVoiceSelectReport');
             const evenSel = document.getElementById('evenVoiceSelectReport');
