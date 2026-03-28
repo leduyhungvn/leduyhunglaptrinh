@@ -868,17 +868,58 @@
         speakNext();
     }
 
-    // ----- LỌC GIỌNG TIẾNG ANH (ANH-ANH VÀ ANH-MỸ) -----
-    function getEnglishVoices(voices) {
-        return voices.filter(v => v.lang.startsWith('en-GB') || v.lang.startsWith('en-US'));
+    // ----- HÀM GIỚI HẠN GIỌNG (5 NAM + 5 NỮ CHO en-GB, 5 NAM + 5 NỮ CHO en-US) -----
+    function isMaleVoice(name) {
+        const maleNames = ['david', 'mark', 'daniel', 'oliver', 'michael', 'john', 'james', 'william', 'alex', 'bruce', 'evan', 'fred', 'ralph', 'junior', 'nathan', 'eddy', 'reed', 'grandpa', 'rocko', 'boing', 'wobble', 'superstar'];
+        return maleNames.some(m => name.toLowerCase().includes(m));
+    }
+
+    function isFemaleVoice(name) {
+        const femaleNames = ['zira', 'susan', 'mary', 'linda', 'ava', 'allison', 'eloquence', 'joelle', 'kathy', 'noelle', 'samantha', 'siri', 'serena', 'stephanie', 'agnes', 'grandma', 'bells', 'whisper', 'trinoids', 'tessa'];
+        return femaleNames.some(f => name.toLowerCase().includes(f));
+    }
+
+    function filterLimitedVoices(allVoices) {
+        // Lấy các giọng en-GB và en-US
+        const gbVoices = allVoices.filter(v => v.lang === 'en-GB');
+        const usVoices = allVoices.filter(v => v.lang === 'en-US');
+
+        // Hàm chọn tối đa 5 nam và 5 nữ từ một mảng
+        function selectLimited(voices) {
+            const males = voices.filter(v => isMaleVoice(v.name));
+            const females = voices.filter(v => isFemaleVoice(v.name));
+            const others = voices.filter(v => !isMaleVoice(v.name) && !isFemaleVoice(v.name));
+            
+            // Lấy 5 nam đầu, nếu thiếu thì bổ sung từ others (ưu tiên others có tên không rõ giới tính)
+            let selectedMales = males.slice(0, 5);
+            if (selectedMales.length < 5) {
+                const needed = 5 - selectedMales.length;
+                selectedMales = selectedMales.concat(others.slice(0, needed));
+            }
+            let selectedFemales = females.slice(0, 5);
+            if (selectedFemales.length < 5) {
+                const needed = 5 - selectedFemales.length;
+                selectedFemales = selectedFemales.concat(others.slice(0, needed));
+            }
+            // Kết hợp và sắp xếp theo tên
+            return [...selectedMales, ...selectedFemales].sort((a,b) => a.name.localeCompare(b.name));
+        }
+
+        const gbSelected = selectLimited(gbVoices);
+        const usSelected = selectLimited(usVoices);
+
+        // Trả về mảng tổng hợp, ưu tiên giọng en-GB trước
+        return [...gbSelected, ...usSelected];
     }
 
     function populateVoiceList() {
         if (!('speechSynthesis' in window)) return;
-        const voices = speechSynthesis.getVoices();
-        voiceList = getEnglishVoices(voices);
+        const allVoices = speechSynthesis.getVoices();
+        // Lọc chỉ giọng en-GB và en-US, sau đó giới hạn
+        const englishVoices = allVoices.filter(v => v.lang.startsWith('en-GB') || v.lang.startsWith('en-US'));
+        voiceList = filterLimitedVoices(englishVoices);
 
-        // Tìm giọng David để làm mặc định nếu có
+        // Tìm giọng David làm mặc định (nếu có)
         const davidVoice = voiceList.find(v => 
             v.name.toLowerCase().includes('david') && 
             (v.lang.includes('en-GB') || v.lang.includes('en-US'))
@@ -1271,9 +1312,9 @@
                 <div id="passageContainer" style="display:none;" class="hidden-passage">${passageText}</div>
                 
                 <h3>📋 Chi tiết câu hỏi</h3>
-                <table>
+                 <table>
                     <thead>
-                        <tr><th>STT</th><th>Nội dung</th><th>Đáp án chọn</th><th>Đáp án đúng</th></tr>
+                        <tr><th>STT</th><th>Nội dung</th><th>Đáp án chọn</th><th>Đáp án đúng</th> </tr>
                     </thead>
                     <tbody>`;
         quizData.forEach((q,i)=>{
@@ -1283,7 +1324,7 @@
             html += `<tr><td>${i+1}</td><td>${q.question}</td><td class="${wrongClass}">${chosen}</td><td><span class="correct-answer">${correct}</span></td></tr>`;
         });
         html += `</tbody>
-                </table>
+                 </table>
                 <br>
                 <div class="action-buttons-container">
                     <button class="btn-back" id="backToMainBtnReport">◀ QUAY LẠI</button>
