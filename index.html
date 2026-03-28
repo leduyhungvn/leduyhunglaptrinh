@@ -1,3 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Luyện nghe TA Lớp 5 (thêm dạng tổng hợp)</title>
+    <meta name="google" content="notranslate">
+    <meta http-equiv="Content-Language" content="en">
+    <style>
+        /* Toàn bộ style giữ nguyên */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+        }
+        body {
+            background: linear-gradient(145deg, #f0f4fa 0%, #e6ecf5 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .app-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .main-card {
+            width: 100%;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 48px;
+            padding: 30px 32px;
+            box-shadow: 0 25px 50px -8px rgba(0,20,40,0.3);
+            border: 1px solid rgba(255,255,255,0.6);
+            margin-bottom: 20px;
+        }
+        @media (max-width: 700px) {
+            body { padding: 10px; }
+            .main-card { padding: 20px 16px; border-radius: 32px; }
+        }
+        h1, h2, h3 {
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            word-break: break-word;
+        }
+        h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 25px;
+            border-left: 8px solid #2a5298;
+            padding-left: 20px;
+        }
+        @media (max-width: 700px) {
+            h1 { font-size: 1.8rem; border-left-width: 6px; padding-left: 16px; }
+        }
+        h2 {
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+            line-height: 1.3;
+            color: #1e3c72;
+        }
+        .title-sub {
+            font-size: 1.3rem;
+            color: #2a5298;
+            margin-bottom: 20px;
+            font-weight: 500;
+            padding-left: 4px;
+        }
+        @media (max-width: 700px) {
+            h2 { font-size: 1.4rem; }
+            .title-sub { font-size: 1.2rem; }
+        }
+        .flex-col {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+        }
+        .label-input {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: white;
+            padding: 10px 24px;
+            border-radius: 60px;
+            box-shadow: inset 2px 2px 8px #b8c3d0, inset -4px -4px 8px #ffffff;
+            width: 100%;
+        }
+        .label-input label {
+            font-weight: 600;
+            color: #1e2f4d;
+            font-size: 1rem;
+            white-space: nowrap;
+        }
+        .label-input input, .label-input select {
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            padding: 8px 0;
+            outline: none;
+            font-weight: 500;
+            width: 100%;
+            min-width: 0;
+        }
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin: 20px 0 10px;
+            justify-content: center;
+        }
+        .btn {
+            background: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            box-shadow: 6px 6px 16px #b8c3d0, -6px -6px 16px #ffffff;
+            cursor: pointer;
+            transition: 0.15s;
+            color: #1e2f4d;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            flex: 0 1 auto;
+            justify-content: center;
+        }
+        .btn:active {
+            box-shadow: inset 6px 6px 12px #b8c3d0, inset -6px -6px 12px #ffffff;
+            transform: scale(0.97);
+        }
+        .btn.primary {
+            background: #2a5298;
+            color: white;
+            box-shadow: 6px 6px 16px #1e3c72, -6px -6px 16px #3f6ab3;
+        }
+        @media (max-width: 700px) {
+            .btn { padding: 12px 24px; font-size: 1.1rem; }
+        }
+        .footer-info {
+            margin-top: 30px;
+            background: #d9e2ef;
+            border-radius: 40px;
+            padding: 20px 30px;
+            text-align: center;
+            font-weight: 500;
+            color: #102a4c;
+            border: 1px solid #ffffff80;
+        }
+        .footer-info p {
+            margin: 6px 0;
+            font-size: 1rem;
+        }
+        .footer-info .zalo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: #0068ff20;
+            display: inline-block;
+            padding: 6px 32px;
+            border-radius: 60px;
+        }
+        .audio-panel {
+            background: #eef3fc;
+            border-radius: 60px;
+            padding: 16px 24px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 16px;
+            margin: 20px 0 25px;
+            box-shadow: inset 2px 2px 8px #b8c3d0, inset -4px -4px 10px white;
+        }
+        .audio-panel select, .audio-panel button {
+            background: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            box-shadow: 3px 3px 8px #b8c3d0;
+            flex: 1 0 auto;
+            min-width: 80px;
+        }
+        .speaker-icon {
+            font-size: 2rem;
+            cursor: pointer;
+            background: #2a5298;
+            color: white;
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 40px;
+            box-shadow: 0 5px 0 #102a4c;
+            flex-shrink: 0;
+        }
+        .voice-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            background: rgba(255,255,255,0.4);
+            border-radius: 40px;
+            padding: 10px 18px;
+        }
+        .voice-container label {
+            font-weight: 600;
+            color: #1e2f4d;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        .voice-container select {
+            background: white;
+            border: 1px solid #2a5298;
+            border-radius: 40px;
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            min-width: 180px;
+        }
+        .question-item {
+            background: white;
+            border-radius: 32px;
+            padding: 22px 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 18px;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .question-text .speaker-btn {
+            font-size: 1.8rem;
+            cursor: pointer;
+            background: #2a5298;
+            color: white;
+            width: 44px;
+            height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 40px;
+            box-shadow: 0 3px 0 #102a4c;
+            flex-shrink: 0;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-left: 8px;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: #f3f7ff;
+            padding: 12px 20px;
+            border-radius: 60px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            font-size: 1rem;
+            word-break: break-word;
+        }
+        .option.selected {
+            border-color: #2a5298;
+            background: #cddcff;
+        }
+        .option input {
+            accent-color: #2a5298;
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px #00000015;
+            font-size: 0.95rem;
+        }
+        th {
+            background: #2a5298;
+            color: white;
+            padding: 14px 10px;
+            font-weight: 600;
+        }
+        td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #d0ddef;
+        }
+        .wrong-answer {
+            background: #ffccc7;
+            color: #a8071a;
+            font-weight: 600;
+            border-radius: 30px;
+            padding: 4px 12px;
+            display: inline-block;
+        }
+        .correct-answer {
+            background: #b7eb8f;
+            color: #237804;
+            font-weight: 600;
+            border-radius: 30px;
+            padding: 4px 12px;
+            display: inline-block;
+            border: 2px solid #52c41a;
+        }
+        .report-chart-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 25px 0;
+        }
+        @media (max-width: 700px) {
+            .report-chart-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+        .chart-box {
+            background: white;
+            border-radius: 48px;
+            padding: 25px;
+            box-shadow: 0 15px 30px #0000001a;
+            text-align: center;
+        }
+        .pie {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 15px auto;
+            background: conic-gradient(#f5222d 0deg 180deg, #faad14 180deg 360deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .pie span {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 2.5rem;
+            color: #1e2f4d;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        .stat-item {
+            background: white;
+            border-radius: 32px;
+            padding: 20px 12px;
+            font-weight: 600;
+            box-shadow: 0 5px 0 #b8c3d0;
+            text-align: center;
+            font-size: 1.2rem;
+            word-break: break-word;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100px;
+        }
+        .stat-item div:first-child { font-size: 1.1rem; margin-bottom: 8px; color: #1e2f4d; }
+        .stat-item div:last-child { font-size: 1.4rem; font-weight: 700; color: #2a5298; }
+        @media (max-width: 700px) {
+            .stat-item { font-size: 1rem; padding: 15px 8px; min-height: 80px; }
+            .stat-item div:first-child { font-size: 0.95rem; }
+            .stat-item div:last-child { font-size: 1.2rem; }
+        }
+        .hidden-passage {
+            background: #f0f5ff;
+            border-radius: 36px;
+            padding: 25px;
+            margin: 25px 0;
+            white-space: pre-line;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        .action-buttons-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            margin-bottom: 5px;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .scroll-top {
+            background: white;
+            width: 56px;
+            height: 56px;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            box-shadow: 4px 4px 14px #b8c3d0;
+            cursor: pointer;
+            text-decoration: none;
+            color: #1e2f4d;
+            transition: 0.2s;
+            flex-shrink: 0;
+        }
+        .scroll-top:active {
+            box-shadow: inset 4px 4px 10px #b8c3d0;
+            transform: scale(0.95);
+        }
+        .btn-back {
+            background: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            box-shadow: 6px 6px 16px #b8c3d0, -6px -6px 16px #ffffff;
+            cursor: pointer;
+            color: #1e2f4d;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+</head>
+<body>
+<div class="app-container" id="app"></div>
 <script>
     // =====================================================
     // HỆ THỐNG TỰ ĐỘNG THU THẬP CÁC BÀI HỌC (LỚP 5)
@@ -24,15 +477,167 @@
         }
     }
 
-    // ---------- DỮ LIỆU BÀI HỌC (Giữ nguyên - đã rút gọn trong ví dụ này nhưng bạn cần giữ nguyên full dữ liệu của bạn) ----------
-    // ... (Phần dữ liệu var E5_U1_B1 = {...} ... các bạn copy y nguyên từ code cũ của bạn vào đây) ...
-    // QUAN TRỌNG: Hãy dán toàn bộ nội dung dữ liệu bài học (E5_U1_B1, E5_U1_B2...) vào đây.
-    // Tôi sẽ bỏ qua phần dữ liệu dài để tập trung vào sửa lỗi JS.
-    
-    // === DÁN DỮ LIỆU CỦA BẠN VÀO ĐÂY (GIỮ NGUYÊN) ===
-    var E5_U1_B1 = { P1: [ /* ... */ ], P2: [ /* ... */ ], P3: [ /* ... */ ], P4: "...", P5: [ /* ... */ ] };
-    // ... (Các bài khác) ...
-    // === KẾT THÚC PHẦN DỮ LIỆU ===
+    // ---------- DỮ LIỆU BÀI HỌC (giữ nguyên) ----------
+    var E5_U1_B1 = {
+        P1: [
+            { id: 1, word: "Where does Miss Lien live?", correct: "in a small house in Hanoi", wrong1: "in a big apartment", wrong2: "in the countryside" },
+            { id: 2, word: "What does Miss Lien do?", correct: "She teaches English", wrong1: "She is a doctor", wrong2: "She works in a factory" },
+            { id: 3, word: "What time does she have breakfast?", correct: "at seven", wrong1: "at six", wrong2: "at eight" },
+            { id: 4, word: "Where does she have lunch?", correct: "in the canteen of the school", wrong1: "at home", wrong2: "in a restaurant" },
+            { id: 5, word: "When does she teach dialogues?", correct: "on Wednesdays and Fridays", wrong1: "on Mondays", wrong2: "every day" },
+            { id: 6, word: "What does she teach on Mondays?", correct: "grammar", wrong1: "dialogues", wrong2: "listening" },
+            { id: 7, word: "What does she do in the evening?", correct: "stays at home and listens to music", wrong1: "goes out with friends", wrong2: "watches TV" },
+            { id: 8, word: "Does she sometimes go to the movie theatre?", correct: "Yes, she does", wrong1: "No, she never goes", wrong2: "Only on Sundays" },
+            { id: 9, word: "What time does she go to bed?", correct: "at ten o'clock", wrong1: "at nine o'clock", wrong2: "at eleven" },
+            { id: 10, word: "Who is Miss Lien?", correct: "an English teacher", wrong1: "a student", wrong2: "a nurse" }
+        ],
+        P2: [
+            { id: 1, word: "Miss Lien lives in a small house in Hanoi.", correct: "True", wrong1: "False", wrong2: "Not Given" },
+            { id: 2, word: "She teaches Math at a school.", correct: "False", wrong1: "True", wrong2: "Not Given" },
+            { id: 3, word: "She has lunch at home.", correct: "False", wrong1: "True", wrong2: "Not Given" },
+            { id: 4, word: "She teaches dialogues on Wednesdays and Fridays.", correct: "True", wrong1: "False", wrong2: "Not Given" },
+            { id: 5, word: "She teaches grammar on Tuesdays.", correct: "False", wrong1: "True", wrong2: "Not Given" },
+            { id: 6, word: "In the evening she usually stays at home.", correct: "True", wrong1: "False", wrong2: "Not Given" },
+            { id: 7, word: "She sometimes goes to the cinema.", correct: "True", wrong1: "False", wrong2: "Not Given" },
+            { id: 8, word: "She has a pet dog.", correct: "Not Given", wrong1: "True", wrong2: "False" },
+            { id: 9, word: "She always goes to bed at ten.", correct: "True", wrong1: "False", wrong2: "Not Given" },
+            { id: 10, word: "Her school is in Hanoi.", correct: "True", wrong1: "False", wrong2: "Not Given" }
+        ],
+        P3: [
+            { id: 1, word: "Miss Lien lives in a small house ______ Hanoi.", correct: "in", wrong1: "on", wrong2: "at" },
+            { id: 2, word: "She teaches English ______ a school there.", correct: "at", wrong1: "in", wrong2: "on" },
+            { id: 3, word: "She usually has breakfast ______ seven.", correct: "at", wrong1: "in", wrong2: "on" },
+            { id: 4, word: "She has lunch in the canteen ______ the school.", correct: "of", wrong1: "at", wrong2: "in" },
+            { id: 5, word: "She teaches her students ______ the morning.", correct: "in", wrong1: "on", wrong2: "at" },
+            { id: 6, word: "She teaches them dialogues ______ Wednesdays.", correct: "on", wrong1: "in", wrong2: "at" },
+            { id: 7, word: "______ Mondays, she teaches grammar.", correct: "On", wrong1: "In", wrong2: "At" },
+            { id: 8, word: "In the evening, she usually stays ______ home.", correct: "at", wrong1: "in", wrong2: "on" },
+            { id: 9, word: "She sometimes goes ______ the movie theatre.", correct: "to", wrong1: "in", wrong2: "at" },
+            { id: 10, word: "She always goes to bed ______ ten o'clock.", correct: "at", wrong1: "in", wrong2: "on" }
+        ],
+        P4: "Miss Lien lives in a small house in Hanoi. She teaches English at a school there. She usually has breakfast at seven in the morning and she has lunch at twelve o'clock in the canteen of the school. She teaches her students in the morning. She teaches them dialogues on Wednesdays and Fridays. On Mondays, she teaches them grammar. In the evening, she usually stays at home and listens to music. She sometimes goes to the movie theatre. She always goes to bed at ten o'clock.",
+        P5: [
+            { id: 1, word: "Miss Lien lives in a small house in Hanoi." },
+            { id: 2, word: "She teaches English at a school there." },
+            { id: 3, word: "She usually has breakfast at seven in the morning and she has lunch at twelve o'clock in the canteen of the school." },
+            { id: 4, word: "She teaches her students in the morning." },
+            { id: 5, word: "She teaches them dialogues on Wednesdays and Fridays." },
+            { id: 6, word: "On Mondays, she teaches them grammar." },
+            { id: 7, word: "In the evening, she usually stays at home and listens to music." },
+            { id: 8, word: "She sometimes goes to the movie theatre." },
+            { id: 9, word: "She always goes to bed at ten o'clock." }
+        ]
+    };
+
+    var E5_U1_B2 = {
+        P1: [
+            { id: 1, word: "How old is Janet?", correct: "eleven years old", wrong1: "ten years old", wrong2: "twelve years old" },
+            { id: 2, word: "Which school does Janet go to?", correct: "Palmer School", wrong1: "Park School", wrong2: "Parker School" },
+            { id: 3, word: "How are her classmates?", correct: "friendly", wrong1: "quiet", wrong2: "noisy" },
+            { id: 4, word: "Who is Janet's favourite teacher?", correct: "Mrs. Smith", wrong1: "Mr. Smith", wrong2: "Ms. Smith" },
+            { id: 5, word: "What subject does Mrs. Smith teach?", correct: "maths", wrong1: "English", wrong2: "science" },
+            { id: 6, word: "How many hours a week does Janet study Vietnamese?", correct: "two hours", wrong1: "one hour", wrong2: "three hours" },
+            { id: 7, word: "Where does Janet usually do her homework?", correct: "in the library", wrong1: "at home", wrong2: "in the classroom" },
+            { id: 8, word: "Do the students wear uniforms every day?", correct: "Yes, they do", wrong1: "No, they don't", wrong2: "Only on Mondays" },
+            { id: 9, word: "Why aren't they wearing uniforms today?", correct: "because they are going to a farm", wrong1: "because it's a holiday", wrong2: "because they don't have to" },
+            { id: 10, word: "What lesson are they going to have on the farm?", correct: "biology", wrong1: "geography", wrong2: "art" }
+        ],
+        P2: [
+            { id: 1, word: "Janet is twelve years old.", correct: "False", wrong1: "True", wrong2: "Not Given" },
+            { id: 2, word: "She is in year 6 at Palmer School.", correct: "True", wrong1: "False", wrong2: "Not Given" },
+            { id: 3, word: "Her classmates are not very friendly.", correct: "False", wrong1: "True", wrong2: "Not Given" },
+            { id: 4, word: "Mrs. Smith teaches English.", correct: "False", wrong1: "True", wrong2: "Not Given" },
+            { id: 5, word: "Janet studies Vietnamese for two hours every week.", correct: "True", wrong1: "False", wrong2: "Not Given" },
+            { id: 6, word: "She usually does her homework at home.", correct: "False", wrong1: "True", wrong2: "Not Given" },
+            { id: 7, word: "Students at Palmer School wear uniforms every day.", correct: "True", wrong1: "False", wrong2: "Not Given" },
+            { id: 8, word: "Today they are wearing casual clothes.", correct: "True", wrong1: "False", wrong2: "Not Given" },
+            { id: 9, word: "The farm is very far from the school.", correct: "Not Given", wrong1: "True", wrong2: "False" },
+            { id: 10, word: "They are going to have a biology lesson on the farm.", correct: "True", wrong1: "False", wrong2: "Not Given" }
+        ],
+        P3: [
+            { id: 1, word: "Hi. My name ______ Janet.", correct: "is", wrong1: "are", wrong2: "am" },
+            { id: 2, word: "I'm eleven years ______.", correct: "old", wrong1: "age", wrong2: "young" },
+            { id: 3, word: "I'm now in year 6 ______ Palmer School.", correct: "at", wrong1: "in", wrong2: "on" },
+            { id: 4, word: "My classmates are ______.", correct: "friendly", wrong1: "kind", wrong2: "helpful" },
+            { id: 5, word: "My favourite teacher is ______. Smith.", correct: "Mrs.", wrong1: "Mr.", wrong2: "Ms." },
+            { id: 6, word: "She teaches ______ maths.", correct: "us", wrong1: "we", wrong2: "our" },
+            { id: 7, word: "I have two hours to study Vietnamese ______ week.", correct: "every", wrong1: "a", wrong2: "in" },
+            { id: 8, word: "I usually do my homework ______ the library.", correct: "in", wrong1: "at", wrong2: "on" },
+            { id: 9, word: "We wear our uniforms ______ day.", correct: "every", wrong1: "all", wrong2: "each" },
+            { id: 10, word: "We're going to have a biology lesson ______ a farm.", correct: "on", wrong1: "in", wrong2: "at" }
+        ],
+        P4: "Hi. My name's Janet. I'm eleven years old. I'm now in year 6 at Palmer School. I like it here. My classmates are friendly. The teachers at my school are nice and very helpful, and my favourite teacher is Mrs. Smith. She teaches us maths. I have two hours to study Vietnamese every week. I usually do my homework in the library. We wear our uniforms every day, but today we aren't. We're going to have a biology lesson on a farm.",
+        P5: [
+            { id: 1, word: "Hi. My name's Janet." },
+            { id: 2, word: "I'm eleven years old." },
+            { id: 3, word: "I'm now in year 6 at Palmer School." },
+            { id: 4, word: "I like it here." },
+            { id: 5, word: "My classmates are friendly." },
+            { id: 6, word: "The teachers at my school are nice and very helpful, and my favourite teacher is Mrs. Smith." },
+            { id: 7, word: "She teaches us maths." },
+            { id: 8, word: "I have two hours to study Vietnamese every week." },
+            { id: 9, word: "I usually do my homework in the library." },
+            { id: 10, word: "We wear our uniforms every day, but today we aren't." },
+            { id: 11, word: "We're going to have a biology lesson on a farm." }
+        ]
+    };
+
+    var E5_U1_B3 = {
+        P1: [
+            { id: 1, word: "Where is Sunrise boarding school?", correct: "in Sydney", wrong1: "in Bac Giang", wrong2: "in London" },
+            { id: 2, word: "How many students go to Sunrise?", correct: "about 1,200", wrong1: "about 1,500", wrong2: "about 800" },
+            { id: 3, word: "Where do the students at Sunrise come from?", correct: "all over Australia", wrong1: "only Sydney", wrong2: "all over the world" },
+            { id: 4, word: "What subjects do they study at Sunrise?", correct: "maths, science and English", wrong1: "art, music and history", wrong2: "biology, physics and chemistry" },
+            { id: 5, word: "How many classes does An Son school have?", correct: "only 8 classes", wrong1: "12 classes", wrong2: "20 classes" },
+            { id: 6, word: "What is around An Son school?", correct: "mountains and green fields", wrong1: "a big city", wrong2: "a river and a lake" },
+            { id: 7, word: "What facilities does An Son school have?", correct: "a computer room and a library", wrong1: "a swimming pool", wrong2: "a gym" },
+            { id: 8, word: "What kind of school is Dream?", correct: "an international school", wrong1: "a boarding school", wrong2: "a lower secondary school" },
+            { id: 9, word: "Who do students learn English with at Dream?", correct: "English-speaking teachers", wrong1: "Vietnamese teachers", wrong2: "Australian teachers" },
+            { id: 10, word: "What do students do in the afternoon at Dream?", correct: "join clubs and play sports", wrong1: "study in the library", wrong2: "go home" }
+        ],
+        P2: [
+            { id: 1, word: "Sunrise is a boarding school in Sydney.", correct: "True", wrong1: "False", wrong2: "Not Given" },
+            { id: 2, word: "Sunrise has 2,000 students.", correct: "False", wrong1: "True", wrong2: "Not Given" },
+            { id: 3, word: "Students at Sunrise come from all over Australia.", correct: "True", wrong1: "False", wrong2: "Not Given" },
+            { id: 4, word: "An Son is a primary school in Bac Giang.", correct: "False", wrong1: "True", wrong2: "Not Given" },
+            { id: 5, word: "An Son has a swimming pool.", correct: "False", wrong1: "True", wrong2: "Not Given" },
+            { id: 6, word: "There is a school garden at An Son.", correct: "True", wrong1: "False", wrong2: "Not Given" },
+            { id: 7, word: "Dream school is in Sydney.", correct: "Not Given", wrong1: "True", wrong2: "False" },
+            { id: 8, word: "Students at Dream learn English with Vietnamese teachers.", correct: "False", wrong1: "True", wrong2: "Not Given" },
+            { id: 9, word: "Dream school has an art club.", correct: "True", wrong1: "False", wrong2: "Not Given" },
+            { id: 10, word: "All three schools are in Australia.", correct: "False", wrong1: "True", wrong2: "Not Given" }
+        ],
+        P3: [
+            { id: 1, word: "Sunrise is a boarding school ______ Sydney.", correct: "in", wrong1: "at", wrong2: "on" },
+            { id: 2, word: "Students study and live ______ Sunrise.", correct: "at", wrong1: "in", wrong2: "on" },
+            { id: 3, word: "It has students from all ______ Australia.", correct: "over", wrong1: "in", wrong2: "around" },
+            { id: 4, word: "An Son is a lower secondary school ______ Bac Giang.", correct: "in", wrong1: "at", wrong2: "on" },
+            { id: 5, word: "There are mountains and green fields ______ the school.", correct: "around", wrong1: "in", wrong2: "on" },
+            { id: 6, word: "There is a computer room and ______ library.", correct: "a", wrong1: "the", wrong2: "an" },
+            { id: 7, word: "There is also a school garden and ______ playground.", correct: "a", wrong1: "the", wrong2: "an" },
+            { id: 8, word: "Dream is ______ international school.", correct: "an", wrong1: "a", wrong2: "the" },
+            { id: 9, word: "Here students learn English ______ English-speaking teachers.", correct: "with", wrong1: "from", wrong2: "by" },
+            { id: 10, word: "Some students do paintings ______ the art club.", correct: "in", wrong1: "at", wrong2: "on" }
+        ],
+        P4: "Sunrise is a boarding school in Sydney. Students study and live there. About 1,200 boys and girls go to Sunrise. It has students from all over Australia. They study subjects like maths, science and English.<br> An Son is a lower secondary school in Bac Giang. It has only 8 classes. There are mountains and green fields around the school. There is a computer room and a library. There is also a school garden and a playground.<br> Dream is an international school. Here students learn English with English-speaking teachers. In the afternoon, they join many interesting clubs. They play sports and games. Some students do paintings in the art club.",
+        P5: [
+            { id: 1, word: "Sunrise is a boarding school in Sydney." },
+            { id: 2, word: "Students study and live there." },
+            { id: 3, word: "About 1,200 boys and girls go to Sunrise." },
+            { id: 4, word: "It has students from all over Australia." },
+            { id: 5, word: "They study subjects like maths, science and English." },
+            { id: 6, word: "An Son is a lower secondary school in Bac Giang." },
+            { id: 7, word: "It has only 8 classes." },
+            { id: 8, word: "There are mountains and green fields around the school." },
+            { id: 9, word: "There is a computer room and a library." },
+            { id: 10, word: "There is also a school garden and a playground." },
+            { id: 11, word: "Dream is an international school." },
+            { id: 12, word: "Here students learn English with English-speaking teachers." },
+            { id: 13, word: "In the afternoon, they join many interesting clubs." },
+            { id: 14, word: "They play sports and games." },
+            { id: 15, word: "Some students do paintings in the art club." }
+        ]
+    };
 
     var E5_U1_B4 = { P1: [], P2: [], P3: [], P4: "Chưa có nội dung", P5: [] };
     var E5_U1_B5 = { P1: [], P2: [], P3: [], P4: "Chưa có nội dung", P5: [] };
@@ -47,7 +652,13 @@
             for (let bai = 1; bai <= 10; bai++) {
                 let varName = 'E5_U' + unit + '_B' + bai;
                 if (typeof window[varName] === 'undefined') {
-                    window[varName] = { P1: [], P2: [], P3: [], P4: "Chưa có nội dung", P5: [] };
+                    window[varName] = {
+                        P1: [],
+                        P2: [],
+                        P3: [],
+                        P4: "Chưa có nội dung",
+                        P5: []
+                    };
                 }
             }
         }
@@ -245,22 +856,27 @@
         return 'desktop';
     }
 
-    // ----- LỌC GIỌNG: LẤY TẤT CẢ GIỌNG en-GB/en-US, SẮP XẾP ƯU TIÊN -----
+    // ----- LỌC GIỌNG THEO THIẾT BỊ -----
     function getPrioritizedVoices(allVoices) {
         const device = getDeviceType();
+        // Lấy tất cả giọng en-GB và en-US
         let englishVoices = allVoices.filter(v => v.lang.startsWith('en-GB') || v.lang.startsWith('en-US'));
         if (englishVoices.length === 0) return [];
 
-        let priorityKeywords = [];
         if (device === 'ios') {
-            priorityKeywords.push('daniel', 'siri', 'kate', 'jamie', 'oliver', 'serena');
-            priorityKeywords.push('samantha', 'susan', 'tom', 'zoe', 'alex', 'alison');
-        } else if (device === 'android') {
-            priorityKeywords.push('google uk english male', 'google uk english female',
-                                  'google us english male', 'google us english female', 'google us english');
+            // iOS: hiển thị tất cả giọng tiếng Anh có sẵn, sắp xếp theo tên
+            englishVoices.sort((a, b) => a.name.localeCompare(b.name));
+            return englishVoices;
+        }
+
+        // Android và Desktop: ưu tiên giọng phổ biến
+        let priorityKeywords = [];
+        if (device === 'android') {
+            priorityKeywords = ['google uk english male', 'google uk english female',
+                                'google us english male', 'google us english female', 'google us english'];
         } else {
-            priorityKeywords.push('microsoft david', 'microsoft mark', 'microsoft zira',
-                                  'google uk english male', 'google uk english female', 'google us english');
+            priorityKeywords = ['microsoft david', 'microsoft mark', 'microsoft zira',
+                                'google uk english male', 'google uk english female', 'google us english'];
         }
 
         const voicesWithPriority = englishVoices.map(v => {
@@ -282,13 +898,10 @@
         const allVoices = speechSynthesis.getVoices();
         voiceList = getPrioritizedVoices(allVoices);
 
-        // Chọn giọng mặc định
         let defaultVoice = null;
         if (voiceList.length > 0) {
             defaultVoice = voiceList[0];
         }
-        // Cập nhật dropdown nếu đang ở màn hình quiz/report
-        // Hàm này sẽ được gọi an toàn ngay cả khi chưa có DOM
         updateVoiceDropdowns(defaultVoice);
     }
 
@@ -296,8 +909,6 @@
         const singleSelect = document.getElementById('voiceSelect');
         const oddSelect = document.getElementById('oddVoiceSelect');
         const evenSelect = document.getElementById('evenVoiceSelect');
-        
-        // Nếu chưa vào màn hình làm bài, các element này chưa tồn tại -> chỉ cần populate data vào biến voiceList là đủ
         if (!singleSelect || !oddSelect || !evenSelect) return;
 
         const fillSelect = (select) => {
@@ -326,29 +937,30 @@
         evenVoice = evenSelect.value ? voiceList.find(v => v.voiceURI === evenSelect.value) : (voiceList[0] || null);
     }
 
-    // =====================================================
-    // SỬA LỖI IOS: DÙNG CƠ CHẾ POLLING (THĂM DÒ LIÊN TỤC)
-    // =====================================================
-    if ('speechSynthesis' in window) {
-        // 1. Lắng nghe sự kiện chuẩn
-        speechSynthesis.onvoiceschanged = populateVoiceList;
-
-        // 2. Dùng Interval để ép buộc tải trên iOS nếu sự kiện không fire ngay
-        let iosVoiceRetryCount = 0;
-        const iosVoiceInterval = setInterval(() => {
-            const voices = speechSynthesis.getVoices();
-            if (voices.length > 0) {
-                console.log("Đã tải giọng đọc thành công (hoặc retry).");
-                populateVoiceList(); // Cập nhật lần cuối
-                clearInterval(iosVoiceInterval); // Dừng kiểm tra
-            } else {
-                iosVoiceRetryCount++;
-                // Thử tối đa 20 lần (10 giây), sau đó bỏ qua để tránh treo script
-                if (iosVoiceRetryCount > 20) {
-                    clearInterval(iosVoiceInterval);
+    // Retry đảm bảo voiceList được tải
+    let voiceLoadAttempts = 0;
+    function ensureVoiceListLoaded() {
+        if (voiceList.length > 0) return;
+        if (voiceLoadAttempts < 5) {
+            voiceLoadAttempts++;
+            setTimeout(() => {
+                if (speechSynthesis.getVoices().length > 0) {
+                    populateVoiceList();
                 }
-            }
-        }, 500); // Kiểm tra mỗi 0.5 giây
+                ensureVoiceListLoaded();
+            }, 500);
+        }
+    }
+
+    if ('speechSynthesis' in window) {
+        speechSynthesis.onvoiceschanged = () => {
+            populateVoiceList();
+            ensureVoiceListLoaded();
+        };
+        if (speechSynthesis.getVoices().length > 0) {
+            populateVoiceList();
+        }
+        ensureVoiceListLoaded();
     }
 
     // ---------- HÀM CHUẨN BỊ DỮ LIỆU ----------
@@ -563,22 +1175,17 @@
             });
         });
 
-        // --- XỬ LÝ GIỌNG ĐỌC TRONG QUIZ ---
-        // Gọi update để nạp dữ liệu vào dropdown (nếu voiceList đã có từ trước)
-        // Nếu voiceList rỗng (iOS chậm), nó sẽ được cập nhật sau bởi Interval đã đặt ở trên
-        if (voiceList.length > 0) {
-            updateVoiceDropdowns(voiceList[0]);
+        if (voiceList.length === 0 && 'speechSynthesis' in window) {
+            populateVoiceList();
+            ensureVoiceListLoaded();
+            setTimeout(() => {
+                if (voiceList.length === 0) populateVoiceList();
+                updateVoiceDropdowns();
+            }, 1000);
         } else {
-            // Thêm listener để cập nhật dropdown ngay khi voiceList được tải xong (bởi interval)
-            // Chúng ta dùng một biến cờ để tránh gắn nhiều listener
-            if (!window.voiceLoadedListenerAdded) {
-                const checkVoicesReady = setInterval(() => {
-                    if (voiceList.length > 0) {
-                        updateVoiceDropdowns(voiceList[0]);
-                        clearInterval(checkVoicesReady);
-                    }
-                }, 200);
-                window.voiceLoadedListenerAdded = true;
+            if (voiceList.length) {
+                let defaultVoice = voiceList[0];
+                updateVoiceDropdowns(defaultVoice);
             }
         }
 
@@ -722,44 +1329,40 @@
             </div>`;
         app.innerHTML = html;
 
-        // --- XỬ LÝ GIỌNG ĐỌC TRONG REPORT ---
-        if (voiceList.length > 0) {
-            updateVoiceDropdowns(voiceList[0]);
-        } else {
-            if (!window.voiceLoadedListenerAdded) {
-                const checkVoicesReady = setInterval(() => {
-                    if (voiceList.length > 0) {
-                        updateVoiceDropdowns(voiceList[0]);
-                        clearInterval(checkVoicesReady);
-                    }
-                }, 200);
-                window.voiceLoadedListenerAdded = true;
+        // Xử lý voice dropdowns trong report
+        if (voiceList.length === 0 && 'speechSynthesis' in window) {
+            populateVoiceList();
+            ensureVoiceListLoaded();
+            setTimeout(() => {
+                if (voiceList.length === 0) populateVoiceList();
+                updateVoiceDropdowns();
+            }, 1000);
+        }
+        if (voiceList.length) {
+            let defaultVoice = voiceList[0];
+            const singleSel = document.getElementById('voiceSelectReport');
+            const oddSel = document.getElementById('oddVoiceSelectReport');
+            const evenSel = document.getElementById('evenVoiceSelectReport');
+            if (singleSel && oddSel && evenSel) {
+                const fill = (sel) => {
+                    sel.innerHTML = '';
+                    const emptyOpt = document.createElement('option');
+                    emptyOpt.value = '';
+                    emptyOpt.textContent = '-- Chọn giọng --';
+                    sel.appendChild(emptyOpt);
+                    voiceList.forEach(v => {
+                        let opt = document.createElement('option');
+                        opt.value = v.voiceURI;
+                        opt.textContent = `${v.name} (${v.lang})`;
+                        if (defaultVoice && v.voiceURI === defaultVoice.voiceURI) opt.selected = true;
+                        sel.appendChild(opt);
+                    });
+                };
+                fill(singleSel);
+                fill(oddSel);
+                fill(evenSel);
             }
         }
-        
-        // Gán trực tiếp vào các element trong Report
-        const singleSel = document.getElementById('voiceSelectReport');
-        const oddSel = document.getElementById('oddVoiceSelectReport');
-        const evenSel = document.getElementById('evenVoiceSelectReport');
-        
-        const fillReportSelect = (select) => {
-            if (!select) return;
-            select.innerHTML = '';
-            const emptyOpt = document.createElement('option');
-            emptyOpt.value = '';
-            emptyOpt.textContent = '-- Chọn giọng --';
-            select.appendChild(emptyOpt);
-            voiceList.forEach(v => {
-                let opt = document.createElement('option');
-                opt.value = v.voiceURI;
-                opt.textContent = `${v.name} (${v.lang})`;
-                if (voiceList[0] && v.voiceURI === voiceList[0].voiceURI) opt.selected = true;
-                select.appendChild(opt);
-            });
-        };
-        fillReportSelect(singleSel);
-        fillReportSelect(oddSel);
-        fillReportSelect(evenSel);
 
         const modeSel = document.getElementById('voiceModeSelectReport');
         const singleDiv = document.getElementById('singleVoiceContainerReport');
@@ -806,3 +1409,5 @@
 
     render();
 </script>
+</body>
+</html>
