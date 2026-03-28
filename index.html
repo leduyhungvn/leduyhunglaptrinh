@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Luyện nghe TA Lớp 4 (thêm dạng tổng hợp)</title>
+    <title>Luyện nghe TA Lớp 6 (thêm dạng tổng hợp)</title>
     <meta name="google" content="notranslate">
     <meta http-equiv="Content-Language" content="en">
     <style>
@@ -453,16 +453,16 @@
 <div class="app-container" id="app"></div>
 <script>
     // =====================================================
-    // HỆ THỐNG TỰ ĐỘNG THU THẬP CÁC BÀI HỌC (LỚP 4)
-    // Chỉ cần khai báo biến với tên theo mẫu E4_U{unit}_B{bai}
+    // HỆ THỐNG TỰ ĐỘNG THU THẬP CÁC BÀI HỌC (LỚP 6)
+    // Chỉ cần khai báo biến với tên theo mẫu E6_U{unit}_B{bai}
     // =====================================================
 
     // Registry chứa tất cả các bài học
     window.LESSON_REGISTRY = {};
 
-    // Hàm quét window để tìm các biến có tên dạng E4_..._...
+    // Hàm quét window để tìm các biến có tên dạng E6_..._...
     function scanLessons() {
-        const lessonRegex = /^E4_U(\d+)_B(\d+)$/; // Lớp 4
+        const lessonRegex = /^E6_U(\d+)_B(\d+)$/; // Lớp 6
         for (let key in window) {
             if (window.hasOwnProperty(key)) {
                 const match = key.match(lessonRegex);
@@ -472,9 +472,9 @@
                     const data = window[key];
                     // Kiểm tra xem data có cấu trúc bài học không (có P1, P2,...)
                     if (data && typeof data === 'object' && data.P1 !== undefined) {
-                        if (!LESSON_REGISTRY['4']) LESSON_REGISTRY['4'] = {};
-                        if (!LESSON_REGISTRY['4'][`U${unit}`]) LESSON_REGISTRY['4'][`U${unit}`] = {};
-                        LESSON_REGISTRY['4'][`U${unit}`][`B${bai}`] = data;
+                        if (!LESSON_REGISTRY['6']) LESSON_REGISTRY['6'] = {};
+                        if (!LESSON_REGISTRY['6'][`U${unit}`]) LESSON_REGISTRY['6'][`U${unit}`] = {};
+                        LESSON_REGISTRY['6'][`U${unit}`][`B${bai}`] = data;
                     }
                 }
             }
@@ -482,11 +482,11 @@
     }
 
     // =====================================================
-    // KHAI BÁO DỮ LIỆU CÁC BÀI (đã chuyển từ lớp 9 sang lớp 4, giữ nội dung)
+    // KHAI BÁO DỮ LIỆU CÁC BÀI (đã chuyển từ lớp 4 sang lớp 6, giữ nội dung)
     // =====================================================
 
-    // ---------- UNIT 1 BÀI 1 ---------- (Giữ nguyên dữ liệu từ E9_U1_B1)
-    var E4_U1_B1 = {
+    // ---------- UNIT 1 BÀI 1 ---------- (Giữ nguyên dữ liệu từ E4_U1_B1)
+    var E6_U1_B1 = {
         P1: [ // trắc nghiệm trả lời câu hỏi
             { id: 1, word: "Where does Miss Lien live?", correct: "in a small house in Hanoi", wrong1: "in a big apartment", wrong2: "in the countryside" },
             { id: 2, word: "What does Miss Lien do?", correct: "She teaches English", wrong1: "She is a doctor", wrong2: "She works in a factory" },
@@ -537,8 +537,8 @@
         ]
     };
 
-    // ---------- UNIT 1 BÀI 2 ---------- (Giữ nguyên dữ liệu từ E9_U1_B2)
-    var E4_U1_B2 = {
+    // ---------- UNIT 1 BÀI 2 ---------- (Giữ nguyên dữ liệu từ E4_U1_B2)
+    var E6_U1_B2 = {
         P1: [
             { id: 1, word: "How old is Janet?", correct: "eleven years old", wrong1: "ten years old", wrong2: "twelve years old" },
             { id: 2, word: "Which school does Janet go to?", correct: "Palmer School", wrong1: "Park School", wrong2: "Parker School" },
@@ -591,8 +591,8 @@
         ]
     };
 
-    // ---------- UNIT 1 BÀI 3 ---------- (Giữ nguyên dữ liệu từ E9_U1_B3)
-    var E4_U1_B3 = {
+    // ---------- UNIT 1 BÀI 3 ---------- (Giữ nguyên dữ liệu từ E4_U1_B3)
+    var E6_U1_B3 = {
         P1: [
             { id: 1, word: "Where is Sunrise boarding school?", correct: "in Sydney", wrong1: "in Bac Giang", wrong2: "in London" },
             { id: 2, word: "How many students go to Sunrise?", correct: "about 1,200", wrong1: "about 1,500", wrong2: "about 800" },
@@ -649,21 +649,16 @@
         ]
     };
 
-    // ---------- UNIT 1 BÀI 4 đến BÀI 10 (rỗng) ----------
-    var E4_U1_B4 = { P1: [], P2: [], P3: [], P4: "Chưa có nội dung", P5: [] };
-    var E4_U1_B5 = { P1: [], P2: [], P3: [], P4: "Chưa có nội dung", P5: [] };
-    var E4_U1_B6 = { P1: [], P2: [], P3: [], P4: "Chưa có nội dung", P5: [] };
-    var E4_U1_B7 = { P1: [], P2: [], P3: [], P4: "Chưa có nội dung", P5: [] };
-    var E4_U1_B8 = { P1: [], P2: [], P3: [], P4: "Chưa có nội dung", P5: [] };
-    var E4_U1_B9 = { P1: [], P2: [], P3: [], P4: "Chưa có nội dung", P5: [] };
-    var E4_U1_B10 = { P1: [], P2: [], P3: [], P4: "Chưa có nội dung", P5: [] };
+    // ---------- UNIT 1 BÀI 4 đến BÀI 20 (rỗng) ----------
+    for (let i = 4; i <= 20; i++) {
+        window[`E6_U1_B${i}`] = { P1: [], P2: [], P3: [], P4: "Chưa có nội dung", P5: [] };
+    }
 
-    // ---------- UNIT 2 đến UNIT 20, mỗi unit 10 bài rỗng ----------
-    // Dùng vòng lặp để khai báo nhanh
+    // ---------- UNIT 2 đến UNIT 12, mỗi unit 20 bài rỗng ----------
     (function createEmptyLessons() {
-        for (let unit = 2; unit <= 20; unit++) {
-            for (let bai = 1; bai <= 10; bai++) {
-                let varName = 'E4_U' + unit + '_B' + bai;
+        for (let unit = 2; unit <= 12; unit++) {
+            for (let bai = 1; bai <= 20; bai++) {
+                let varName = 'E6_U' + unit + '_B' + bai;
                 if (typeof window[varName] === 'undefined') {
                     window[varName] = {
                         P1: [],
@@ -704,12 +699,12 @@
     }
 
     // =====================================================
-    // CÁC BIẾN VÀ HÀM XỬ LÝ (dùng LESSON_REGISTRY, lớp 4)
+    // CÁC BIẾN VÀ HÀM XỬ LÝ (dùng LESSON_REGISTRY, lớp 6)
     // =====================================================
     const UNIT_ITEMS = [];
-    for (let i = 1; i <= 20; i++) UNIT_ITEMS.push(`UNIT ${i}`);
+    for (let i = 1; i <= 12; i++) UNIT_ITEMS.push(`UNIT ${i}`);
     
-    const BAI_ITEMS = ['KIỂM TRA NGẪU NHIÊN', ...Array.from({ length: 10 }, (_, i) => `BÀI ${i+1}`)];
+    const BAI_ITEMS = ['KIỂM TRA NGẪU NHIÊN', ...Array.from({ length: 20 }, (_, i) => `BÀI ${i+1}`)];
     const DANG_BAI = ['TRẮC NGHIỆM TỔNG HỢP', 'TRẮC NGHIỆM TRẢ LỜI CÂU HỎI', 'TRẮC NGHIỆM TRUE – FALSE – NOT GIVEN', 'TRẮC NGHIỆM ĐIỀN KHUYẾT'];
 
     let currentScreen = 'main';
@@ -932,7 +927,7 @@
         }
     }
 
-    // ---------- HÀM CHUẨN BỊ DỮ LIỆU (lớp 4) ----------
+    // ---------- HÀM KIỂM TRA BÀI HỢP LỆ (CÓ DỮ LIỆU) ----------
     function isLessonValid(lesson) {
         return (lesson.P1 && lesson.P1.length > 0) ||
                (lesson.P2 && lesson.P2.length > 0) ||
@@ -940,13 +935,14 @@
                (lesson.P4 && lesson.P4 !== "Chưa có nội dung");
     }
 
+    // ---------- HÀM CHUẨN BỊ DỮ LIỆU (lớp 6) ----------
     function prepareQuizData() {
         const unitKey = selectedUnit.replace('UNIT ', 'U'); // "U1"
         let baiNumber = null;
         let rawData = null;
 
         if (selectedBai === 'KIỂM TRA NGẪU NHIÊN') {
-            const unitLessons = LESSON_REGISTRY['4']?.[unitKey];
+            const unitLessons = LESSON_REGISTRY['6']?.[unitKey];
             if (!unitLessons) {
                 alert(`Unit ${selectedUnit} chưa có bài nào.`);
                 return false;
@@ -962,7 +958,7 @@
             rawData = unitLessons[randomBai];
         } else {
             baiNumber = selectedBai.replace('BÀI ', '');
-            rawData = LESSON_REGISTRY['4']?.[unitKey]?.[`B${baiNumber}`];
+            rawData = LESSON_REGISTRY['6']?.[unitKey]?.[`B${baiNumber}`];
             if (!rawData) {
                 alert(`Không tìm thấy dữ liệu cho ${selectedUnit} - ${selectedBai}.`);
                 return false;
@@ -1027,7 +1023,7 @@
     function renderMain() {
         let html = `
             <div class="main-card">
-                <h1>🔊 LUYỆN NGHE TIẾNG ANH LỚP 4</h1>
+                <h1>🔊 LUYỆN NGHE TIẾNG ANH LỚP 6</h1>
                 <div class="flex-col">
                     <div class="label-input"><label>👤 TÊN</label><input type="text" id="studentNameInput" value="${studentName}"></div>
                     <div class="label-input"><label>📚 UNIT</label><select id="unitSelect">${UNIT_ITEMS.map(u => `<option ${selectedUnit===u?'selected':''}>${u}</option>`).join('')}</select></div>
@@ -1061,7 +1057,7 @@
         let titleBai = selectedBai === 'KIỂM TRA NGẪU NHIÊN' ? 'KIỂM TRA' : selectedBai;
         let html = `
             <div class="main-card">
-                <h2>📘 LỚP 4 - ${selectedUnit} - ${titleBai}</h2>
+                <h2>📘 LỚP 6 - ${selectedUnit} - ${titleBai}</h2>
                 <div class="title-sub">${selectedDang}</div>
                 
                 <div class="audio-panel" id="audioPanel">
@@ -1221,7 +1217,7 @@
 
         let html = `
             <div class="main-card">
-                <h2>📊 BÁO CÁO LỚP 4 - ${selectedUnit} - ${titleBai}</h2>
+                <h2>📊 BÁO CÁO LỚP 6 - ${selectedUnit} - ${titleBai}</h2>
                 <div class="title-sub">${selectedDang}</div>
                 
                 <div class="report-chart-grid">
