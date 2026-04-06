@@ -534,90 +534,215 @@
     let currentListeningLesson = null;
     let isCheating = false;
     let voiceList=[], voiceMode=1, singleVoice=null, oddVoice=null, evenVoice=null, isPaused=false, audioQueue=[], audioTimeout=null;
+    let currentSpeakingTimeout = null; // dùng để hủy các timeout khi dừng audio
     
-    // Hàm xử lý text: thay thế các chuỗi gạch dưới (2 dấu trở lên) bằng từ "blank"
-    function replaceBlanksWithBlank(text) {
-        if (!text) return text;
-        // Thay thế các chuỗi: khoảng trắng tùy ý + ít nhất 2 dấu gạch dưới + khoảng trắng tùy ý bằng " blank "
-        // Đồng thời xử lý trường hợp chỉ có dấu gạch dưới mà không có khoảng trắng.
-        return text.replace(/\s*_{2,}\s*/g, ' blank ');
+    // Hàm xử lý text: tách chuỗi thành mảng các phần (text thường và blank)
+    function splitTextByBlanks(text) {
+        if (!text) return [{ type: 'text', content: '' }];
+        // Tìm các chuỗi gồm 2 dấu gạch dưới trở lên (có thể có khoảng trắng xung quanh)
+        const regex = /(\s*_{2,}\s*)/g;
+        const parts = [];
+        let lastIndex = 0;
+        let match;
+        while ((match = regex.exec(text)) !== null) {
+            // Phần text trước blank
+            if (match.index > lastIndex) {
+                parts.push({ type: 'text', content: text.substring(lastIndex, match.index) });
+            }
+            // Phần blank
+            parts.push({ type: 'blank', content: match[0] });
+            lastIndex = match.index + match[0].length;
+        }
+        if (lastIndex < text.length) {
+            parts.push({ type: 'text', content: text.substring(lastIndex) });
+        }
+        return parts;
+    }
+    
+    // Hàm phát âm một chuỗi có thể chứa blank, với khoảng dừng trước/sau blank
+    function speakTextWithBlanks(text, id, onComplete) {
+        if (!text) {
+            if (onComplete) onComplete();
+            return;
+        }
+        const parts = splitTextByBlanks(text);
+        if (parts.length === 0) {
+            if (onComplete) onComplete();
+            return;
+        }
+        let index = 0;
+        const pauseDuration = 400; // 0.4 giây, tương đương khoảng dừng câu
+        const speakNext = () => {
+            if (index >= parts.length) {
+                if (onComplete) onComplete();
+                return;
+            }
+            const part = parts[index];
+            if (part.type === 'text' && part.content.trim() !== '') {
+                const utterance = new SpeechSynthesisUtterance(part.content);
+                utterance.lang = 'en-GB';
+                const voice = getVoiceForId(id);
+                if (voice) utterance.voice = voice;
+                utterance.onend = () => {
+                    index++;
+                    if (index < parts.length && parts[index].type === 'blank') {
+                        // Trước blank: dừng một khoảng
+                        currentSpeakingTimeout = setTimeout(() => {
+                            speakNext();
+                        }, pauseDuration);
+                    } else {
+                        speakNext();
+                    }
+                };
+                utterance.onerror = () => {
+                    index++;
+                    speakNext();
+                };
+                speechSynthesis.speak(utterance);
+            } else if (part.type === 'blank') {
+                // Phát âm từ "blank" và có dừng trước và sau
+                // Thực tế đã có dừng trước (do phần trước gọi setTimeout), sau đó phát "blank"
+                const blankUtterance = new SpeechSynthesisUtterance("blank");
+                blankUtterance.lang = 'en-GB';
+                const voice = getVoiceForId(id);
+                if (voice) blankUtterance.voice = voice;
+                blankUtterance.onend = () => {
+                    // Sau blank, dừng thêm một khoảng nữa
+                    index++;
+                    currentSpeakingTimeout = setTimeout(() => {
+                        speakNext();
+                    }, pauseDuration);
+                };
+                blankUtterance.onerror = () => {
+                    index++;
+                    speakNext();
+                };
+                speechSynthesis.speak(blankUtterance);
+            } else {
+                index++;
+                speakNext();
+            }
+        };
+        // Bắt đầu phát
+        speakNext();
+    }
+    
+    function stopAllAudio() {
+        speechSynthesis.cancel();
+        if (audioTimeout) clearTimeout(audioTimeout);
+        if (currentSpeakingTimeout) {
+            clearTimeout(currentSpeakingTimeout);
+            currentSpeakingTimeout = null;
+        }
+        audioQueue = [];
+        isPaused = false;
+    }
+    
+    function pauseAudio() {
+        if (speechSynthesis.speaking) {
+            speechSynthesis.pause();
+            isPaused = true;
+        }
+        if (audioTimeout) clearTimeout(audioTimeout);
+        if (currentSpeakingTimeout) clearTimeout(currentSpeakingTimeout);
+    }
+    
+    function resumeAudio() {
+        if (isPaused && speechSynthesis.paused) {
+            speechSynthesis.resume();
+            isPaused = false;
+        }
+    }
+    
+    function getVoiceForId(id) {
+        if (voiceMode === 1) return singleVoice;
+        return (id % 2 === 1) ? oddVoice : evenVoice;
+    }
+    
+    // Hàm phát nhiều câu (dùng cho đoạn văn nghe) - không có blank, giữ nguyên
+    function playAudioSentences(sentences, gapSec, loop) {
+        stopAllAudio();
+        if (!sentences || !sentences.length) return;
+        sentences.forEach(item => {
+            // Các câu trong P5 không có blank, nhưng nếu có thì vẫn xử lý
+            for (let i = 0; i < loop; i++) audioQueue.push({ text: item.word, id: item.id });
+        });
+        let idx = 0;
+        const playNext = () => {
+            if (idx >= audioQueue.length) {
+                stopAllAudio();
+                return;
+            }
+            const item = audioQueue[idx];
+            // Sử dụng speakTextWithBlanks cho từng câu (để xử lý blank nếu có)
+            speakTextWithBlanks(item.text, item.id, () => {
+                idx++;
+                if (idx < audioQueue.length && !isPaused) {
+                    audioTimeout = setTimeout(playNext, gapSec * 1000);
+                } else if (idx >= audioQueue.length) {
+                    stopAllAudio();
+                }
+            });
+        };
+        playNext();
+    }
+    
+    function speakSingleText(text, id) {
+        if (!text) return;
+        stopAllAudio();
+        speakTextWithBlanks(text, id, null);
+    }
+    
+    function populateVoiceList() {
+        if (!('speechSynthesis' in window)) return;
+        const voices = speechSynthesis.getVoices();
+        voiceList = sortVoicesByPlatform(voices);
+    }
+    
+    function sortVoicesByPlatform(voices) {
+        const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+        if (isIOS) {
+            const s = voices.find(v => v.name.toLowerCase().includes('samantha'));
+            if (s) return [s, ...voices.filter(v => v !== s)];
+        } else {
+            const g = voices.filter(v => v.name.toLowerCase().includes('google'));
+            const m = voices.filter(v => v.name.toLowerCase().includes('microsoft'));
+            const o = voices.filter(v => !v.name.toLowerCase().includes('google') && !v.name.toLowerCase().includes('microsoft'));
+            return [...g, ...m, ...o];
+        }
+        return voices;
+    }
+    
+    if ('speechSynthesis' in window) {
+        speechSynthesis.onvoiceschanged = populateVoiceList;
+        if (speechSynthesis.getVoices().length > 0) populateVoiceList();
     }
     
     function handleCheating() {
-        if(currentScreen === 'exam' && !isCheating) {
+        if (currentScreen === 'exam' && !isCheating) {
             isCheating = true;
             document.getElementById('warningMessage').style.display = 'block';
             setTimeout(() => { document.getElementById('warningMessage').style.display = 'none'; }, 3000);
-            if(timer) clearInterval(timer);
+            if (timer) clearInterval(timer);
             endTime = new Date();
             showReport();
         }
     }
-    document.addEventListener('visibilitychange', () => { if(document.hidden) handleCheating(); });
+    document.addEventListener('visibilitychange', () => { if (document.hidden) handleCheating(); });
     window.addEventListener('blur', () => { handleCheating(); });
     
-    function sortVoicesByPlatform(voices){ const isIOS=/iPhone|iPad|iPod/i.test(navigator.userAgent); if(isIOS){ const s=voices.find(v=>v.name.toLowerCase().includes('samantha')); if(s) return [s, ...voices.filter(v=>v!==s)]; } else{ const g=voices.filter(v=>v.name.toLowerCase().includes('google')); const m=voices.filter(v=>v.name.toLowerCase().includes('microsoft')); const o=voices.filter(v=>!v.name.toLowerCase().includes('google')&&!v.name.toLowerCase().includes('microsoft')); return [...g,...m,...o]; } return voices; }
-    function stopAllAudio(){ speechSynthesis.cancel(); if(audioTimeout) clearTimeout(audioTimeout); audioQueue=[]; isPaused=false; }
-    function pauseAudio(){ if(speechSynthesis.speaking){ speechSynthesis.pause(); isPaused=true; } if(audioTimeout) clearTimeout(audioTimeout); }
-    function resumeAudio(){ if(isPaused && speechSynthesis.paused){ speechSynthesis.resume(); isPaused=false; } }
-    function getVoiceForId(id){ if(voiceMode===1) return singleVoice; return (id%2===1)?oddVoice:evenVoice; }
-    function playAudioSentences(sentences, gapSec, loop){ 
-        stopAllAudio(); 
-        if(!sentences||!sentences.length) return; 
-        sentences.forEach(item=>{ 
-            let processedText = replaceBlanksWithBlank(item.word);
-            for(let i=0;i<loop;i++) audioQueue.push({text:processedText, id:item.id}); 
-        }); 
-        let idx=0; 
-        const playNext=()=>{ 
-            if(idx>=audioQueue.length){ stopAllAudio(); return; } 
-            const item=audioQueue[idx]; 
-            const utt=new SpeechSynthesisUtterance(item.text); 
-            utt.lang='en-GB'; 
-            const v=getVoiceForId(item.id); 
-            if(v) utt.voice=v; 
-            utt.onend=()=>{ 
-                idx++; 
-                if(idx<audioQueue.length && !isPaused) audioTimeout=setTimeout(playNext, gapSec*1000); 
-                else if(idx>=audioQueue.length) stopAllAudio(); 
-            }; 
-            utt.onerror=()=>{ 
-                idx++; 
-                if(idx<audioQueue.length && !isPaused) audioTimeout=setTimeout(playNext, gapSec*1000); 
-            }; 
-            speechSynthesis.speak(utt); 
-        }; 
-        playNext(); 
-    }
-    
-    function speakSingleText(text, id) {
-        if(!text) return;
-        speechSynthesis.cancel();
-        let processedText = replaceBlanksWithBlank(text);
-        const utterance = new SpeechSynthesisUtterance(processedText);
-        utterance.lang = 'en-GB';
-        const voice = getVoiceForId(id);
-        if(voice) utterance.voice = voice;
-        setTimeout(() => {
-            speechSynthesis.speak(utterance);
-        }, 0);
-    }
-    
-    function populateVoiceList(){ if(!('speechSynthesis' in window)) return; const voices=speechSynthesis.getVoices(); voiceList=sortVoicesByPlatform(voices); }
-    if('speechSynthesis' in window){ speechSynthesis.onvoiceschanged=populateVoiceList; if(speechSynthesis.getVoices().length>0) populateVoiceList(); }
-    
-    function selectRandomQuestions(){
+    function selectRandomQuestions() {
         const examData = questionBank[currentExam];
-        for(let partKey of currentConfig.parts){
-            if(partKey === 'P13') {
+        for (let partKey of currentConfig.parts) {
+            if (partKey === 'P13') {
                 const res = getRandomListeningLesson();
-                if(res) { 
-                    currentListeningLesson = res; 
+                if (res) {
+                    currentListeningLesson = res;
                     selectedQuestions[partKey] = res.questions;
                     res.questions.forEach((q, idx) => {
-                        const qKey = `${partKey}.${idx+1}`;
-                        selectedQuestionDetails[qKey] = { 
-                            question: q, 
+                        const qKey = `${partKey}.${idx + 1}`;
+                        selectedQuestionDetails[qKey] = {
+                            question: q,
                             passage: res.lessonData.P4,
                             lessonId: res.lessonData.id,
                             subPart: q.subPart,
@@ -628,54 +753,54 @@
                 continue;
             }
             const qCount = currentConfig.questionCounts[partKey];
-            if(!examData || !examData[partKey] || examData[partKey].length === 0) continue;
-            if(partKey === 'P6') {
+            if (!examData || !examData[partKey] || examData[partKey].length === 0) continue;
+            if (partKey === 'P6') {
                 const randomIndex = Math.floor(Math.random() * examData[partKey].length);
                 const selectedLesson = examData[partKey][randomIndex];
                 selectedQuestions[partKey] = selectedLesson.questions.slice(0, qCount);
-                selectedLesson.questions.forEach((q, idx) => { 
-                    const qKey = `${partKey}.${idx+1}`; 
-                    selectedQuestionDetails[qKey] = { 
-                        question: q, 
+                selectedLesson.questions.forEach((q, idx) => {
+                    const qKey = `${partKey}.${idx + 1}`;
+                    selectedQuestionDetails[qKey] = {
+                        question: q,
                         passage: selectedLesson.passage,
                         lessonId: selectedLesson.id,
                         originalId: q.id
-                    }; 
+                    };
                 });
-            } else if(partKey === 'P7') {
+            } else if (partKey === 'P7') {
                 const randomIndex = Math.floor(Math.random() * examData[partKey].length);
                 const selectedLesson = examData[partKey][randomIndex];
                 const shuffled = [...selectedLesson.questions].sort(() => 0.5 - Math.random());
                 const selected = shuffled.slice(0, qCount);
                 selectedQuestions[partKey] = selected;
-                selected.forEach((q, idx) => { 
-                    const qKey = `${partKey}.${idx+1}`; 
-                    selectedQuestionDetails[qKey] = { 
-                        question: q, 
+                selected.forEach((q, idx) => {
+                    const qKey = `${partKey}.${idx + 1}`;
+                    selectedQuestionDetails[qKey] = {
+                        question: q,
                         passage: selectedLesson.passage,
                         lessonId: selectedLesson.id,
                         originalId: q.id
-                    }; 
+                    };
                 });
             } else {
                 let allQuestions = [];
-                for(let lesson of examData[partKey]) allQuestions.push(...lesson.questions);
-                if(allQuestions.length < qCount) {
+                for (let lesson of examData[partKey]) allQuestions.push(...lesson.questions);
+                if (allQuestions.length < qCount) {
                     selectedQuestions[partKey] = allQuestions;
-                    allQuestions.forEach((q, idx) => { 
-                        const qKey = `${partKey}.${idx+1}`; 
-                        let passage="", lessonId="";
-                        for(let lesson of examData[partKey]) if(lesson.questions.includes(q)) { passage=lesson.passage; lessonId=lesson.id; break; } 
+                    allQuestions.forEach((q, idx) => {
+                        const qKey = `${partKey}.${idx + 1}`;
+                        let passage = "", lessonId = "";
+                        for (let lesson of examData[partKey]) if (lesson.questions.includes(q)) { passage = lesson.passage; lessonId = lesson.id; break; }
                         selectedQuestionDetails[qKey] = { question: q, passage: passage, lessonId: lessonId, originalId: q.id };
                     });
                 } else {
                     const shuffled = [...allQuestions].sort(() => 0.5 - Math.random());
                     const selected = shuffled.slice(0, qCount);
                     selectedQuestions[partKey] = selected;
-                    selected.forEach((q, idx) => { 
-                        const qKey = `${partKey}.${idx+1}`; 
-                        let passage="", lessonId="";
-                        for(let lesson of examData[partKey]) if(lesson.questions.includes(q)) { passage=lesson.passage; lessonId=lesson.id; break; } 
+                    selected.forEach((q, idx) => {
+                        const qKey = `${partKey}.${idx + 1}`;
+                        let passage = "", lessonId = "";
+                        for (let lesson of examData[partKey]) if (lesson.questions.includes(q)) { passage = lesson.passage; lessonId = lesson.id; break; }
                         selectedQuestionDetails[qKey] = { question: q, passage: passage, lessonId: lessonId, originalId: q.id };
                     });
                 }
@@ -683,39 +808,39 @@
         }
     }
     
-    function startExam(){
+    function startExam() {
         const name = document.getElementById('studentName').value.trim();
-        if(!name){ alert('Vui lòng nhập tên!'); return; }
+        if (!name) { alert('Vui lòng nhập tên!'); return; }
         const examValue = document.getElementById('examSelect').value;
         currentExam = 'L4' + examValue;
         currentExerciseSet = document.getElementById('exerciseSetSelect').value;
         currentConfig = exerciseSetConfigs[currentExerciseSet];
-        if(!questionBank[currentExam] && !currentConfig.parts.includes('P13')){ alert('Chưa có dữ liệu cho đề thi này'); return; }
-        selectedAnswers={}; selectedQuestions={}; selectedQuestionDetails={}; answerOrders={}; isCheating=false; startTime=new Date();
+        if (!questionBank[currentExam] && !currentConfig.parts.includes('P13')) { alert('Chưa có dữ liệu cho đề thi này'); return; }
+        selectedAnswers = {}; selectedQuestions = {}; selectedQuestionDetails = {}; answerOrders = {}; isCheating = false; startTime = new Date();
         selectRandomQuestions();
         showScreen('exam');
         showPart(0);
     }
     
-    function showScreen(screen){
-        document.getElementById('mainScreen').style.display='none';
-        document.getElementById('examScreen').style.display='none';
-        document.getElementById('reportScreen').style.display='none';
-        if(screen==='main') document.getElementById('mainScreen').style.display='block';
-        else if(screen==='exam') document.getElementById('examScreen').style.display='block';
-        else if(screen==='report') document.getElementById('reportScreen').style.display='block';
-        currentScreen=screen;
+    function showScreen(screen) {
+        document.getElementById('mainScreen').style.display = 'none';
+        document.getElementById('examScreen').style.display = 'none';
+        document.getElementById('reportScreen').style.display = 'none';
+        if (screen === 'main') document.getElementById('mainScreen').style.display = 'block';
+        else if (screen === 'exam') document.getElementById('examScreen').style.display = 'block';
+        else if (screen === 'report') document.getElementById('reportScreen').style.display = 'block';
+        currentScreen = screen;
     }
     
-    function showPart(partIndex){
-        if(timer) clearInterval(timer);
-        if(partIndex >= currentConfig.parts.length){ endTime=new Date(); showReport(); return; }
+    function showPart(partIndex) {
+        if (timer) clearInterval(timer);
+        if (partIndex >= currentConfig.parts.length) { endTime = new Date(); showReport(); return; }
         const partKey = currentConfig.parts[partIndex];
         currentPart = partIndex;
         const examText = document.getElementById('examSelect').options[document.getElementById('examSelect').selectedIndex].text;
         document.getElementById('examSubtitle').textContent = `LỚP 4 – ${examText}`;
         document.getElementById('examPart').textContent = `Phần ${partKey.substring(1)}`;
-        if(partKey === 'P13'){
+        if (partKey === 'P13') {
             document.getElementById('instruction').innerHTML = '<strong>LUYỆN NGHE:</strong> Nghe đoạn văn và chọn đáp án đúng.';
             document.getElementById('questionButtons').innerHTML = '';
             renderListeningPart();
@@ -729,42 +854,42 @@
         const btnContainer = document.getElementById('questionButtons');
         btnContainer.innerHTML = '';
         const qCount = selectedQuestions[partKey] ? selectedQuestions[partKey].length : 0;
-        for(let i=1;i<=qCount;i++){
-            const btn = document.createElement('button'); btn.className='question-button'; btn.textContent=`CÂU ${i}`; btn.dataset.question=i;
-            if(selectedAnswers[`${partKey}.${i}`]) btn.classList.add('answered');
-            btn.addEventListener('click', (function(p,qn){ return function(){ showQuestion(p,qn); }; })(partKey,i));
+        for (let i = 1; i <= qCount; i++) {
+            const btn = document.createElement('button'); btn.className = 'question-button'; btn.textContent = `CÂU ${i}`; btn.dataset.question = i;
+            if (selectedAnswers[`${partKey}.${i}`]) btn.classList.add('answered');
+            btn.addEventListener('click', (function (p, qn) { return function () { showQuestion(p, qn); }; })(partKey, i));
             btnContainer.appendChild(btn);
         }
-        if(qCount>0) showQuestion(partKey,1);
+        if (qCount > 0) showQuestion(partKey, 1);
         timeLeft = currentConfig.partTimes[partKey];
         updateTimer(); timer = setInterval(updateTimer, 1000);
         document.getElementById('nextButton').disabled = true;
     }
     
-    function showQuestion(partKey, qNum){
+    function showQuestion(partKey, qNum) {
         const qKey = `${partKey}.${qNum}`;
         const detail = selectedQuestionDetails[qKey];
-        if(!detail) return;
+        if (!detail) return;
         const qData = detail.question;
         const container = document.getElementById('questionContent');
         container.innerHTML = `<div class="question-text"><strong>Câu ${qNum}:</strong> ${qData.question}</div><div class="answer-options" id="ansOpts"></div>`;
         const optsDiv = document.getElementById('ansOpts');
         let answers;
-        if(partKey === 'P13' && detail.subPart === 'P2') {
-            answers = [{text:"True", isCorrect: (qData.correct==="True")}, {text:"False", isCorrect: (qData.correct==="False")}, {text:"Not given", isCorrect: (qData.correct==="Not given")}];
+        if (partKey === 'P13' && detail.subPart === 'P2') {
+            answers = [{ text: "True", isCorrect: (qData.correct === "True") }, { text: "False", isCorrect: (qData.correct === "False") }, { text: "Not given", isCorrect: (qData.correct === "Not given") }];
         } else {
-            answers = [{text:qData.correct,isCorrect:true},{text:qData.wrong1,isCorrect:false},{text:qData.wrong2,isCorrect:false},{text:qData.wrong3,isCorrect:false}];
+            answers = [{ text: qData.correct, isCorrect: true }, { text: qData.wrong1, isCorrect: false }, { text: qData.wrong2, isCorrect: false }, { text: qData.wrong3, isCorrect: false }];
         }
         let shuffled = answerOrders[qKey];
-        if(!shuffled){ shuffled=[...answers]; for(let i=shuffled.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [shuffled[i],shuffled[j]]=[shuffled[j],shuffled[i]]; } answerOrders[qKey]=shuffled; }
-        const labels=['A','B','C','D'];
-        shuffled.forEach((ans,idx)=>{
-            const optDiv = document.createElement('div'); optDiv.className='answer-option';
+        if (!shuffled) { shuffled = [...answers]; for (let i = shuffled.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; } answerOrders[qKey] = shuffled; }
+        const labels = ['A', 'B', 'C', 'D'];
+        shuffled.forEach((ans, idx) => {
+            const optDiv = document.createElement('div'); optDiv.className = 'answer-option';
             optDiv.innerHTML = `<strong>${labels[idx]}.</strong> ${ans.text}`;
-            if(selectedAnswers[qKey] === labels[idx]) optDiv.classList.add('selected');
-            optDiv.addEventListener('click',()=>{
+            if (selectedAnswers[qKey] === labels[idx]) optDiv.classList.add('selected');
+            optDiv.addEventListener('click', () => {
                 selectedAnswers[qKey] = labels[idx];
-                document.querySelectorAll('.answer-option').forEach(o=>o.classList.remove('selected'));
+                document.querySelectorAll('.answer-option').forEach(o => o.classList.remove('selected'));
                 optDiv.classList.add('selected');
                 document.querySelector(`.question-button[data-question="${qNum}"]`)?.classList.add('answered');
                 updateNextButtonState();
@@ -773,84 +898,87 @@
         });
     }
     
-    function renderListeningPart(){
+    function renderListeningPart() {
         const questions = selectedQuestions['P13'];
-        if(!questions || questions.length === 0) return;
+        if (!questions || questions.length === 0) return;
         const container = document.getElementById('questionContent');
         container.innerHTML = '';
-        const audioPanel = document.createElement('div'); audioPanel.className='listening-panel';
+        const audioPanel = document.createElement('div'); audioPanel.className = 'listening-panel';
         audioPanel.innerHTML = `<span class="speaker-icon-big" id="playMainAudio">🔊</span><select id="gapTimeSelect"><option value="0.5" selected>0.5s</option><option value="1">1s</option></select><select id="loopCountSelect"><option value="1">1 lần</option><option value="2">2 lần</option></select><button id="pauseAudioBtn">⏸️</button><button id="stopAudioBtn">⏹️</button>`;
         container.appendChild(audioPanel);
-        const voiceDiv = document.createElement('div'); voiceDiv.className='voice-control-row';
+        const voiceDiv = document.createElement('div'); voiceDiv.className = 'voice-control-row';
         voiceDiv.innerHTML = `<label>Số giọng: <select id="voiceModeSelect"><option value="1">1 giọng</option><option value="2">2 giọng</option></select></label><div id="singleVoiceDiv"><label>Giọng: <select id="voiceSelect"></select></label></div><div id="dualVoiceDiv" style="display:none;"><label>Giọng lẻ: <select id="oddVoiceSelect"></select></label><label>Giọng chẵn: <select id="evenVoiceSelect"></select></label></div>`;
         container.appendChild(voiceDiv);
         questions.forEach((q, idx) => {
-            const qDiv = document.createElement('div'); qDiv.className='listening-question-item';
+            const qDiv = document.createElement('div'); qDiv.className = 'listening-question-item';
             let opts;
-            if(q.subPart === 'P2') {
+            if (q.subPart === 'P2') {
                 opts = ["True", "False", "Not given"];
             } else {
                 opts = [q.correct, q.wrong1, q.wrong2];
-                for(let i=opts.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [opts[i],opts[j]]=[opts[j],opts[i]]; }
+                for (let i = opts.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [opts[i], opts[j]] = [opts[j], opts[i]]; }
             }
-            answerOrders[`P13.${idx+1}`] = opts;
-            qDiv.innerHTML = `<div class="listening-question-text"><span class="speaker-btn-sm" data-text="${q.word.replace(/"/g, '&quot;')}" data-id="${q.id}">🔊</span> ${idx+1}. ${q.word}</div><div class="listening-options" id="opts-${idx}"></div>`;
+            answerOrders[`P13.${idx + 1}`] = opts;
+            qDiv.innerHTML = `<div class="listening-question-text"><span class="speaker-btn-sm" data-text="${q.word.replace(/"/g, '&quot;')}" data-id="${q.id}">🔊</span> ${idx + 1}. ${q.word}</div><div class="listening-options" id="opts-${idx}"></div>`;
             const optsDiv = qDiv.querySelector(`.listening-options`);
-            const letters = ['A','B','C'];
+            const letters = ['A', 'B', 'C'];
             opts.forEach((opt, optIdx) => {
-                const label = document.createElement('label'); label.className='listening-option';
-                const radio = document.createElement('input'); radio.type='radio'; radio.name=`q_listen_${idx}`; radio.value=letters[optIdx];
-                if(selectedAnswers[`P13.${idx+1}`] === letters[optIdx]) radio.checked=true;
-                radio.addEventListener('change', (e) => { selectedAnswers[`P13.${idx+1}`] = e.target.value; updateNextButtonState(); });
-                label.appendChild(radio); 
+                const label = document.createElement('label'); label.className = 'listening-option';
+                const radio = document.createElement('input'); radio.type = 'radio'; radio.name = `q_listen_${idx}`; radio.value = letters[optIdx];
+                if (selectedAnswers[`P13.${idx + 1}`] === letters[optIdx]) radio.checked = true;
+                radio.addEventListener('change', (e) => { selectedAnswers[`P13.${idx + 1}`] = e.target.value; updateNextButtonState(); });
+                label.appendChild(radio);
                 label.appendChild(document.createTextNode(` ${letters[optIdx]}. ${opt}`));
-                if(radio.checked) label.classList.add('selected');
-                radio.addEventListener('change', function(){ 
-                    document.querySelectorAll(`#opts-${idx} .listening-option`).forEach(l=>l.classList.remove('selected')); 
-                    this.closest('.listening-option').classList.add('selected'); 
+                if (radio.checked) label.classList.add('selected');
+                radio.addEventListener('change', function () {
+                    document.querySelectorAll(`#opts-${idx} .listening-option`).forEach(l => l.classList.remove('selected'));
+                    this.closest('.listening-option').classList.add('selected');
                 });
                 optsDiv.appendChild(label);
             });
             container.appendChild(qDiv);
         });
-        document.getElementById('playMainAudio')?.addEventListener('click',()=>{ if(currentListeningLesson && currentListeningLesson.lessonData.P5){ let gap=parseFloat(document.getElementById('gapTimeSelect').value); let loop=parseInt(document.getElementById('loopCountSelect').value); playAudioSentences(currentListeningLesson.lessonData.P5, gap, loop); } });
-        document.getElementById('pauseAudioBtn')?.addEventListener('click',()=>{ if(isPaused) resumeAudio(); else pauseAudio(); });
-        document.getElementById('stopAudioBtn')?.addEventListener('click',stopAllAudio);
-        document.querySelectorAll('.speaker-btn-sm').forEach(btn=>{ btn.addEventListener('click',e=>{ const txt=btn.getAttribute('data-text'); const id=parseInt(btn.getAttribute('data-id')); speakSingleText(txt,id); }); });
-        if(voiceList.length){ const fillSel=(id)=>{ const sel=document.getElementById(id); if(sel){ sel.innerHTML=''; voiceList.forEach(v=>{ const opt=document.createElement('option'); opt.value=v.voiceURI; opt.textContent=`${v.name} (${v.lang})`; sel.appendChild(opt); }); } }; fillSel('voiceSelect'); fillSel('oddVoiceSelect'); fillSel('evenVoiceSelect'); }
-        document.getElementById('voiceModeSelect')?.addEventListener('change',e=>{ voiceMode=parseInt(e.target.value); document.getElementById('singleVoiceDiv').style.display=voiceMode===1?'flex':'none'; document.getElementById('dualVoiceDiv').style.display=voiceMode===2?'flex':'none'; });
-        document.getElementById('voiceSelect')?.addEventListener('change',e=>{ singleVoice=voiceList.find(v=>v.voiceURI===e.target.value); });
-        document.getElementById('oddVoiceSelect')?.addEventListener('change',e=>{ oddVoice=voiceList.find(v=>v.voiceURI===e.target.value); });
-        document.getElementById('evenVoiceSelect')?.addEventListener('change',e=>{ evenVoice=voiceList.find(v=>v.voiceURI===e.target.value); });
+        document.getElementById('playMainAudio')?.addEventListener('click', () => { if (currentListeningLesson && currentListeningLesson.lessonData.P5) { let gap = parseFloat(document.getElementById('gapTimeSelect').value); let loop = parseInt(document.getElementById('loopCountSelect').value); playAudioSentences(currentListeningLesson.lessonData.P5, gap, loop); } });
+        document.getElementById('pauseAudioBtn')?.addEventListener('click', () => { if (isPaused) resumeAudio(); else pauseAudio(); });
+        document.getElementById('stopAudioBtn')?.addEventListener('click', stopAllAudio);
+        document.querySelectorAll('.speaker-btn-sm').forEach(btn => { btn.addEventListener('click', e => { const txt = btn.getAttribute('data-text'); const id = parseInt(btn.getAttribute('data-id')); speakSingleText(txt, id); }); });
+        if (voiceList.length) {
+            const fillSel = (id) => { const sel = document.getElementById(id); if (sel) { sel.innerHTML = ''; voiceList.forEach(v => { const opt = document.createElement('option'); opt.value = v.voiceURI; opt.textContent = `${v.name} (${v.lang})`; sel.appendChild(opt); }); } };
+            fillSel('voiceSelect'); fillSel('oddVoiceSelect'); fillSel('evenVoiceSelect');
+        }
+        document.getElementById('voiceModeSelect')?.addEventListener('change', e => { voiceMode = parseInt(e.target.value); document.getElementById('singleVoiceDiv').style.display = voiceMode === 1 ? 'flex' : 'none'; document.getElementById('dualVoiceDiv').style.display = voiceMode === 2 ? 'flex' : 'none'; });
+        document.getElementById('voiceSelect')?.addEventListener('change', e => { singleVoice = voiceList.find(v => v.voiceURI === e.target.value); });
+        document.getElementById('oddVoiceSelect')?.addEventListener('change', e => { oddVoice = voiceList.find(v => v.voiceURI === e.target.value); });
+        document.getElementById('evenVoiceSelect')?.addEventListener('change', e => { evenVoice = voiceList.find(v => v.voiceURI === e.target.value); });
     }
     
-    function updateNextButtonState(){
+    function updateNextButtonState() {
         const partKey = currentConfig.parts[currentPart];
         let total = selectedQuestions[partKey] ? selectedQuestions[partKey].length : 0;
         let answered = 0;
-        for(let i=1;i<=total;i++) if(selectedAnswers[`${partKey}.${i}`] !== undefined) answered++;
-        document.getElementById('nextButton').disabled = !(answered === total && total>0);
+        for (let i = 1; i <= total; i++) if (selectedAnswers[`${partKey}.${i}`] !== undefined) answered++;
+        document.getElementById('nextButton').disabled = !(answered === total && total > 0);
     }
     
-    function updateTimer(){
-        if(timeLeft <=0){ nextPart(); return; }
+    function updateTimer() {
+        if (timeLeft <= 0) { nextPart(); return; }
         timeLeft--;
         const totalTime = currentConfig.partTimes[currentConfig.parts[currentPart]];
-        const percent = (timeLeft/totalTime)*100;
+        const percent = (timeLeft / totalTime) * 100;
         document.getElementById('progressBar').style.width = `${percent}%`;
-        const mins = Math.floor(timeLeft/60), secs = timeLeft%60;
-        document.getElementById('progressText').textContent = `Thời gian còn lại: ${mins}:${secs<10?'0':''}${secs}`;
+        const mins = Math.floor(timeLeft / 60), secs = timeLeft % 60;
+        document.getElementById('progressText').textContent = `Thời gian còn lại: ${mins}:${secs < 10 ? '0' : ''}${secs}`;
     }
     
-    function nextPart(){ if(timer) clearInterval(timer); showPart(currentPart+1); }
+    function nextPart() { if (timer) clearInterval(timer); showPart(currentPart + 1); }
     
     function getExerciseSetDisplayName(key) {
-        const map = { 'FULL':'TỔNG HỢP','PRONUNCIATION_VOCABULARY_GRAMMAR':'PHÁT ÂM, TRỌNG ÂM, TỪ VỰNG VÀ NGỮ PHÁP','ERROR_READING_COMMUNICATION_REWRITE':'TÌM LỖI SAI, ĐỌC HIỂU, GIAO TIẾP VÀ VIẾT LẠI CÂU','FILL_ARRANGE_SIGNS_WORDS':'ĐIỀN KHUYẾT, SẮP XẾP CÁC CÂU, BIỂN BÁO VÀ SẮP XẾP CÁC TỪ','P1':'PHÁT ÂM','P2':'TRỌNG ÂM','P3':'ĐỒNG NGHĨA/NGƯỢC NGHĨA','P4':'TÌM LỖI SAI','P5':'TỪ VỰNG NGỮ PHÁP','P6':'ĐIỀN KHUYẾT','P7':'ĐỌC HIỂU','P8':'SẮP XẾP CÂU','P9':'GIAO TIẾP','P10':'BIỂN BÁO','P11':'VIẾT LẠI CÂU','P12':'SẮP XẾP TỪ','P13':'LUYỆN NGHE' };
+        const map = { 'FULL': 'TỔNG HỢP', 'PRONUNCIATION_VOCABULARY_GRAMMAR': 'PHÁT ÂM, TRỌNG ÂM, TỪ VỰNG VÀ NGỮ PHÁP', 'ERROR_READING_COMMUNICATION_REWRITE': 'TÌM LỖI SAI, ĐỌC HIỂU, GIAO TIẾP VÀ VIẾT LẠI CÂU', 'FILL_ARRANGE_SIGNS_WORDS': 'ĐIỀN KHUYẾT, SẮP XẾP CÁC CÂU, BIỂN BÁO VÀ SẮP XẾP CÁC TỪ', 'P1': 'PHÁT ÂM', 'P2': 'TRỌNG ÂM', 'P3': 'ĐỒNG NGHĨA/NGƯỢC NGHĨA', 'P4': 'TÌM LỖI SAI', 'P5': 'TỪ VỰNG NGỮ PHÁP', 'P6': 'ĐIỀN KHUYẾT', 'P7': 'ĐỌC HIỂU', 'P8': 'SẮP XẾP CÂU', 'P9': 'GIAO TIẾP', 'P10': 'BIỂN BÁO', 'P11': 'VIẾT LẠI CÂU', 'P12': 'SẮP XẾP TỪ', 'P13': 'LUYỆN NGHE' };
         return map[key] || key;
     }
     
-    function showReport(){
-        if(timer) clearInterval(timer);
+    function showReport() {
+        if (timer) clearInterval(timer);
         showScreen('report');
         const examSelectElem = document.getElementById('examSelect');
         let termRaw = examSelectElem.value;
@@ -858,48 +986,48 @@
         const exerciseSetDisplay = getExerciseSetDisplayName(currentExerciseSet);
         document.getElementById('resultTitle').innerHTML = `KẾT QUẢ - ${termDisplay} - ${exerciseSetDisplay}`;
         let partResults = {};
-        let totalCorrect=0, totalCount=0;
-        for(let part of currentConfig.parts){
+        let totalCorrect = 0, totalCount = 0;
+        for (let part of currentConfig.parts) {
             let cnt = selectedQuestions[part] ? selectedQuestions[part].length : 0;
-            let partCorrect=0;
-            for(let i=1;i<=cnt;i++){
+            let partCorrect = 0;
+            for (let i = 1; i <= cnt; i++) {
                 totalCount++;
                 let ans = selectedAnswers[`${part}.${i}`];
                 let detail = selectedQuestionDetails[`${part}.${i}`];
-                if(!detail) continue;
-                if(part === 'P13'){
+                if (!detail) continue;
+                if (part === 'P13') {
                     let q = detail.question;
-                    if(q && ans){
+                    if (q && ans) {
                         let opts = answerOrders[`P13.${i}`];
-                        let letters=['A','B','C'];
+                        let letters = ['A', 'B', 'C'];
                         let chosenText = opts[letters.indexOf(ans)];
                         let isCorrect = false;
-                        if(detail.subPart === 'P2') {
+                        if (detail.subPart === 'P2') {
                             isCorrect = (chosenText === q.correct);
                         } else {
                             isCorrect = (chosenText === q.correct);
                         }
-                        if(isCorrect) partCorrect++;
+                        if (isCorrect) partCorrect++;
                     }
                 } else {
                     let qd = detail.question;
-                    if(qd && ans){
+                    if (qd && ans) {
                         let opts = [qd.correct, qd.wrong1, qd.wrong2, qd.wrong3];
-                        let letters=['A','B','C','D'];
+                        let letters = ['A', 'B', 'C', 'D'];
                         let chosenText = opts[letters.indexOf(ans)];
-                        if(chosenText === qd.correct) partCorrect++;
+                        if (chosenText === qd.correct) partCorrect++;
                     }
                 }
             }
-            partResults[part] = { correctCount: partCorrect, totalCount: cnt, percentage: cnt>0?Math.round((partCorrect/cnt)*100):0 };
+            partResults[part] = { correctCount: partCorrect, totalCount: cnt, percentage: cnt > 0 ? Math.round((partCorrect / cnt) * 100) : 0 };
             totalCorrect += partCorrect;
         }
-        const percentage = Math.round(totalCorrect/totalCount*100);
+        const percentage = Math.round(totalCorrect / totalCount * 100);
         let color = '#f5222d';
-        if(percentage >= 90) color = '#722ed1';
-        else if(percentage >= 80) color = '#1890ff';
-        else if(percentage >= 70) color = '#52c41a';
-        else if(percentage >= 50) color = '#faad14';
+        if (percentage >= 90) color = '#722ed1';
+        else if (percentage >= 80) color = '#1890ff';
+        else if (percentage >= 70) color = '#52c41a';
+        else if (percentage >= 50) color = '#faad14';
         document.getElementById('resultPieChart').style.background = `conic-gradient(${color} 0% ${percentage}%, #eee ${percentage}% 100%)`;
         document.getElementById('piePercentage').innerText = `${percentage}%`;
         document.getElementById('pieScore').innerText = `${totalCorrect}/${totalCount}`;
@@ -907,63 +1035,63 @@
         document.getElementById('reportDateDisplay').innerText = new Date().toLocaleDateString();
         document.getElementById('statStartTime').innerText = startTime?.toLocaleTimeString() || '';
         document.getElementById('statEndTime').innerText = endTime?.toLocaleTimeString() || '';
-        const totalSec = Math.floor((endTime-startTime)/1000);
-        document.getElementById('statTotalTime').innerText = `${Math.floor(totalSec/60)}p ${totalSec%60}s`;
+        const totalSec = Math.floor((endTime - startTime) / 1000);
+        document.getElementById('statTotalTime').innerText = `${Math.floor(totalSec / 60)}p ${totalSec % 60}s`;
         const wrong = totalCount - totalCorrect;
         const unanswered = totalCount - Object.keys(selectedAnswers).length;
         document.getElementById('detailWrongUnanswered').innerHTML = `<span class="count-wrong">${wrong}</span> / <span class="count-unanswered">${unanswered}</span> / <span class="count-total">${totalCount}</span>`;
-        if(isCheating) document.getElementById('cheatingWarning').style.display = 'block';
+        if (isCheating) document.getElementById('cheatingWarning').style.display = 'block';
         const chartContainer = document.getElementById('resultChart');
         chartContainer.innerHTML = '';
-        for(let part of currentConfig.parts){
+        for (let part of currentConfig.parts) {
             let r = partResults[part];
-            if(!r) continue;
-            let progClass = r.percentage===100?'perfect':r.percentage>=90?'excellent':r.percentage>=80?'very-high':r.percentage>=70?'high':r.percentage>=50?'medium':'low';
-            let div = document.createElement('div'); div.className='part-result';
+            if (!r) continue;
+            let progClass = r.percentage === 100 ? 'perfect' : r.percentage >= 90 ? 'excellent' : r.percentage >= 80 ? 'very-high' : r.percentage >= 70 ? 'high' : r.percentage >= 50 ? 'medium' : 'low';
+            let div = document.createElement('div'); div.className = 'part-result';
             div.innerHTML = `<div class="part-name">Phần ${part.substring(1)}</div><div class="part-progress"><div class="part-progress-bar ${progClass}" style="width:${r.percentage}%"></div></div><div class="part-stats-row"><span class="part-count">${r.correctCount}/${r.totalCount}</span><span class="part-percentage">${r.percentage}%</span></div>`;
             chartContainer.appendChild(div);
         }
         const detailedContainer = document.getElementById('detailedAnswersList');
         detailedContainer.innerHTML = '';
-        const partNumbers = ['P1','P2','P3','P4','P5','P6','P7','P8','P9','P10','P11','P12'];
-        for(let part of partNumbers){
-            if(!currentConfig.parts.includes(part)) continue;
+        const partNumbers = ['P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8', 'P9', 'P10', 'P11', 'P12'];
+        for (let part of partNumbers) {
+            if (!currentConfig.parts.includes(part)) continue;
             const questions = selectedQuestions[part];
-            if(!questions || questions.length === 0) continue;
+            if (!questions || questions.length === 0) continue;
             let hasAnswered = false;
             let questionsHtml = '';
             let passageText = '', lessonId = '';
             const firstKey = `${part}.1`;
-            if(selectedQuestionDetails[firstKey]) {
+            if (selectedQuestionDetails[firstKey]) {
                 passageText = selectedQuestionDetails[firstKey].passage || '';
                 lessonId = selectedQuestionDetails[firstKey].lessonId || '';
             }
-            for(let i=0;i<questions.length;i++){
-                const ansKey = `${part}.${i+1}`;
+            for (let i = 0; i < questions.length; i++) {
+                const ansKey = `${part}.${i + 1}`;
                 const userLetter = selectedAnswers[ansKey];
-                if(userLetter !== undefined){
+                if (userLetter !== undefined) {
                     hasAnswered = true;
                     const detail = selectedQuestionDetails[ansKey];
                     const qData = detail?.question;
-                    if(qData){
+                    if (qData) {
                         const opts = [qData.correct, qData.wrong1, qData.wrong2, qData.wrong3];
-                        const letters=['A','B','C','D'];
+                        const letters = ['A', 'B', 'C', 'D'];
                         const chosenText = opts[letters.indexOf(userLetter)];
                         const isCorrect = (chosenText === qData.correct);
                         const qid = detail.originalId || '?';
                         questionsHtml += `<div class="question-detail-item">
-                            <strong>Câu ${i+1} (id: ${qid}):</strong> ${qData.question}<br>
+                            <strong>Câu ${i + 1} (id: ${qid}):</strong> ${qData.question}<br>
                             <span>📌 Đáp án đã chọn: <strong>${userLetter}. ${chosenText}</strong> ${isCorrect ? '✅' : '❌'}</span><br>
                             <span>✔️ Đáp án đúng: <strong>${qData.correct}</strong></span>
                         </div>`;
                     }
                 }
             }
-            if(hasAnswered){
+            if (hasAnswered) {
                 const partId = `part-${part}`;
                 const accordion = document.createElement('div'); accordion.className = 'part-accordion';
                 let headerText = `📁 Phần ${part.substring(1)} (đã trả lời)`;
-                if(lessonId) headerText = `📁 Phần ${part.substring(1)} - (${lessonId})`;
+                if (lessonId) headerText = `📁 Phần ${part.substring(1)} - (${lessonId})`;
                 let passageHtml = passageText ? `<div class="passage-text">📖 ${passageText}</div>` : '';
                 accordion.innerHTML = `<div class="part-accordion-header" data-target="${partId}">${headerText} <span>▼</span></div><div id="${partId}" class="part-accordion-content">${passageHtml}${questionsHtml}</div>`;
                 detailedContainer.appendChild(accordion);
@@ -973,7 +1101,7 @@
             }
         }
         const listeningContainer = document.getElementById('listeningReportContainer');
-        if(currentListeningLesson && currentConfig.parts.includes('P13')) {
+        if (currentListeningLesson && currentConfig.parts.includes('P13')) {
             const questions = selectedQuestions['P13'];
             const lesson = currentListeningLesson.lessonData;
             let listeningHtml = `<div class="report-listening-section"><h3>🎧 BÁO CÁO LUYỆN NGHE (P13) - (${lesson.id})</h3>
@@ -983,15 +1111,15 @@
             <div id="listeningDetailList"></div></div>`;
             listeningContainer.innerHTML = listeningHtml;
             const detailDiv = document.getElementById('listeningDetailList');
-            for(let i=0; i<questions.length; i++) {
+            for (let i = 0; i < questions.length; i++) {
                 const q = questions[i];
-                const ansKey = `P13.${i+1}`;
+                const ansKey = `P13.${i + 1}`;
                 const userLetter = selectedAnswers[ansKey];
-                const opts = answerOrders[ansKey] || (q.subPart === 'P2' ? ["True","False","Not given"] : [q.correct, q.wrong1, q.wrong2]);
-                const letters = ['A','B','C'];
+                const opts = answerOrders[ansKey] || (q.subPart === 'P2' ? ["True", "False", "Not given"] : [q.correct, q.wrong1, q.wrong2]);
+                const letters = ['A', 'B', 'C'];
                 let chosenText = userLetter ? opts[letters.indexOf(userLetter)] : '(chưa chọn)';
                 let isCorrect = false;
-                if(q.subPart === 'P2') {
+                if (q.subPart === 'P2') {
                     isCorrect = (chosenText === q.correct);
                 } else {
                     isCorrect = (chosenText === q.correct);
@@ -999,30 +1127,30 @@
                 const statusIcon = isCorrect ? '✅' : '❌';
                 const subPartLabel = q.subPart || 'P1';
                 detailDiv.innerHTML += `<div class="question-detail-item">
-                    <strong>Câu ${i+1} (${subPartLabel} - id: ${q.id}):</strong> ${q.word}<br>
-                    <span>📌 Đáp án đã chọn: <strong>${userLetter ? userLetter+'. '+chosenText : '(chưa chọn)'}</strong> ${userLetter ? statusIcon : ''}</span><br>
+                    <strong>Câu ${i + 1} (${subPartLabel} - id: ${q.id}):</strong> ${q.word}<br>
+                    <span>📌 Đáp án đã chọn: <strong>${userLetter ? userLetter + '. ' + chosenText : '(chưa chọn)'}</strong> ${userLetter ? statusIcon : ''}</span><br>
                     <span>✔️ Đáp án đúng: <strong>${q.correct}</strong></span>
                 </div>`;
             }
-            if(voiceList.length){
-                const fillSel = (id) => { const sel = document.getElementById(id); if(sel){ sel.innerHTML=''; voiceList.forEach(v=>{ const opt=document.createElement('option'); opt.value=v.voiceURI; opt.textContent=`${v.name} (${v.lang})`; sel.appendChild(opt); }); } };
+            if (voiceList.length) {
+                const fillSel = (id) => { const sel = document.getElementById(id); if (sel) { sel.innerHTML = ''; voiceList.forEach(v => { const opt = document.createElement('option'); opt.value = v.voiceURI; opt.textContent = `${v.name} (${v.lang})`; sel.appendChild(opt); }); } };
                 fillSel('reportVoiceSelect'); fillSel('reportOddVoiceSelect'); fillSel('reportEvenVoiceSelect');
-                document.getElementById('reportVoiceModeSelect')?.addEventListener('change',(e)=>{ voiceMode=parseInt(e.target.value); document.getElementById('reportSingleVoiceDiv').style.display=voiceMode===1?'flex':'none'; document.getElementById('reportDualVoiceDiv').style.display=voiceMode===2?'flex':'none'; });
-                document.getElementById('reportVoiceSelect')?.addEventListener('change',(e)=>{ singleVoice=voiceList.find(v=>v.voiceURI===e.target.value); });
-                document.getElementById('reportOddVoiceSelect')?.addEventListener('change',(e)=>{ oddVoice=voiceList.find(v=>v.voiceURI===e.target.value); });
-                document.getElementById('reportEvenVoiceSelect')?.addEventListener('change',(e)=>{ evenVoice=voiceList.find(v=>v.voiceURI===e.target.value); });
+                document.getElementById('reportVoiceModeSelect')?.addEventListener('change', (e) => { voiceMode = parseInt(e.target.value); document.getElementById('reportSingleVoiceDiv').style.display = voiceMode === 1 ? 'flex' : 'none'; document.getElementById('reportDualVoiceDiv').style.display = voiceMode === 2 ? 'flex' : 'none'; });
+                document.getElementById('reportVoiceSelect')?.addEventListener('change', (e) => { singleVoice = voiceList.find(v => v.voiceURI === e.target.value); });
+                document.getElementById('reportOddVoiceSelect')?.addEventListener('change', (e) => { oddVoice = voiceList.find(v => v.voiceURI === e.target.value); });
+                document.getElementById('reportEvenVoiceSelect')?.addEventListener('change', (e) => { evenVoice = voiceList.find(v => v.voiceURI === e.target.value); });
             }
-            document.getElementById('reportPlayAudio')?.addEventListener('click',()=>{ if(lesson.P5){ let gap=parseFloat(document.getElementById('reportGap').value); let loop=parseInt(document.getElementById('reportLoop').value); playAudioSentences(lesson.P5, gap, loop); } });
-            document.getElementById('reportPause')?.addEventListener('click',()=>{ if(isPaused) resumeAudio(); else pauseAudio(); });
-            document.getElementById('reportStop')?.addEventListener('click',stopAllAudio);
-            document.getElementById('togglePassageBtn')?.addEventListener('click',()=>{ const pd=document.getElementById('passageDiv'); pd.style.display=pd.style.display==='none'?'block':'none'; });
+            document.getElementById('reportPlayAudio')?.addEventListener('click', () => { if (lesson.P5) { let gap = parseFloat(document.getElementById('reportGap').value); let loop = parseInt(document.getElementById('reportLoop').value); playAudioSentences(lesson.P5, gap, loop); } });
+            document.getElementById('reportPause')?.addEventListener('click', () => { if (isPaused) resumeAudio(); else pauseAudio(); });
+            document.getElementById('reportStop')?.addEventListener('click', stopAllAudio);
+            document.getElementById('togglePassageBtn')?.addEventListener('click', () => { const pd = document.getElementById('passageDiv'); pd.style.display = pd.style.display === 'none' ? 'block' : 'none'; });
         } else { listeningContainer.innerHTML = ''; }
     }
     
     document.getElementById('startButton').addEventListener('click', startExam);
     document.getElementById('nextButton').addEventListener('click', nextPart);
-    document.getElementById('retryButton').addEventListener('click', ()=>location.reload());
-    document.getElementById('newExamButton').addEventListener('click', ()=>location.reload());
+    document.getElementById('retryButton').addEventListener('click', () => location.reload());
+    document.getElementById('newExamButton').addEventListener('click', () => location.reload());
 </script>
 </body>
 </html>
