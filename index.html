@@ -535,6 +535,14 @@
     let isCheating = false;
     let voiceList=[], voiceMode=1, singleVoice=null, oddVoice=null, evenVoice=null, isPaused=false, audioQueue=[], audioTimeout=null;
     
+    // Hàm xử lý text: thay thế các chuỗi gạch dưới (2 dấu trở lên) bằng từ "blank"
+    function replaceBlanksWithBlank(text) {
+        if (!text) return text;
+        // Thay thế các chuỗi: khoảng trắng tùy ý + ít nhất 2 dấu gạch dưới + khoảng trắng tùy ý bằng " blank "
+        // Đồng thời xử lý trường hợp chỉ có dấu gạch dưới mà không có khoảng trắng.
+        return text.replace(/\s*_{2,}\s*/g, ' blank ');
+    }
+    
     function handleCheating() {
         if(currentScreen === 'exam' && !isCheating) {
             isCheating = true;
@@ -553,19 +561,43 @@
     function pauseAudio(){ if(speechSynthesis.speaking){ speechSynthesis.pause(); isPaused=true; } if(audioTimeout) clearTimeout(audioTimeout); }
     function resumeAudio(){ if(isPaused && speechSynthesis.paused){ speechSynthesis.resume(); isPaused=false; } }
     function getVoiceForId(id){ if(voiceMode===1) return singleVoice; return (id%2===1)?oddVoice:evenVoice; }
-    function playAudioSentences(sentences, gapSec, loop){ stopAllAudio(); if(!sentences||!sentences.length) return; sentences.forEach(item=>{ for(let i=0;i<loop;i++) audioQueue.push({text:item.word, id:item.id}); }); let idx=0; const playNext=()=>{ if(idx>=audioQueue.length){ stopAllAudio(); return; } const item=audioQueue[idx]; const utt=new SpeechSynthesisUtterance(item.text); utt.lang='en-GB'; const v=getVoiceForId(item.id); if(v) utt.voice=v; utt.onend=()=>{ idx++; if(idx<audioQueue.length && !isPaused) audioTimeout=setTimeout(playNext, gapSec*1000); else if(idx>=audioQueue.length) stopAllAudio(); }; utt.onerror=()=>{ idx++; if(idx<audioQueue.length && !isPaused) audioTimeout=setTimeout(playNext, gapSec*1000); }; speechSynthesis.speak(utt); }; playNext(); }
+    function playAudioSentences(sentences, gapSec, loop){ 
+        stopAllAudio(); 
+        if(!sentences||!sentences.length) return; 
+        sentences.forEach(item=>{ 
+            let processedText = replaceBlanksWithBlank(item.word);
+            for(let i=0;i<loop;i++) audioQueue.push({text:processedText, id:item.id}); 
+        }); 
+        let idx=0; 
+        const playNext=()=>{ 
+            if(idx>=audioQueue.length){ stopAllAudio(); return; } 
+            const item=audioQueue[idx]; 
+            const utt=new SpeechSynthesisUtterance(item.text); 
+            utt.lang='en-GB'; 
+            const v=getVoiceForId(item.id); 
+            if(v) utt.voice=v; 
+            utt.onend=()=>{ 
+                idx++; 
+                if(idx<audioQueue.length && !isPaused) audioTimeout=setTimeout(playNext, gapSec*1000); 
+                else if(idx>=audioQueue.length) stopAllAudio(); 
+            }; 
+            utt.onerror=()=>{ 
+                idx++; 
+                if(idx<audioQueue.length && !isPaused) audioTimeout=setTimeout(playNext, gapSec*1000); 
+            }; 
+            speechSynthesis.speak(utt); 
+        }; 
+        playNext(); 
+    }
     
-    // SỬA LỖI PHÁT ÂM TRÊN MOBILE: đảm bảo utterance được tạo và speak gọi sau một tương tác người dùng
     function speakSingleText(text, id) {
         if(!text) return;
-        // Dừng mọi phát âm đang chạy
         speechSynthesis.cancel();
-        // Tạo utterance mới
-        const utterance = new SpeechSynthesisUtterance(text);
+        let processedText = replaceBlanksWithBlank(text);
+        const utterance = new SpeechSynthesisUtterance(processedText);
         utterance.lang = 'en-GB';
         const voice = getVoiceForId(id);
         if(voice) utterance.voice = voice;
-        // Đối với mobile, cần gọi speak trong cùng một sự kiện người dùng. Thêm setTimeout 0 giúp tương thích.
         setTimeout(() => {
             speechSynthesis.speak(utterance);
         }, 0);
@@ -728,7 +760,6 @@
         const labels=['A','B','C','D'];
         shuffled.forEach((ans,idx)=>{
             const optDiv = document.createElement('div'); optDiv.className='answer-option';
-            // SỬA ĐỊNH DẠNG: A. Nội dung (dấu chấm ngay sau chữ cái, rồi khoảng trắng)
             optDiv.innerHTML = `<strong>${labels[idx]}.</strong> ${ans.text}`;
             if(selectedAnswers[qKey] === labels[idx]) optDiv.classList.add('selected');
             optDiv.addEventListener('click',()=>{
