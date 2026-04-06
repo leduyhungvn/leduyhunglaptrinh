@@ -48,7 +48,7 @@
         .answer-option { 
             display: flex; 
             align-items: center; 
-            gap: 14px; 
+            gap: 8px; 
             background: #f3f7ff; 
             padding: 10px 18px; 
             border-radius: 60px; 
@@ -379,25 +379,24 @@
         ]
     }];
 
-    // -------------------- DỮ LIỆU NGHE (P13) CÓ ĐẦY ĐỦ P2, P3 --------------------
-    // Bài B1
+    // -------------------- DỮ LIỆU NGHE (P13) --------------------
     const E4_U1_B1 = {
         id: "E4_U1_B1",
-        P1: [ // 5 câu multiple choice
+        P1: [
             {id:1, word:"Where does Miss Lien live?", correct:"in a small house in Hanoi", wrong1:"in a big apartment", wrong2:"in the countryside"},
             {id:2, word:"What does Miss Lien do?", correct:"She teaches English", wrong1:"She is a doctor", wrong2:"She works in a factory"},
             {id:3, word:"What time does she have breakfast?", correct:"at seven", wrong1:"at six", wrong2:"at eight"},
             {id:4, word:"Where does she have lunch?", correct:"in the canteen of the school", wrong1:"at home", wrong2:"in a restaurant"},
             {id:5, word:"When does she teach dialogues?", correct:"on Wednesdays and Fridays", wrong1:"on Mondays", wrong2:"every day"}
         ],
-        P2: [ // 5 câu True/False/Not given
+        P2: [
             {id:1, word:"Miss Lien lives in a big apartment.", correct:"False", wrong1:"True", wrong2:"Not given"},
             {id:2, word:"She teaches English at a primary school.", correct:"True", wrong1:"False", wrong2:"Not given"},
             {id:3, word:"She has breakfast at six o'clock.", correct:"False", wrong1:"True", wrong2:"Not given"},
             {id:4, word:"She has lunch at home.", correct:"False", wrong1:"True", wrong2:"Not given"},
             {id:5, word:"She teaches dialogues on Wednesdays and Fridays.", correct:"True", wrong1:"False", wrong2:"Not given"}
         ],
-        P3: [ // 5 câu điền khuyết
+        P3: [
             {id:1, word:"Miss Lien lives in a small house in ______.", correct:"Hanoi", wrong1:"Ho Chi Minh", wrong2:"Da Nang"},
             {id:2, word:"She ______ at 7 o'clock.", correct:"has breakfast", wrong1:"gets up", wrong2:"goes to school"},
             {id:3, word:"She has lunch in the ______ of the school.", correct:"canteen", wrong1:"library", wrong2:"playground"},
@@ -405,7 +404,7 @@
             {id:5, word:"Miss Lien is an ______ teacher.", correct:"English", wrong1:"Math", wrong2:"Science"}
         ],
         P4: "Miss Lien lives in a small house in Hanoi. She teaches English at a primary school. She gets up at 6. She has breakfast at 7. She has lunch in the canteen. She teaches dialogues on Wednesdays and Fridays.",
-        P5: [ // dùng cho phát audio
+        P5: [
             {id:1, word:"Miss Lien lives in a small house in Hanoi."},
             {id:2, word:"She teaches English at a school there."},
             {id:3, word:"She has breakfast at seven."},
@@ -413,7 +412,6 @@
             {id:5, word:"She teaches dialogues on Wednesdays and Fridays."}
         ]
     };
-    // Bài B2
     const E4_U1_B2 = {
         id: "E4_U1_B2",
         P1: [
@@ -446,7 +444,6 @@
             {id:5, word:"Mrs. Smith is my favourite teacher."}
         ]
     };
-    // Bài B3
     const E4_U1_B3 = {
         id: "E4_U1_B3",
         P1: [
@@ -487,12 +484,10 @@
         const keys = Object.keys(lessons);
         const randKey = keys[Math.floor(Math.random() * keys.length)];
         const lesson = lessons[randKey];
-        // Gộp tất cả câu hỏi từ P1, P2, P3
         const all = [...(lesson.P1||[]), ...(lesson.P2||[]), ...(lesson.P3||[])];
         if(all.length === 0) return null;
         const shuffled = [...all].sort(()=>0.5-Math.random());
         const selected = shuffled.slice(0,5);
-        // Gắn thêm thông tin nguồn (subPart) cho mỗi câu
         const enriched = selected.map(q => {
             let subPart = 'P1';
             if(lesson.P2 && lesson.P2.includes(q)) subPart = 'P2';
@@ -559,11 +554,26 @@
     function resumeAudio(){ if(isPaused && speechSynthesis.paused){ speechSynthesis.resume(); isPaused=false; } }
     function getVoiceForId(id){ if(voiceMode===1) return singleVoice; return (id%2===1)?oddVoice:evenVoice; }
     function playAudioSentences(sentences, gapSec, loop){ stopAllAudio(); if(!sentences||!sentences.length) return; sentences.forEach(item=>{ for(let i=0;i<loop;i++) audioQueue.push({text:item.word, id:item.id}); }); let idx=0; const playNext=()=>{ if(idx>=audioQueue.length){ stopAllAudio(); return; } const item=audioQueue[idx]; const utt=new SpeechSynthesisUtterance(item.text); utt.lang='en-GB'; const v=getVoiceForId(item.id); if(v) utt.voice=v; utt.onend=()=>{ idx++; if(idx<audioQueue.length && !isPaused) audioTimeout=setTimeout(playNext, gapSec*1000); else if(idx>=audioQueue.length) stopAllAudio(); }; utt.onerror=()=>{ idx++; if(idx<audioQueue.length && !isPaused) audioTimeout=setTimeout(playNext, gapSec*1000); }; speechSynthesis.speak(utt); }; playNext(); }
-    function speakSingleText(text, id){ if(!text) return; speechSynthesis.cancel(); const utt=new SpeechSynthesisUtterance(text); utt.lang='en-GB'; const v=getVoiceForId(id); if(v) utt.voice=v; speechSynthesis.speak(utt); }
+    
+    // SỬA LỖI PHÁT ÂM TRÊN MOBILE: đảm bảo utterance được tạo và speak gọi sau một tương tác người dùng
+    function speakSingleText(text, id) {
+        if(!text) return;
+        // Dừng mọi phát âm đang chạy
+        speechSynthesis.cancel();
+        // Tạo utterance mới
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-GB';
+        const voice = getVoiceForId(id);
+        if(voice) utterance.voice = voice;
+        // Đối với mobile, cần gọi speak trong cùng một sự kiện người dùng. Thêm setTimeout 0 giúp tương thích.
+        setTimeout(() => {
+            speechSynthesis.speak(utterance);
+        }, 0);
+    }
+    
     function populateVoiceList(){ if(!('speechSynthesis' in window)) return; const voices=speechSynthesis.getVoices(); voiceList=sortVoicesByPlatform(voices); }
     if('speechSynthesis' in window){ speechSynthesis.onvoiceschanged=populateVoiceList; if(speechSynthesis.getVoices().length>0) populateVoiceList(); }
     
-    // Lấy câu hỏi ngẫu nhiên (có lưu thêm lessonId và subPart cho P13)
     function selectRandomQuestions(){
         const examData = questionBank[currentExam];
         for(let partKey of currentConfig.parts){
@@ -572,7 +582,6 @@
                 if(res) { 
                     currentListeningLesson = res; 
                     selectedQuestions[partKey] = res.questions;
-                    // Lưu thông tin chi tiết cho từng câu
                     res.questions.forEach((q, idx) => {
                         const qKey = `${partKey}.${idx+1}`;
                         selectedQuestionDetails[qKey] = { 
@@ -710,7 +719,6 @@
         const optsDiv = document.getElementById('ansOpts');
         let answers;
         if(partKey === 'P13' && detail.subPart === 'P2') {
-            // True/False/Not given
             answers = [{text:"True", isCorrect: (qData.correct==="True")}, {text:"False", isCorrect: (qData.correct==="False")}, {text:"Not given", isCorrect: (qData.correct==="Not given")}];
         } else {
             answers = [{text:qData.correct,isCorrect:true},{text:qData.wrong1,isCorrect:false},{text:qData.wrong2,isCorrect:false},{text:qData.wrong3,isCorrect:false}];
@@ -719,7 +727,9 @@
         if(!shuffled){ shuffled=[...answers]; for(let i=shuffled.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [shuffled[i],shuffled[j]]=[shuffled[j],shuffled[i]]; } answerOrders[qKey]=shuffled; }
         const labels=['A','B','C','D'];
         shuffled.forEach((ans,idx)=>{
-            const optDiv = document.createElement('div'); optDiv.className='answer-option'; optDiv.innerHTML=`<strong>${labels[idx]}</strong>. ${ans.text}`;
+            const optDiv = document.createElement('div'); optDiv.className='answer-option';
+            // SỬA ĐỊNH DẠNG: A. Nội dung (dấu chấm ngay sau chữ cái, rồi khoảng trắng)
+            optDiv.innerHTML = `<strong>${labels[idx]}.</strong> ${ans.text}`;
             if(selectedAnswers[qKey] === labels[idx]) optDiv.classList.add('selected');
             optDiv.addEventListener('click',()=>{
                 selectedAnswers[qKey] = labels[idx];
@@ -931,7 +941,6 @@
                 header.addEventListener('click', () => { content.classList.toggle('open'); header.querySelector('span').innerHTML = content.classList.contains('open') ? '▲' : '▼'; });
             }
         }
-        // Báo cáo nghe
         const listeningContainer = document.getElementById('listeningReportContainer');
         if(currentListeningLesson && currentConfig.parts.includes('P13')) {
             const questions = selectedQuestions['P13'];
