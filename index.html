@@ -534,22 +534,19 @@
     let currentListeningLesson = null;
     let isCheating = false;
     let voiceList=[], voiceMode=1, singleVoice=null, oddVoice=null, evenVoice=null, isPaused=false, audioQueue=[], audioTimeout=null;
-    let currentSpeakingTimeout = null; // dùng để hủy các timeout khi dừng audio
+    let currentSpeakingTimeout = null;
     
     // Hàm xử lý text: tách chuỗi thành mảng các phần (text thường và blank)
     function splitTextByBlanks(text) {
         if (!text) return [{ type: 'text', content: '' }];
-        // Tìm các chuỗi gồm 2 dấu gạch dưới trở lên (có thể có khoảng trắng xung quanh)
         const regex = /(\s*_{2,}\s*)/g;
         const parts = [];
         let lastIndex = 0;
         let match;
         while ((match = regex.exec(text)) !== null) {
-            // Phần text trước blank
             if (match.index > lastIndex) {
                 parts.push({ type: 'text', content: text.substring(lastIndex, match.index) });
             }
-            // Phần blank
             parts.push({ type: 'blank', content: match[0] });
             lastIndex = match.index + match[0].length;
         }
@@ -559,7 +556,6 @@
         return parts;
     }
     
-    // Hàm phát âm một chuỗi có thể chứa blank, với khoảng dừng trước/sau blank
     function speakTextWithBlanks(text, id, onComplete) {
         if (!text) {
             if (onComplete) onComplete();
@@ -571,7 +567,7 @@
             return;
         }
         let index = 0;
-        const pauseDuration = 400; // 0.4 giây, tương đương khoảng dừng câu
+        const pauseDuration = 400;
         const speakNext = () => {
             if (index >= parts.length) {
                 if (onComplete) onComplete();
@@ -586,72 +582,48 @@
                 utterance.onend = () => {
                     index++;
                     if (index < parts.length && parts[index].type === 'blank') {
-                        // Trước blank: dừng một khoảng
-                        currentSpeakingTimeout = setTimeout(() => {
-                            speakNext();
-                        }, pauseDuration);
+                        currentSpeakingTimeout = setTimeout(() => { speakNext(); }, pauseDuration);
                     } else {
                         speakNext();
                     }
                 };
-                utterance.onerror = () => {
-                    index++;
-                    speakNext();
-                };
+                utterance.onerror = () => { index++; speakNext(); };
                 speechSynthesis.speak(utterance);
             } else if (part.type === 'blank') {
-                // Phát âm từ "blank" và có dừng trước và sau
-                // Thực tế đã có dừng trước (do phần trước gọi setTimeout), sau đó phát "blank"
                 const blankUtterance = new SpeechSynthesisUtterance("blank");
                 blankUtterance.lang = 'en-GB';
                 const voice = getVoiceForId(id);
                 if (voice) blankUtterance.voice = voice;
                 blankUtterance.onend = () => {
-                    // Sau blank, dừng thêm một khoảng nữa
                     index++;
-                    currentSpeakingTimeout = setTimeout(() => {
-                        speakNext();
-                    }, pauseDuration);
+                    currentSpeakingTimeout = setTimeout(() => { speakNext(); }, pauseDuration);
                 };
-                blankUtterance.onerror = () => {
-                    index++;
-                    speakNext();
-                };
+                blankUtterance.onerror = () => { index++; speakNext(); };
                 speechSynthesis.speak(blankUtterance);
             } else {
                 index++;
                 speakNext();
             }
         };
-        // Bắt đầu phát
         speakNext();
     }
     
     function stopAllAudio() {
         speechSynthesis.cancel();
         if (audioTimeout) clearTimeout(audioTimeout);
-        if (currentSpeakingTimeout) {
-            clearTimeout(currentSpeakingTimeout);
-            currentSpeakingTimeout = null;
-        }
+        if (currentSpeakingTimeout) { clearTimeout(currentSpeakingTimeout); currentSpeakingTimeout = null; }
         audioQueue = [];
         isPaused = false;
     }
     
     function pauseAudio() {
-        if (speechSynthesis.speaking) {
-            speechSynthesis.pause();
-            isPaused = true;
-        }
+        if (speechSynthesis.speaking) { speechSynthesis.pause(); isPaused = true; }
         if (audioTimeout) clearTimeout(audioTimeout);
         if (currentSpeakingTimeout) clearTimeout(currentSpeakingTimeout);
     }
     
     function resumeAudio() {
-        if (isPaused && speechSynthesis.paused) {
-            speechSynthesis.resume();
-            isPaused = false;
-        }
+        if (isPaused && speechSynthesis.paused) { speechSynthesis.resume(); isPaused = false; }
     }
     
     function getVoiceForId(id) {
@@ -659,29 +631,21 @@
         return (id % 2 === 1) ? oddVoice : evenVoice;
     }
     
-    // Hàm phát nhiều câu (dùng cho đoạn văn nghe) - không có blank, giữ nguyên
     function playAudioSentences(sentences, gapSec, loop) {
         stopAllAudio();
         if (!sentences || !sentences.length) return;
         sentences.forEach(item => {
-            // Các câu trong P5 không có blank, nhưng nếu có thì vẫn xử lý
             for (let i = 0; i < loop; i++) audioQueue.push({ text: item.word, id: item.id });
         });
         let idx = 0;
         const playNext = () => {
-            if (idx >= audioQueue.length) {
-                stopAllAudio();
-                return;
-            }
+            if (idx >= audioQueue.length) { stopAllAudio(); return; }
             const item = audioQueue[idx];
-            // Sử dụng speakTextWithBlanks cho từng câu (để xử lý blank nếu có)
             speakTextWithBlanks(item.text, item.id, () => {
                 idx++;
                 if (idx < audioQueue.length && !isPaused) {
                     audioTimeout = setTimeout(playNext, gapSec * 1000);
-                } else if (idx >= audioQueue.length) {
-                    stopAllAudio();
-                }
+                } else if (idx >= audioQueue.length) { stopAllAudio(); }
             });
         };
         playNext();
@@ -713,8 +677,49 @@
         return voices;
     }
     
+    // Hàm fill dropdown có thêm option "Mặc định (Tự động)" ở đầu
+    function fillVoiceSelect(selectElement) {
+        if (!selectElement) return;
+        selectElement.innerHTML = '';
+        const defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.textContent = '🎙️ Mặc định (Tự động)';
+        selectElement.appendChild(defaultOption);
+        voiceList.forEach(voice => {
+            const option = document.createElement('option');
+            option.value = voice.voiceURI;
+            option.textContent = `${voice.name} (${voice.lang})`;
+            selectElement.appendChild(option);
+        });
+    }
+    
+    function handleVoiceChange(selectElement, setter) {
+        const value = selectElement.value;
+        if (value === '') {
+            setter(null);
+        } else {
+            const found = voiceList.find(v => v.voiceURI === value);
+            setter(found || null);
+        }
+    }
+    
     if ('speechSynthesis' in window) {
-        speechSynthesis.onvoiceschanged = populateVoiceList;
+        speechSynthesis.onvoiceschanged = () => {
+            populateVoiceList();
+            // Cập nhật lại các dropdown nếu đang hiển thị
+            const voiceSelect = document.getElementById('voiceSelect');
+            if (voiceSelect) fillVoiceSelect(voiceSelect);
+            const oddSelect = document.getElementById('oddVoiceSelect');
+            if (oddSelect) fillVoiceSelect(oddSelect);
+            const evenSelect = document.getElementById('evenVoiceSelect');
+            if (evenSelect) fillVoiceSelect(evenSelect);
+            const reportVoiceSelect = document.getElementById('reportVoiceSelect');
+            if (reportVoiceSelect) fillVoiceSelect(reportVoiceSelect);
+            const reportOddSelect = document.getElementById('reportOddVoiceSelect');
+            if (reportOddSelect) fillVoiceSelect(reportOddSelect);
+            const reportEvenSelect = document.getElementById('reportEvenVoiceSelect');
+            if (reportEvenSelect) fillVoiceSelect(reportEvenSelect);
+        };
         if (speechSynthesis.getVoices().length > 0) populateVoiceList();
     }
     
@@ -942,14 +947,30 @@
         document.getElementById('pauseAudioBtn')?.addEventListener('click', () => { if (isPaused) resumeAudio(); else pauseAudio(); });
         document.getElementById('stopAudioBtn')?.addEventListener('click', stopAllAudio);
         document.querySelectorAll('.speaker-btn-sm').forEach(btn => { btn.addEventListener('click', e => { const txt = btn.getAttribute('data-text'); const id = parseInt(btn.getAttribute('data-id')); speakSingleText(txt, id); }); });
+        
+        // Khởi tạo dropdown giọng với option mặc định
         if (voiceList.length) {
-            const fillSel = (id) => { const sel = document.getElementById(id); if (sel) { sel.innerHTML = ''; voiceList.forEach(v => { const opt = document.createElement('option'); opt.value = v.voiceURI; opt.textContent = `${v.name} (${v.lang})`; sel.appendChild(opt); }); } };
-            fillSel('voiceSelect'); fillSel('oddVoiceSelect'); fillSel('evenVoiceSelect');
+            const voiceSelect = document.getElementById('voiceSelect');
+            if (voiceSelect) {
+                fillVoiceSelect(voiceSelect);
+                voiceSelect.addEventListener('change', () => handleVoiceChange(voiceSelect, v => singleVoice = v));
+            }
+            const oddSelect = document.getElementById('oddVoiceSelect');
+            if (oddSelect) {
+                fillVoiceSelect(oddSelect);
+                oddSelect.addEventListener('change', () => handleVoiceChange(oddSelect, v => oddVoice = v));
+            }
+            const evenSelect = document.getElementById('evenVoiceSelect');
+            if (evenSelect) {
+                fillVoiceSelect(evenSelect);
+                evenSelect.addEventListener('change', () => handleVoiceChange(evenSelect, v => evenVoice = v));
+            }
         }
         document.getElementById('voiceModeSelect')?.addEventListener('change', e => { voiceMode = parseInt(e.target.value); document.getElementById('singleVoiceDiv').style.display = voiceMode === 1 ? 'flex' : 'none'; document.getElementById('dualVoiceDiv').style.display = voiceMode === 2 ? 'flex' : 'none'; });
-        document.getElementById('voiceSelect')?.addEventListener('change', e => { singleVoice = voiceList.find(v => v.voiceURI === e.target.value); });
-        document.getElementById('oddVoiceSelect')?.addEventListener('change', e => { oddVoice = voiceList.find(v => v.voiceURI === e.target.value); });
-        document.getElementById('evenVoiceSelect')?.addEventListener('change', e => { evenVoice = voiceList.find(v => v.voiceURI === e.target.value); });
+        // Mặc định chọn giọng null (tự động)
+        singleVoice = null; oddVoice = null; evenVoice = null;
+        const defaultVoiceSelect = document.getElementById('voiceSelect');
+        if (defaultVoiceSelect) defaultVoiceSelect.value = '';
     }
     
     function updateNextButtonState() {
@@ -1133,17 +1154,32 @@
                 </div>`;
             }
             if (voiceList.length) {
-                const fillSel = (id) => { const sel = document.getElementById(id); if (sel) { sel.innerHTML = ''; voiceList.forEach(v => { const opt = document.createElement('option'); opt.value = v.voiceURI; opt.textContent = `${v.name} (${v.lang})`; sel.appendChild(opt); }); } };
-                fillSel('reportVoiceSelect'); fillSel('reportOddVoiceSelect'); fillSel('reportEvenVoiceSelect');
-                document.getElementById('reportVoiceModeSelect')?.addEventListener('change', (e) => { voiceMode = parseInt(e.target.value); document.getElementById('reportSingleVoiceDiv').style.display = voiceMode === 1 ? 'flex' : 'none'; document.getElementById('reportDualVoiceDiv').style.display = voiceMode === 2 ? 'flex' : 'none'; });
-                document.getElementById('reportVoiceSelect')?.addEventListener('change', (e) => { singleVoice = voiceList.find(v => v.voiceURI === e.target.value); });
-                document.getElementById('reportOddVoiceSelect')?.addEventListener('change', (e) => { oddVoice = voiceList.find(v => v.voiceURI === e.target.value); });
-                document.getElementById('reportEvenVoiceSelect')?.addEventListener('change', (e) => { evenVoice = voiceList.find(v => v.voiceURI === e.target.value); });
+                const reportVoiceSelect = document.getElementById('reportVoiceSelect');
+                if (reportVoiceSelect) {
+                    fillVoiceSelect(reportVoiceSelect);
+                    reportVoiceSelect.addEventListener('change', () => handleVoiceChange(reportVoiceSelect, v => singleVoice = v));
+                }
+                const reportOddSelect = document.getElementById('reportOddVoiceSelect');
+                if (reportOddSelect) {
+                    fillVoiceSelect(reportOddSelect);
+                    reportOddSelect.addEventListener('change', () => handleVoiceChange(reportOddSelect, v => oddVoice = v));
+                }
+                const reportEvenSelect = document.getElementById('reportEvenVoiceSelect');
+                if (reportEvenSelect) {
+                    fillVoiceSelect(reportEvenSelect);
+                    reportEvenSelect.addEventListener('change', () => handleVoiceChange(reportEvenSelect, v => evenVoice = v));
+                }
             }
+            document.getElementById('reportVoiceModeSelect')?.addEventListener('change', (e) => { voiceMode = parseInt(e.target.value); document.getElementById('reportSingleVoiceDiv').style.display = voiceMode === 1 ? 'flex' : 'none'; document.getElementById('reportDualVoiceDiv').style.display = voiceMode === 2 ? 'flex' : 'none'; });
             document.getElementById('reportPlayAudio')?.addEventListener('click', () => { if (lesson.P5) { let gap = parseFloat(document.getElementById('reportGap').value); let loop = parseInt(document.getElementById('reportLoop').value); playAudioSentences(lesson.P5, gap, loop); } });
             document.getElementById('reportPause')?.addEventListener('click', () => { if (isPaused) resumeAudio(); else pauseAudio(); });
             document.getElementById('reportStop')?.addEventListener('click', stopAllAudio);
             document.getElementById('togglePassageBtn')?.addEventListener('click', () => { const pd = document.getElementById('passageDiv'); pd.style.display = pd.style.display === 'none' ? 'block' : 'none'; });
+            // Mặc định chọn giọng null (tự động)
+            singleVoice = null; oddVoice = null; evenVoice = null;
+            if (reportVoiceSelect) reportVoiceSelect.value = '';
+            if (reportOddSelect) reportOddSelect.value = '';
+            if (reportEvenSelect) reportEvenSelect.value = '';
         } else { listeningContainer.innerHTML = ''; }
     }
     
