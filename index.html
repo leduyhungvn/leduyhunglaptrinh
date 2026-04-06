@@ -1,1379 +1,625 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Luyện nghe TA Lớp 9 (thêm dạng tổng hợp)</title>
-    <meta name="google" content="notranslate">
-    <meta http-equiv="Content-Language" content="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Đề Cương Ôn Thi Tiếng Anh + Luyện Nghe</title>
     <style>
-        /* Toàn bộ style giữ nguyên như bản trước */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
-        }
-        body {
-            background: linear-gradient(145deg, #f0f4fa 0%, #e6ecf5 100%);
-            min-height: 100vh;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .app-container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        .main-card {
-            width: 100%;
-            background: rgba(255,255,255,0.85);
-            backdrop-filter: blur(12px);
-            border-radius: 48px;
-            padding: 30px 32px;
-            box-shadow: 0 25px 50px -8px rgba(0,20,40,0.3);
-            border: 1px solid rgba(255,255,255,0.6);
-            margin-bottom: 20px;
-        }
-        @media (max-width: 700px) {
-            body { padding: 10px; }
-            .main-card { padding: 20px 16px; border-radius: 32px; }
-        }
-        h1, h2, h3 {
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            word-break: break-word;
-        }
-        h1 {
-            font-size: 2.2rem;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 25px;
-            border-left: 8px solid #2a5298;
-            padding-left: 20px;
-        }
-        @media (max-width: 700px) {
-            h1 { font-size: 1.8rem; border-left-width: 6px; padding-left: 16px; }
-        }
-        h2 {
-            font-size: 1.6rem;
-            margin-bottom: 8px;
-            line-height: 1.3;
-            color: #1e3c72;
-        }
-        .title-sub {
-            font-size: 1.3rem;
-            color: #2a5298;
-            margin-bottom: 20px;
-            font-weight: 500;
-            padding-left: 4px;
-        }
-        @media (max-width: 700px) {
-            h2 { font-size: 1.4rem; }
-            .title-sub { font-size: 1.2rem; }
-        }
-        .flex-col {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            align-items: center;
-        }
-        .label-input {
-            display: flex;
-            align-items: center;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #333; background-color: #f5f5f5; }
+        .container { max-width: 800px; margin: 0 auto; padding: 15px; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
+        .main-title { text-align: center; margin-bottom: 10px; color: #0066cc; font-size: 22px; }
+        .sub-title { text-align: center; margin-bottom: 10px; color: #333; font-size: 18px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px; }
+        .btn-primary, .btn-secondary { display: block; width: 100%; padding: 12px; border: none; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 20px; transition: opacity 0.2s; }
+        .btn-primary { background-color: #0066cc; color: white; }
+        .btn-secondary { background-color: #f0f0f0; color: #333; }
+        .btn-primary:hover:not(:disabled), .btn-secondary:hover { opacity: 0.9; }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+        .exam-header { margin-bottom: 15px; }
+        .progress-container { margin-bottom: 15px; }
+        .progress-bar { height: 12px; background-color: #ffcc00; border-radius: 6px; transition: width 1s linear; }
+        .progress-text { text-align: center; margin-top: 3px; font-weight: bold; font-size: 14px; }
+        .exam-info { display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: bold; font-size: 14px; }
+        .instruction { background-color: #f9f9f9; padding: 10px; border-radius: 4px; margin-bottom: 15px; font-size: 15px; }
+        .question-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 15px; }
+        .question-button { padding: 6px 12px; background-color: #f0f0f0; border: 1px solid #ddd; border-radius: 4px; cursor: pointer; transition: all 0.3s; font-size: 14px; }
+        .question-button.active { background-color: #0066cc; color: white; }
+        .question-button.answered { background-color: #e6f7ff; border-color: #0066cc; }
+        .question-content { background-color: #f9f9f9; padding: 15px; border-radius: 4px; min-height: 180px; }
+        .question-text { margin-bottom: 12px; font-size: 15px; }
+        .answer-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .answer-option { padding: 8px; background-color: white; border: 1px solid #ddd; border-radius: 4px; cursor: pointer; transition: all 0.3s; font-size: 14px; }
+        .answer-option.selected { background-color: #e6f7ff; border-color: #0066cc; }
+        .navigation { display: flex; justify-content: center; margin-top: 15px; }
+        
+        /* Listening styles */
+        .listening-panel { 
+            background: #eef3fc; 
+            border-radius: 16px; 
+            padding: 8px 16px; 
+            margin-bottom: 20px; 
+            display: flex; 
+            flex-wrap: nowrap;
+            align-items: center; 
+            justify-content: flex-start;
             gap: 12px;
-            background: white;
-            padding: 10px 24px;
-            border-radius: 60px;
-            box-shadow: inset 2px 2px 8px #b8c3d0, inset -4px -4px 8px #ffffff;
-            width: 100%;
+            overflow-x: auto;
         }
-        .label-input label {
-            font-weight: 600;
-            color: #1e2f4d;
-            font-size: 1rem;
+        .listening-panel select, .listening-panel button { 
+            background: white; 
+            border: none; 
+            padding: 6px 12px; 
+            border-radius: 40px; 
+            font-size: 0.85rem; 
+            font-weight: 600; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+            cursor: pointer; 
             white-space: nowrap;
         }
-        .label-input input, .label-input select {
-            border: none;
-            background: transparent;
-            font-size: 1rem;
-            padding: 8px 0;
-            outline: none;
-            font-weight: 500;
-            width: 100%;
-            min-width: 0;
-        }
-        .btn-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin: 20px 0 10px;
-            justify-content: center;
-        }
-        .btn {
-            background: white;
-            border: none;
-            padding: 14px 32px;
-            border-radius: 60px;
-            font-weight: 600;
-            font-size: 1.2rem;
-            box-shadow: 6px 6px 16px #b8c3d0, -6px -6px 16px #ffffff;
-            cursor: pointer;
-            transition: 0.15s;
-            color: #1e2f4d;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            flex: 0 1 auto;
-            justify-content: center;
-        }
-        .btn:active {
-            box-shadow: inset 6px 6px 12px #b8c3d0, inset -6px -6px 12px #ffffff;
-            transform: scale(0.97);
-        }
-        .btn.primary {
-            background: #2a5298;
-            color: white;
-            box-shadow: 6px 6px 16px #1e3c72, -6px -6px 16px #3f6ab3;
-        }
-        @media (max-width: 700px) {
-            .btn { padding: 12px 24px; font-size: 1.1rem; }
-        }
-        .footer-info {
-            margin-top: 30px;
-            background: #d9e2ef;
-            border-radius: 40px;
-            padding: 20px 30px;
-            text-align: center;
-            font-weight: 500;
-            color: #102a4c;
-            border: 1px solid #ffffff80;
-        }
-        .footer-info p {
-            margin: 6px 0;
-            font-size: 1rem;
-        }
-        .footer-info .zalo {
-            font-size: 1.3rem;
-            font-weight: 700;
-            background: #0068ff20;
-            display: inline-block;
-            padding: 6px 32px;
-            border-radius: 60px;
-        }
-        .audio-panel {
-            background: #eef3fc;
-            border-radius: 60px;
-            padding: 16px 24px;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 16px;
-            margin: 20px 0 25px;
-            box-shadow: inset 2px 2px 8px #b8c3d0, inset -4px -4px 10px white;
-        }
-        .audio-panel select, .audio-panel button {
-            background: white;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 40px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            box-shadow: 3px 3px 8px #b8c3d0;
-            flex: 1 0 auto;
-            min-width: 80px;
-        }
-        .speaker-icon {
-            font-size: 2rem;
-            cursor: pointer;
-            background: #2a5298;
-            color: white;
-            width: 56px;
-            height: 56px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 40px;
-            box-shadow: 0 5px 0 #102a4c;
-            flex-shrink: 0;
-        }
-        .voice-container {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 15px;
-            width: 100%;
-            background: rgba(255,255,255,0.4);
-            border-radius: 40px;
-            padding: 10px 18px;
-        }
-        .voice-container label {
-            font-weight: 600;
-            color: #1e2f4d;
-            font-size: 0.9rem;
-            white-space: nowrap;
-        }
-        .voice-container select {
-            background: white;
-            border: 1px solid #2a5298;
-            border-radius: 40px;
-            padding: 6px 12px;
-            font-size: 0.85rem;
-            min-width: 180px;
-        }
-        .question-item {
-            background: white;
-            border-radius: 32px;
-            padding: 22px 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-        }
-        .question-text {
-            font-weight: 600;
-            margin-bottom: 18px;
-            font-size: 1.1rem;
-            line-height: 1.5;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .question-text .speaker-btn {
-            font-size: 1.8rem;
-            cursor: pointer;
-            background: #2a5298;
-            color: white;
-            width: 44px;
-            height: 44px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 40px;
+        .speaker-icon-big { 
+            font-size: 1.6rem; 
+            cursor: pointer; 
+            background: #2a5298; 
+            color: white; 
+            width: 44px; 
+            height: 44px; 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            border-radius: 40px; 
             box-shadow: 0 3px 0 #102a4c;
             flex-shrink: 0;
         }
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-left: 8px;
+        .listening-question-item { background: white; border-radius: 24px; padding: 18px; margin-bottom: 18px; box-shadow: 0 5px 12px rgba(0,0,0,0.05); text-align: left; }
+        .listening-question-text { font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 12px; font-size: 1rem; flex-wrap: wrap; }
+        .speaker-btn-sm { font-size: 1.5rem; cursor: pointer; background: #2a5298; color: white; width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; border-radius: 30px; flex-shrink: 0; }
+        .listening-options { display: flex; flex-direction: column; gap: 12px; width: 100%; margin-top: 8px; }
+        .listening-option { 
+            display: flex; 
+            align-items: center; 
+            gap: 14px; 
+            background: #f3f7ff; 
+            padding: 10px 18px; 
+            border-radius: 60px; 
+            cursor: pointer; 
+            border: 2px solid transparent; 
+            width: 98%; 
+            max-width: 100%; 
+            white-space: normal; 
+            word-break: break-word; 
+            font-size: 0.95rem; 
+            line-height: 1.4; 
+            transition: all 0.2s; 
         }
-        .option {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            background: #f3f7ff;
-            padding: 12px 20px;
-            border-radius: 60px;
-            cursor: pointer;
-            border: 2px solid transparent;
-            font-size: 1rem;
-            word-break: break-word;
-        }
-        .option.selected {
-            border-color: #2a5298;
-            background: #cddcff;
-        }
-        .option input {
-            accent-color: #2a5298;
-            width: 20px;
-            height: 20px;
-            flex-shrink: 0;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            border-radius: 28px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px #00000015;
-            font-size: 0.95rem;
-        }
-        th {
-            background: #2a5298;
-            color: white;
-            padding: 14px 10px;
-            font-weight: 600;
-        }
-        td {
-            padding: 12px 10px;
-            border-bottom: 1px solid #d0ddef;
-        }
-        .wrong-answer {
-            background: #ffccc7;
-            color: #a8071a;
-            font-weight: 600;
-            border-radius: 30px;
-            padding: 4px 12px;
-            display: inline-block;
-        }
-        .correct-answer {
-            background: #b7eb8f;
-            color: #237804;
-            font-weight: 600;
-            border-radius: 30px;
-            padding: 4px 12px;
-            display: inline-block;
-            border: 2px solid #52c41a;
-        }
-        .report-chart-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin: 25px 0;
-        }
-        @media (max-width: 700px) {
-            .report-chart-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-        }
-        .chart-box {
-            background: white;
-            border-radius: 48px;
-            padding: 25px;
-            box-shadow: 0 15px 30px #0000001a;
-            text-align: center;
-        }
-        .pie {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            margin: 15px auto;
-            background: conic-gradient(#f5222d 0deg 180deg, #faad14 180deg 360deg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .pie span {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 2.5rem;
-            color: #1e2f4d;
-        }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-        }
-        .stat-item {
-            background: white;
-            border-radius: 32px;
-            padding: 20px 12px;
-            font-weight: 600;
-            box-shadow: 0 5px 0 #b8c3d0;
-            text-align: center;
-            font-size: 1.2rem;
-            word-break: break-word;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100px;
-        }
-        .stat-item div:first-child { font-size: 1.1rem; margin-bottom: 8px; color: #1e2f4d; }
-        .stat-item div:last-child { font-size: 1.4rem; font-weight: 700; color: #2a5298; }
-        @media (max-width: 700px) {
-            .stat-item { font-size: 1rem; padding: 15px 8px; min-height: 80px; }
-            .stat-item div:first-child { font-size: 0.95rem; }
-            .stat-item div:last-child { font-size: 1.2rem; }
-        }
-        .hidden-passage {
-            background: #f0f5ff;
-            border-radius: 36px;
-            padding: 25px;
-            margin: 25px 0;
-            white-space: pre-line;
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-        .action-buttons-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 30px;
-            margin-bottom: 5px;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-        .scroll-top {
-            background: white;
-            width: 56px;
-            height: 56px;
-            border-radius: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.2rem;
-            box-shadow: 4px 4px 14px #b8c3d0;
-            cursor: pointer;
-            text-decoration: none;
-            color: #1e2f4d;
-            transition: 0.2s;
-            flex-shrink: 0;
-        }
-        .scroll-top:active {
-            box-shadow: inset 4px 4px 10px #b8c3d0;
-            transform: scale(0.95);
-        }
-        .btn-back {
-            background: white;
-            border: none;
-            padding: 14px 32px;
-            border-radius: 60px;
-            font-weight: 600;
-            font-size: 1.2rem;
-            box-shadow: 6px 6px 16px #b8c3d0, -6px -6px 16px #ffffff;
-            cursor: pointer;
-            color: #1e2f4d;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        * {
-            -webkit-tap-highlight-color: transparent;
+        .listening-option.selected { border-color: #2a5298; background: #cddcff; }
+        .listening-option:hover { background: #e6edf9; }
+        .listening-option input[type="radio"] { margin: 0; flex-shrink: 0; width: 18px; height: 18px; accent-color: #2a5298; }
+        .voice-control-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; background: #e0ebf9; padding: 10px 16px; border-radius: 40px; margin-bottom: 20px; }
+        
+        /* Report styles */
+        .report-top-section { display: flex; flex-wrap: nowrap; gap: 10px; margin-bottom: 20px; overflow-x: hidden; }
+        .report-box-1 { flex: 1; min-width: 0; background-color: #f8f9fa; border: 1px solid #e9ecef; border-radius: 10px; padding: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        .report-student-name { font-weight: bold; color: #5b21b6; font-size: 27.3px; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; }
+        .pie-chart-container { position: relative; width: 120px; height: 120px; margin-bottom: 5px; flex-shrink: 0; margin: auto; }
+        .pie-chart { width: 100%; height: 100%; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .pie-inner { width: 75%; height: 75%; background-color: #fff; border-radius: 50%; display: flex; flex-direction: column; overflow: hidden; }
+        .pie-top-section { flex: 1; }
+        .pie-middle-section { flex: 1; display: flex; align-items: center; justify-content: center; }
+        .pie-bottom-section { flex: 1; display: flex; align-items: center; justify-content: center; }
+        .pie-percentage { font-size: 34.1px; font-weight: bold; color: #333; line-height: 1; }
+        .pie-score { font-size: 14px; color: #006400; font-weight: bold; }
+        .report-date { font-weight: bold; color: #000; font-size: 12px; margin-top: 2px; }
+        .report-box-2 { flex: 1; min-width: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 5px; }
+        .stat-mini-box { background-color: #fff; border: 1px solid #e9ecef; border-radius: 8px; padding: 5px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        .stat-label { font-size: 10px; color: #666; margin-bottom: 2px; text-transform: uppercase; white-space: nowrap; }
+        .stat-value { font-weight: bold; font-size: 13px; }
+        .stat-time-start { color: #16a34a; }
+        .stat-time-end { color: #dc2626; }
+        .stat-total-time { color: #2563eb; }
+        .detailed-count { display: flex; align-items: center; gap: 2px; }
+        .count-wrong { color: #dc2626; }
+        .count-unanswered { color: #f97316; }
+        .part-results-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
+        .part-result { padding: 10px; background-color: #f9f9f9; border-radius: 4px; border: 1px solid #e0e0e0; }
+        .part-name { font-weight: bold; margin-bottom: 5px; font-size: 14px; text-align: center; }
+        .part-progress { height: 12px; background-color: #f0f0f0; border-radius: 6px; overflow: hidden; margin-bottom: 5px; }
+        .part-progress-bar { height: 100%; transition: width 0.5s; }
+        .part-progress-bar.low { background-color: #f5222d; }
+        .part-progress-bar.medium { background-color: #faad14; }
+        .part-progress-bar.high { background-color: #52c41a; }
+        .part-progress-bar.very-high { background-color: #13c2c2; }
+        .part-progress-bar.excellent { background-color: #1890ff; }
+        .part-progress-bar.perfect { background-color: #722ed1; }
+        .part-stats-row { display: flex; justify-content: space-between; align-items: center; width: 100%; font-size: 13px; font-weight: bold; }
+        .report-listening-section { background: #f9f9ff; border-radius: 20px; padding: 20px; margin-top: 30px; border: 1px solid #cddcff; }
+        .correct-answer-badge { background: #b7eb8f; color: #237804; padding: 4px 12px; border-radius: 30px; display: inline-block; }
+        .wrong-answer-badge { background: #ffccc7; color: #a8071a; padding: 4px 12px; border-radius: 30px; }
+        .warning-message { position: fixed; top: 0; left: 0; width: 100%; background-color: #ff4d4f; color: white; padding: 10px; text-align: center; font-weight: bold; z-index: 1000; display: none; }
+        .question-detail-item { border-bottom: 1px solid #e9ecef; padding: 10px 0; }
+        .part-accordion { margin-bottom: 15px; border: 1px solid #dee2e6; border-radius: 8px; overflow: hidden; }
+        .part-accordion-header { background: #f1f3f5; padding: 12px 16px; cursor: pointer; font-weight: bold; display: flex; justify-content: space-between; user-select: none; }
+        .part-accordion-content { padding: 12px 16px; display: none; background: #fff; }
+        .part-accordion-content.open { display: block; }
+        @media (max-width: 550px) { 
+            .listening-panel { gap: 8px; padding: 8px 12px; }
+            .listening-panel select, .listening-panel button { padding: 4px 8px; font-size: 0.75rem; }
+            .speaker-icon-big { width: 38px; height: 38px; font-size: 1.3rem; }
         }
     </style>
 </head>
 <body>
-<div class="app-container" id="app"></div>
+<div id="warningMessage" class="warning-message">CẢNH BÁO: Đã phát hiện hành vi gian lận (chuyển tab/ứng dụng)! Bài thi sẽ được kết thúc.</div>
+
+<div id="mainScreen" class="screen">
+    <div class="container">
+        <h1 class="main-title">ĐỀ CƯƠNG ÔN THI TIẾNG ANH</h1>
+        <div class="form-group"><label for="studentName">Tên người làm bài:</label><input type="text" id="studentName" maxlength="40" placeholder="Nhập tên của bạn"></div>
+        <div class="form-group"><label for="classSelect">Chọn lớp:</label><select id="classSelect"><option value="L4">LỚP 4</option><option value="L5">LỚP 5</option><option value="L6">LỚP 6</option><option value="L7">LỚP 7</option><option value="L8">LỚP 8</option><option value="L9">LỚP 9</option></select></div>
+        <div class="form-group"><label for="examSelect">Chọn kì ôn thi:</label><select id="examSelect"><option value="GK1">GIỮA HỌC KÌ 1</option><option value="CK1">CUỐI HỌC KÌ 1</option><option value="GK2">GIỮA HỌC KÌ 2</option><option value="CK2">CUỐI HỌC KÌ 2</option></select></div>
+        <div class="form-group"><label for="exerciseSetSelect">Chọn bộ bài tập:</label><select id="exerciseSetSelect"><option value="FULL">TỔNG HỢP</option><option value="PRONUNCIATION_VOCABULARY_GRAMMAR">PHÁT ÂM, TRỌNG ÂM, TỪ VỰNG VÀ NGỮ PHÁP</option><option value="ERROR_READING_COMMUNICATION_REWRITE">TÌM LỖI SAI, ĐỌC HIỂU, GIAO TIẾP VÀ VIẾT LẠI CÂU</option><option value="FILL_ARRANGE_SIGNS_WORDS">ĐIỀN KHUYẾT, SẮP XẾP CÁC CÂU, BIỂN BÁO VÀ SẮP XẾP CÁC TỪ</option><option value="P1">Phần 1 – PHÁT ÂM</option><option value="P2">Phần 2 – TRỌNG ÂM</option><option value="P3">Phần 3 – ĐỒNG NGHĨA NGƯỢC NGHĨA</option><option value="P4">Phần 4 – TÌM LỖI SAI</option><option value="P5">Phần 5 – TỪ VỰNG NGỮ PHÁP</option><option value="P6">Phần 6 – ĐIỀN KHUYẾT</option><option value="P7">Phần 7 – ĐỌC HIỂU</option><option value="P8">Phần 8 – SẮP XẾP CÁC CÂU</option><option value="P9">Phần 9 – GIAO TIẾP</option><option value="P10">Phần 10 – BIẾN BÁO TIN TỨC</option><option value="P11">Phần 11 – VIẾT LẠI CÂU CÓ NGHĨA KHÔNG ĐỔI</option><option value="P12">Phần 12 – SẮP XẾP CÁC TỪ THÀNH CÂU</option><option value="P13">Phần 13 – LUYỆN NGHE</option></select></div>
+        <button id="startButton" class="btn-primary">Bắt đầu làm bài</button>
+        <div class="contact-info"><div class="contact-title">THÔNG TIN LIÊN HỆ</div><p>Liên hệ: support@edu.com</p></div>
+    </div>
+</div>
+
+<div id="examScreen" class="screen" style="display: none;">
+    <div class="container">
+        <div class="exam-header"><h1 class="main-title">ĐỀ CƯƠNG ÔN THI TIẾNG ANH</h1><h2 class="sub-title" id="examSubtitle"></h2></div>
+        <div class="progress-container"><div class="progress-bar" id="progressBar"></div><div class="progress-text" id="progressText"></div></div>
+        <div class="exam-info"><div class="exam-code" id="examCode"></div><div class="exam-part" id="examPart"></div></div>
+        <div class="question-container"><div class="instruction" id="instruction"></div><div class="question-buttons" id="questionButtons"></div><div class="question-content" id="questionContent"></div></div>
+        <div class="navigation"><button id="nextButton" class="btn-primary" disabled>Phần tiếp theo</button></div>
+    </div>
+</div>
+
+<div id="reportScreen" class="screen" style="display: none;">
+    <div class="container">
+        <div class="report-header"><h1 class="main-title">ĐỀ CƯƠNG ÔN THI TIẾNG ANH</h1><h2 class="sub-title" id="reportSubtitle"></h2><h2 class="result-title" id="resultTitle">KẾT QUẢ</h2><p id="cheatingWarning" style="color:#f5222d; font-weight: bold; display: none; text-align: center; margin-bottom: 15px;">⚠️ Đã phát hiện hành vi gian lận!</p></div>
+        <div class="report-top-section">
+            <div class="report-box-1"><div class="report-student-name" id="reportStudentName"></div><div class="pie-chart-container"><div class="pie-chart" id="resultPieChart"><div class="pie-inner"><div class="pie-top-section"></div><div class="pie-middle-section"><div class="pie-percentage" id="piePercentage">0%</div></div><div class="pie-bottom-section"><div class="pie-score" id="pieScore">0/0</div></div></div></div></div><div class="report-date" id="reportDateDisplay"></div></div>
+            <div class="report-box-2"><div class="stat-mini-box"><div class="stat-label">Bắt đầu</div><div class="stat-value stat-time-start" id="statStartTime"></div></div><div class="stat-mini-box"><div class="stat-label">Kết thúc</div><div class="stat-value stat-time-end" id="statEndTime"></div></div><div class="stat-mini-box"><div class="stat-label">Thời gian</div><div class="stat-value stat-total-time" id="statTotalTime"></div></div><div class="stat-mini-box"><div class="stat-label">Chi tiết</div><div class="stat-value detailed-count" id="detailWrongUnanswered"></div></div></div>
+        </div>
+        <div class="chart-container"><h3>Biểu đồ kết quả</h3><div id="resultChart" class="part-results-grid"></div></div>
+        <div class="question-list"><h3>📋 Chi tiết câu đã làm (các phần 1-12)</h3><div id="detailedAnswersList"></div></div>
+        <div id="listeningReportContainer" style="margin-top: 30px;"></div>
+        <div class="navigation"><button id="retryButton" class="btn-primary">Làm lại</button><button id="newExamButton" class="btn-secondary">Làm mới</button></div>
+    </div>
+</div>
+
 <script>
-    // =====================================================
-    // HỆ THỐNG TỰ ĐỘNG THU THẬP CÁC BÀI HỌC (LỚP 9)
-    // Chỉ cần khai báo biến với tên theo mẫu E9_U{unit}_B{bai}
-    // =====================================================
-
-    // Registry chứa tất cả các bài học
-    window.LESSON_REGISTRY = {};
-
-    // Hàm quét window để tìm các biến có tên dạng E9_..._...
-    function scanLessons() {
-        const lessonRegex = /^E9_U(\d+)_B(\d+)$/; // Lớp 9
-        for (let key in window) {
-            if (window.hasOwnProperty(key)) {
-                const match = key.match(lessonRegex);
-                if (match) {
-                    const unit = match[1]; // unit, ví dụ "1"
-                    const bai = match[2];  // bài, ví dụ "2"
-                    const data = window[key];
-                    // Kiểm tra xem data có cấu trúc bài học không (có P1, P2,...)
-                    if (data && typeof data === 'object' && data.P1 !== undefined) {
-                        if (!LESSON_REGISTRY['9']) LESSON_REGISTRY['9'] = {};
-                        if (!LESSON_REGISTRY['9'][`U${unit}`]) LESSON_REGISTRY['9'][`U${unit}`] = {};
-                        LESSON_REGISTRY['9'][`U${unit}`][`B${bai}`] = data;
+    // -------------------- DỮ LIỆU GỐC ĐẦY ĐỦ (L4GK1) --------------------
+    const L4GK1 = {
+        P1: [{ id:"C1", passage:"Choose the word whose underlined part differs.", questions:[{id:1, question:"underlined", correct:"bakes", wrong1:"agrees", wrong2:"underlines", wrong3:"smiles"},{id:2, question:"underlined", correct:"celebrates", wrong1:"applies", wrong2:"worries", wrong3:"solves"}] }],
+        P2: [{ id:"C1", passage:"Choose the word whose stress differs.", questions:[{id:1, question:"stress", correct:"about", wrong1:"busy", wrong2:"apple", wrong3:"hurry"},{id:2, question:"stress", correct:"advice", wrong1:"people", wrong2:"apple", wrong3:"hurry"}] }],
+        P3: [{ id:"C1", passage:"Choose the opposite.", questions:[{id:1, question:"hot", correct:"cold", wrong1:"warm", wrong2:"cool", wrong3:"mild"},{id:2, question:"big", correct:"small", wrong1:"large", wrong2:"huge", wrong3:"enormous"},{id:3, question:"fast", correct:"slow", wrong1:"quick", wrong2:"rapid", wrong3:"swift"}] }],
+        P4: [{ id:"C1", passage:"Find the mistake.", questions:[{id:1, question:"She go to school.", correct:"A. go", wrong1:"B. to", wrong2:"C. school", wrong3:"D. day"},{id:2, question:"They are play football.", correct:"A. are play", wrong1:"B. They", wrong2:"C. football", wrong3:"D. now"},{id:3, question:"I am liking apples.", correct:"A. am liking", wrong1:"B. I", wrong2:"C. apples", wrong3:"D. (no error)"}] }],
+        P5: [{ id:"C1", passage:"Choose best answer.", questions:[{id:1, question:"I _____ to school.", correct:"go", wrong1:"goes", wrong2:"going", wrong3:"went"},{id:2, question:"She _____ her homework now.", correct:"is doing", wrong1:"do", wrong2:"does", wrong3:"did"},{id:3, question:"They _____ football yesterday.", correct:"played", wrong1:"play", wrong2:"plays", wrong3:"are playing"},{id:4, question:"I _____ English for 5 years.", correct:"have studied", wrong1:"study", wrong2:"studies", wrong3:"am studying"},{id:5, question:"If it _____ tomorrow, we will go camping.", correct:"doesn't rain", wrong1:"rain", wrong2:"rains", wrong3:"rained"}] }],
+        P6: [{ id:"C1", passage:"Fill blank.", questions:[{id:1, question:"(1)", correct:"am", wrong1:"is", wrong2:"are", wrong3:"be"},{id:2, question:"(2)", correct:"live", wrong1:"lives", wrong2:"living", wrong3:"lived"},{id:3, question:"(3)", correct:"are", wrong1:"is", wrong2:"am", wrong3:"be"},{id:4, question:"(4)", correct:"is", wrong1:"am", wrong2:"are", wrong3:"be"},{id:5, question:"(5)", correct:"works", wrong1:"work", wrong2:"working", wrong3:"worked"}] }],
+        P7: [{ id:"C1", passage:"Read and answer.", questions:[{id:1, question:"How old is Tom?", correct:"He is ten years old.", wrong1:"He is eight.", wrong2:"He is twelve.", wrong3:"He is nine."},{id:2, question:"Where does Tom live?", correct:"He lives in London.", wrong1:"New York", wrong2:"Paris", wrong3:"Tokyo"},{id:3, question:"How many people?", correct:"Four", wrong1:"Three", wrong2:"Five", wrong3:"Two"},{id:4, question:"How do they go to school?", correct:"They walk.", wrong1:"By bus", wrong2:"By car", wrong3:"By bike"},{id:5, question:"Favorite subject?", correct:"Science", wrong1:"Math", wrong2:"English", wrong3:"Music"}] }],
+        P8: [{ id:"C1", passage:"Arrange sentences.", questions:[{id:1, question:"Order", correct:"c-b-d-a", wrong1:"b-c-d-a", wrong2:"c-d-b-a", wrong3:"b-d-c-a"},{id:2, question:"Order", correct:"c-b-d-a", wrong1:"b-c-d-a", wrong2:"c-d-b-a", wrong3:"b-d-c-a"}] }],
+        P9: [{ id:"C1", passage:"Complete dialogue.", questions:[{id:1, question:"(1)", correct:"Can I help you", wrong1:"How are you", wrong2:"What time", wrong3:"Where from"},{id:2, question:"(1)", correct:"What's wrong with you", wrong1:"How old", wrong2:"Where live", wrong3:"What job"}] }],
+        P10: [{ id:"C1", passage:"Signs.", questions:[{id:1, question:"No smoking", correct:"Cấm hút thuốc", wrong1:"Cho phép", wrong2:"Khu vực", wrong3:"Hút thuốc"},{id:2, question:"Wifi", correct:"Khu vực có wifi", wrong1:"Cấm dùng", wrong2:"Hỏi mật khẩu", wrong3:"Wifi miễn phí"}] }],
+        P11: [{ id:"C1", passage:"Rewrite.", questions:[{id:1, question:"I am not as tall as my brother.", correct:"My brother is taller than me.", wrong1:"My brother is not as tall as me.", wrong2:"My brother is the tallest.", wrong3:"I am taller than my brother."},{id:2, question:"No one in my class is more intelligent than Lan.", correct:"Lan is the most intelligent student in my class.", wrong1:"Lan is more intelligent than no one.", wrong2:"Lan is as intelligent as no one.", wrong3:"No one is as intelligent as Lan."}] }],
+        P12: [{ id:"C1", passage:"Rearrange words.", questions:[{id:1, question:"I / to / go / school", correct:"I go to school.", wrong1:"Go I to school", wrong2:"School go I to", wrong3:"To school I go"},{id:2, question:"She / is / a / student / good", correct:"She is a good student.", wrong1:"She a good student is.", wrong2:"A good student she is.", wrong3:"Is she a good student."}] }]
+    };
+    const questionBank = { L4GK1: L4GK1, L4CK1:{}, L4GK2:{}, L4CK2:{}, L5GK1:{}, L5CK1:{}, L5GK2:{}, L5CK2:{}, L6GK1:{}, L6CK1:{}, L6GK2:{}, L6CK2:{}, L7GK1:{}, L7CK1:{}, L7GK2:{}, L7CK2:{}, L8GK1:{}, L8CK1:{}, L8GK2:{}, L8CK2:{}, L9GK1:{}, L9CK1:{}, L9GK2:{}, L9CK2:{} };
+    for(let k in questionBank) if(Object.keys(questionBank[k]).length===0) questionBank[k]={ P1:[], P2:[], P3:[], P4:[], P5:[], P6:[], P7:[], P8:[], P9:[], P10:[], P11:[], P12:[] };
+    
+    const exerciseSetConfigs = {
+        FULL: { title:"TỔNG HỢP", parts:['P1','P2','P3','P4','P5','P6','P7','P8','P9','P10','P11','P12','P13'], questionCounts:{ P1:2,P2:2,P3:3,P4:3,P5:5,P6:5,P7:5,P8:2,P9:2,P10:2,P11:2,P12:2,P13:5 }, partTimes:{ P1:40,P2:40,P3:90,P4:120,P5:240,P6:240,P7:240,P8:120,P9:120,P10:120,P11:120,P12:120,P13:300 } },
+        PRONUNCIATION_VOCABULARY_GRAMMAR:{ title:"PHÁT ÂM...", parts:['P1','P2','P3','P5'], questionCounts:{ P1:4,P2:4,P3:6,P5:16 }, partTimes:{ P1:80,P2:80,P3:200,P5:480 } },
+        ERROR_READING_COMMUNICATION_REWRITE:{ title:"TÌM LỖI SAI...", parts:['P4','P7','P9','P11'], questionCounts:{ P4:6,P7:5,P9:4,P11:4 }, partTimes:{ P4:240,P7:240,P9:240,P11:240 } },
+        FILL_ARRANGE_SIGNS_WORDS:{ title:"ĐIỀN KHUYẾT...", parts:['P6','P8','P10','P12'], questionCounts:{ P6:5,P8:4,P10:4,P12:4 }, partTimes:{ P6:240,P8:240,P10:240,P12:240 } },
+        P1:{ title:"Phần 1 – PHÁT ÂM", parts:['P1'], questionCounts:{ P1:20 }, partTimes:{ P1:300 }, perQuestionTime:15 },
+        P2:{ title:"Phần 2 – TRỌNG ÂM", parts:['P2'], questionCounts:{ P2:20 }, partTimes:{ P2:300 }, perQuestionTime:15 },
+        P3:{ title:"Phần 3 – ĐỒNG NGHĨA...", parts:['P3'], questionCounts:{ P3:15 }, partTimes:{ P3:300 }, perQuestionTime:20 },
+        P4:{ title:"Phần 4 – TÌM LỖI SAI", parts:['P4'], questionCounts:{ P4:10 }, partTimes:{ P4:300 }, perQuestionTime:30 },
+        P5:{ title:"Phần 5 – TỪ VỰNG NGỮ PHÁP", parts:['P5'], questionCounts:{ P5:20 }, partTimes:{ P5:300 }, perQuestionTime:20 },
+        P6:{ title:"Phần 6 – ĐIỀN KHUYẾT", parts:['P6'], questionCounts:{ P6:5 }, partTimes:{ P6:240 } },
+        P7:{ title:"Phần 7 – ĐỌC HIỂU", parts:['P7'], questionCounts:{ P7:5 }, partTimes:{ P7:240 } },
+        P8:{ title:"Phần 8 – SẮP XẾP CÁC CÂU", parts:['P8'], questionCounts:{ P8:10 }, partTimes:{ P8:300 }, perQuestionTime:30 },
+        P9:{ title:"Phần 9 – GIAO TIẾP", parts:['P9'], questionCounts:{ P9:10 }, partTimes:{ P9:300 }, perQuestionTime:30 },
+        P10:{ title:"Phần 10 – BIẾN BÁO...", parts:['P10'], questionCounts:{ P10:10 }, partTimes:{ P10:300 }, perQuestionTime:30 },
+        P11:{ title:"Phần 11 – VIẾT LẠI CÂU", parts:['P11'], questionCounts:{ P11:10 }, partTimes:{ P11:300 }, perQuestionTime:30 },
+        P12:{ title:"Phần 12 – SẮP XẾP TỪ", parts:['P12'], questionCounts:{ P12:10 }, partTimes:{ P12:300 }, perQuestionTime:30 },
+        P13:{ title:"Phần 13 – LUYỆN NGHE", parts:['P13'], questionCounts:{ P13:5 }, partTimes:{ P13:300 } }
+    };
+    
+    // Dữ liệu luyện nghe (lớp 4)
+    window.LISTENING_REGISTRY = { '4': {} };
+    const E4_U1_B1 = { P1:[ {id:1, word:"Where does Miss Lien live?", correct:"in a small house in Hanoi", wrong1:"in a big apartment", wrong2:"in the countryside"},{id:2, word:"What does Miss Lien do?", correct:"She teaches English", wrong1:"She is a doctor", wrong2:"She works in a factory"},{id:3, word:"What time does she have breakfast?", correct:"at seven", wrong1:"at six", wrong2:"at eight"},{id:4, word:"Where does she have lunch?", correct:"in the canteen of the school", wrong1:"at home", wrong2:"in a restaurant"},{id:5, word:"When does she teach dialogues?", correct:"on Wednesdays and Fridays", wrong1:"on Mondays", wrong2:"every day"} ], P2:[], P3:[], P4:"Miss Lien lives in a small house in Hanoi. She teaches English at a primary school. She gets up at 6. She has breakfast at 7. She has lunch in the canteen. She teaches dialogues on Wednesdays and Fridays.", P5:[{id:1, word:"Miss Lien lives in a small house in Hanoi."},{id:2, word:"She teaches English at a school there."},{id:3, word:"She has breakfast at seven."},{id:4, word:"She has lunch in the canteen."},{id:5, word:"She teaches dialogues on Wednesdays and Fridays."}] };
+    const E4_U1_B2 = { P1:[ {id:1, word:"How old is Janet?", correct:"eleven years old", wrong1:"ten years old", wrong2:"twelve years old"},{id:2, word:"Which school does Janet go to?", correct:"Palmer School", wrong1:"Park School", wrong2:"Parker School"},{id:3, word:"How are her classmates?", correct:"friendly", wrong1:"quiet", wrong2:"noisy"},{id:4, word:"Who is Janet's favourite teacher?", correct:"Mrs. Smith", wrong1:"Mr. Smith", wrong2:"Ms. Smith"},{id:5, word:"What subject does Mrs. Smith teach?", correct:"maths", wrong1:"English", wrong2:"science"} ], P2:[], P3:[], P4:"Hi. My name's Janet. I'm eleven years old. I go to Palmer School. My classmates are friendly. My favourite teacher is Mrs. Smith. She teaches maths.", P5:[{id:1, word:"Hi. My name's Janet."},{id:2, word:"I'm eleven years old."},{id:3, word:"I go to Palmer School."},{id:4, word:"My classmates are friendly."},{id:5, word:"Mrs. Smith is my favourite teacher."}] };
+    const E4_U1_B3 = { P1:[ {id:1, word:"Where is Sunrise boarding school?", correct:"in Sydney", wrong1:"in Bac Giang", wrong2:"in London"},{id:2, word:"How many students go to Sunrise?", correct:"about 1,200", wrong1:"about 1,500", wrong2:"about 800"},{id:3, word:"Where do the students at Sunrise come from?", correct:"all over Australia", wrong1:"only Sydney", wrong2:"all over the world"},{id:4, word:"What subjects do they study at Sunrise?", correct:"maths, science and English", wrong1:"art, music and history", wrong2:"biology, physics and chemistry"},{id:5, word:"How many classes does An Son school have?", correct:"only 8 classes", wrong1:"12 classes", wrong2:"20 classes"} ], P2:[], P3:[], P4:"Sunrise is a boarding school in Sydney. About 1,200 students go to Sunrise. They come from all over Australia. They study maths, science and English. An Son school has only 8 classes.", P5:[{id:1, word:"Sunrise is a boarding school in Sydney."},{id:2, word:"About 1,200 students go to Sunrise."},{id:3, word:"They come from all over Australia."},{id:4, word:"They study maths, science and English."},{id:5, word:"An Son school has only 8 classes."}] };
+    window.LISTENING_REGISTRY['4']['U1'] = { B1: E4_U1_B1, B2: E4_U1_B2, B3: E4_U1_B3 };
+    
+    function getRandomListeningLesson() {
+        const lessons = window.LISTENING_REGISTRY['4']['U1'];
+        const keys = Object.keys(lessons);
+        const randKey = keys[Math.floor(Math.random() * keys.length)];
+        const lesson = lessons[randKey];
+        const all = [...(lesson.P1||[]), ...(lesson.P2||[]), ...(lesson.P3||[])];
+        if(all.length === 0) return null;
+        const shuffled = [...all].sort(()=>0.5-Math.random());
+        const selected = shuffled.slice(0,5);
+        return { lessonData: lesson, questions: selected };
+    }
+    
+    // -------------------- BIẾN TOÀN CỤC --------------------
+    let currentScreen='main', currentExam='', currentPart=0, selectedAnswers={}, timeLeft=0, timer=null, startTime=null, endTime=null, selectedQuestions={}, selectedQuestionDetails={}, answerOrders={}, currentExerciseSet='FULL', currentConfig=exerciseSetConfigs.FULL;
+    let currentListeningLesson = null;
+    let isCheating = false;
+    let voiceList=[], voiceMode=1, singleVoice=null, oddVoice=null, evenVoice=null, isPaused=false, audioQueue=[], audioTimeout=null;
+    
+    // Gian lận chỉ khi chuyển tab / blur
+    function handleCheating() {
+        if(currentScreen === 'exam' && !isCheating) {
+            isCheating = true;
+            document.getElementById('warningMessage').style.display = 'block';
+            setTimeout(() => { document.getElementById('warningMessage').style.display = 'none'; }, 3000);
+            if(timer) clearInterval(timer);
+            endTime = new Date();
+            showReport();
+        }
+    }
+    document.addEventListener('visibilitychange', () => { if(document.hidden) handleCheating(); });
+    window.addEventListener('blur', () => { handleCheating(); });
+    
+    // -------------------- AUDIO --------------------
+    function sortVoicesByPlatform(voices){ const isIOS=/iPhone|iPad|iPod/i.test(navigator.userAgent); if(isIOS){ const s=voices.find(v=>v.name.toLowerCase().includes('samantha')); if(s) return [s, ...voices.filter(v=>v!==s)]; } else{ const g=voices.filter(v=>v.name.toLowerCase().includes('google')); const m=voices.filter(v=>v.name.toLowerCase().includes('microsoft')); const o=voices.filter(v=>!v.name.toLowerCase().includes('google')&&!v.name.toLowerCase().includes('microsoft')); return [...g,...m,...o]; } return voices; }
+    function stopAllAudio(){ speechSynthesis.cancel(); if(audioTimeout) clearTimeout(audioTimeout); audioQueue=[]; isPaused=false; }
+    function pauseAudio(){ if(speechSynthesis.speaking){ speechSynthesis.pause(); isPaused=true; } if(audioTimeout) clearTimeout(audioTimeout); }
+    function resumeAudio(){ if(isPaused && speechSynthesis.paused){ speechSynthesis.resume(); isPaused=false; } }
+    function getVoiceForId(id){ if(voiceMode===1) return singleVoice; return (id%2===1)?oddVoice:evenVoice; }
+    function playAudioSentences(sentences, gapSec, loop){ stopAllAudio(); if(!sentences||!sentences.length) return; sentences.forEach(item=>{ for(let i=0;i<loop;i++) audioQueue.push({text:item.word, id:item.id}); }); let idx=0; const playNext=()=>{ if(idx>=audioQueue.length){ stopAllAudio(); return; } const item=audioQueue[idx]; const utt=new SpeechSynthesisUtterance(item.text); utt.lang='en-GB'; const v=getVoiceForId(item.id); if(v) utt.voice=v; utt.onend=()=>{ idx++; if(idx<audioQueue.length && !isPaused) audioTimeout=setTimeout(playNext, gapSec*1000); else if(idx>=audioQueue.length) stopAllAudio(); }; utt.onerror=()=>{ idx++; if(idx<audioQueue.length && !isPaused) audioTimeout=setTimeout(playNext, gapSec*1000); }; speechSynthesis.speak(utt); }; playNext(); }
+    function speakSingleText(text, id){ if(!text) return; speechSynthesis.cancel(); const utt=new SpeechSynthesisUtterance(text); utt.lang='en-GB'; const v=getVoiceForId(id); if(v) utt.voice=v; speechSynthesis.speak(utt); }
+    function populateVoiceList(){ if(!('speechSynthesis' in window)) return; const voices=speechSynthesis.getVoices(); voiceList=sortVoicesByPlatform(voices); }
+    if('speechSynthesis' in window){ speechSynthesis.onvoiceschanged=populateVoiceList; if(speechSynthesis.getVoices().length>0) populateVoiceList(); }
+    
+    // -------------------- HÀM CHÍNH --------------------
+    function selectRandomQuestions(){
+        const examData = questionBank[currentExam];
+        for(let partKey of currentConfig.parts){
+            if(partKey === 'P13') {
+                const res = getRandomListeningLesson();
+                if(res) { currentListeningLesson = res; selectedQuestions[partKey] = res.questions; }
+                continue;
+            }
+            const qCount = currentConfig.questionCounts[partKey];
+            if(examData && examData[partKey] && examData[partKey][0] && examData[partKey][0].questions.length >= qCount){
+                selectedQuestions[partKey] = examData[partKey][0].questions.slice(0,qCount);
+                selectedQuestions[partKey].forEach((q,idx)=>{ const qk=`${partKey}.${idx+1}`; selectedQuestionDetails[qk]={question:q}; });
+            }
+        }
+    }
+    
+    function startExam(){
+        const name = document.getElementById('studentName').value.trim();
+        if(!name){ alert('Vui lòng nhập tên!'); return; }
+        currentExam = document.getElementById('classSelect').value + document.getElementById('examSelect').value;
+        currentExerciseSet = document.getElementById('exerciseSetSelect').value;
+        currentConfig = exerciseSetConfigs[currentExerciseSet];
+        if(!questionBank[currentExam] && !currentConfig.parts.includes('P13')){ alert('Chưa có dữ liệu cho đề thi này'); return; }
+        selectedAnswers={}; selectedQuestions={}; selectedQuestionDetails={}; answerOrders={}; isCheating=false; startTime=new Date();
+        selectRandomQuestions();
+        showScreen('exam');
+        showPart(0);
+    }
+    
+    function showScreen(screen){
+        document.getElementById('mainScreen').style.display='none';
+        document.getElementById('examScreen').style.display='none';
+        document.getElementById('reportScreen').style.display='none';
+        if(screen==='main') document.getElementById('mainScreen').style.display='block';
+        else if(screen==='exam') document.getElementById('examScreen').style.display='block';
+        else if(screen==='report') document.getElementById('reportScreen').style.display='block';
+        currentScreen=screen;
+    }
+    
+    function showPart(partIndex){
+        if(timer) clearInterval(timer);
+        if(partIndex >= currentConfig.parts.length){ endTime=new Date(); showReport(); return; }
+        const partKey = currentConfig.parts[partIndex];
+        currentPart = partIndex;
+        const classText = document.getElementById('classSelect').options[document.getElementById('classSelect').selectedIndex].text;
+        const examText = document.getElementById('examSelect').options[document.getElementById('examSelect').selectedIndex].text;
+        document.getElementById('examSubtitle').textContent = `${classText} – ${examText}`;
+        document.getElementById('examPart').textContent = `Phần ${partKey.substring(1)}`;
+        if(partKey === 'P13'){
+            document.getElementById('instruction').innerHTML = '<strong>LUYỆN NGHE:</strong> Nghe đoạn văn và chọn đáp án đúng.';
+            document.getElementById('questionButtons').innerHTML = '';
+            renderListeningPart();
+            timeLeft = currentConfig.partTimes[partKey];
+            updateTimer(); timer = setInterval(updateTimer, 1000);
+            document.getElementById('nextButton').disabled = true;
+            return;
+        }
+        const examData = questionBank[currentExam];
+        let instruction = (examData && examData[partKey] && examData[partKey][0]) ? examData[partKey][0].passage : '';
+        document.getElementById('instruction').innerHTML = instruction;
+        const btnContainer = document.getElementById('questionButtons');
+        btnContainer.innerHTML = '';
+        const qCount = currentConfig.questionCounts[partKey];
+        for(let i=1;i<=qCount;i++){
+            const btn = document.createElement('button'); btn.className='question-button'; btn.textContent=`CÂU ${i}`; btn.dataset.question=i;
+            if(selectedAnswers[`${partKey}.${i}`]) btn.classList.add('answered');
+            btn.addEventListener('click', (function(p,qn){ return function(){ showQuestion(p,qn); }; })(partKey,i));
+            btnContainer.appendChild(btn);
+        }
+        showQuestion(partKey,1);
+        timeLeft = currentConfig.partTimes[partKey];
+        updateTimer(); timer = setInterval(updateTimer, 1000);
+        document.getElementById('nextButton').disabled = true;
+    }
+    
+    function showQuestion(partKey, qNum){
+        const qKey = `${partKey}.${qNum}`;
+        const qData = selectedQuestionDetails[qKey]?.question;
+        if(!qData) return;
+        const container = document.getElementById('questionContent');
+        container.innerHTML = `<div class="question-text"><strong>Câu ${qNum}:</strong> ${qData.question}</div><div class="answer-options" id="ansOpts"></div>`;
+        const optsDiv = document.getElementById('ansOpts');
+        const answers = [{text:qData.correct,isCorrect:true},{text:qData.wrong1,isCorrect:false},{text:qData.wrong2,isCorrect:false},{text:qData.wrong3,isCorrect:false}];
+        let shuffled = answerOrders[qKey];
+        if(!shuffled){ shuffled=[...answers]; for(let i=shuffled.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [shuffled[i],shuffled[j]]=[shuffled[j],shuffled[i]]; } answerOrders[qKey]=shuffled; }
+        const labels=['A','B','C','D'];
+        shuffled.forEach((ans,idx)=>{
+            const optDiv = document.createElement('div'); optDiv.className='answer-option'; optDiv.innerHTML=`<strong>${labels[idx]}</strong>. ${ans.text}`;
+            if(selectedAnswers[qKey] === labels[idx]) optDiv.classList.add('selected');
+            optDiv.addEventListener('click',()=>{
+                selectedAnswers[qKey] = labels[idx];
+                document.querySelectorAll('.answer-option').forEach(o=>o.classList.remove('selected'));
+                optDiv.classList.add('selected');
+                document.querySelector(`.question-button[data-question="${qNum}"]`)?.classList.add('answered');
+                updateNextButtonState();
+            });
+            optsDiv.appendChild(optDiv);
+        });
+    }
+    
+    function renderListeningPart(){
+        const questions = selectedQuestions['P13'];
+        if(!questions || questions.length === 0) return;
+        const container = document.getElementById('questionContent');
+        container.innerHTML = '';
+        const audioPanel = document.createElement('div'); audioPanel.className='listening-panel';
+        audioPanel.innerHTML = `<span class="speaker-icon-big" id="playMainAudio">🔊</span><select id="gapTimeSelect"><option value="0.5" selected>0.5s</option><option value="1">1s</option></select><select id="loopCountSelect"><option value="1">1 lần</option><option value="2">2 lần</option></select><button id="pauseAudioBtn">⏸️</button><button id="stopAudioBtn">⏹️</button>`;
+        container.appendChild(audioPanel);
+        const voiceDiv = document.createElement('div'); voiceDiv.className='voice-control-row';
+        voiceDiv.innerHTML = `<label>Số giọng: <select id="voiceModeSelect"><option value="1">1 giọng</option><option value="2">2 giọng</option></select></label><div id="singleVoiceDiv"><label>Giọng: <select id="voiceSelect"></select></label></div><div id="dualVoiceDiv" style="display:none;"><label>Giọng lẻ: <select id="oddVoiceSelect"></select></label><label>Giọng chẵn: <select id="evenVoiceSelect"></select></label></div>`;
+        container.appendChild(voiceDiv);
+        questions.forEach((q, idx) => {
+            const qDiv = document.createElement('div'); qDiv.className='listening-question-item';
+            const opts = [q.correct, q.wrong1, q.wrong2];
+            for(let i=opts.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [opts[i],opts[j]]=[opts[j],opts[i]]; }
+            answerOrders[`P13.${idx+1}`] = opts;
+            qDiv.innerHTML = `<div class="listening-question-text"><span class="speaker-btn-sm" data-text="${q.word.replace(/"/g, '&quot;')}" data-id="${q.id}">🔊</span> ${idx+1}. ${q.word}</div><div class="listening-options" id="opts-${idx}"></div>`;
+            const optsDiv = qDiv.querySelector(`.listening-options`);
+            const letters = ['A','B','C'];
+            opts.forEach((opt, optIdx) => {
+                const label = document.createElement('label'); label.className='listening-option';
+                const radio = document.createElement('input'); radio.type='radio'; radio.name=`q_listen_${idx}`; radio.value=letters[optIdx];
+                if(selectedAnswers[`P13.${idx+1}`] === letters[optIdx]) radio.checked=true;
+                radio.addEventListener('change', (e) => { selectedAnswers[`P13.${idx+1}`] = e.target.value; updateNextButtonState(); });
+                label.appendChild(radio); 
+                label.appendChild(document.createTextNode(` ${letters[optIdx]}. ${opt}`));
+                if(radio.checked) label.classList.add('selected');
+                radio.addEventListener('change', function(){ 
+                    document.querySelectorAll(`#opts-${idx} .listening-option`).forEach(l=>l.classList.remove('selected')); 
+                    this.closest('.listening-option').classList.add('selected'); 
+                });
+                optsDiv.appendChild(label);
+            });
+            container.appendChild(qDiv);
+        });
+        document.getElementById('playMainAudio')?.addEventListener('click',()=>{ if(currentListeningLesson && currentListeningLesson.lessonData.P5){ let gap=parseFloat(document.getElementById('gapTimeSelect').value); let loop=parseInt(document.getElementById('loopCountSelect').value); playAudioSentences(currentListeningLesson.lessonData.P5, gap, loop); } });
+        document.getElementById('pauseAudioBtn')?.addEventListener('click',()=>{ if(isPaused) resumeAudio(); else pauseAudio(); });
+        document.getElementById('stopAudioBtn')?.addEventListener('click',stopAllAudio);
+        document.querySelectorAll('.speaker-btn-sm').forEach(btn=>{ btn.addEventListener('click',e=>{ const txt=btn.getAttribute('data-text'); const id=parseInt(btn.getAttribute('data-id')); speakSingleText(txt,id); }); });
+        if(voiceList.length){ const fillSel=(id)=>{ const sel=document.getElementById(id); if(sel){ sel.innerHTML=''; voiceList.forEach(v=>{ const opt=document.createElement('option'); opt.value=v.voiceURI; opt.textContent=`${v.name} (${v.lang})`; sel.appendChild(opt); }); } }; fillSel('voiceSelect'); fillSel('oddVoiceSelect'); fillSel('evenVoiceSelect'); }
+        document.getElementById('voiceModeSelect')?.addEventListener('change',e=>{ voiceMode=parseInt(e.target.value); document.getElementById('singleVoiceDiv').style.display=voiceMode===1?'flex':'none'; document.getElementById('dualVoiceDiv').style.display=voiceMode===2?'flex':'none'; });
+        document.getElementById('voiceSelect')?.addEventListener('change',e=>{ singleVoice=voiceList.find(v=>v.voiceURI===e.target.value); });
+        document.getElementById('oddVoiceSelect')?.addEventListener('change',e=>{ oddVoice=voiceList.find(v=>v.voiceURI===e.target.value); });
+        document.getElementById('evenVoiceSelect')?.addEventListener('change',e=>{ evenVoice=voiceList.find(v=>v.voiceURI===e.target.value); });
+    }
+    
+    function updateNextButtonState(){
+        const partKey = currentConfig.parts[currentPart];
+        let total = currentConfig.questionCounts[partKey];
+        let answered = 0;
+        for(let i=1;i<=total;i++) if(selectedAnswers[`${partKey}.${i}`] !== undefined) answered++;
+        document.getElementById('nextButton').disabled = !(answered === total && total>0);
+    }
+    
+    function updateTimer(){
+        if(timeLeft <=0){ nextPart(); return; }
+        timeLeft--;
+        const totalTime = currentConfig.partTimes[currentConfig.parts[currentPart]];
+        const percent = (timeLeft/totalTime)*100;
+        document.getElementById('progressBar').style.width = `${percent}%`;
+        const mins = Math.floor(timeLeft/60), secs = timeLeft%60;
+        document.getElementById('progressText').textContent = `Thời gian còn lại: ${mins}:${secs<10?'0':''}${secs}`;
+    }
+    
+    function nextPart(){ if(timer) clearInterval(timer); showPart(currentPart+1); }
+    
+    function showReport(){
+        if(timer) clearInterval(timer);
+        showScreen('report');
+        
+        // Tính kết quả các phần (vẫn tính toàn bộ dựa trên selectedAnswers)
+        let partResults = {};
+        let totalCorrect=0, totalCount=0;
+        for(let part of currentConfig.parts){
+            let cnt = currentConfig.questionCounts[part];
+            let partCorrect=0;
+            for(let i=1;i<=cnt;i++){
+                totalCount++;
+                let ans = selectedAnswers[`${part}.${i}`];
+                if(part === 'P13'){
+                    let q = selectedQuestions['P13']?.[i-1];
+                    if(q && ans){
+                        let opts = answerOrders[`P13.${i}`];
+                        let letters=['A','B','C'];
+                        let chosenText = opts[letters.indexOf(ans)];
+                        if(chosenText === q.correct) partCorrect++;
+                    }
+                } else {
+                    let qd = selectedQuestionDetails[`${part}.${i}`]?.question;
+                    if(qd && ans){
+                        let opts = [qd.correct, qd.wrong1, qd.wrong2, qd.wrong3];
+                        let letters=['A','B','C','D'];
+                        let chosenText = opts[letters.indexOf(ans)];
+                        if(chosenText === qd.correct) partCorrect++;
                     }
                 }
             }
+            partResults[part] = { correctCount: partCorrect, totalCount: cnt, percentage: cnt>0?Math.round((partCorrect/cnt)*100):0 };
+            totalCorrect += partCorrect;
         }
-    }
-
-    // =====================================================
-    // KHAI BÁO DỮ LIỆU CÁC BÀI (chuyển từ lớp 8 sang lớp 9, giữ nội dung)
-    // =====================================================
-
-    // ---------- UNIT 1 BÀI 1 ---------- (Giữ nguyên dữ liệu)
-    var E9_U1_B1 = {
-        P1: [ // trắc nghiệm trả lời câu hỏi
-            { id: 1, word: "Where does Miss Lien live?", correct: "in a small house in Hanoi", wrong1: "in a big apartment", wrong2: "in the countryside" },
-            { id: 2, word: "What does Miss Lien do?", correct: "She teaches English", wrong1: "She is a doctor", wrong2: "She works in a factory" },
-            { id: 3, word: "What time does she have breakfast?", correct: "at seven", wrong1: "at six", wrong2: "at eight" },
-            { id: 4, word: "Where does she have lunch?", correct: "in the canteen of the school", wrong1: "at home", wrong2: "in a restaurant" },
-            { id: 5, word: "When does she teach dialogues?", correct: "on Wednesdays and Fridays", wrong1: "on Mondays", wrong2: "every day" },
-            { id: 6, word: "What does she teach on Mondays?", correct: "grammar", wrong1: "dialogues", wrong2: "listening" },
-            { id: 7, word: "What does she do in the evening?", correct: "stays at home and listens to music", wrong1: "goes out with friends", wrong2: "watches TV" },
-            { id: 8, word: "Does she sometimes go to the movie theatre?", correct: "Yes, she does", wrong1: "No, she never goes", wrong2: "Only on Sundays" },
-            { id: 9, word: "What time does she go to bed?", correct: "at ten o'clock", wrong1: "at nine o'clock", wrong2: "at eleven" },
-            { id: 10, word: "Who is Miss Lien?", correct: "an English teacher", wrong1: "a student", wrong2: "a nurse" }
-        ],
-        P2: [ // TRUE - FALSE - NOT GIVEN
-            { id: 1, word: "Miss Lien lives in a small house in Hanoi.", correct: "True", wrong1: "False", wrong2: "Not Given" },
-            { id: 2, word: "She teaches Math at a school.", correct: "False", wrong1: "True", wrong2: "Not Given" },
-            { id: 3, word: "She has lunch at home.", correct: "False", wrong1: "True", wrong2: "Not Given" },
-            { id: 4, word: "She teaches dialogues on Wednesdays and Fridays.", correct: "True", wrong1: "False", wrong2: "Not Given" },
-            { id: 5, word: "She teaches grammar on Tuesdays.", correct: "False", wrong1: "True", wrong2: "Not Given" },
-            { id: 6, word: "In the evening she usually stays at home.", correct: "True", wrong1: "False", wrong2: "Not Given" },
-            { id: 7, word: "She sometimes goes to the cinema.", correct: "True", wrong1: "False", wrong2: "Not Given" },
-            { id: 8, word: "She has a pet dog.", correct: "Not Given", wrong1: "True", wrong2: "False" },
-            { id: 9, word: "She always goes to bed at ten.", correct: "True", wrong1: "False", wrong2: "Not Given" },
-            { id: 10, word: "Her school is in Hanoi.", correct: "True", wrong1: "False", wrong2: "Not Given" }
-        ],
-        P3: [ // Điền khuyết
-            { id: 1, word: "Miss Lien lives in a small house ______ Hanoi.", correct: "in", wrong1: "on", wrong2: "at" },
-            { id: 2, word: "She teaches English ______ a school there.", correct: "at", wrong1: "in", wrong2: "on" },
-            { id: 3, word: "She usually has breakfast ______ seven.", correct: "at", wrong1: "in", wrong2: "on" },
-            { id: 4, word: "She has lunch in the canteen ______ the school.", correct: "of", wrong1: "at", wrong2: "in" },
-            { id: 5, word: "She teaches her students ______ the morning.", correct: "in", wrong1: "on", wrong2: "at" },
-            { id: 6, word: "She teaches them dialogues ______ Wednesdays.", correct: "on", wrong1: "in", wrong2: "at" },
-            { id: 7, word: "______ Mondays, she teaches grammar.", correct: "On", wrong1: "In", wrong2: "At" },
-            { id: 8, word: "In the evening, she usually stays ______ home.", correct: "at", wrong1: "in", wrong2: "on" },
-            { id: 9, word: "She sometimes goes ______ the movie theatre.", correct: "to", wrong1: "in", wrong2: "at" },
-            { id: 10, word: "She always goes to bed ______ ten o'clock.", correct: "at", wrong1: "in", wrong2: "on" }
-        ],
-        P4: "Miss Lien lives in a small house in Hanoi. She teaches English at a school there. She usually has breakfast at seven in the morning and she has lunch at twelve o'clock in the canteen of the school. She teaches her students in the morning. She teaches them dialogues on Wednesdays and Fridays. On Mondays, she teaches them grammar. In the evening, she usually stays at home and listens to music. She sometimes goes to the movie theatre. She always goes to bed at ten o'clock.",
-        P5: [
-            { id: 1, word: "Miss Lien lives in a small house in Hanoi." },
-            { id: 2, word: "She teaches English at a school there." },
-            { id: 3, word: "She usually has breakfast at seven in the morning and she has lunch at twelve o'clock in the canteen of the school." },
-            { id: 4, word: "She teaches her students in the morning." },
-            { id: 5, word: "She teaches them dialogues on Wednesdays and Fridays." },
-            { id: 6, word: "On Mondays, she teaches them grammar." },
-            { id: 7, word: "In the evening, she usually stays at home and listens to music." },
-            { id: 8, word: "She sometimes goes to the movie theatre." },
-            { id: 9, word: "She always goes to bed at ten o'clock." }
-        ]
-    };
-
-    // ---------- UNIT 1 BÀI 2 ---------- (Giữ nguyên dữ liệu)
-    var E9_U1_B2 = {
-        P1: [
-            { id: 1, word: "How old is Janet?", correct: "eleven years old", wrong1: "ten years old", wrong2: "twelve years old" },
-            { id: 2, word: "Which school does Janet go to?", correct: "Palmer School", wrong1: "Park School", wrong2: "Parker School" },
-            { id: 3, word: "How are her classmates?", correct: "friendly", wrong1: "quiet", wrong2: "noisy" },
-            { id: 4, word: "Who is Janet's favourite teacher?", correct: "Mrs. Smith", wrong1: "Mr. Smith", wrong2: "Ms. Smith" },
-            { id: 5, word: "What subject does Mrs. Smith teach?", correct: "maths", wrong1: "English", wrong2: "science" },
-            { id: 6, word: "How many hours a week does Janet study Vietnamese?", correct: "two hours", wrong1: "one hour", wrong2: "three hours" },
-            { id: 7, word: "Where does Janet usually do her homework?", correct: "in the library", wrong1: "at home", wrong2: "in the classroom" },
-            { id: 8, word: "Do the students wear uniforms every day?", correct: "Yes, they do", wrong1: "No, they don't", wrong2: "Only on Mondays" },
-            { id: 9, word: "Why aren't they wearing uniforms today?", correct: "because they are going to a farm", wrong1: "because it's a holiday", wrong2: "because they don't have to" },
-            { id: 10, word: "What lesson are they going to have on the farm?", correct: "biology", wrong1: "geography", wrong2: "art" }
-        ],
-        P2: [
-            { id: 1, word: "Janet is twelve years old.", correct: "False", wrong1: "True", wrong2: "Not Given" },
-            { id: 2, word: "She is in year 6 at Palmer School.", correct: "True", wrong1: "False", wrong2: "Not Given" },
-            { id: 3, word: "Her classmates are not very friendly.", correct: "False", wrong1: "True", wrong2: "Not Given" },
-            { id: 4, word: "Mrs. Smith teaches English.", correct: "False", wrong1: "True", wrong2: "Not Given" },
-            { id: 5, word: "Janet studies Vietnamese for two hours every week.", correct: "True", wrong1: "False", wrong2: "Not Given" },
-            { id: 6, word: "She usually does her homework at home.", correct: "False", wrong1: "True", wrong2: "Not Given" },
-            { id: 7, word: "Students at Palmer School wear uniforms every day.", correct: "True", wrong1: "False", wrong2: "Not Given" },
-            { id: 8, word: "Today they are wearing casual clothes.", correct: "True", wrong1: "False", wrong2: "Not Given" },
-            { id: 9, word: "The farm is very far from the school.", correct: "Not Given", wrong1: "True", wrong2: "False" },
-            { id: 10, word: "They are going to have a biology lesson on the farm.", correct: "True", wrong1: "False", wrong2: "Not Given" }
-        ],
-        P3: [
-            { id: 1, word: "Hi. My name ______ Janet.", correct: "is", wrong1: "are", wrong2: "am" },
-            { id: 2, word: "I'm eleven years ______.", correct: "old", wrong1: "age", wrong2: "young" },
-            { id: 3, word: "I'm now in year 6 ______ Palmer School.", correct: "at", wrong1: "in", wrong2: "on" },
-            { id: 4, word: "My classmates are ______.", correct: "friendly", wrong1: "kind", wrong2: "helpful" },
-            { id: 5, word: "My favourite teacher is ______. Smith.", correct: "Mrs.", wrong1: "Mr.", wrong2: "Ms." },
-            { id: 6, word: "She teaches ______ maths.", correct: "us", wrong1: "we", wrong2: "our" },
-            { id: 7, word: "I have two hours to study Vietnamese ______ week.", correct: "every", wrong1: "a", wrong2: "in" },
-            { id: 8, word: "I usually do my homework ______ the library.", correct: "in", wrong1: "at", wrong2: "on" },
-            { id: 9, word: "We wear our uniforms ______ day.", correct: "every", wrong1: "all", wrong2: "each" },
-            { id: 10, word: "We're going to have a biology lesson ______ a farm.", correct: "on", wrong1: "in", wrong2: "at" }
-        ],
-        P4: "Hi. My name's Janet. I'm eleven years old. I'm now in year 6 at Palmer School. I like it here. My classmates are friendly. The teachers at my school are nice and very helpful, and my favourite teacher is Mrs. Smith. She teaches us maths. I have two hours to study Vietnamese every week. I usually do my homework in the library. We wear our uniforms every day, but today we aren't. We're going to have a biology lesson on a farm.",
-        P5: [
-            { id: 1, word: "Hi. My name's Janet." },
-            { id: 2, word: "I'm eleven years old." },
-            { id: 3, word: "I'm now in year 6 at Palmer School." },
-            { id: 4, word: "I like it here." },
-            { id: 5, word: "My classmates are friendly." },
-            { id: 6, word: "The teachers at my school are nice and very helpful, and my favourite teacher is Mrs. Smith." },
-            { id: 7, word: "She teaches us maths." },
-            { id: 8, word: "I have two hours to study Vietnamese every week." },
-            { id: 9, word: "I usually do my homework in the library." },
-            { id: 10, word: "We wear our uniforms every day, but today we aren't." },
-            { id: 11, word: "We're going to have a biology lesson on a farm." }
-        ]
-    };
-
-    // ---------- UNIT 1 BÀI 3 ---------- (Giữ nguyên dữ liệu)
-    var E9_U1_B3 = {
-        P1: [
-            { id: 1, word: "Where is Sunrise boarding school?", correct: "in Sydney", wrong1: "in Bac Giang", wrong2: "in London" },
-            { id: 2, word: "How many students go to Sunrise?", correct: "about 1,200", wrong1: "about 1,500", wrong2: "about 800" },
-            { id: 3, word: "Where do the students at Sunrise come from?", correct: "all over Australia", wrong1: "only Sydney", wrong2: "all over the world" },
-            { id: 4, word: "What subjects do they study at Sunrise?", correct: "maths, science and English", wrong1: "art, music and history", wrong2: "biology, physics and chemistry" },
-            { id: 5, word: "How many classes does An Son school have?", correct: "only 8 classes", wrong1: "12 classes", wrong2: "20 classes" },
-            { id: 6, word: "What is around An Son school?", correct: "mountains and green fields", wrong1: "a big city", wrong2: "a river and a lake" },
-            { id: 7, word: "What facilities does An Son school have?", correct: "a computer room and a library", wrong1: "a swimming pool", wrong2: "a gym" },
-            { id: 8, word: "What kind of school is Dream?", correct: "an international school", wrong1: "a boarding school", wrong2: "a lower secondary school" },
-            { id: 9, word: "Who do students learn English with at Dream?", correct: "English-speaking teachers", wrong1: "Vietnamese teachers", wrong2: "Australian teachers" },
-            { id: 10, word: "What do students do in the afternoon at Dream?", correct: "join clubs and play sports", wrong1: "study in the library", wrong2: "go home" }
-        ],
-        P2: [
-            { id: 1, word: "Sunrise is a boarding school in Sydney.", correct: "True", wrong1: "False", wrong2: "Not Given" },
-            { id: 2, word: "Sunrise has 2,000 students.", correct: "False", wrong1: "True", wrong2: "Not Given" },
-            { id: 3, word: "Students at Sunrise come from all over Australia.", correct: "True", wrong1: "False", wrong2: "Not Given" },
-            { id: 4, word: "An Son is a primary school in Bac Giang.", correct: "False", wrong1: "True", wrong2: "Not Given" },
-            { id: 5, word: "An Son has a swimming pool.", correct: "False", wrong1: "True", wrong2: "Not Given" },
-            { id: 6, word: "There is a school garden at An Son.", correct: "True", wrong1: "False", wrong2: "Not Given" },
-            { id: 7, word: "Dream school is in Sydney.", correct: "Not Given", wrong1: "True", wrong2: "False" },
-            { id: 8, word: "Students at Dream learn English with Vietnamese teachers.", correct: "False", wrong1: "True", wrong2: "Not Given" },
-            { id: 9, word: "Dream school has an art club.", correct: "True", wrong1: "False", wrong2: "Not Given" },
-            { id: 10, word: "All three schools are in Australia.", correct: "False", wrong1: "True", wrong2: "Not Given" }
-        ],
-        P3: [
-            { id: 1, word: "Sunrise is a boarding school ______ Sydney.", correct: "in", wrong1: "at", wrong2: "on" },
-            { id: 2, word: "Students study and live ______ Sunrise.", correct: "at", wrong1: "in", wrong2: "on" },
-            { id: 3, word: "It has students from all ______ Australia.", correct: "over", wrong1: "in", wrong2: "around" },
-            { id: 4, word: "An Son is a lower secondary school ______ Bac Giang.", correct: "in", wrong1: "at", wrong2: "on" },
-            { id: 5, word: "There are mountains and green fields ______ the school.", correct: "around", wrong1: "in", wrong2: "on" },
-            { id: 6, word: "There is a computer room and ______ library.", correct: "a", wrong1: "the", wrong2: "an" },
-            { id: 7, word: "There is also a school garden and ______ playground.", correct: "a", wrong1: "the", wrong2: "an" },
-            { id: 8, word: "Dream is ______ international school.", correct: "an", wrong1: "a", wrong2: "the" },
-            { id: 9, word: "Here students learn English ______ English-speaking teachers.", correct: "with", wrong1: "from", wrong2: "by" },
-            { id: 10, word: "Some students do paintings ______ the art club.", correct: "in", wrong1: "at", wrong2: "on" }
-        ],
-        P4: "Sunrise is a boarding school in Sydney. Students study and live there. About 1,200 boys and girls go to Sunrise. It has students from all over Australia. They study subjects like maths, science and English.<br> An Son is a lower secondary school in Bac Giang. It has only 8 classes. There are mountains and green fields around the school. There is a computer room and a library. There is also a school garden and a playground.<br> Dream is an international school. Here students learn English with English-speaking teachers. In the afternoon, they join many interesting clubs. They play sports and games. Some students do paintings in the art club.",
-        P5: [
-            { id: 1, word: "Sunrise is a boarding school in Sydney." },
-            { id: 2, word: "Students study and live there." },
-            { id: 3, word: "About 1,200 boys and girls go to Sunrise." },
-            { id: 4, word: "It has students from all over Australia." },
-            { id: 5, word: "They study subjects like maths, science and English." },
-            { id: 6, word: "An Son is a lower secondary school in Bac Giang." },
-            { id: 7, word: "It has only 8 classes." },
-            { id: 8, word: "There are mountains and green fields around the school." },
-            { id: 9, word: "There is a computer room and a library." },
-            { id: 10, word: "There is also a school garden and a playground." },
-            { id: 11, word: "Dream is an international school." },
-            { id: 12, word: "Here students learn English with English-speaking teachers." },
-            { id: 13, word: "In the afternoon, they join many interesting clubs." },
-            { id: 14, word: "They play sports and games." },
-            { id: 15, word: "Some students do paintings in the art club." }
-        ]
-    };
-
-    // ---------- UNIT 1 BÀI 4 đến BÀI 20 (rỗng) ----------
-    for (let i = 4; i <= 20; i++) {
-        window[`E9_U1_B${i}`] = { P1: [], P2: [], P3: [], P4: "Chưa có nội dung", P5: [] };
-    }
-
-    // ---------- UNIT 2 đến UNIT 12, mỗi unit 20 bài rỗng ----------
-    (function createEmptyLessons() {
-        for (let unit = 2; unit <= 12; unit++) {
-            for (let bai = 1; bai <= 20; bai++) {
-                let varName = 'E9_U' + unit + '_B' + bai;
-                if (typeof window[varName] === 'undefined') {
-                    window[varName] = {
-                        P1: [],
-                        P2: [],
-                        P3: [],
-                        P4: "Chưa có nội dung",
-                        P5: []
-                    };
-                }
-            }
-        }
-    })();
-
-    // Quét registry sau khi khai báo tất cả
-    scanLessons();
-
-    // =====================================================
-    // HÀM SẮP XẾP GIỌNG THEO NỀN TẢNG
-    // =====================================================
-    function sortVoicesByPlatform(voices) {
-        const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-        if (isIOS) {
-            // Đưa giọng Samantha lên đầu (nếu có)
-            const samanthaIndex = voices.findIndex(v => v.name.toLowerCase().includes('samantha'));
-            if (samanthaIndex !== -1) {
-                const samantha = voices[samanthaIndex];
-                const otherVoices = voices.filter((_, idx) => idx !== samanthaIndex);
-                return [samantha, ...otherVoices];
-            }
-            return voices;
-        } else {
-            // Desktop / Android: ưu tiên Google, Microsoft lên đầu
-            const googleVoices = voices.filter(v => v.name.toLowerCase().includes('google'));
-            const microsoftVoices = voices.filter(v => v.name.toLowerCase().includes('microsoft'));
-            const otherVoices = voices.filter(v => !v.name.toLowerCase().includes('google') && !v.name.toLowerCase().includes('microsoft'));
-            return [...googleVoices, ...microsoftVoices, ...otherVoices];
-        }
-    }
-
-    // =====================================================
-    // CÁC BIẾN VÀ HÀM XỬ LÝ (dùng LESSON_REGISTRY, lớp 9)
-    // =====================================================
-    const UNIT_ITEMS = [];
-    for (let i = 1; i <= 12; i++) UNIT_ITEMS.push(`UNIT ${i}`);
-    
-    const BAI_ITEMS = ['KIỂM TRA NGẪU NHIÊN', ...Array.from({ length: 20 }, (_, i) => `BÀI ${i+1}`)];
-    const DANG_BAI = ['TRẮC NGHIỆM TỔNG HỢP', 'TRẮC NGHIỆM TRẢ LỜI CÂU HỎI', 'TRẮC NGHIỆM TRUE – FALSE – NOT GIVEN', 'TRẮC NGHIỆM ĐIỀN KHUYẾT'];
-
-    let currentScreen = 'main';
-    let studentName = '';
-    let selectedUnit = 'UNIT 1';
-    let selectedBai = 'KIỂM TRA NGẪU NHIÊN';
-    let selectedDang = DANG_BAI[0];
-    let quizData = null;
-    let userAnswers = [];
-    let startTime = null;
-    let endTime = null;
-    let currentLessonData = null;
-
-    let voiceList = [];
-    let voiceMode = 1;
-    let singleVoice = null;
-    let oddVoice = null;
-    let evenVoice = null;
-    let isPaused = false;
-    let audioQueue = [];
-    let audioTimeout = null;
-    let audioEnabled = false;
-
-    const app = document.getElementById('app');
-
-    // ---------- HÀM PHÁT ÂM (giữ nguyên) ----------
-    function stopAllAudio() {
-        speechSynthesis.cancel();
-        if (audioTimeout) {
-            clearTimeout(audioTimeout);
-            audioTimeout = null;
-        }
-        audioQueue = [];
-        isPaused = false;
-    }
-
-    function pauseAudio() {
-        if (speechSynthesis.speaking) {
-            speechSynthesis.pause();
-            isPaused = true;
-        }
-        if (audioTimeout) {
-            clearTimeout(audioTimeout);
-            audioTimeout = null;
-        }
-    }
-
-    function resumeAudio() {
-        if (isPaused && speechSynthesis.paused) {
-            speechSynthesis.resume();
-            isPaused = false;
-            return;
-        }
-    }
-
-    function getVoiceForId(id) {
-        if (voiceMode === 1) return singleVoice;
-        return (id % 2 === 1) ? oddVoice : evenVoice;
-    }
-
-    function playAudioSentences(sentences, gapSec, loop) {
-        stopAllAudio();
-        if (!sentences || sentences.length === 0) return;
-
-        sentences.forEach(item => {
-            for (let i = 0; i < loop; i++) {
-                audioQueue.push({ text: item.word, id: item.id });
-            }
-        });
-
-        let index = 0;
-        const playNext = () => {
-            if (index >= audioQueue.length) {
-                stopAllAudio();
-                return;
-            }
-            const item = audioQueue[index];
-            const utterance = new SpeechSynthesisUtterance(item.text);
-            utterance.lang = 'en-GB';
-
-            const voice = getVoiceForId(item.id);
-            if (voice) utterance.voice = voice;
-
-            utterance.onend = () => {
-                index++;
-                if (index < audioQueue.length && !isPaused) {
-                    audioTimeout = setTimeout(playNext, gapSec * 1000);
-                } else if (index >= audioQueue.length) {
-                    stopAllAudio();
-                }
-            };
-            utterance.onerror = () => {
-                index++;
-                if (index < audioQueue.length && !isPaused) {
-                    audioTimeout = setTimeout(playNext, gapSec * 1000);
-                }
-            };
-            speechSynthesis.speak(utterance);
-        };
-        playNext();
-    }
-
-    function splitTextWithUnderscores(text) {
-        const parts = [];
-        let lastIndex = 0;
-        const regex = /_+/g;
-        let match;
-        while ((match = regex.exec(text)) !== null) {
-            if (match.index > lastIndex) {
-                parts.push({ type: 'text', content: text.substring(lastIndex, match.index) });
-            }
-            parts.push({ type: 'blank', content: match[0] });
-            lastIndex = match.index + match[0].length;
-        }
-        if (lastIndex < text.length) {
-            parts.push({ type: 'text', content: text.substring(lastIndex) });
-        }
-        return parts;
-    }
-
-    function speakSingleText(text, id) {
-        if (!text || text.trim() === '') return;
-        const parts = splitTextWithUnderscores(text);
+        const percentage = Math.round(totalCorrect/totalCount*100);
+        let color = '#f5222d';
+        if(percentage >= 90) color = '#722ed1';
+        else if(percentage >= 80) color = '#1890ff';
+        else if(percentage >= 70) color = '#52c41a';
+        else if(percentage >= 50) color = '#faad14';
+        document.getElementById('resultPieChart').style.background = `conic-gradient(${color} 0% ${percentage}%, #eee ${percentage}% 100%)`;
+        document.getElementById('piePercentage').innerText = `${percentage}%`;
+        document.getElementById('pieScore').innerText = `${totalCorrect}/${totalCount}`;
+        document.getElementById('reportStudentName').innerText = document.getElementById('studentName').value;
+        document.getElementById('reportDateDisplay').innerText = new Date().toLocaleDateString();
+        document.getElementById('statStartTime').innerText = startTime?.toLocaleTimeString() || '';
+        document.getElementById('statEndTime').innerText = endTime?.toLocaleTimeString() || '';
+        const totalSec = Math.floor((endTime-startTime)/1000);
+        document.getElementById('statTotalTime').innerText = `${Math.floor(totalSec/60)}p ${totalSec%60}s`;
+        const wrong = totalCount - totalCorrect;
+        const unanswered = totalCount - Object.keys(selectedAnswers).length;
+        document.getElementById('detailWrongUnanswered').innerHTML = `<span class="count-wrong">${wrong}</span> / <span class="count-unanswered">${unanswered}</span> / <span class="count-total">${totalCount}</span>`;
+        if(isCheating) document.getElementById('cheatingWarning').style.display = 'block';
         
-        if (parts.length === 1 && parts[0].type === 'text') {
-            speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'en-GB';
-            const voice = getVoiceForId(id);
-            if (voice) utterance.voice = voice;
-            speechSynthesis.speak(utterance);
-            return;
+        // Biểu đồ thanh (hiển thị tất cả các phần)
+        const chartContainer = document.getElementById('resultChart');
+        chartContainer.innerHTML = '';
+        for(let part of currentConfig.parts){
+            let r = partResults[part];
+            let progClass = r.percentage===100?'perfect':r.percentage>=90?'excellent':r.percentage>=80?'very-high':r.percentage>=70?'high':r.percentage>=50?'medium':'low';
+            let div = document.createElement('div'); div.className='part-result';
+            div.innerHTML = `<div class="part-name">Phần ${part.substring(1)}</div><div class="part-progress"><div class="part-progress-bar ${progClass}" style="width:${r.percentage}%"></div></div><div class="part-stats-row"><span class="part-count">${r.correctCount}/${r.totalCount}</span><span class="part-percentage">${r.percentage}%</span></div>`;
+            chartContainer.appendChild(div);
         }
-
-        speechSynthesis.cancel();
-
-        let currentIndex = 0;
-
-        const speakNext = () => {
-            if (currentIndex >= parts.length) return;
-            const part = parts[currentIndex];
-            let textToSpeak = part.content;
-            if (part.type === 'blank') {
-                textToSpeak = 'blank';
-            }
-            const utterance = new SpeechSynthesisUtterance(textToSpeak);
-            utterance.lang = 'en-GB';
-            const voice = getVoiceForId(id);
-            if (voice) utterance.voice = voice;
-
-            utterance.onend = () => {
-                currentIndex++;
-                if (part.type === 'blank') {
-                    setTimeout(speakNext, 300);
-                } else {
-                    speakNext();
+        
+        // Danh sách câu đã làm (P1-P12) chỉ hiển thị các phần có câu trả lời
+        const detailedContainer = document.getElementById('detailedAnswersList');
+        detailedContainer.innerHTML = '';
+        const partNumbers = ['P1','P2','P3','P4','P5','P6','P7','P8','P9','P10','P11','P12'];
+        for(let part of partNumbers){
+            if(!currentConfig.parts.includes(part)) continue;
+            const qCount = currentConfig.questionCounts[part] || 0;
+            let hasAnswered = false;
+            let questionsHtml = '';
+            for(let i=1;i<=qCount;i++){
+                const ansKey = `${part}.${i}`;
+                const userLetter = selectedAnswers[ansKey];
+                if(userLetter !== undefined){
+                    hasAnswered = true;
+                    const qData = selectedQuestionDetails[ansKey]?.question;
+                    if(qData){
+                        const opts = [qData.correct, qData.wrong1, qData.wrong2, qData.wrong3];
+                        const letters=['A','B','C','D'];
+                        const chosenText = opts[letters.indexOf(userLetter)];
+                        const isCorrect = (chosenText === qData.correct);
+                        questionsHtml += `<div class="question-detail-item"><strong>Câu ${i}:</strong> ${qData.question}<br>
+                        <span>📌 Đáp án đã chọn: <strong>${userLetter}. ${chosenText}</strong> ${isCorrect ? '✅' : '❌'}</span><br>
+                        <span>✔️ Đáp án đúng: <strong>${qData.correct}</strong></span></div>`;
+                    }
                 }
-            };
-            utterance.onerror = () => {
-                currentIndex++;
-                if (part.type === 'blank') {
-                    setTimeout(speakNext, 300);
-                } else {
-                    speakNext();
-                }
-            };
-            speechSynthesis.speak(utterance);
-        };
-
-        speakNext();
-    }
-
-    function populateVoiceList() {
-        if (!('speechSynthesis' in window)) return;
-        const voices = speechSynthesis.getVoices();
-        voiceList = sortVoicesByPlatform(voices);
-        const davidVoice = voiceList.find(v => 
-            v.name.toLowerCase().includes('david') && 
-            (v.lang.includes('en-GB') || v.lang.includes('en-US'))
-        );
-        updateVoiceDropdowns(davidVoice);
-    }
-
-    function updateVoiceDropdowns(preferredVoice = null) {
-        const singleSelect = document.getElementById('voiceSelect');
-        const oddSelect = document.getElementById('oddVoiceSelect');
-        const evenSelect = document.getElementById('evenVoiceSelect');
-        if (!singleSelect || !oddSelect || !evenSelect) return;
-
-        const fillSelect = (select) => {
-            select.innerHTML = '';
-            const emptyOpt = document.createElement('option');
-            emptyOpt.value = '';
-            emptyOpt.textContent = '-- Chọn giọng --';
-            select.appendChild(emptyOpt);
-
-            voiceList.forEach(v => {
-                const opt = document.createElement('option');
-                opt.value = v.voiceURI;
-                opt.textContent = `${v.name} (${v.lang})${v.default ? ' [Mặc định]' : ''}`;
-                if (preferredVoice && v.voiceURI === preferredVoice.voiceURI) {
-                    opt.selected = true;
-                }
-                select.appendChild(opt);
-            });
-        };
-        fillSelect(singleSelect);
-        fillSelect(oddSelect);
-        fillSelect(evenSelect);
-
-        singleVoice = singleSelect.value ? voiceList.find(v => v.voiceURI === singleSelect.value) : null;
-        oddVoice = oddSelect.value ? voiceList.find(v => v.voiceURI === oddSelect.value) : null;
-        evenVoice = evenSelect.value ? voiceList.find(v => v.voiceURI === evenSelect.value) : null;
-    }
-
-    if ('speechSynthesis' in window) {
-        speechSynthesis.onvoiceschanged = populateVoiceList;
-        if (speechSynthesis.getVoices().length > 0) {
-            populateVoiceList();
-        }
-    }
-
-    // ---------- HÀM KIỂM TRA BÀI HỢP LỆ (CÓ DỮ LIỆU) ----------
-    function isLessonValid(lesson) {
-        return (lesson.P1 && lesson.P1.length > 0) ||
-               (lesson.P2 && lesson.P2.length > 0) ||
-               (lesson.P3 && lesson.P3.length > 0) ||
-               (lesson.P4 && lesson.P4 !== "Chưa có nội dung");
-    }
-
-    // ---------- HÀM CHUẨN BỊ DỮ LIỆU (lớp 9) ----------
-    function prepareQuizData() {
-        const unitKey = selectedUnit.replace('UNIT ', 'U'); // "U1"
-        let baiNumber = null;
-        let rawData = null;
-
-        if (selectedBai === 'KIỂM TRA NGẪU NHIÊN') {
-            const unitLessons = LESSON_REGISTRY['9']?.[unitKey];
-            if (!unitLessons) {
-                alert(`Unit ${selectedUnit} chưa có bài nào.`);
-                return false;
             }
-            const availableBais = Object.keys(unitLessons);
-            const validBais = availableBais.filter(b => isLessonValid(unitLessons[b]));
-            if (validBais.length === 0) {
-                alert(`Unit ${selectedUnit} chưa có bài nào có dữ liệu.`);
-                return false;
-            }
-            const randomBai = validBais[Math.floor(Math.random() * validBais.length)];
-            baiNumber = randomBai.substring(1);
-            rawData = unitLessons[randomBai];
-        } else {
-            baiNumber = selectedBai.replace('BÀI ', '');
-            rawData = LESSON_REGISTRY['9']?.[unitKey]?.[`B${baiNumber}`];
-            if (!rawData) {
-                alert(`Không tìm thấy dữ liệu cho ${selectedUnit} - ${selectedBai}.`);
-                return false;
-            }
-            if (!isLessonValid(rawData)) {
-                alert(`Bài ${selectedBai} trong ${selectedUnit} chưa có nội dung.`);
-                return false;
-            }
-        }
-
-        if (!rawData) {
-            alert(`Không tìm thấy dữ liệu cho ${selectedUnit} - ${selectedBai}.`);
-            return false;
-        }
-
-        currentLessonData = rawData;
-
-        let questionPool = [];
-        let numberOfQuestions = 5;
-
-        if (selectedDang === 'TRẮC NGHIỆM TỔNG HỢP') {
-            const p1 = rawData.P1 || [];
-            const p2 = rawData.P2 || [];
-            const p3 = rawData.P3 || [];
-            questionPool = [...p1, ...p2, ...p3];
-            numberOfQuestions = 10;
-        } else if (selectedDang.includes('TRẮC NGHIỆM TRẢ LỜI CÂU HỎI')) {
-            questionPool = rawData.P1 || [];
-        } else if (selectedDang.includes('TRUE – FALSE')) {
-            questionPool = rawData.P2 || [];
-        } else if (selectedDang.includes('ĐIỀN KHUYẾT')) {
-            questionPool = rawData.P3 || [];
-        }
-
-        if (!questionPool.length) {
-            alert('Dạng bài này chưa có câu hỏi.');
-            return false;
-        }
-
-        const shuffled = [...questionPool].sort(() => 0.5 - Math.random());
-        const selected = shuffled.slice(0, Math.min(numberOfQuestions, shuffled.length));
-
-        quizData = selected.map(q => {
-            let opts = [q.correct, q.wrong1, q.wrong2];
-            for (let i = opts.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [opts[i], opts[j]] = [opts[j], opts[i]];
-            }
-            return {
-                id: q.id,
-                question: q.word,
-                options: opts,
-                correct: q.correct
-            };
-        });
-        return true;
-    }
-
-    // ---------- RENDER CÁC MÀN HÌNH (giữ nguyên logic, chỉ sửa tên lớp) ----------
-    function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-
-    function renderMain() {
-        let html = `
-            <div class="main-card">
-                <h1>🔊 LUYỆN NGHE TIẾNG ANH LỚP 9</h1>
-                <div class="flex-col">
-                    <div class="label-input"><label>👤 TÊN</label><input type="text" id="studentNameInput" value="${studentName}"></div>
-                    <div class="label-input"><label>📚 UNIT</label><select id="unitSelect">${UNIT_ITEMS.map(u => `<option ${selectedUnit===u?'selected':''}>${u}</option>`).join('')}</select></div>
-                    <div class="label-input"><label>📖 BÀI</label><select id="baiSelect">${BAI_ITEMS.map(b => `<option ${selectedBai===b?'selected':''}>${b}</option>`).join('')}</select></div>
-                    <div class="label-input"><label>🎯 DẠNG</label><select id="dangSelect">${DANG_BAI.map(d => `<option ${selectedDang===d?'selected':''}>${d}</option>`).join('')}</select></div>
-                    <div class="btn-group"><button class="btn primary" id="startBtn">▶ LÀM BÀI</button></div>
-                </div>
-                <div class="footer-info"><p>👨🏫 Thầy Hùng</p><p>Giáo viên dạy kèm Toán, tiếng Anh</p><p class="zalo">📞 Zalo: 0967.095.025</p></div>
-                <div class="action-buttons-container"><div></div><a href="#" class="scroll-top" id="scrollTopMain">⬆️</a></div>
-            </div>`;
-        app.innerHTML = html;
-        document.getElementById('studentNameInput').addEventListener('input', e => studentName = e.target.value);
-        document.getElementById('unitSelect').addEventListener('change', e => selectedUnit = e.target.value);
-        document.getElementById('baiSelect').addEventListener('change', e => selectedBai = e.target.value);
-        document.getElementById('dangSelect').addEventListener('change', e => selectedDang = e.target.value);
-        document.getElementById('startBtn').addEventListener('click', () => {
-            if (!studentName.trim()) { alert('Vui lòng nhập tên'); return; }
-            if (!prepareQuizData()) { return; }
-            currentScreen = 'quiz';
-            startTime = Date.now();
-            endTime = null;
-            userAnswers = [];
-            audioEnabled = false;
-            render();
-            scrollToTop();
-        });
-        document.getElementById('scrollTopMain').addEventListener('click', (e)=>{ e.preventDefault(); scrollToTop(); });
-    }
-
-    function renderQuiz() {
-        let titleBai = selectedBai === 'KIỂM TRA NGẪU NHIÊN' ? 'KIỂM TRA' : selectedBai;
-        let html = `
-            <div class="main-card">
-                <h2>📘 LỚP 9 - ${selectedUnit} - ${titleBai}</h2>
-                <div class="title-sub">${selectedDang}</div>
-                
-                <div class="audio-panel" id="audioPanel">
-                    <span class="speaker-icon" id="playSpeaker">🔊</span>
-                    <select id="gapTimeSelect">
-                        <option value="0.25">0.25s</option>
-                        <option value="0.5" selected>0.5s</option>
-                        <option value="0.75">0.75s</option>
-                        <option value="1">1s</option>
-                        <option value="2">2s</option>
-                        <option value="3">3s</option>
-                        <option value="4">4s</option>
-                        <option value="5">5s</option>
-                        <option value="6">6s</option>
-                    </select>
-                    <select id="loopCountSelect">
-                        <option value="1" selected>1 lần</option>
-                        <option value="2">2 lần</option>
-                        <option value="3">3 lần</option>
-                        <option value="4">4 lần</option>
-                    </select>
-                    <button id="pauseAudioBtn">⏸️</button>
-                    <button id="stopAudioBtn">⏹️</button>
-                </div>
-                <div style="display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 20px; align-items: center; background: #e0ebf9; padding: 12px 20px; border-radius: 40px;">
-                    <label style="font-weight:600;">Số giọng:
-                        <select id="voiceModeSelect" style="padding:6px 12px; border-radius:40px;">
-                            <option value="1" selected>1 giọng</option>
-                            <option value="2">2 giọng (lẻ/chẵn)</option>
-                        </select>
-                    </label>
-                    <div id="singleVoiceContainer" style="display: flex; align-items:center; gap: 10px;">
-                        <label>Giọng: <select id="voiceSelect" style="min-width:180px; padding:6px;"></select></label>
-                    </div>
-                    <div id="dualVoiceContainer" style="display: none; align-items:center; gap: 10px; flex-wrap:wrap;">
-                        <label>Giọng lẻ (1,3,5...): <select id="oddVoiceSelect" style="min-width:160px;"></select></label>
-                        <label>Giọng chẵn (2,4,6...): <select id="evenVoiceSelect" style="min-width:160px;"></select></label>
-                    </div>
-                </div>
-
-                <div id="quizQuestions"></div>
-                <div class="btn-group"><button class="btn primary" id="submitQuizBtn">📩 NỘP BÀI</button></div>
-                
-                <div class="action-buttons-container">
-                    <button class="btn-back" id="backToMainBtn">◀ QUAY LẠI</button>
-                    <a href="#" class="scroll-top" id="scrollTopQuiz">⬆️</a>
-                </div>
-            </div>`;
-        app.innerHTML = html;
-
-        let qDiv = document.getElementById('quizQuestions');
-        quizData.forEach((q, idx) => {
-            let qHtml = `<div class="question-item" data-qidx="${idx}">
-                <div class="question-text">
-                    <span class="speaker-btn" data-text="${q.question.replace(/"/g, '&quot;')}" data-id="${q.id}">🔊</span>
-                    ${idx+1}. ${q.question}
-                </div>
-                <div class="options">`;
-            q.options.forEach((opt, optIdx) => {
-                let checked = (userAnswers[idx] && userAnswers[idx].chosen === opt) ? 'checked' : '';
-                qHtml += `<label class="option ${checked ? 'selected' : ''}"><input type="radio" name="q${idx}" value="${opt}" ${checked}> ${opt}</label>`;
-            });
-            qHtml += '</div></div>';
-            qDiv.innerHTML += qHtml;
-        });
-
-        document.querySelectorAll('.question-item input[type=radio]').forEach(radio => {
-            radio.addEventListener('change', function(e) {
-                let name = this.name;
-                let qIndex = parseInt(name.substring(1));
-                let chosen = this.value;
-                if (!userAnswers[qIndex]) userAnswers[qIndex] = {};
-                userAnswers[qIndex].chosen = chosen;
-                document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
-                    r.closest('.option').classList.remove('selected');
+            if(hasAnswered){
+                const partId = `part-${part}`;
+                const accordion = document.createElement('div'); accordion.className = 'part-accordion';
+                accordion.innerHTML = `<div class="part-accordion-header" data-target="${partId}">📁 Phần ${part.substring(1)} (đã trả lời) <span>▼</span></div><div id="${partId}" class="part-accordion-content">${questionsHtml}</div>`;
+                detailedContainer.appendChild(accordion);
+                const header = accordion.querySelector('.part-accordion-header');
+                const content = accordion.querySelector(`#${partId}`);
+                header.addEventListener('click', () => {
+                    content.classList.toggle('open');
+                    header.querySelector('span').innerHTML = content.classList.contains('open') ? '▲' : '▼';
                 });
-                this.closest('.option').classList.add('selected');
-            });
-        });
-
-        document.querySelectorAll('.speaker-btn[data-text]').forEach(btn => {
-            btn.addEventListener('click', e => {
-                e.stopPropagation();
-                const text = btn.getAttribute('data-text');
-                const id = parseInt(btn.getAttribute('data-id'));
-                speakSingleText(text, id);
-            });
-        });
-
-        if (voiceList.length) {
-            const davidVoice = voiceList.find(v => 
-                v.name.toLowerCase().includes('david') && 
-                (v.lang.includes('en-GB') || v.lang.includes('en-US'))
-            );
-            updateVoiceDropdowns(davidVoice);
+            }
+        }
+        
+        // ========== KIỂM TRA HIỂN THỊ PHẦN NGHE ==========
+        // Chỉ hiển thị phần nghe nếu:
+        // 1. Có dữ liệu listening (currentListeningLesson)
+        // 2. VÀ (không bị gian lận HOẶC nếu bị gian lận thì phần hiện tại phải >= chỉ số của P13)
+        let showListening = false;
+        if(currentListeningLesson) {
+            const p13Index = currentConfig.parts.indexOf('P13');
+            if(!isCheating) {
+                showListening = true;
+            } else {
+                // Nếu bị gian lận, chỉ hiển thị phần nghe nếu đã bắt đầu phần đó (currentPart >= p13Index)
+                if(p13Index !== -1 && currentPart >= p13Index) {
+                    showListening = true;
+                } else {
+                    showListening = false;
+                }
+            }
+        }
+        
+        if(showListening){
+            const container = document.getElementById('listeningReportContainer');
+            container.innerHTML = `<div class="report-listening-section"><h3>🎧 BÁO CÁO LUYỆN NGHE (P13)</h3>
+            <div class="listening-panel">
+                <span class="speaker-icon-big" id="reportPlayAudio">🔊</span>
+                <select id="reportGap"><option value="0.5">0.5s</option><option value="1">1s</option></select>
+                <select id="reportLoop"><option value="1">1 lần</option><option value="2">2 lần</option></select>
+                <button id="reportPause">⏸️</button><button id="reportStop">⏹️</button>
+            </div>
+            <div class="voice-control-row" id="reportVoiceControl">
+                <label>Số giọng: <select id="reportVoiceModeSelect"><option value="1">1 giọng</option><option value="2">2 giọng</option></select></label>
+                <div id="reportSingleVoiceDiv"><label>Giọng: <select id="reportVoiceSelect"></select></label></div>
+                <div id="reportDualVoiceDiv" style="display:none;"><label>Giọng lẻ: <select id="reportOddVoiceSelect"></select></label><label>Giọng chẵn: <select id="reportEvenVoiceSelect"></select></label></div>
+            </div>
+            <div><button id="togglePassageBtn">📄 Hiện đoạn văn</button><div id="passageDiv" style="display:none; background:#f0f5ff; padding:15px; margin-top:10px;">${currentListeningLesson.lessonData.P4 || ''}</div></div>
+            <h4>Chi tiết câu hỏi:</h4>
+            <table style="width:100%"><thead><tr><th>Câu</th><th>Nội dung</th><th>Đáp án chọn</th><th>Đáp án đúng</th></tr></thead><tbody id="listeningReportTable"></tbody></table></div>`;
+            const questions = selectedQuestions['P13'];
+            const tbody = document.getElementById('listeningReportTable');
+            for(let i=0;i<questions.length;i++){
+                const q = questions[i];
+                const userAns = selectedAnswers[`P13.${i+1}`];
+                const opts = answerOrders[`P13.${i+1}`];
+                const letters=['A','B','C'];
+                let chosenText = userAns ? opts[letters.indexOf(userAns)] : '(chưa chọn)';
+                let isCorrect = (chosenText === q.correct);
+                tbody.innerHTML += `<tr><td>${i+1}</td><td>${q.word}</td><td class="${isCorrect?'correct-answer-badge':'wrong-answer-badge'}">${chosenText}</td><td class="correct-answer-badge">${q.correct}</td></tr>`;
+            }
+            // Voice cho report
+            if(voiceList.length){
+                const fillSel = (id) => { const sel = document.getElementById(id); if(sel){ sel.innerHTML=''; voiceList.forEach(v=>{ const opt=document.createElement('option'); opt.value=v.voiceURI; opt.textContent=`${v.name} (${v.lang})`; sel.appendChild(opt); }); } };
+                fillSel('reportVoiceSelect'); fillSel('reportOddVoiceSelect'); fillSel('reportEvenVoiceSelect');
+                document.getElementById('reportVoiceModeSelect')?.addEventListener('change',(e)=>{ voiceMode=parseInt(e.target.value); document.getElementById('reportSingleVoiceDiv').style.display=voiceMode===1?'flex':'none'; document.getElementById('reportDualVoiceDiv').style.display=voiceMode===2?'flex':'none'; });
+                document.getElementById('reportVoiceSelect')?.addEventListener('change',(e)=>{ singleVoice=voiceList.find(v=>v.voiceURI===e.target.value); });
+                document.getElementById('reportOddVoiceSelect')?.addEventListener('change',(e)=>{ oddVoice=voiceList.find(v=>v.voiceURI===e.target.value); });
+                document.getElementById('reportEvenVoiceSelect')?.addEventListener('change',(e)=>{ evenVoice=voiceList.find(v=>v.voiceURI===e.target.value); });
+            }
+            document.getElementById('reportPlayAudio')?.addEventListener('click',()=>{ if(currentListeningLesson.lessonData.P5){ let gap=parseFloat(document.getElementById('reportGap').value); let loop=parseInt(document.getElementById('reportLoop').value); playAudioSentences(currentListeningLesson.lessonData.P5, gap, loop); } });
+            document.getElementById('reportPause')?.addEventListener('click',()=>{ if(isPaused) resumeAudio(); else pauseAudio(); });
+            document.getElementById('reportStop')?.addEventListener('click',stopAllAudio);
+            document.getElementById('togglePassageBtn')?.addEventListener('click',()=>{ const pd=document.getElementById('passageDiv'); pd.style.display=pd.style.display==='none'?'block':'none'; });
         } else {
-            populateVoiceList();
+            // Nếu không hiển thị phần nghe, xóa nội dung cũ
+            document.getElementById('listeningReportContainer').innerHTML = '';
         }
-
-        document.getElementById('voiceModeSelect').addEventListener('change', function(e) {
-            voiceMode = parseInt(e.target.value);
-            document.getElementById('singleVoiceContainer').style.display = voiceMode === 1 ? 'flex' : 'none';
-            document.getElementById('dualVoiceContainer').style.display = voiceMode === 2 ? 'flex' : 'none';
-        });
-        document.getElementById('voiceSelect')?.addEventListener('change', e => {
-            singleVoice = e.target.value ? voiceList.find(v => v.voiceURI === e.target.value) : null;
-        });
-        document.getElementById('oddVoiceSelect')?.addEventListener('change', e => {
-            oddVoice = e.target.value ? voiceList.find(v => v.voiceURI === e.target.value) : null;
-        });
-        document.getElementById('evenVoiceSelect')?.addEventListener('change', e => {
-            evenVoice = e.target.value ? voiceList.find(v => v.voiceURI === e.target.value) : null;
-        });
-
-        document.getElementById('playSpeaker').addEventListener('click', ()=>{
-            if (!audioEnabled) { startTime = Date.now(); audioEnabled = true; }
-            if (currentLessonData && currentLessonData.P5) {
-                let gap = parseFloat(document.getElementById('gapTimeSelect').value);
-                let loop = parseInt(document.getElementById('loopCountSelect').value);
-                playAudioSentences(currentLessonData.P5, gap, loop);
-            }
-        });
-        document.getElementById('pauseAudioBtn').addEventListener('click', ()=>{
-            if (isPaused) resumeAudio(); else pauseAudio();
-        });
-        document.getElementById('stopAudioBtn').addEventListener('click', stopAllAudio);
-        document.getElementById('backToMainBtn').addEventListener('click', ()=>{ stopAllAudio(); currentScreen='main'; render(); scrollToTop(); });
-        document.getElementById('scrollTopQuiz').addEventListener('click', e=>{ e.preventDefault(); scrollToTop(); });
-        document.getElementById('submitQuizBtn').addEventListener('click', ()=>{
-            if (userAnswers.filter(a=>a?.chosen).length !== quizData.length) { 
-                alert(`Vui lòng trả lời đủ ${quizData.length} câu`); 
-                return; 
-            }
-            endTime = Date.now();
-            stopAllAudio();
-            currentScreen = 'report';
-            render();
-            scrollToTop();
-        });
     }
-
-    function renderReport() {
-        let total = quizData.length;
-        let correctCount = userAnswers.filter((ans,i)=> ans?.chosen === quizData[i]?.correct).length;
-        let percent = (correctCount/total)*100;
-        let color = percent<50?'#f5222d':percent<70?'#faad14':percent<80?'#52c41a':percent<90?'#13c2c2':percent<100?'#1890ff':'#722ed1';
-        let startStr = startTime ? new Date(startTime).toLocaleTimeString() : '';
-        let endStr = endTime ? new Date(endTime).toLocaleTimeString() : '';
-        let streak = 0, maxStreak=0;
-        userAnswers.forEach((a,i)=> { if(a?.chosen===quizData[i]?.correct) streak++; else { maxStreak=Math.max(maxStreak,streak); streak=0; } });
-        maxStreak=Math.max(maxStreak,streak);
-        let totalTime = endTime && startTime ? Math.round((endTime-startTime)/300) : 0;
-
-        let titleBai = selectedBai === 'KIỂM TRA NGẪU NHIÊN' ? 'KIỂM TRA' : selectedBai;
-        let passageText = currentLessonData?.P4 || 'Chưa có nội dung';
-        let sentences = currentLessonData?.P5 || [];
-
-        let html = `
-            <div class="main-card">
-                <h2>📊 BÁO CÁO LỚP 9 - ${selectedUnit} - ${titleBai}</h2>
-                <div class="title-sub">${selectedDang}</div>
-                
-                <div class="report-chart-grid">
-                    <div class="chart-box">
-                        <div style="font-weight:800; font-size:2.4rem; color:blue; margin-bottom:10px;">${studentName}</div>
-                        <div class="pie" style="background: conic-gradient(${color} 0deg ${percent*3.6}deg, #e0e0e0 ${percent*3.6}deg 360deg);">
-                            <span style="color: ${color};">${Math.round(percent)}%</span>
-                        </div>
-                        <div style="font-weight:bold; color:#1e3c72; margin-top:15px;">${new Date().toLocaleDateString()}</div>
-                    </div>
-                    <div class="stats-grid">
-                        <div class="stat-item"><div>⏱️ START</div><div>${startStr}</div></div>
-                        <div class="stat-item"><div>⌛ END</div><div>${endStr}</div></div>
-                        <div class="stat-item"><div>🔗 CHUỖI</div><div>${maxStreak}/${correctCount}/${total}</div></div>
-                        <div class="stat-item"><div>⏳ Tổng</div><div>${totalTime}s</div></div>
-                    </div>
-                </div>
-
-                <div class="audio-panel" id="audioPanelReport">
-                    <span class="speaker-icon" id="playSpeakerReport">🔊</span>
-                    <select id="gapTimeSelectReport">
-                        <option value="0.25">0.25s</option>
-                        <option value="0.5" selected>0.5s</option>
-                        <option value="0.75">0.75s</option>
-                        <option value="1">1s</option>
-                        <option value="2">2s</option>
-                        <option value="3">3s</option>
-                        <option value="4">4s</option>
-                        <option value="5">5s</option>
-                        <option value="6">6s</option>
-                    </select>
-                    <select id="loopCountSelectReport">
-                        <option value="1" selected>1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                    </select>
-                    <button id="pauseAudioBtnReport">⏸️</button><button id="stopAudioBtnReport">⏹️</button>
-                </div>
-                <div style="display: flex; flex-wrap: wrap; gap: 16px; margin: 10px 0 20px; align-items: center; background: #e0ebf9; padding: 12px 20px; border-radius: 40px;">
-                    <label style="font-weight:600;">Số giọng:
-                        <select id="voiceModeSelectReport" style="padding:6px 12px;">
-                            <option value="1" selected>1 giọng</option>
-                            <option value="2">2 giọng</option>
-                        </select>
-                    </label>
-                    <div id="singleVoiceContainerReport" style="display: flex; gap:10px;">
-                        <label>Giọng: <select id="voiceSelectReport"></select></label>
-                    </div>
-                    <div id="dualVoiceContainerReport" style="display: none; gap:10px; flex-wrap:wrap;">
-                        <label>Giọng lẻ: <select id="oddVoiceSelectReport"></select></label>
-                        <label>Giọng chẵn: <select id="evenVoiceSelectReport"></select></label>
-                    </div>
-                </div>
-
-                <button class="btn" id="togglePassageBtn">📄 HIỆN đoạn văn P4</button>
-                <div id="passageContainer" style="display:none;" class="hidden-passage">${passageText}</div>
-                
-                <h3>📋 Chi tiết câu hỏi</h3>
-                 <table>
-                    <thead>
-                         <tr><th>STT</th><th>Nội dung</th><th>Đáp án chọn</th><th>Đáp án đúng</th></tr>
-                    </thead>
-                    <tbody>`;
-        quizData.forEach((q,i)=>{
-            let chosen = userAnswers[i]?.chosen || '—';
-            let correct = q.correct;
-            let wrongClass = (chosen !== correct) ? 'wrong-answer' : '';
-            html += `<tr><td>${i+1}</td><td>${q.question}</td><td class="${wrongClass}">${chosen}</td><td><span class="correct-answer">${correct}</span></td></tr>`;
-        });
-        html += `</tbody>
-                  </table>
-                <br>
-                <div class="action-buttons-container">
-                    <button class="btn-back" id="backToMainBtnReport">◀ QUAY LẠI</button>
-                    <a href="#" class="scroll-top" id="scrollTopReport">⬆️</a>
-                </div>
-            </div>`;
-        app.innerHTML = html;
-
-        // Xử lý voice dropdowns trong report (giống quiz)
-        if (voiceList.length) {
-            const davidVoice = voiceList.find(v => 
-                v.name.toLowerCase().includes('david') && 
-                (v.lang.includes('en-GB') || v.lang.includes('en-US'))
-            );
-            const singleSel = document.getElementById('voiceSelectReport');
-            const oddSel = document.getElementById('oddVoiceSelectReport');
-            const evenSel = document.getElementById('evenVoiceSelectReport');
-            if (singleSel && oddSel && evenSel) {
-                const fill = (sel) => {
-                    sel.innerHTML = '';
-                    const emptyOpt = document.createElement('option');
-                    emptyOpt.value = '';
-                    emptyOpt.textContent = '-- Chọn giọng --';
-                    sel.appendChild(emptyOpt);
-                    voiceList.forEach(v => {
-                        let opt = document.createElement('option');
-                        opt.value = v.voiceURI;
-                        opt.textContent = `${v.name} (${v.lang})`;
-                        if (davidVoice && v.voiceURI === davidVoice.voiceURI) opt.selected = true;
-                        sel.appendChild(opt);
-                    });
-                };
-                fill(singleSel);
-                fill(oddSel);
-                fill(evenSel);
-            }
-        }
-
-        const modeSel = document.getElementById('voiceModeSelectReport');
-        const singleDiv = document.getElementById('singleVoiceContainerReport');
-        const dualDiv = document.getElementById('dualVoiceContainerReport');
-        if (modeSel) {
-            modeSel.addEventListener('change', e => {
-                voiceMode = parseInt(e.target.value);
-                singleDiv.style.display = voiceMode === 1 ? 'flex' : 'none';
-                dualDiv.style.display = voiceMode === 2 ? 'flex' : 'none';
-            });
-        }
-        document.getElementById('voiceSelectReport')?.addEventListener('change', e => {
-            singleVoice = e.target.value ? voiceList.find(v => v.voiceURI === e.target.value) : null;
-        });
-        document.getElementById('oddVoiceSelectReport')?.addEventListener('change', e => {
-            oddVoice = e.target.value ? voiceList.find(v => v.voiceURI === e.target.value) : null;
-        });
-        document.getElementById('evenVoiceSelectReport')?.addEventListener('change', e => {
-            evenVoice = e.target.value ? voiceList.find(v => v.voiceURI === e.target.value) : null;
-        });
-
-        document.getElementById('playSpeakerReport').addEventListener('click', ()=>{
-            if (currentLessonData && currentLessonData.P5) {
-                let gap = parseFloat(document.getElementById('gapTimeSelectReport').value);
-                let loop = parseInt(document.getElementById('loopCountSelectReport').value);
-                playAudioSentences(currentLessonData.P5, gap, loop);
-            }
-        });
-        document.getElementById('pauseAudioBtnReport').addEventListener('click', ()=>{
-            if (isPaused) resumeAudio(); else pauseAudio();
-        });
-        document.getElementById('stopAudioBtnReport').addEventListener('click', stopAllAudio);
-        document.getElementById('togglePassageBtn').addEventListener('click', ()=>{
-            let c = document.getElementById('passageContainer');
-            c.style.display = c.style.display === 'none' ? 'block' : 'none';
-        });
-        document.getElementById('backToMainBtnReport').addEventListener('click', ()=>{ stopAllAudio(); currentScreen='main'; render(); scrollToTop(); });
-        document.getElementById('scrollTopReport').addEventListener('click', e=>{ e.preventDefault(); scrollToTop(); });
-    }
-
-    function render() {
-        if (currentScreen === 'main') renderMain();
-        else if (currentScreen === 'quiz') renderQuiz();
-        else if (currentScreen === 'report') renderReport();
-    }
-
-    render();
+    
+    document.getElementById('startButton').addEventListener('click', startExam);
+    document.getElementById('nextButton').addEventListener('click', nextPart);
+    document.getElementById('retryButton').addEventListener('click', ()=>location.reload());
+    document.getElementById('newExamButton').addEventListener('click', ()=>location.reload());
 </script>
 </body>
 </html>
