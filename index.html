@@ -2,166 +2,345 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Đề Cương Ôn Thi Tiếng Anh Lớp 4 + Luyện Nghe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Đề Cương Ôn Thi Tiếng Anh - Phần 13 Nghe Hiểu</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #333; background-color: #f5f5f5; }
-        .container { max-width: 800px; margin: 0 auto; padding: 15px; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
-        .main-title { text-align: center; margin-bottom: 10px; color: #0066cc; font-size: 22px; }
-        .sub-title { text-align: center; margin-bottom: 10px; color: #333; font-size: 18px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; }
-        input, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px; }
-        .btn-primary, .btn-secondary { display: block; width: 100%; padding: 12px; border: none; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 20px; transition: opacity 0.2s; }
-        .btn-primary { background-color: #0066cc; color: white; }
-        .btn-secondary { background-color: #f0f0f0; color: #333; }
-        .btn-primary:hover:not(:disabled), .btn-secondary:hover { opacity: 0.9; }
-        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-        .exam-header { margin-bottom: 15px; }
-        .progress-container { margin-bottom: 15px; }
-        .progress-bar { height: 12px; background-color: #ffcc00; border-radius: 6px; transition: width 1s linear; }
-        .progress-text { text-align: center; margin-top: 3px; font-weight: bold; font-size: 14px; }
-        .exam-info { display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: bold; font-size: 14px; }
-        .instruction { background-color: #f9f9f9; padding: 10px; border-radius: 4px; margin-bottom: 15px; font-size: 15px; white-space: pre-wrap; }
-        .question-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 15px; }
-        .question-button { padding: 6px 12px; background-color: #f0f0f0; border: 1px solid #ddd; border-radius: 4px; cursor: pointer; transition: all 0.3s; font-size: 14px; }
-        .question-button.active { background-color: #0066cc; color: white; }
-        .question-button.answered { background-color: #e6f7ff; border-color: #0066cc; }
-        .question-content { 
-            background: white; 
-            border-radius: 24px; 
-            padding: 20px; 
-            box-shadow: 0 5px 12px rgba(0,0,0,0.05);
-            margin-top: 10px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .question-text { 
-            font-size: 1.05rem; 
-            font-weight: 600; 
-            margin-bottom: 18px; 
-            background: #f3f7ff; 
-            padding: 12px 18px; 
-            border-radius: 60px; 
-            color: #1e3a8a;
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.5;
+            color: #333;
+            background-color: #f5f5f5;
         }
-        .answer-options { display: flex; flex-direction: column; gap: 12px; }
-        .answer-option { 
-            display: flex; 
-            align-items: center; 
-            gap: 8px; 
-            background: #f3f7ff; 
-            padding: 10px 18px; 
-            border-radius: 60px; 
-            cursor: pointer; 
-            border: 2px solid transparent; 
-            transition: all 0.2s; 
-            font-size: 0.95rem;
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-        .answer-option:hover { background: #e6edf9; }
-        .answer-option.selected { 
-            border-color: #2a5298; 
-            background: #cddcff; 
-            font-weight: 500;
+
+        .main-title {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #0066cc;
+            font-size: 22px;
         }
-        .passage-text { 
-            background: #fef9e6; 
-            padding: 14px 18px; 
-            border-radius: 20px; 
-            margin-bottom: 20px; 
-            border-left: 5px solid #ffcc00; 
-            font-style: normal; 
-            font-size: 0.95rem;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+
+        .sub-title {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 18px;
         }
-        .listening-panel { 
-            background: #eef3fc; 
-            border-radius: 16px; 
-            padding: 8px 16px; 
-            margin-bottom: 20px; 
-            display: flex; 
-            flex-wrap: nowrap;
-            align-items: center; 
-            justify-content: flex-start;
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .btn-primary, .btn-secondary {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .btn-primary {
+            background-color: #0066cc;
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-primary:hover, .btn-secondary:hover {
+            opacity: 0.9;
+        }
+
+        .exam-header {
+            margin-bottom: 15px;
+        }
+
+        .progress-container {
+            margin-bottom: 15px;
+        }
+
+        .progress-bar {
+            height: 12px;
+            background-color: #ffcc00;
+            border-radius: 6px;
+            transition: width 1s linear;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 3px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .exam-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .instruction {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+
+        .audio-controls {
+            background-color: #f0f7ff;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #b8d4ff;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
             gap: 12px;
-            overflow-x: auto;
         }
-        .listening-panel select, .listening-panel button { 
-            background: white; 
-            border: none; 
-            padding: 6px 12px; 
-            border-radius: 40px; 
-            font-size: 0.85rem; 
-            font-weight: 600; 
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
-            cursor: pointer; 
+        .audio-controls button, .audio-controls select, .audio-controls .time-select {
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            background: white;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .audio-controls button {
+            background-color: #0066cc;
+            color: white;
+            border: none;
+        }
+        .audio-controls button:active { opacity: 0.7; }
+        .audio-controls .control-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .audio-controls label {
+            font-size: 13px;
+            margin: 0;
+        }
+
+        .question-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .question-button {
+            padding: 6px 12px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .question-button:hover {
+            background-color: #e0e0e0;
+        }
+
+        .question-button.active {
+            background-color: #0066cc;
+            color: white;
+        }
+
+        .question-button.answered {
+            background-color: #e6f7ff;
+            border-color: #0066cc;
+        }
+
+        .question-content {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 4px;
+            min-height: 180px;
+        }
+
+        .question-text {
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        .answer-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .answer-option {
+            padding: 10px 12px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 15px;
+        }
+
+        .answer-option:hover {
+            background-color: #f0f0f0;
+        }
+
+        .answer-option.selected {
+            background-color: #e6f7ff;
+            border-color: #0066cc;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        /* Report Screen */
+        #reportScreen .main-title { font-size: 18px; margin-bottom: 5px; }
+        #reportScreen .sub-title { font-size: 14px; margin-bottom: 5px; }
+        #reportScreen .result-title { font-size: 18px; margin-bottom: 15px; }
+        .report-top-section {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            overflow-x: hidden;
+        }
+        .report-box-1 {
+            flex: 1;
+            min-width: 0;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .report-student-name {
+            font-weight: bold;
+            color: #5b21b6;
+            font-size: 27.3px;
+            margin-bottom: 5px;
             white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
         }
-        .speaker-icon-big { 
-            font-size: 1.6rem; 
-            cursor: pointer; 
-            background: #2a5298; 
-            color: white; 
-            width: 44px; 
-            height: 44px; 
-            display: inline-flex; 
-            align-items: center; 
-            justify-content: center; 
-            border-radius: 40px; 
-            box-shadow: 0 3px 0 #102a4c;
+        .pie-chart-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin-bottom: 5px;
             flex-shrink: 0;
         }
-        .listening-question-item { background: white; border-radius: 24px; padding: 18px; margin-bottom: 18px; box-shadow: 0 5px 12px rgba(0,0,0,0.05); text-align: left; }
-        .listening-question-text { font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 12px; font-size: 1rem; flex-wrap: wrap; }
-        .speaker-btn-sm { font-size: 1.5rem; cursor: pointer; background: #2a5298; color: white; width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; border-radius: 30px; flex-shrink: 0; }
-        .listening-options { display: flex; flex-direction: column; gap: 12px; width: 100%; margin-top: 8px; }
-        .listening-option { 
-            display: flex; 
-            align-items: center; 
-            gap: 14px; 
-            background: #f3f7ff; 
-            padding: 10px 18px; 
-            border-radius: 60px; 
-            cursor: pointer; 
-            border: 2px solid transparent; 
-            width: 98%; 
-            max-width: 100%; 
-            white-space: normal; 
-            word-break: break-word; 
-            font-size: 0.95rem; 
-            line-height: 1.4; 
-            transition: all 0.2s; 
+        .pie-chart {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(var(--chart-color, #ddd) 0% 0%, #eee 0% 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .listening-option.selected { border-color: #2a5298; background: #cddcff; }
-        .listening-option:hover { background: #e6edf9; }
-        .listening-option input[type="radio"] { margin: 0; flex-shrink: 0; width: 18px; height: 18px; accent-color: #2a5298; }
-        .voice-control-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; background: #e0ebf9; padding: 10px 16px; border-radius: 40px; margin-bottom: 20px; }
-        .report-top-section { display: flex; flex-wrap: nowrap; gap: 10px; margin-bottom: 20px; overflow-x: hidden; }
-        .report-box-1 { flex: 1; min-width: 0; background-color: #f8f9fa; border: 1px solid #e9ecef; border-radius: 10px; padding: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-        .report-student-name { font-weight: bold; color: #5b21b6; font-size: 27.3px; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; }
-        .pie-chart-container { position: relative; width: 120px; height: 120px; margin-bottom: 5px; flex-shrink: 0; margin: auto; }
-        .pie-chart { width: 100%; height: 100%; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-        .pie-inner { width: 75%; height: 75%; background-color: #fff; border-radius: 50%; display: flex; flex-direction: column; overflow: hidden; }
+        .pie-inner {
+            width: 75%;
+            height: 75%;
+            background-color: #fff;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
         .pie-top-section { flex: 1; }
         .pie-middle-section { flex: 1; display: flex; align-items: center; justify-content: center; }
         .pie-bottom-section { flex: 1; display: flex; align-items: center; justify-content: center; }
         .pie-percentage { font-size: 34.1px; font-weight: bold; color: #333; line-height: 1; }
         .pie-score { font-size: 14px; color: #006400; font-weight: bold; }
         .report-date { font-weight: bold; color: #000; font-size: 12px; margin-top: 2px; }
-        .report-box-2 { flex: 1; min-width: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 5px; }
-        .stat-mini-box { background-color: #fff; border: 1px solid #e9ecef; border-radius: 8px; padding: 5px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        .report-box-2 {
+            flex: 1;
+            min-width: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 5px;
+        }
+        .stat-mini-box {
+            background-color: #fff;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
         .stat-label { font-size: 10px; color: #666; margin-bottom: 2px; text-transform: uppercase; white-space: nowrap; }
         .stat-value { font-weight: bold; font-size: 13px; }
         .stat-time-start { color: #16a34a; }
         .stat-time-end { color: #dc2626; }
         .stat-total-time { color: #2563eb; }
         .detailed-count { display: flex; align-items: center; gap: 2px; }
+        .detailed-count span { margin: 0; font-size: 12px; }
         .count-wrong { color: #dc2626; }
         .count-unanswered { color: #f97316; }
-        .part-results-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
-        .part-result { padding: 10px; background-color: #f9f9f9; border-radius: 4px; border: 1px solid #e0e0e0; }
+        .count-total { color: #000000; }
+        .chart-container { margin-bottom: 15px; }
+        .part-results-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .part-result {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+        }
         .part-name { font-weight: bold; margin-bottom: 5px; font-size: 14px; text-align: center; }
         .part-progress { height: 12px; background-color: #f0f0f0; border-radius: 6px; overflow: hidden; margin-bottom: 5px; }
-        .part-progress-bar { height: 100%; transition: width 0.5s; }
         .part-progress-bar.low { background-color: #f5222d; }
         .part-progress-bar.medium { background-color: #faad14; }
         .part-progress-bar.high { background-color: #52c41a; }
@@ -169,1024 +348,520 @@
         .part-progress-bar.excellent { background-color: #1890ff; }
         .part-progress-bar.perfect { background-color: #722ed1; }
         .part-stats-row { display: flex; justify-content: space-between; align-items: center; width: 100%; font-size: 13px; font-weight: bold; }
-        .report-listening-section { background: #f9f9ff; border-radius: 20px; padding: 20px; margin-top: 30px; border: 1px solid #cddcff; }
+        .question-list { margin-bottom: 15px; }
+        .part-section { margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px; overflow: hidden; }
+        .part-header { background-color: #f0f0f0; padding: 8px; font-weight: bold; cursor: pointer; display: flex; justify-content: space-between; font-size: 14px; }
+        .part-header::after { content: '+'; }
+        .part-header.expanded::after { content: '-'; }
+        .part-questions { display: none; padding: 8px; }
+        .part-questions.show { display: block; }
+        .part-exam-code { font-style: italic; color: #666; margin-bottom: 8px; font-size: 13px; }
+        .part-passage, .part-tapescript { background-color: #f9f9f9; padding: 8px; border-radius: 4px; margin-bottom: 8px; font-size: 14px; }
+        .part-tapescript { background-color: #fff3e0; border-left: 3px solid #ffa500; }
+        .question-item { margin-bottom: 16px; padding: 12px; background-color: #f9f9f9; border-radius: 8px; border-left: 3px solid #0066cc; }
+        .report-answer-list { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+        .report-answer-row { display: flex; align-items: flex-start; gap: 8px; padding: 8px 10px; border-radius: 6px; background-color: #fff; border: 1px solid #e8e8e8; }
+        .report-marker-col { width: 20px; flex-shrink: 0; text-align: center; font-size: 16px; font-weight: bold; line-height: 1.4; }
+        .report-marker-col.correct-marker { color: #52c41a; }
+        .report-marker-col.incorrect-marker { color: #f5222d; }
+        .report-marker-col.empty-marker { color: transparent; }
+        .report-answer-text { flex: 1; font-size: 14px; line-height: 1.4; }
+        .report-answer-text strong { font-weight: 700; margin-right: 6px; }
+        .report-answer-row.correct { background-color: #f6ffed; border-color: #b7eb8f; }
+        .report-answer-row.incorrect { background-color: #fff2f0; border-color: #ffccc7; }
+        .report-answer-row.normal { background-color: #ffffff; border-color: #e8e8e8; }
+        .contact-info { margin-top: 30px; padding: 15px; background-color: #f0f7ff; border-radius: 8px; border-left: 4px solid #0066cc; }
+        .contact-title { font-size: 18px; font-weight: bold; color: #0066cc; margin-bottom: 10px; text-align: center; }
+        .contact-item { margin-bottom: 15px; }
+        .contact-name { font-weight: bold; color: #333; margin-bottom: 5px; }
+        .contact-detail { font-size: 14px; margin-bottom: 3px; display: flex; align-items: center; }
+        .contact-detail:before { content: '• '; color: #0066cc; font-weight: bold; margin-right: 5px; }
+        .contact-link { color: #0066cc; text-decoration: none; }
+        .contact-link:hover { text-decoration: underline; }
         .warning-message { position: fixed; top: 0; left: 0; width: 100%; background-color: #ff4d4f; color: white; padding: 10px; text-align: center; font-weight: bold; z-index: 1000; display: none; }
-        .question-detail-item { border-bottom: 1px solid #e9ecef; padding: 10px 0; }
-        .part-accordion { margin-bottom: 15px; border: 1px solid #dee2e6; border-radius: 8px; overflow: hidden; }
-        .part-accordion-header { background: #f1f3f5; padding: 12px 16px; cursor: pointer; font-weight: bold; display: flex; justify-content: space-between; user-select: none; }
-        .part-accordion-content { padding: 12px 16px; display: none; background: #fff; }
-        .part-accordion-content.open { display: block; }
-        @media (max-width: 550px) { 
-            .listening-panel { gap: 8px; padding: 8px 12px; }
-            .listening-panel select, .listening-panel button { padding: 4px 8px; font-size: 0.75rem; }
-            .speaker-icon-big { width: 38px; height: 38px; font-size: 1.3rem; }
-            .question-text { font-size: 0.95rem; }
-            .answer-option { padding: 8px 14px; }
+        .notification { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(0, 0, 0, 0.8); color: white; padding: 20px 30px; border-radius: 8px; font-size: 16px; z-index: 2000; display: none; }
+        .error-message { text-align: center; padding: 50px 20px; }
+        .error-title { color: #f5222d; margin-bottom: 20px; font-size: 24px; }
+        @media (min-width: 481px) {
+            .pie-chart-container { width: 140px; height: 140px; }
+            .pie-percentage { font-size: 34.1px; }
+            .pie-score { font-size: 14px; }
+            .report-date { font-size: 14px; }
+            .stat-label { font-size: 12px; }
+            .stat-value { font-size: 16px; }
+            .detailed-count span { font-size: 14px; }
+            .report-box-1 { padding: 15px; }
+            .stat-mini-box { padding: 10px; }
+        }
+        @media (max-width: 480px) {
+            .report-student-name { font-size: 23.4px; }
+            .pie-percentage { font-size: 28.6px; }
+            .part-stats-row { font-size: 12px; }
+            .report-marker-col { width: 20px; font-size: 14px; }
         }
     </style>
 </head>
 <body>
-<div id="warningMessage" class="warning-message">CẢNH BÁO: Đã phát hiện hành vi gian lận (chuyển tab/ứng dụng)! Bài thi sẽ được kết thúc.</div>
+    <div id="warningMessage" class="warning-message">CẢNH BÁO: Đã phát hiện hành vi gian lận! Bài thi sẽ được kết thúc.</div>
+    <div id="notification" class="notification"></div>
 
-<div id="mainScreen" class="screen">
-    <div class="container">
-        <h1 class="main-title">ĐỀ CƯƠNG ÔN THI TIẾNG ANH LỚP 4</h1>
-        <div class="form-group"><label for="studentName">Tên người làm bài:</label><input type="text" id="studentName" maxlength="40" placeholder="Nhập tên của bạn"></div>
-        <div class="form-group"><label for="examSelect">Chọn kì ôn thi:</label><select id="examSelect"><option value="GK1">GIỮA HỌC KÌ 1</option><option value="CK1">CUỐI HỌC KÌ 1</option><option value="GK2">GIỮA HỌC KÌ 2</option><option value="CK2">CUỐI HỌC KÌ 2</option></select></div>
-        <div class="form-group"><label for="exerciseSetSelect">Chọn bộ bài tập:</label><select id="exerciseSetSelect">
-            <option value="FULL">TỔNG HỢP</option>
-            <option value="PRONUNCIATION_VOCABULARY_GRAMMAR">PHÁT ÂM, TRỌNG ÂM, TỪ VỰNG VÀ NGỮ PHÁP</option>
-            <option value="ERROR_READING_COMMUNICATION_REWRITE">TÌM LỖI SAI, ĐỌC HIỂU, GIAO TIẾP VÀ VIẾT LẠI CÂU</option>
-            <option value="FILL_ARRANGE_SIGNS_WORDS">ĐIỀN KHUYẾT, SẮP XẾP CÁC CÂU, BIỂN BÁO VÀ SẮP XẾP CÁC TỪ</option>
-            <option value="P1">Phần 1 – PHÁT ÂM</option>
-            <option value="P2">Phần 2 – TRỌNG ÂM</option>
-            <option value="P3">Phần 3 – ĐỒNG NGHĨA NGƯỢC NGHĨA</option>
-            <option value="P4">Phần 4 – TÌM LỖI SAI</option>
-            <option value="P5">Phần 5 – TỪ VỰNG NGỮ PHÁP</option>
-            <option value="P6">Phần 6 – ĐIỀN KHUYẾT</option>
-            <option value="P7">Phần 7 – ĐỌC HIỂU</option>
-            <option value="P8">Phần 8 – SẮP XẾP CÁC CÂU</option>
-            <option value="P9">Phần 9 – GIAO TIẾP</option>
-            <option value="P10">Phần 10 – BIẾN BÁO TIN TỨC</option>
-            <option value="P11">Phần 11 – VIẾT LẠI CÂU CÓ NGHĨA KHÔNG ĐỔI</option>
-            <option value="P12">Phần 12 – SẮP XẾP CÁC TỪ THÀNH CÂU</option>
-            <option value="P13">Phần 13 – LUYỆN NGHE</option>
-        </select></div>
-        <button id="startButton" class="btn-primary">Bắt đầu làm bài</button>
-        <div class="contact-info"><div class="contact-title">THÔNG TIN LIÊN HỆ</div><p>Liên hệ: support@edu.com</p></div>
-    </div>
-</div>
-
-<div id="examScreen" class="screen" style="display: none;">
-    <div class="container">
-        <div class="exam-header"><h1 class="main-title">ĐỀ CƯƠNG ÔN THI TIẾNG ANH LỚP 4</h1><h2 class="sub-title" id="examSubtitle"></h2></div>
-        <div class="progress-container"><div class="progress-bar" id="progressBar"></div><div class="progress-text" id="progressText"></div></div>
-        <div class="exam-info"><div class="exam-code" id="examCode"></div><div class="exam-part" id="examPart"></div></div>
-        <div class="question-container"><div class="instruction" id="instruction"></div><div class="question-buttons" id="questionButtons"></div><div class="question-content" id="questionContent"></div></div>
-        <div class="navigation"><button id="nextButton" class="btn-primary" disabled>Phần tiếp theo</button></div>
-    </div>
-</div>
-
-<div id="reportScreen" class="screen" style="display: none;">
-    <div class="container">
-        <div class="report-header"><h1 class="main-title">ĐỀ CƯƠNG ÔN THI TIẾNG ANH LỚP 4</h1><h2 class="sub-title" id="reportSubtitle"></h2><h2 class="result-title" id="resultTitle">KẾT QUẢ</h2><p id="cheatingWarning" style="color:#f5222d; font-weight: bold; display: none; text-align: center; margin-bottom: 15px;">⚠️ Đã phát hiện hành vi gian lận!</p></div>
-        <div class="report-top-section">
-            <div class="report-box-1"><div class="report-student-name" id="reportStudentName"></div><div class="pie-chart-container"><div class="pie-chart" id="resultPieChart"><div class="pie-inner"><div class="pie-top-section"></div><div class="pie-middle-section"><div class="pie-percentage" id="piePercentage">0%</div></div><div class="pie-bottom-section"><div class="pie-score" id="pieScore">0/0</div></div></div></div></div><div class="report-date" id="reportDateDisplay"></div></div>
-            <div class="report-box-2"><div class="stat-mini-box"><div class="stat-label">Bắt đầu</div><div class="stat-value stat-time-start" id="statStartTime"></div></div><div class="stat-mini-box"><div class="stat-label">Kết thúc</div><div class="stat-value stat-time-end" id="statEndTime"></div></div><div class="stat-mini-box"><div class="stat-label">Thời gian</div><div class="stat-value stat-total-time" id="statTotalTime"></div></div><div class="stat-mini-box"><div class="stat-label">Chi tiết</div><div class="stat-value detailed-count" id="detailWrongUnanswered"></div></div></div>
+    <!-- MAIN SCREEN -->
+    <div id="mainScreen" class="screen">
+        <div class="container">
+            <h1 class="main-title">ĐỀ CƯƠNG ÔN THI TIẾNG ANH</h1>
+            <div class="form-group"><label for="studentName">Tên người làm bài:</label><input type="text" id="studentName" maxlength="40" placeholder="Nhập tên của bạn"></div>
+            <div class="form-group"><label for="classSelect">Chọn lớp:</label><select id="classSelect"><option value="L4">LỚP 4</option><option value="L5">LỚP 5</option><option value="L6">LỚP 6</option><option value="L7">LỚP 7</option><option value="L8">LỚP 8</option><option value="L9">LỚP 9</option></select></div>
+            <div class="form-group"><label for="examSelect">Chọn kì ôn thi:</label><select id="examSelect"><option value="GK1">GIỮA HỌC KÌ 1</option><option value="CK1">CUỐI HỌC KÌ 1</option><option value="GK2">GIỮA HỌC KÌ 2</option><option value="CK2">CUỐI HỌC KÌ 2</option></select></div>
+            <div class="form-group"><label for="exerciseSetSelect">Chọn bộ bài tập:</label><select id="exerciseSetSelect">
+                <option value="FULL">TỔNG HỢP</option>
+                <option value="PRONUNCIATION_VOCABULARY_GRAMMAR">PHÁT ÂM, TRỌNG ÂM, TỪ VỰNG VÀ NGỮ PHÁP</option>
+                <option value="ERROR_READING_COMMUNICATION_REWRITE">TÌM LỖI SAI, ĐỌC HIỂU, GIAO TIẾP VÀ VIẾT LẠI CÂU</option>
+                <option value="FILL_ARRANGE_SIGNS_WORDS">ĐIỀN KHUYẾT, SẮP XẾP CÁC CÂU, BIỂN BÁO VÀ SẮP XẾP CÁC TỪ</option>
+                <option value="P1">Phần 1 – PHÁT ÂM</option><option value="P2">Phần 2 – TRỌNG ÂM</option><option value="P3">Phần 3 – ĐỒNG NGHĨA NGƯỢC NGHĨA</option>
+                <option value="P4">Phần 4 – TÌM LỖI SAI</option><option value="P5">Phần 5 – TỪ VỰNG NGỮ PHÁP</option><option value="P6">Phần 6 – ĐIỀN KHUYẾT</option>
+                <option value="P7">Phần 7 – ĐỌC HIỂU</option><option value="P8">Phần 8 – SẮP XẾP CÁC CÂU</option><option value="P9">Phần 9 – GIAO TIẾP</option>
+                <option value="P10">Phần 10 – BIẾN BÁO TIN TỨC</option><option value="P11">Phần 11 – VIẾT LẠI CÂU CÓ NGHĨA KHÔNG ĐỔI</option>
+                <option value="P12">Phần 12 – SẮP XẾP CÁC TỪ THÀNH CÂU</option><option value="P13">Phần 13 – NGHE HIỂU</option>
+            </select></div>
+            <button id="startButton" class="btn-primary">Bắt đầu làm bài</button>
+            <div class="contact-info"><div class="contact-title">THÔNG TIN LIÊN HỆ</div><div class="contact-item"><div class="contact-name">1. Teacher Minho</div><div class="contact-detail">Giáo viên tiếng anh cấp 2,3 và ôn luyện đại học theo chuẩn IELTS, PTE</div><div class="contact-detail">Zalo: 0933.634.766</div><div class="contact-detail">Facebook: <a href="#" class="contact-link">minho.letrong37</a></div><div class="contact-detail">Tiktok: <a href="#" class="contact-link">minhoedutech</a></div></div><div class="contact-item"><div class="contact-name">2. Thầy Hùng</div><div class="contact-detail">Giáo viên dạy kèm toán, tiếng anh</div><div class="contact-detail">Zalo: 0967.095.025</div><div class="contact-detail">Facebook: <a href="#" class="contact-link">leduyhung.vietnam</a></div><div class="contact-detail">Tiktok: <a href="#" class="contact-link">leduyhungtiktok</a></div><div class="contact-detail">Youtube: <a href="#" class="contact-link">byleduyhung</a></div></div></div>
         </div>
-        <div class="chart-container"><h3>Biểu đồ kết quả</h3><div id="resultChart" class="part-results-grid"></div></div>
-        <div class="question-list"><h3>📋 Chi tiết câu đã làm (các phần 1-12)</h3><div id="detailedAnswersList"></div></div>
-        <div id="listeningReportContainer" style="margin-top: 30px;"></div>
-        <div class="navigation"><button id="retryButton" class="btn-primary">Làm lại</button><button id="newExamButton" class="btn-secondary">Làm mới</button></div>
     </div>
-</div>
 
-<script>
-    // -------------------- DỮ LIỆU LỚP 4 (P1-P12) --------------------
-    const P1_DATA = [{
-        id:"P1_B1", passage:"Choose the word whose underlined part differs from the others.",
-        questions:[
-            {id:1, question:"Which word has the underlined part pronounced differently?", correct:"bakes", wrong1:"agrees", wrong2:"underlines", wrong3:"smiles"},
-            {id:2, question:"Which word has the underlined part pronounced differently?", correct:"celebrates", wrong1:"applies", wrong2:"worries", wrong3:"solves"},
-            {id:3, question:"Which word has the underlined part pronounced differently?", correct:"washes", wrong1:"goes", wrong2:"does", wrong3:"plays"}
-        ]
-    }];
-    const P2_DATA = [{
-        id:"P2_B1", passage:"Choose the word whose stress pattern is different from the others.",
-        questions:[
-            {id:1, question:"Which word has the main stress on the second syllable?", correct:"about", wrong1:"busy", wrong2:"apple", wrong3:"hurry"},
-            {id:2, question:"Which word has the main stress on the second syllable?", correct:"advice", wrong1:"people", wrong2:"always", wrong3:"sister"},
-            {id:3, question:"Which word has the main stress on the first syllable?", correct:"father", wrong1:"begin", wrong2:"return", wrong3:"forget"}
-        ]
-    }];
-    const P3_DATA = [{
-        id:"P3_B1", passage:"Choose the word that is OPPOSITE in meaning to the given word.",
-        questions:[
-            {id:1, question:"hot", correct:"cold", wrong1:"warm", wrong2:"cool", wrong3:"mild"},
-            {id:2, question:"big", correct:"small", wrong1:"large", wrong2:"huge", wrong3:"enormous"},
-            {id:3, question:"fast", correct:"slow", wrong1:"quick", wrong2:"rapid", wrong3:"swift"}
-        ]
-    }];
-    const P4_DATA = [{
-        id:"P4_B1", passage:"Find the mistake in each sentence.",
-        questions:[
-            {id:1, question:"She go to school every day.", correct:"A. go", wrong1:"B. to", wrong2:"C. school", wrong3:"D. day"},
-            {id:2, question:"They are play football now.", correct:"A. are play", wrong1:"B. They", wrong2:"C. football", wrong3:"D. now"},
-            {id:3, question:"I am liking apples very much.", correct:"A. am liking", wrong1:"B. I", wrong2:"C. apples", wrong3:"D. very much"}
-        ]
-    }];
-    const P5_DATA = [{
-        id:"P5_B1", passage:"Choose the best answer to complete the sentence.",
-        questions:[
-            {id:1, question:"I _____ to school every morning.", correct:"go", wrong1:"goes", wrong2:"going", wrong3:"went"},
-            {id:2, question:"She _____ her homework at the moment.", correct:"is doing", wrong1:"do", wrong2:"does", wrong3:"did"},
-            {id:3, question:"They _____ football yesterday afternoon.", correct:"played", wrong1:"play", wrong2:"plays", wrong3:"are playing"},
-            {id:4, question:"I _____ English for five years.", correct:"have studied", wrong1:"study", wrong2:"studies", wrong3:"am studying"},
-            {id:5, question:"If it _____ tomorrow, we will go camping.", correct:"doesn't rain", wrong1:"rain", wrong2:"rains", wrong3:"rained"},
-            {id:6, question:"My brother is _____ than me.", correct:"taller", wrong1:"tall", wrong2:"the tallest", wrong3:"more tall"},
-            {id:7, question:"There _____ a lot of flowers in the garden.", correct:"are", wrong1:"is", wrong2:"am", wrong3:"be"},
-            {id:8, question:"What _____ you do last weekend?", correct:"did", wrong1:"do", wrong2:"does", wrong3:"are"}
-        ]
-    }];
-    const P6_DATA = [
-        { id:"P6_B1", passage:"My name is Lan. I (1) ______ a student. I (2) ______ to school every day. My school (3) ______ big and beautiful. There (4) ______ forty students in my class. My teacher (5) ______ very kind.",
-          questions:[
-            {id:1, question:"(1)", correct:"am", wrong1:"is", wrong2:"are", wrong3:"be"},
-            {id:2, question:"(2)", correct:"go", wrong1:"goes", wrong2:"going", wrong3:"went"},
-            {id:3, question:"(3)", correct:"is", wrong1:"am", wrong2:"are", wrong3:"be"},
-            {id:4, question:"(4)", correct:"are", wrong1:"is", wrong2:"am", wrong3:"be"},
-            {id:5, question:"(5)", correct:"is", wrong1:"am", wrong2:"are", wrong3:"be"}
-          ] 
-        },
-        { id:"P6_B2", passage:"Tom is a student. He (1) ______ 10 years old. He (2) ______ to school by bus. He (3) ______ lunch at school. His favourite subject (4) ______ Maths. He (5) ______ to be a teacher.",
-          questions:[
-            {id:1, question:"(1)", correct:"is", wrong1:"am", wrong2:"are", wrong3:"be"},
-            {id:2, question:"(2)", correct:"goes", wrong1:"go", wrong2:"going", wrong3:"went"},
-            {id:3, question:"(3)", correct:"has", wrong1:"have", wrong2:"having", wrong3:"had"},
-            {id:4, question:"(4)", correct:"is", wrong1:"am", wrong2:"are", wrong3:"be"},
-            {id:5, question:"(5)", correct:"wants", wrong1:"want", wrong2:"wanting", wrong3:"wanted"}
-          ]
-        }
-    ];
-    const P7_DATA = [
-        { id:"P7_B1", passage:"Tom is a student. He is ten years old. He lives in London with his parents. He goes to school by bus every day. His favorite subject is Science. He wants to become a scientist. He likes reading books about space. He often visits the science museum on weekends. He has a brother named Jim. Jim is eight years old and likes playing football.",
-          questions:[
-            {id:1, question:"How old is Tom?", correct:"He is ten years old.", wrong1:"He is eight.", wrong2:"He is twelve.", wrong3:"He is nine."},
-            {id:2, question:"Where does Tom live?", correct:"He lives in London.", wrong1:"New York", wrong2:"Paris", wrong3:"Tokyo"},
-            {id:3, question:"How does he go to school?", correct:"By bus", wrong1:"By car", wrong2:"By bike", wrong3:"On foot"},
-            {id:4, question:"What is his favorite subject?", correct:"Science", wrong1:"Math", wrong2:"English", wrong3:"Music"},
-            {id:5, question:"What does he want to be?", correct:"A scientist", wrong1:"A doctor", wrong2:"A teacher", wrong3:"An engineer"},
-            {id:6, question:"What does Tom like doing?", correct:"Reading books about space", wrong1:"Playing football", wrong2:"Watching TV", wrong3:"Playing video games"},
-            {id:7, question:"Where does Tom often go on weekends?", correct:"Science museum", wrong1:"Park", wrong2:"Cinema", wrong3:"Library"},
-            {id:8, question:"Who is Jim?", correct:"Tom's brother", wrong1:"Tom's friend", wrong2:"Tom's father", wrong3:"Tom's classmate"},
-            {id:9, question:"How old is Jim?", correct:"Eight years old", wrong1:"Ten", wrong2:"Nine", wrong3:"Seven"},
-            {id:10, question:"What does Jim like?", correct:"Playing football", wrong1:"Reading", wrong2:"Science", wrong3:"Music"}
-          ]
-        },
-        { id:"P7_B2", passage:"Linda is a girl. She is nine years old. She lives in Hanoi with her family. She goes to school on foot every day. Her favorite subject is English. She wants to become a teacher. She likes singing English songs. She often practices speaking English with her friends. Her best friend is Mai. Mai is ten years old and likes drawing.",
-          questions:[
-            {id:1, question:"How old is Linda?", correct:"Nine years old", wrong1:"Eight", wrong2:"Ten", wrong3:"Seven"},
-            {id:2, question:"Where does Linda live?", correct:"In Hanoi", wrong1:"In Ho Chi Minh", wrong2:"In Da Nang", wrong3:"In Hue"},
-            {id:3, question:"How does Linda go to school?", correct:"On foot", wrong1:"By bus", wrong2:"By bike", wrong3:"By car"},
-            {id:4, question:"What is Linda's favorite subject?", correct:"English", wrong1:"Math", wrong2:"Science", wrong3:"Music"},
-            {id:5, question:"What does Linda want to be?", correct:"A teacher", wrong1:"A doctor", wrong2:"A scientist", wrong3:"An engineer"},
-            {id:6, question:"What does Linda like doing?", correct:"Singing English songs", wrong1:"Playing football", wrong2:"Reading books", wrong3:"Drawing"},
-            {id:7, question:"Who does Linda practice speaking English with?", correct:"Her friends", wrong1:"Her mother", wrong2:"Her teacher", wrong3:"Her brother"},
-            {id:8, question:"Who is Linda's best friend?", correct:"Mai", wrong1:"Lan", wrong2:"Hoa", wrong3:"Nga"},
-            {id:9, question:"How old is Mai?", correct:"Ten years old", wrong1:"Nine", wrong2:"Eight", wrong3:"Eleven"},
-            {id:10, question:"What does Mai like?", correct:"Drawing", wrong1:"Singing", wrong2:"Dancing", wrong3:"Reading"}
-          ]
-        }
-    ];
-    const P8_DATA = [{
-        id:"P8_B1", passage:"Arrange the words to make correct sentences.",
-        questions:[
-            {id:1, question:"Order", correct:"c-b-d-a", wrong1:"b-c-d-a", wrong2:"c-d-b-a", wrong3:"b-d-c-a"},
-            {id:2, question:"Order", correct:"c-b-d-a", wrong1:"b-c-d-a", wrong2:"c-d-b-a", wrong3:"b-d-c-a"},
-            {id:3, question:"Order", correct:"b-c-a-d", wrong1:"c-b-a-d", wrong2:"b-a-c-d", wrong3:"a-b-c-d"}
-        ]
-    }];
-    const P9_DATA = [{
-        id:"P9_B1", passage:"Complete the dialogue with the most suitable response.",
-        questions:[
-            {id:1, question:"A: ________? B: I'm fine, thanks.", correct:"How are you", wrong1:"What's your name", wrong2:"How old are you", wrong3:"Where are you from"},
-            {id:2, question:"A: ________? B: I'm a student.", correct:"What do you do", wrong1:"How are you", wrong2:"Where do you live", wrong3:"What's your name"},
-            {id:3, question:"A: Would you like some tea? B: ________.", correct:"Yes, please", wrong1:"No, I don't", wrong2:"Yes, I do", wrong3:"No, thanks, I'm not thirsty"}
-        ]
-    }];
-    const P10_DATA = [{
-        id:"P10_B1", passage:"What does this sign mean?",
-        questions:[
-            {id:1, question:"No smoking", correct:"Cấm hút thuốc", wrong1:"Cho phép hút thuốc", wrong2:"Khu vực hút thuốc", wrong3:"Hút thuốc có hại"},
-            {id:2, question:"Wifi available", correct:"Khu vực có wifi", wrong1:"Cấm dùng wifi", wrong2:"Yêu cầu mật khẩu", wrong3:"Wifi miễn phí"},
-            {id:3, question:"School ahead", correct:"Phía trước có trường học", wrong1:"Cấm rẽ", wrong2:"Đường một chiều", wrong3:"Dừng lại"}
-        ]
-    }];
-    const P11_DATA = [{
-        id:"P11_B1", passage:"Rewrite the sentence without changing its meaning.",
-        questions:[
-            {id:1, question:"I am not as tall as my brother.", correct:"My brother is taller than me.", wrong1:"My brother is not as tall as me.", wrong2:"My brother is the tallest.", wrong3:"I am taller than my brother."},
-            {id:2, question:"No one in my class is more intelligent than Lan.", correct:"Lan is the most intelligent student in my class.", wrong1:"Lan is more intelligent than no one.", wrong2:"Lan is as intelligent as no one.", wrong3:"No one is as intelligent as Lan."},
-            {id:3, question:"She started learning English three years ago.", correct:"She has learned English for three years.", wrong1:"She learns English for three years.", wrong2:"She learned English three years.", wrong3:"She has started learning English for three years."}
-        ]
-    }];
-    const P12_DATA = [{
-        id:"P12_B1", passage:"Rearrange the words to make a complete sentence.",
-        questions:[
-            {id:1, question:"I / to / go / school", correct:"I go to school.", wrong1:"Go I to school", wrong2:"School go I to", wrong3:"To school I go"},
-            {id:2, question:"She / is / a / student / good", correct:"She is a good student.", wrong1:"She a good student is.", wrong2:"A good student she is.", wrong3:"Is she a good student."},
-            {id:3, question:"every / He / morning / runs / day", correct:"He runs every morning.", wrong1:"He every morning runs.", wrong2:"Runs he every morning.", wrong3:"Every morning he runs day."}
-        ]
-    }];
+    <!-- EXAM SCREEN -->
+    <div id="examScreen" class="screen" style="display: none;">
+        <div class="container">
+            <div class="exam-header"><h1 class="main-title">ĐỀ CƯƠNG ÔN THI TIẾNG ANH</h1><h2 class="sub-title" id="examSubtitle">LỚP 4 – GIỮA HỌC KÌ 1</h2></div>
+            <div class="progress-container"><div class="progress-bar" id="progressBar"></div><div class="progress-text" id="progressText">Thời gian còn lại: 40 giây</div></div>
+            <div class="exam-info"><div class="exam-code" id="examCode">L4GK1 – P1.C1.3</div><div class="exam-part" id="examPart">Phần 1</div></div>
+            <div class="question-container"><div class="instruction" id="instruction"></div><div id="audioControlsArea" class="audio-controls" style="display: none;"></div><div class="question-buttons" id="questionButtons"></div><div class="question-content" id="questionContent"></div></div>
+            <div class="navigation"><button id="nextButton" class="btn-primary">Phần tiếp theo</button></div>
+        </div>
+    </div>
 
-    // -------------------- DỮ LIỆU NGHE (P13) --------------------
-    const E4_U1_B1 = {
-        id: "E4_U1_B1",
-        P1: [
-            {id:1, word:"Where does Miss Lien live?", correct:"in a small house in Hanoi", wrong1:"in a big apartment", wrong2:"in the countryside"},
-            {id:2, word:"What does Miss Lien do?", correct:"She teaches English", wrong1:"She is a doctor", wrong2:"She works in a factory"},
-            {id:3, word:"What time does she have breakfast?", correct:"at seven", wrong1:"at six", wrong2:"at eight"},
-            {id:4, word:"Where does she have lunch?", correct:"in the canteen of the school", wrong1:"at home", wrong2:"in a restaurant"},
-            {id:5, word:"When does she teach dialogues?", correct:"on Wednesdays and Fridays", wrong1:"on Mondays", wrong2:"every day"}
-        ],
-        P2: [
-            {id:1, word:"Miss Lien lives in a big apartment.", correct:"False", wrong1:"True", wrong2:"Not given"},
-            {id:2, word:"She teaches English at a primary school.", correct:"True", wrong1:"False", wrong2:"Not given"},
-            {id:3, word:"She has breakfast at six o'clock.", correct:"False", wrong1:"True", wrong2:"Not given"},
-            {id:4, word:"She has lunch at home.", correct:"False", wrong1:"True", wrong2:"Not given"},
-            {id:5, word:"She teaches dialogues on Wednesdays and Fridays.", correct:"True", wrong1:"False", wrong2:"Not given"}
-        ],
-        P3: [
-            {id:1, word:"Miss Lien lives in a small house in ______.", correct:"Hanoi", wrong1:"Ho Chi Minh", wrong2:"Da Nang"},
-            {id:2, word:"She ______ at 7 o'clock.", correct:"has breakfast", wrong1:"gets up", wrong2:"goes to school"},
-            {id:3, word:"She has lunch in the ______ of the school.", correct:"canteen", wrong1:"library", wrong2:"playground"},
-            {id:4, word:"She teaches ______ on Wednesdays and Fridays.", correct:"dialogues", wrong1:"vocabulary", wrong2:"grammar"},
-            {id:5, word:"Miss Lien is an ______ teacher.", correct:"English", wrong1:"Math", wrong2:"Science"}
-        ],
-        P4: "Miss Lien lives in a small house in Hanoi. She teaches English at a primary school. She gets up at 6. She has breakfast at 7. She has lunch in the canteen. She teaches dialogues on Wednesdays and Fridays.",
-        P5: [
-            {id:1, word:"Miss Lien lives in a small house in Hanoi."},
-            {id:2, word:"She teaches English at a school there."},
-            {id:3, word:"She has breakfast at seven."},
-            {id:4, word:"She has lunch in the canteen."},
-            {id:5, word:"She teaches dialogues on Wednesdays and Fridays."}
-        ]
-    };
-    const E4_U1_B2 = {
-        id: "E4_U1_B2",
-        P1: [
-            {id:1, word:"How old is Janet?", correct:"eleven years old", wrong1:"ten years old", wrong2:"twelve years old"},
-            {id:2, word:"Which school does Janet go to?", correct:"Palmer School", wrong1:"Park School", wrong2:"Parker School"},
-            {id:3, word:"How are her classmates?", correct:"friendly", wrong1:"quiet", wrong2:"noisy"},
-            {id:4, word:"Who is Janet's favourite teacher?", correct:"Mrs. Smith", wrong1:"Mr. Smith", wrong2:"Ms. Smith"},
-            {id:5, word:"What subject does Mrs. Smith teach?", correct:"maths", wrong1:"English", wrong2:"science"}
-        ],
-        P2: [
-            {id:1, word:"Janet is ten years old.", correct:"False", wrong1:"True", wrong2:"Not given"},
-            {id:2, word:"She goes to Palmer School.", correct:"True", wrong1:"False", wrong2:"Not given"},
-            {id:3, word:"Her classmates are noisy.", correct:"False", wrong1:"True", wrong2:"Not given"},
-            {id:4, word:"Her favourite teacher is Mr. Smith.", correct:"False", wrong1:"True", wrong2:"Not given"},
-            {id:5, word:"Mrs. Smith teaches maths.", correct:"True", wrong1:"False", wrong2:"Not given"}
-        ],
-        P3: [
-            {id:1, word:"Janet is ______ years old.", correct:"eleven", wrong1:"ten", wrong2:"twelve"},
-            {id:2, word:"She goes to ______ School.", correct:"Palmer", wrong1:"Park", wrong2:"Parker"},
-            {id:3, word:"Her classmates are very ______.", correct:"friendly", wrong1:"quiet", wrong2:"noisy"},
-            {id:4, word:"Her favourite teacher is Mrs. ______.", correct:"Smith", wrong1:"Jones", wrong2:"Brown"},
-            {id:5, word:"Mrs. Smith teaches ______.", correct:"maths", wrong1:"English", wrong2:"science"}
-        ],
-        P4: "Hi. My name's Janet. I'm eleven years old. I go to Palmer School. My classmates are friendly. My favourite teacher is Mrs. Smith. She teaches maths.",
-        P5: [
-            {id:1, word:"Hi. My name's Janet."},
-            {id:2, word:"I'm eleven years old."},
-            {id:3, word:"I go to Palmer School."},
-            {id:4, word:"My classmates are friendly."},
-            {id:5, word:"Mrs. Smith is my favourite teacher."}
-        ]
-    };
-    const E4_U1_B3 = {
-        id: "E4_U1_B3",
-        P1: [
-            {id:1, word:"Where is Sunrise boarding school?", correct:"in Sydney", wrong1:"in Bac Giang", wrong2:"in London"},
-            {id:2, word:"How many students go to Sunrise?", correct:"about 1,200", wrong1:"about 1,500", wrong2:"about 800"},
-            {id:3, word:"Where do the students at Sunrise come from?", correct:"all over Australia", wrong1:"only Sydney", wrong2:"all over the world"},
-            {id:4, word:"What subjects do they study at Sunrise?", correct:"maths, science and English", wrong1:"art, music and history", wrong2:"biology, physics and chemistry"},
-            {id:5, word:"How many classes does An Son school have?", correct:"only 8 classes", wrong1:"12 classes", wrong2:"20 classes"}
-        ],
-        P2: [
-            {id:1, word:"Sunrise is a day school.", correct:"False", wrong1:"True", wrong2:"Not given"},
-            {id:2, word:"About 1,200 students go to Sunrise.", correct:"True", wrong1:"False", wrong2:"Not given"},
-            {id:3, word:"Students come from all over the world.", correct:"False", wrong1:"True", wrong2:"Not given"},
-            {id:4, word:"They study maths, science and English.", correct:"True", wrong1:"False", wrong2:"Not given"},
-            {id:5, word:"An Son school has 12 classes.", correct:"False", wrong1:"True", wrong2:"Not given"}
-        ],
-        P3: [
-            {id:1, word:"Sunrise is a ______ school in Sydney.", correct:"boarding", wrong1:"day", wrong2:"primary"},
-            {id:2, word:"About ______ students go to Sunrise.", correct:"1,200", wrong1:"1,500", wrong2:"800"},
-            {id:3, word:"They come from all over ______.", correct:"Australia", wrong1:"the world", wrong2:"Sydney"},
-            {id:4, word:"They study maths, science and ______.", correct:"English", wrong1:"History", wrong2:"Art"},
-            {id:5, word:"An Son school has only ______ classes.", correct:"8", wrong1:"10", wrong2:"12"}
-        ],
-        P4: "Sunrise is a boarding school in Sydney. About 1,200 students go to Sunrise. They come from all over Australia. They study maths, science and English. An Son school has only 8 classes.",
-        P5: [
-            {id:1, word:"Sunrise is a boarding school in Sydney."},
-            {id:2, word:"About 1,200 students go to Sunrise."},
-            {id:3, word:"They come from all over Australia."},
-            {id:4, word:"They study maths, science and English."},
-            {id:5, word:"An Son school has only 8 classes."}
-        ]
-    };
-    
-    window.LISTENING_REGISTRY = { '4': { U1: { B1: E4_U1_B1, B2: E4_U1_B2, B3: E4_U1_B3 } } };
-    
-    function getRandomListeningLesson() {
-        const lessons = window.LISTENING_REGISTRY['4']['U1'];
-        const keys = Object.keys(lessons);
-        const randKey = keys[Math.floor(Math.random() * keys.length)];
-        const lesson = lessons[randKey];
-        const all = [...(lesson.P1||[]), ...(lesson.P2||[]), ...(lesson.P3||[])];
-        if(all.length === 0) return null;
-        const shuffled = [...all].sort(()=>0.5-Math.random());
-        const selected = shuffled.slice(0,5);
-        const enriched = selected.map(q => {
-            let subPart = 'P1';
-            if(lesson.P2 && lesson.P2.includes(q)) subPart = 'P2';
-            if(lesson.P3 && lesson.P3.includes(q)) subPart = 'P3';
-            return { ...q, subPart: subPart };
-        });
-        return { lessonData: lesson, questions: enriched };
-    }
-    
-    // -------------------- DỮ LIỆU CÁC KỲ THI --------------------
-    const L4GK1 = {
-        P1: P1_DATA, P2: P2_DATA, P3: P3_DATA, P4: P4_DATA, P5: P5_DATA,
-        P6: P6_DATA, P7: P7_DATA, P8: P8_DATA, P9: P9_DATA, P10: P10_DATA,
-        P11: P11_DATA, P12: P12_DATA, P13: []
-    };
-    const L4CK1 = JSON.parse(JSON.stringify(L4GK1));
-    const L4GK2 = JSON.parse(JSON.stringify(L4GK1));
-    const L4CK2 = JSON.parse(JSON.stringify(L4GK1));
-    
-    const questionBank = { L4GK1, L4CK1, L4GK2, L4CK2 };
-    
-    const exerciseSetConfigs = {
-        FULL: { title:"TỔNG HỢP", parts:['P1','P2','P3','P4','P5','P6','P7','P8','P9','P10','P11','P12','P13'], questionCounts:{ P1:2,P2:2,P3:3,P4:3,P5:5,P6:5,P7:5,P8:2,P9:2,P10:2,P11:2,P12:2,P13:5 }, partTimes:{ P1:40,P2:40,P3:90,P4:120,P5:240,P6:240,P7:240,P8:120,P9:120,P10:120,P11:120,P12:120,P13:300 } },
-        PRONUNCIATION_VOCABULARY_GRAMMAR:{ title:"PHÁT ÂM, TRỌNG ÂM, TỪ VỰNG VÀ NGỮ PHÁP", parts:['P1','P2','P3','P5'], questionCounts:{ P1:4,P2:4,P3:6,P5:16 }, partTimes:{ P1:80,P2:80,P3:200,P5:480 } },
-        ERROR_READING_COMMUNICATION_REWRITE:{ title:"TÌM LỖI SAI, ĐỌC HIỂU, GIAO TIẾP VÀ VIẾT LẠI CÂU", parts:['P4','P7','P9','P11'], questionCounts:{ P4:6,P7:5,P9:4,P11:4 }, partTimes:{ P4:240,P7:240,P9:240,P11:240 } },
-        FILL_ARRANGE_SIGNS_WORDS:{ title:"ĐIỀN KHUYẾT, SẮP XẾP CÁC CÂU, BIỂN BÁO VÀ SẮP XẾP CÁC TỪ", parts:['P6','P8','P10','P12'], questionCounts:{ P6:5,P8:4,P10:4,P12:4 }, partTimes:{ P6:240,P8:240,P10:240,P12:240 } },
-        P1:{ title:"PHÁT ÂM", parts:['P1'], questionCounts:{ P1:20 }, partTimes:{ P1:300 }, perQuestionTime:15 },
-        P2:{ title:"TRỌNG ÂM", parts:['P2'], questionCounts:{ P2:20 }, partTimes:{ P2:300 }, perQuestionTime:15 },
-        P3:{ title:"ĐỒNG NGHĨA/NGƯỢC NGHĨA", parts:['P3'], questionCounts:{ P3:15 }, partTimes:{ P3:300 }, perQuestionTime:20 },
-        P4:{ title:"TÌM LỖI SAI", parts:['P4'], questionCounts:{ P4:10 }, partTimes:{ P4:300 }, perQuestionTime:30 },
-        P5:{ title:"TỪ VỰNG NGỮ PHÁP", parts:['P5'], questionCounts:{ P5:20 }, partTimes:{ P5:300 }, perQuestionTime:20 },
-        P6:{ title:"ĐIỀN KHUYẾT", parts:['P6'], questionCounts:{ P6:5 }, partTimes:{ P6:240 } },
-        P7:{ title:"ĐỌC HIỂU", parts:['P7'], questionCounts:{ P7:5 }, partTimes:{ P7:240 } },
-        P8:{ title:"SẮP XẾP CÂU", parts:['P8'], questionCounts:{ P8:10 }, partTimes:{ P8:300 }, perQuestionTime:30 },
-        P9:{ title:"GIAO TIẾP", parts:['P9'], questionCounts:{ P9:10 }, partTimes:{ P9:300 }, perQuestionTime:30 },
-        P10:{ title:"BIỂN BÁO", parts:['P10'], questionCounts:{ P10:10 }, partTimes:{ P10:300 }, perQuestionTime:30 },
-        P11:{ title:"VIẾT LẠI CÂU", parts:['P11'], questionCounts:{ P11:10 }, partTimes:{ P11:300 }, perQuestionTime:30 },
-        P12:{ title:"SẮP XẾP TỪ", parts:['P12'], questionCounts:{ P12:10 }, partTimes:{ P12:300 }, perQuestionTime:30 },
-        P13:{ title:"LUYỆN NGHE", parts:['P13'], questionCounts:{ P13:5 }, partTimes:{ P13:300 } }
-    };
-    
-    // -------------------- BIẾN TOÀN CỤC --------------------
-    let currentScreen='main', currentExam='', currentPart=0, selectedAnswers={}, timeLeft=0, timer=null, startTime=null, endTime=null, selectedQuestions={}, selectedQuestionDetails={}, answerOrders={}, currentExerciseSet='FULL', currentConfig=exerciseSetConfigs.FULL;
-    let currentListeningLesson = null;
-    let isCheating = false;
-    let voiceList=[], voiceMode=1, singleVoice=null, oddVoice=null, evenVoice=null, isPaused=false, audioQueue=[], audioTimeout=null;
-    let currentSpeakingTimeout = null;
-    
-    // Hàm xử lý text: tách chuỗi thành mảng các phần (text thường và blank)
-    function splitTextByBlanks(text) {
-        if (!text) return [{ type: 'text', content: '' }];
-        const regex = /(\s*_{2,}\s*)/g;
-        const parts = [];
-        let lastIndex = 0;
-        let match;
-        while ((match = regex.exec(text)) !== null) {
-            if (match.index > lastIndex) {
-                parts.push({ type: 'text', content: text.substring(lastIndex, match.index) });
-            }
-            parts.push({ type: 'blank', content: match[0] });
-            lastIndex = match.index + match[0].length;
-        }
-        if (lastIndex < text.length) {
-            parts.push({ type: 'text', content: text.substring(lastIndex) });
-        }
-        return parts;
-    }
-    
-    function speakTextWithBlanks(text, id, onComplete) {
-        if (!text) {
-            if (onComplete) onComplete();
-            return;
-        }
-        const parts = splitTextByBlanks(text);
-        if (parts.length === 0) {
-            if (onComplete) onComplete();
-            return;
-        }
-        let index = 0;
-        const pauseDuration = 400;
-        const speakNext = () => {
-            if (index >= parts.length) {
-                if (onComplete) onComplete();
-                return;
-            }
-            const part = parts[index];
-            if (part.type === 'text' && part.content.trim() !== '') {
-                const utterance = new SpeechSynthesisUtterance(part.content);
-                utterance.lang = 'en-GB';
-                const voice = getVoiceForId(id);
-                if (voice) utterance.voice = voice;
-                utterance.onend = () => {
-                    index++;
-                    if (index < parts.length && parts[index].type === 'blank') {
-                        currentSpeakingTimeout = setTimeout(() => { speakNext(); }, pauseDuration);
-                    } else {
-                        speakNext();
-                    }
-                };
-                utterance.onerror = () => { index++; speakNext(); };
-                speechSynthesis.speak(utterance);
-            } else if (part.type === 'blank') {
-                const blankUtterance = new SpeechSynthesisUtterance("blank");
-                blankUtterance.lang = 'en-GB';
-                const voice = getVoiceForId(id);
-                if (voice) blankUtterance.voice = voice;
-                blankUtterance.onend = () => {
-                    index++;
-                    currentSpeakingTimeout = setTimeout(() => { speakNext(); }, pauseDuration);
-                };
-                blankUtterance.onerror = () => { index++; speakNext(); };
-                speechSynthesis.speak(blankUtterance);
-            } else {
-                index++;
-                speakNext();
-            }
+    <!-- REPORT SCREEN -->
+    <div id="reportScreen" class="screen" style="display: none;">
+        <div class="container">
+            <div class="report-header"><h1 class="main-title">ĐỀ CƯƠNG ÔN THI TIẾNG ANH</h1><h2 class="sub-title" id="reportSubtitle">LỚP 4 – GIỮA HỌC KÌ 1</h2><h2 class="result-title" id="resultTitle">KẾT QUẢ</h2><p id="cheatingWarning" style="color: #f5222d; font-weight: bold; display: none; text-align: center; margin-bottom: 15px;">⚠️ Đã phát hiện hành vi gian lận!</p></div>
+            <div class="report-top-section"><div class="report-box-1"><div class="report-student-name" id="reportStudentName">...</div><div class="pie-chart-container"><div class="pie-chart" id="resultPieChart"><div class="pie-inner"><div class="pie-top-section"></div><div class="pie-middle-section"><div class="pie-percentage" id="piePercentage">0%</div></div><div class="pie-bottom-section"><div class="pie-score" id="pieScore">0/0</div></div></div></div></div><div class="report-date" id="reportDateDisplay">...</div></div>
+            <div class="report-box-2"><div class="stat-mini-box"><div class="stat-label">Bắt đầu</div><div class="stat-value stat-time-start" id="statStartTime">00:00:00</div></div><div class="stat-mini-box"><div class="stat-label">Kết thúc</div><div class="stat-value stat-time-end" id="statEndTime">00:00:00</div></div><div class="stat-mini-box"><div class="stat-label">Thời gian</div><div class="stat-value stat-total-time" id="statTotalTime">0p 0s</div></div><div class="stat-mini-box"><div class="stat-label">Chi tiết</div><div class="stat-value detailed-count"><span class="count-wrong" id="countWrong">0</span> / <span class="count-unanswered" id="countUnanswered">0</span> / <span class="count-total" id="countTotal">0</span></div></div></div></div>
+            <div class="chart-container"><h3>Biểu đồ kết quả</h3><div id="resultChart" class="part-results-grid"></div></div>
+            <div class="question-list"><h3>Danh sách các câu đã làm</h3><div id="questionList"></div></div>
+            <div class="navigation"><button id="retryButton" class="btn-primary">Làm lại</button><button id="newExamButton" class="btn-secondary">Làm mới</button></div>
+        </div>
+    </div>
+
+    <div id="errorScreen" class="screen" style="display: none;"><div class="container"><div class="error-message"><h1 class="main-title">ĐỀ CƯƠNG ÔN THI TIẾNG ANH</h1><h2 class="error-title">HỆ THỐNG CHƯA CÓ DỮ LIỆU ĐỂ LÀM BÀI</h2><p class="error-description">Vui lòng chọn đề thi khác hoặc quay lại sau.</p><button id="backToMainButton" class="btn-primary">Quay lại giao diện chính</button></div></div></div>
+
+    <script>
+        // ======================== DỮ LIỆU CHO TỪNG KHO ĐỀ ========================
+        const L4GK1 = {
+            P1: [{ id:"C1", passage:"Choose the word whose <span style=\"text-decoration: underline; color: red;\">underlined</span> part differs from the other three in pronunciation.", questions: Array.from({length:20},(_,i)=>({id:i+1, question:"underlined", correct:"bak<span style=\"text-decoration: underline; color: red;\">es</span>", wrong1:"agre<span style=\"text-decoration: underline; color: red;\">es</span>", wrong2:"underlin<span style=\"text-decoration: underline; color: red;\">es</span>", wrong3:"smil<span style=\"text-decoration: underline; color: red;\">es</span>"})) }],
+            P2: [{ id:"C1", passage:"Choose the word whose main <span style=\"text-decoration: underline; color: red;\"> stress </span> is placed differently from the others.", questions: Array.from({length:20},(_,i)=>({id:i+1, question:"stress", correct:i%4===0?"about":i%4===1?"advice":i%4===2?"computer":"busy", wrong1:"busy", wrong2:"apple", wrong3:"hurry"})) }],
+            P3: [{ id:"C1", passage:"Choose the word(s) OPPOSITE in meaning to the underlined word(s).", questions: [{id:1,correct:"cold",wrong1:"warm",wrong2:"cool",wrong3:"mild"},{id:2,correct:"small",wrong1:"large",wrong2:"huge",wrong3:"enormous"},{id:3,correct:"slow",wrong1:"quick",wrong2:"rapid",wrong3:"swift"},{id:4,correct:"down",wrong1:"high",wrong2:"above",wrong3:"over"},{id:5,correct:"out",wrong1:"inside",wrong2:"within",wrong3:"into"},{id:6,correct:"sad",wrong1:"glad",wrong2:"cheerful",wrong3:"joyful"},{id:7,correct:"bad",wrong1:"nice",wrong2:"fine",wrong3:"great"},{id:8,correct:"new",wrong1:"ancient",wrong2:"aged",wrong3:"elderly"},{id:9,correct:"soft",wrong1:"firm",wrong2:"solid",wrong3:"stiff"},{id:10,correct:"night",wrong1:"morning",wrong2:"afternoon",wrong3:"evening"},{id:11,correct:"heavy",wrong1:"bright",wrong2:"clear",wrong3:"pale"},{id:12,correct:"wet",wrong1:"damp",wrong2:"moist",wrong3:"humid"},{id:13,correct:"poor",wrong1:"wealthy",wrong2:"affluent",wrong3:"prosperous"},{id:14,correct:"empty",wrong1:"filled",wrong2:"packed",wrong3:"loaded"},{id:15,correct:"closed",wrong1:"ajar",wrong2:"unlocked",wrong3:"accessible"}] }],
+            P4: [{ id:"C1", passage:"Find the mistake.", questions: Array.from({length:10},(_,i)=>({id:i+1, question:"He <span style=\"text-decoration: underline; color: red;\">can swims</span> very well.", correct:"A. can swims", wrong1:"B. He", wrong2:"C. very", wrong3:"D. well"})) }],
+            P5: [{ id:"C1", passage:"Choose the best answer.", questions: Array.from({length:20},(_,i)=>({id:i+1, question:"I _____ to school every day.", correct:"go", wrong1:"goes", wrong2:"going", wrong3:"went"})) }],
+            P6: [{ id:"C1", passage:"Read and choose.", questions: [{id:1,correct:"am",wrong1:"is",wrong2:"are",wrong3:"be"},{id:2,correct:"live",wrong1:"lives",wrong2:"living",wrong3:"lived"},{id:3,correct:"are",wrong1:"is",wrong2:"am",wrong3:"be"},{id:4,correct:"is",wrong1:"am",wrong2:"are",wrong3:"be"},{id:5,correct:"works",wrong1:"work",wrong2:"working",wrong3:"worked"}] }],
+            P7: [{ id:"C1", passage:"Read and answer.", questions: [{id:1,correct:"He is ten years old.",wrong1:"He is eight.",wrong2:"He is twelve.",wrong3:"He is nine."},{id:2,correct:"He lives in London.",wrong1:"New York",wrong2:"Paris",wrong3:"Tokyo"},{id:3,correct:"There are four people.",wrong1:"Three",wrong2:"Five",wrong3:"Two"},{id:4,correct:"They walk to school.",wrong1:"By bus",wrong2:"By car",wrong3:"By bike"},{id:5,correct:"His favorite subject is Science.",wrong1:"Math",wrong2:"English",wrong3:"Music"}] }],
+            P8: [{ id:"C1", passage:"Arrange the sentences.", questions: Array.from({length:10},(_,i)=>({id:i+1, question:"a. First, they went to the beach.<br>b. Then, they had lunch.<br>c. Last Sunday, they went on a trip.<br>d. Finally, they visited the museum.", correct:"c - a - b - d", wrong1:"a - c - b - d", wrong2:"c - b - a - d", wrong3:"a - b - c - d"})) }],
+            P9: [{ id:"C1", passage:"Complete the dialogue.", questions: Array.from({length:15},(_,i)=>({id:i+1, question:"Shop assistant: (1) ____________?<br>Customer: Yes, I'm looking for a gift.", correct:"Can I help you", wrong1:"How are you", wrong2:"What time", wrong3:"Where from"})) }],
+            P10: [{ id:"C1", passage:"SIGNS", questions: Array.from({length:15},(_,i)=>({id:i+1, question:"<img src='data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"100\" viewBox=\"0 0 100 100\"><rect x=\"0\" y=\"0\" width=\"100\" height=\"100\" fill=\"red\"/><text x=\"50\" y=\"50\" font-family=\"Arial\" font-size=\"16\" fill=\"white\" text-anchor=\"middle\" dominant-baseline=\"middle\">NO SMOKING</text></svg>' alt='No smoking sign'>", correct:"Cấm hút thuốc", wrong1:"Cho phép hút thuốc", wrong2:"Khu vực hút thuốc", wrong3:"Hút thuốc gây hại"})) }],
+            P11: [{ id:"C1", passage:"Rewrite the sentences.", questions: Array.from({length:10},(_,i)=>({id:i+1, question:"I am not as tall as my brother.", correct:"My brother is taller than me.", wrong1:"My brother is not as tall as me.", wrong2:"My brother is the tallest.", wrong3:"I am taller than my brother."})) }],
+            P12: [{ id:"C1", passage:"Rearrange the words.", questions: Array.from({length:10},(_,i)=>({id:i+1, question:"I / to / every / go / school / day.", correct:"I go to school every day.", wrong1:"I every day go to school.", wrong2:"Every day I go to school.", wrong3:"Go to school I every day."})) }],
+            P13: [
+                { id:"C1", passage:"LISTEN AND TICK (Nghe và chọn đáp án đúng)", tapescript:"Miss Lien lives in a small house in Hanoi. She teaches English at a primary school. She gets up at 6. She has breakfast at 7. She has lunch in the canteen. She teaches dialogues on Wednesdays and Fridays.", listening:[{id:1,word:"Miss Lien lives in a small house in Hanoi."},{id:2,word:"She teaches English at a school there."},{id:3,word:"She has breakfast at seven."},{id:4,word:"She has lunch in the canteen."},{id:5,word:"She teaches dialogues on Wednesdays and Fridays."}], questions:[{id:1,question:"Where does Miss Lien live?",correct:"in a small house in Hanoi",wrong1:"in a big apartment",wrong2:"in the countryside"},{id:2,question:"What does Miss Lien do?",correct:"She teaches English",wrong1:"She is a doctor",wrong2:"She works in a factory"},{id:3,question:"What time does she have breakfast?",correct:"at seven",wrong1:"at six",wrong2:"at eight"},{id:4,question:"Where does she have lunch?",correct:"in the canteen of the school",wrong1:"at home",wrong2:"in a restaurant"},{id:5,question:"When does she teach dialogues?",correct:"on Wednesdays and Fridays",wrong1:"on Mondays",wrong2:"every day"},{id:6,question:"Miss Lien lives in a big apartment.",correct:"False",wrong1:"True",wrong2:"Not given"},{id:7,question:"She teaches English at a primary school.",correct:"True",wrong1:"False",wrong2:"Not given"},{id:8,question:"She has breakfast at six o'clock.",correct:"False",wrong1:"True",wrong2:"Not given"},{id:9,question:"She has lunch at home.",correct:"False",wrong1:"True",wrong2:"Not given"},{id:10,question:"She teaches dialogues on Wednesdays and Fridays.",correct:"True",wrong1:"False",wrong2:"Not given"}] },
+                { id:"C2", passage:"LISTEN AND TICK", tapescript:"Hi. My name's Janet. I'm eleven years old. I go to Palmer School. My classmates are friendly. My favourite teacher is Mrs. Smith. She teaches maths.", listening:[{id:1,word:"Hi. My name's Janet."},{id:2,word:"I'm eleven years old."},{id:3,word:"I go to Palmer School."},{id:4,word:"My classmates are friendly."},{id:5,word:"Mrs. Smith is my favourite teacher."}], questions:[{id:1,question:"How old is Janet?",correct:"eleven years old",wrong1:"ten years old",wrong2:"twelve years old"},{id:2,question:"Which school does Janet go to?",correct:"Palmer School",wrong1:"Park School",wrong2:"Parker School"},{id:3,question:"How are her classmates?",correct:"friendly",wrong1:"quiet",wrong2:"noisy"},{id:4,question:"Who is Janet's favourite teacher?",correct:"Mrs. Smith",wrong1:"Mr. Smith",wrong2:"Ms. Smith"},{id:5,question:"What subject does Mrs. Smith teach?",correct:"maths",wrong1:"English",wrong2:"science"}] }
+            ]
         };
-        speakNext();
-    }
-    
-    function stopAllAudio() {
-        speechSynthesis.cancel();
-        if (audioTimeout) clearTimeout(audioTimeout);
-        if (currentSpeakingTimeout) { clearTimeout(currentSpeakingTimeout); currentSpeakingTimeout = null; }
-        audioQueue = [];
-        isPaused = false;
-    }
-    
-    function pauseAudio() {
-        if (speechSynthesis.speaking) { speechSynthesis.pause(); isPaused = true; }
-        if (audioTimeout) clearTimeout(audioTimeout);
-        if (currentSpeakingTimeout) clearTimeout(currentSpeakingTimeout);
-    }
-    
-    function resumeAudio() {
-        if (isPaused && speechSynthesis.paused) { speechSynthesis.resume(); isPaused = false; }
-    }
-    
-    function getVoiceForId(id) {
-        if (voiceMode === 1) return singleVoice;
-        return (id % 2 === 1) ? oddVoice : evenVoice;
-    }
-    
-    function playAudioSentences(sentences, gapSec, loop) {
-        stopAllAudio();
-        if (!sentences || !sentences.length) return;
-        sentences.forEach(item => {
-            for (let i = 0; i < loop; i++) audioQueue.push({ text: item.word, id: item.id });
-        });
-        let idx = 0;
-        const playNext = () => {
-            if (idx >= audioQueue.length) { stopAllAudio(); return; }
-            const item = audioQueue[idx];
-            speakTextWithBlanks(item.text, item.id, () => {
-                idx++;
-                if (idx < audioQueue.length && !isPaused) {
-                    audioTimeout = setTimeout(playNext, gapSec * 1000);
-                } else if (idx >= audioQueue.length) { stopAllAudio(); }
-            });
+
+        const questionBank = {
+            L4GK1: {}, L4CK1: {}, L4GK2: {}, L4CK2: {},
+            L5GK1: {}, L5CK1: {}, L5GK2: {}, L5CK2: {},
+            L6GK1: {}, L6CK1: {}, L6GK2: {}, L6CK2: {},
+            L7GK1: {}, L7CK1: {}, L7GK2: {}, L7CK2: {},
+            L8GK1: {}, L8CK1: {}, L8GK2: {}, L8CK2: {},
+            L9GK1: {}, L9CK1: {}, L9GK2: {}, L9CK2: {}
         };
-        playNext();
-    }
-    
-    function speakSingleText(text, id) {
-        if (!text) return;
-        stopAllAudio();
-        speakTextWithBlanks(text, id, null);
-    }
-    
-    function populateVoiceList() {
-        if (!('speechSynthesis' in window)) return;
-        const voices = speechSynthesis.getVoices();
-        voiceList = sortVoicesByPlatform(voices);
-    }
-    
-    function sortVoicesByPlatform(voices) {
-        const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-        if (isIOS) {
-            const s = voices.find(v => v.name.toLowerCase().includes('samantha'));
-            if (s) return [s, ...voices.filter(v => v !== s)];
-        } else {
-            const g = voices.filter(v => v.name.toLowerCase().includes('google'));
-            const m = voices.filter(v => v.name.toLowerCase().includes('microsoft'));
-            const o = voices.filter(v => !v.name.toLowerCase().includes('google') && !v.name.toLowerCase().includes('microsoft'));
-            return [...g, ...m, ...o];
-        }
-        return voices;
-    }
-    
-    // Hàm fill dropdown có thêm option "Mặc định (Tự động)" ở đầu
-    function fillVoiceSelect(selectElement) {
-        if (!selectElement) return;
-        selectElement.innerHTML = '';
-        const defaultOption = document.createElement('option');
-        defaultOption.value = '';
-        defaultOption.textContent = '🎙️ Mặc định (Tự động)';
-        selectElement.appendChild(defaultOption);
-        voiceList.forEach(voice => {
-            const option = document.createElement('option');
-            option.value = voice.voiceURI;
-            option.textContent = `${voice.name} (${voice.lang})`;
-            selectElement.appendChild(option);
-        });
-    }
-    
-    function handleVoiceChange(selectElement, setter) {
-        const value = selectElement.value;
-        if (value === '') {
-            setter(null);
-        } else {
-            const found = voiceList.find(v => v.voiceURI === value);
-            setter(found || null);
-        }
-    }
-    
-    if ('speechSynthesis' in window) {
-        speechSynthesis.onvoiceschanged = () => {
-            populateVoiceList();
-            // Cập nhật lại các dropdown nếu đang hiển thị
-            const voiceSelect = document.getElementById('voiceSelect');
-            if (voiceSelect) fillVoiceSelect(voiceSelect);
-            const oddSelect = document.getElementById('oddVoiceSelect');
-            if (oddSelect) fillVoiceSelect(oddSelect);
-            const evenSelect = document.getElementById('evenVoiceSelect');
-            if (evenSelect) fillVoiceSelect(evenSelect);
-            const reportVoiceSelect = document.getElementById('reportVoiceSelect');
-            if (reportVoiceSelect) fillVoiceSelect(reportVoiceSelect);
-            const reportOddSelect = document.getElementById('reportOddVoiceSelect');
-            if (reportOddSelect) fillVoiceSelect(reportOddSelect);
-            const reportEvenSelect = document.getElementById('reportEvenVoiceSelect');
-            if (reportEvenSelect) fillVoiceSelect(reportEvenSelect);
-        };
-        if (speechSynthesis.getVoices().length > 0) populateVoiceList();
-    }
-    
-    function handleCheating() {
-        if (currentScreen === 'exam' && !isCheating) {
-            isCheating = true;
-            document.getElementById('warningMessage').style.display = 'block';
-            setTimeout(() => { document.getElementById('warningMessage').style.display = 'none'; }, 3000);
-            if (timer) clearInterval(timer);
-            endTime = new Date();
-            showReport();
-        }
-    }
-    document.addEventListener('visibilitychange', () => { if (document.hidden) handleCheating(); });
-    window.addEventListener('blur', () => { handleCheating(); });
-    
-    function selectRandomQuestions() {
-        const examData = questionBank[currentExam];
-        for (let partKey of currentConfig.parts) {
-            if (partKey === 'P13') {
-                const res = getRandomListeningLesson();
-                if (res) {
-                    currentListeningLesson = res;
-                    selectedQuestions[partKey] = res.questions;
-                    res.questions.forEach((q, idx) => {
-                        const qKey = `${partKey}.${idx + 1}`;
-                        selectedQuestionDetails[qKey] = {
-                            question: q,
-                            passage: res.lessonData.P4,
-                            lessonId: res.lessonData.id,
-                            subPart: q.subPart,
-                            originalId: q.id
-                        };
-                    });
-                }
-                continue;
-            }
-            const qCount = currentConfig.questionCounts[partKey];
-            if (!examData || !examData[partKey] || examData[partKey].length === 0) continue;
-            if (partKey === 'P6') {
-                const randomIndex = Math.floor(Math.random() * examData[partKey].length);
-                const selectedLesson = examData[partKey][randomIndex];
-                selectedQuestions[partKey] = selectedLesson.questions.slice(0, qCount);
-                selectedLesson.questions.forEach((q, idx) => {
-                    const qKey = `${partKey}.${idx + 1}`;
-                    selectedQuestionDetails[qKey] = {
-                        question: q,
-                        passage: selectedLesson.passage,
-                        lessonId: selectedLesson.id,
-                        originalId: q.id
-                    };
-                });
-            } else if (partKey === 'P7') {
-                const randomIndex = Math.floor(Math.random() * examData[partKey].length);
-                const selectedLesson = examData[partKey][randomIndex];
-                const shuffled = [...selectedLesson.questions].sort(() => 0.5 - Math.random());
-                const selected = shuffled.slice(0, qCount);
-                selectedQuestions[partKey] = selected;
-                selected.forEach((q, idx) => {
-                    const qKey = `${partKey}.${idx + 1}`;
-                    selectedQuestionDetails[qKey] = {
-                        question: q,
-                        passage: selectedLesson.passage,
-                        lessonId: selectedLesson.id,
-                        originalId: q.id
-                    };
-                });
-            } else {
-                let allQuestions = [];
-                for (let lesson of examData[partKey]) allQuestions.push(...lesson.questions);
-                if (allQuestions.length < qCount) {
-                    selectedQuestions[partKey] = allQuestions;
-                    allQuestions.forEach((q, idx) => {
-                        const qKey = `${partKey}.${idx + 1}`;
-                        let passage = "", lessonId = "";
-                        for (let lesson of examData[partKey]) if (lesson.questions.includes(q)) { passage = lesson.passage; lessonId = lesson.id; break; }
-                        selectedQuestionDetails[qKey] = { question: q, passage: passage, lessonId: lessonId, originalId: q.id };
-                    });
-                } else {
-                    const shuffled = [...allQuestions].sort(() => 0.5 - Math.random());
-                    const selected = shuffled.slice(0, qCount);
-                    selectedQuestions[partKey] = selected;
-                    selected.forEach((q, idx) => {
-                        const qKey = `${partKey}.${idx + 1}`;
-                        let passage = "", lessonId = "";
-                        for (let lesson of examData[partKey]) if (lesson.questions.includes(q)) { passage = lesson.passage; lessonId = lesson.id; break; }
-                        selectedQuestionDetails[qKey] = { question: q, passage: passage, lessonId: lessonId, originalId: q.id };
-                    });
-                }
-            }
-        }
-    }
-    
-    function startExam() {
-        const name = document.getElementById('studentName').value.trim();
-        if (!name) { alert('Vui lòng nhập tên!'); return; }
-        const examValue = document.getElementById('examSelect').value;
-        currentExam = 'L4' + examValue;
-        currentExerciseSet = document.getElementById('exerciseSetSelect').value;
-        currentConfig = exerciseSetConfigs[currentExerciseSet];
-        if (!questionBank[currentExam] && !currentConfig.parts.includes('P13')) { alert('Chưa có dữ liệu cho đề thi này'); return; }
-        selectedAnswers = {}; selectedQuestions = {}; selectedQuestionDetails = {}; answerOrders = {}; isCheating = false; startTime = new Date();
-        selectRandomQuestions();
-        showScreen('exam');
-        showPart(0);
-    }
-    
-    function showScreen(screen) {
-        document.getElementById('mainScreen').style.display = 'none';
-        document.getElementById('examScreen').style.display = 'none';
-        document.getElementById('reportScreen').style.display = 'none';
-        if (screen === 'main') document.getElementById('mainScreen').style.display = 'block';
-        else if (screen === 'exam') document.getElementById('examScreen').style.display = 'block';
-        else if (screen === 'report') document.getElementById('reportScreen').style.display = 'block';
-        currentScreen = screen;
-    }
-    
-    function showPart(partIndex) {
-        if (timer) clearInterval(timer);
-        if (partIndex >= currentConfig.parts.length) { endTime = new Date(); showReport(); return; }
-        const partKey = currentConfig.parts[partIndex];
-        currentPart = partIndex;
-        const examText = document.getElementById('examSelect').options[document.getElementById('examSelect').selectedIndex].text;
-        document.getElementById('examSubtitle').textContent = `LỚP 4 – ${examText}`;
-        document.getElementById('examPart').textContent = `Phần ${partKey.substring(1)}`;
-        if (partKey === 'P13') {
-            document.getElementById('instruction').innerHTML = '<strong>LUYỆN NGHE:</strong> Nghe đoạn văn và chọn đáp án đúng.';
-            document.getElementById('questionButtons').innerHTML = '';
-            renderListeningPart();
-            timeLeft = currentConfig.partTimes[partKey];
-            updateTimer(); timer = setInterval(updateTimer, 1000);
-            document.getElementById('nextButton').disabled = true;
-            return;
-        }
-        const passage = (selectedQuestionDetails[`${partKey}.1`] && selectedQuestionDetails[`${partKey}.1`].passage) ? selectedQuestionDetails[`${partKey}.1`].passage : '';
-        document.getElementById('instruction').innerHTML = `<div class="passage-text">📖 ${passage}</div>`;
-        const btnContainer = document.getElementById('questionButtons');
-        btnContainer.innerHTML = '';
-        const qCount = selectedQuestions[partKey] ? selectedQuestions[partKey].length : 0;
-        for (let i = 1; i <= qCount; i++) {
-            const btn = document.createElement('button'); btn.className = 'question-button'; btn.textContent = `CÂU ${i}`; btn.dataset.question = i;
-            if (selectedAnswers[`${partKey}.${i}`]) btn.classList.add('answered');
-            btn.addEventListener('click', (function (p, qn) { return function () { showQuestion(p, qn); }; })(partKey, i));
-            btnContainer.appendChild(btn);
-        }
-        if (qCount > 0) showQuestion(partKey, 1);
-        timeLeft = currentConfig.partTimes[partKey];
-        updateTimer(); timer = setInterval(updateTimer, 1000);
-        document.getElementById('nextButton').disabled = true;
-    }
-    
-    function showQuestion(partKey, qNum) {
-        const qKey = `${partKey}.${qNum}`;
-        const detail = selectedQuestionDetails[qKey];
-        if (!detail) return;
-        const qData = detail.question;
-        const container = document.getElementById('questionContent');
-        container.innerHTML = `<div class="question-text"><strong>Câu ${qNum}:</strong> ${qData.question}</div><div class="answer-options" id="ansOpts"></div>`;
-        const optsDiv = document.getElementById('ansOpts');
-        let answers;
-        if (partKey === 'P13' && detail.subPart === 'P2') {
-            answers = [{ text: "True", isCorrect: (qData.correct === "True") }, { text: "False", isCorrect: (qData.correct === "False") }, { text: "Not given", isCorrect: (qData.correct === "Not given") }];
-        } else {
-            answers = [{ text: qData.correct, isCorrect: true }, { text: qData.wrong1, isCorrect: false }, { text: qData.wrong2, isCorrect: false }, { text: qData.wrong3, isCorrect: false }];
-        }
-        let shuffled = answerOrders[qKey];
-        if (!shuffled) { shuffled = [...answers]; for (let i = shuffled.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; } answerOrders[qKey] = shuffled; }
-        const labels = ['A', 'B', 'C', 'D'];
-        shuffled.forEach((ans, idx) => {
-            const optDiv = document.createElement('div'); optDiv.className = 'answer-option';
-            optDiv.innerHTML = `<strong>${labels[idx]}.</strong> ${ans.text}`;
-            if (selectedAnswers[qKey] === labels[idx]) optDiv.classList.add('selected');
-            optDiv.addEventListener('click', () => {
-                selectedAnswers[qKey] = labels[idx];
-                document.querySelectorAll('.answer-option').forEach(o => o.classList.remove('selected'));
-                optDiv.classList.add('selected');
-                document.querySelector(`.question-button[data-question="${qNum}"]`)?.classList.add('answered');
-                updateNextButtonState();
-            });
-            optsDiv.appendChild(optDiv);
-        });
-    }
-    
-    function renderListeningPart() {
-        const questions = selectedQuestions['P13'];
-        if (!questions || questions.length === 0) return;
-        const container = document.getElementById('questionContent');
-        container.innerHTML = '';
-        const audioPanel = document.createElement('div'); audioPanel.className = 'listening-panel';
-        audioPanel.innerHTML = `<span class="speaker-icon-big" id="playMainAudio">🔊</span><select id="gapTimeSelect"><option value="0.5" selected>0.5s</option><option value="1">1s</option></select><select id="loopCountSelect"><option value="1">1 lần</option><option value="2">2 lần</option></select><button id="pauseAudioBtn">⏸️</button><button id="stopAudioBtn">⏹️</button>`;
-        container.appendChild(audioPanel);
-        const voiceDiv = document.createElement('div'); voiceDiv.className = 'voice-control-row';
-        voiceDiv.innerHTML = `<label>Số giọng: <select id="voiceModeSelect"><option value="1">1 giọng</option><option value="2">2 giọng</option></select></label><div id="singleVoiceDiv"><label>Giọng: <select id="voiceSelect"></select></label></div><div id="dualVoiceDiv" style="display:none;"><label>Giọng lẻ: <select id="oddVoiceSelect"></select></label><label>Giọng chẵn: <select id="evenVoiceSelect"></select></label></div>`;
-        container.appendChild(voiceDiv);
-        questions.forEach((q, idx) => {
-            const qDiv = document.createElement('div'); qDiv.className = 'listening-question-item';
-            let opts;
-            if (q.subPart === 'P2') {
-                opts = ["True", "False", "Not given"];
-            } else {
-                opts = [q.correct, q.wrong1, q.wrong2];
-                for (let i = opts.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [opts[i], opts[j]] = [opts[j], opts[i]]; }
-            }
-            answerOrders[`P13.${idx + 1}`] = opts;
-            qDiv.innerHTML = `<div class="listening-question-text"><span class="speaker-btn-sm" data-text="${q.word.replace(/"/g, '&quot;')}" data-id="${q.id}">🔊</span> ${idx + 1}. ${q.word}</div><div class="listening-options" id="opts-${idx}"></div>`;
-            const optsDiv = qDiv.querySelector(`.listening-options`);
-            const letters = ['A', 'B', 'C'];
-            opts.forEach((opt, optIdx) => {
-                const label = document.createElement('label'); label.className = 'listening-option';
-                const radio = document.createElement('input'); radio.type = 'radio'; radio.name = `q_listen_${idx}`; radio.value = letters[optIdx];
-                if (selectedAnswers[`P13.${idx + 1}`] === letters[optIdx]) radio.checked = true;
-                radio.addEventListener('change', (e) => { selectedAnswers[`P13.${idx + 1}`] = e.target.value; updateNextButtonState(); });
-                label.appendChild(radio);
-                label.appendChild(document.createTextNode(` ${letters[optIdx]}. ${opt}`));
-                if (radio.checked) label.classList.add('selected');
-                radio.addEventListener('change', function () {
-                    document.querySelectorAll(`#opts-${idx} .listening-option`).forEach(l => l.classList.remove('selected'));
-                    this.closest('.listening-option').classList.add('selected');
-                });
-                optsDiv.appendChild(label);
-            });
-            container.appendChild(qDiv);
-        });
-        document.getElementById('playMainAudio')?.addEventListener('click', () => { if (currentListeningLesson && currentListeningLesson.lessonData.P5) { let gap = parseFloat(document.getElementById('gapTimeSelect').value); let loop = parseInt(document.getElementById('loopCountSelect').value); playAudioSentences(currentListeningLesson.lessonData.P5, gap, loop); } });
-        document.getElementById('pauseAudioBtn')?.addEventListener('click', () => { if (isPaused) resumeAudio(); else pauseAudio(); });
-        document.getElementById('stopAudioBtn')?.addEventListener('click', stopAllAudio);
-        document.querySelectorAll('.speaker-btn-sm').forEach(btn => { btn.addEventListener('click', e => { const txt = btn.getAttribute('data-text'); const id = parseInt(btn.getAttribute('data-id')); speakSingleText(txt, id); }); });
+        questionBank.L4GK1 = L4GK1;
         
-        // Khởi tạo dropdown giọng với option mặc định
-        if (voiceList.length) {
-            const voiceSelect = document.getElementById('voiceSelect');
-            if (voiceSelect) {
-                fillVoiceSelect(voiceSelect);
-                voiceSelect.addEventListener('change', () => handleVoiceChange(voiceSelect, v => singleVoice = v));
+        const exerciseSetConfigs = {
+            FULL:{ title:"TỔNG HỢP", parts:['P1','P2','P3','P4','P5','P6','P7','P8','P9','P10','P11','P12','P13'], questionCounts:{ P1:2,P2:2,P3:3,P4:3,P5:10,P6:5,P7:5,P8:2,P9:2,P10:2,P11:2,P12:2,P13:5 }, partTimes:{ P1:40,P2:40,P3:90,P4:120,P5:240,P6:240,P7:240,P8:120,P9:120,P10:120,P11:120,P12:120,P13:300 } },
+            PRONUNCIATION_VOCABULARY_GRAMMAR:{ title:"PHÁT ÂM, TRỌNG ÂM, TỪ VỰNG VÀ NGỮ PHÁP", parts:['P1','P2','P3','P5'], questionCounts:{ P1:4,P2:4,P3:6,P5:16 }, partTimes:{ P1:80,P2:80,P3:200,P5:480 } },
+            ERROR_READING_COMMUNICATION_REWRITE:{ title:"TÌM LỖI SAI, ĐỌC HIỂU, GIAO TIẾP VÀ VIẾT LẠI CÂU", parts:['P4','P7','P9','P11'], questionCounts:{ P4:6,P7:5,P9:4,P11:4 }, partTimes:{ P4:240,P7:240,P9:240,P11:240 } },
+            FILL_ARRANGE_SIGNS_WORDS:{ title:"ĐIỀN KHUYẾT, SẮP XẾP CÁC CÂU, BIỂN BÁO VÀ SẮP XẾP CÁC TỪ", parts:['P6','P8','P10','P12'], questionCounts:{ P6:5,P8:4,P10:4,P12:4 }, partTimes:{ P6:240,P8:240,P10:240,P12:240 } },
+            P1:{ title:"Phần 1 – PHÁT ÂM", parts:['P1'], questionCounts:{ P1:20 }, partTimes:{ P1:300 }, perQuestionTime:15 },
+            P2:{ title:"Phần 2 – TRỌNG ÂM", parts:['P2'], questionCounts:{ P2:20 }, partTimes:{ P2:300 }, perQuestionTime:15 },
+            P3:{ title:"Phần 3 – ĐỒNG NGHĨA NGƯỢC NGHĨA", parts:['P3'], questionCounts:{ P3:15 }, partTimes:{ P3:300 }, perQuestionTime:20 },
+            P4:{ title:"Phần 4 – TÌM LỖI SAI", parts:['P4'], questionCounts:{ P4:10 }, partTimes:{ P4:300 }, perQuestionTime:30 },
+            P5:{ title:"Phần 5 – TỪ VỰNG NGỮ PHÁP", parts:['P5'], questionCounts:{ P5:20 }, partTimes:{ P5:300 }, perQuestionTime:20 },
+            P6:{ title:"Phần 6 – ĐIỀM KHUYẾT", parts:['P6'], questionCounts:{ P6:5 }, partTimes:{ P6:240 } },
+            P7:{ title:"Phần 7 – ĐỌC HIỂU", parts:['P7'], questionCounts:{ P7:5 }, partTimes:{ P7:240 } },
+            P8:{ title:"Phần 8 – SẮP XẾP CÁC CÂU", parts:['P8'], questionCounts:{ P8:10 }, partTimes:{ P8:300 }, perQuestionTime:30 },
+            P9:{ title:"Phần 9 – GIAO TIẾP", parts:['P9'], questionCounts:{ P9:10 }, partTimes:{ P9:300 }, perQuestionTime:30 },
+            P10:{ title:"Phần 10 – BIẾN BÁO TIN TỨC", parts:['P10'], questionCounts:{ P10:10 }, partTimes:{ P10:300 }, perQuestionTime:30 },
+            P11:{ title:"Phần 11 – VIẾT LẠI CÂU CÓ NGHĨA KHÔNG ĐỔI", parts:['P11'], questionCounts:{ P11:10 }, partTimes:{ P11:300 }, perQuestionTime:30 },
+            P12:{ title:"Phần 12 – SẮP XẾP CÁC TỪ THÀNH CÂU", parts:['P12'], questionCounts:{ P12:10 }, partTimes:{ P12:300 }, perQuestionTime:30 },
+            P13:{ title:"Phần 13 – NGHE HIỂU", parts:['P13'], questionCounts:{ P13:5 }, partTimes:{ P13:300 } }
+        };
+
+        // ========== LOGIC CHÍNH VỚI HỖ TRỢ NHÃN ĐỘNG ==========
+        let currentScreen='main', currentExam='', currentPart=0, currentQuestion=1, selectedAnswers={}, timeLeft=0, timer=null, startTime=null, endTime=null, selectedQuestions={}, isTabSwitched=false, answerOrders={}, questionCodes={}, currentExerciseSet='FULL', currentConfig=exerciseSetConfigs.FULL, currentQuestionIndex=0, currentPartQuestionCount=0, isSinglePartMode=false, selectedQuestionDetails={};
+        let audioLoopTimeout = null;
+
+        // Hàm tạo nhãn động: 0->A, 1->B, ..., 25->Z, 26->AA, 27->AB, ...
+        function getLabel(index) {
+            let result = '';
+            while (index >= 0) {
+                result = String.fromCharCode(65 + (index % 26)) + result;
+                index = Math.floor(index / 26) - 1;
             }
-            const oddSelect = document.getElementById('oddVoiceSelect');
-            if (oddSelect) {
-                fillVoiceSelect(oddSelect);
-                oddSelect.addEventListener('change', () => handleVoiceChange(oddSelect, v => oddVoice = v));
-            }
-            const evenSelect = document.getElementById('evenVoiceSelect');
-            if (evenSelect) {
-                fillVoiceSelect(evenSelect);
-                evenSelect.addEventListener('change', () => handleVoiceChange(evenSelect, v => evenVoice = v));
+            return result;
+        }
+
+        document.addEventListener('DOMContentLoaded',()=>{
+            document.getElementById('startButton').addEventListener('click',startExam);
+            document.getElementById('nextButton').addEventListener('click',nextPart);
+            document.getElementById('retryButton').addEventListener('click',retryExam);
+            document.getElementById('newExamButton').addEventListener('click',newExam);
+            document.getElementById('backToMainButton').addEventListener('click',backToMain);
+            document.addEventListener('visibilitychange',()=>{ if(document.hidden) endExamDueToCheating(); });
+            window.addEventListener('blur',()=>endExamDueToCheating());
+        });
+
+        function hasExamData(examKey){ let exam=questionBank[examKey]; if(!exam) return false; for(let part of currentConfig.parts) if(exam[part] && exam[part][0]?.questions?.length>0) return true; return false; }
+
+        function startExam(){
+            let studentName=document.getElementById('studentName').value.trim();
+            if(!studentName){ alert('Vui lòng nhập tên của bạn!'); return; }
+            currentExam=document.getElementById('classSelect').value+document.getElementById('examSelect').value;
+            currentExerciseSet=document.getElementById('exerciseSetSelect').value;
+            currentConfig=exerciseSetConfigs[currentExerciseSet];
+            if(!hasExamData(currentExam)){ showScreen('error'); return; }
+            currentPart=0; currentQuestion=1; currentQuestionIndex=0; selectedAnswers={}; selectedQuestions={}; selectedQuestionDetails={}; answerOrders={}; questionCodes={}; isTabSwitched=false; startTime=new Date();
+            isSinglePartMode=!!currentConfig.perQuestionTime;
+            selectRandomQuestions(); showScreen('exam'); showPart(0);
+        }
+
+        function selectRandomQuestions(){
+            let examData=questionBank[currentExam];
+            for(let partKey of currentConfig.parts){
+                let qCount=currentConfig.questionCounts[partKey];
+                if(partKey === 'P13'){
+                    let sections = (examData[partKey]||[]).filter(s=>s.questions && s.questions.length>0);
+                    if(sections.length){
+                        let sec = sections[Math.floor(Math.random()*sections.length)];
+                        let picked = getRandomItems(sec.questions, qCount);
+                        selectedQuestions[partKey] = { section: sec, questions: picked };
+                        picked.forEach((q,idx)=>{ let qKey=`${partKey}.${idx+1}`; selectedQuestionDetails[qKey]={ question:q, sectionId:sec.id, questionId:q.id, isListening:true, tapescript:sec.tapescript, listening:sec.listening }; questionCodes[qKey]={ sectionId:sec.id, questionId:q.id }; });
+                    } else selectedQuestions[partKey]={ section:{ id:"C1", passage:"...", tapescript:"", listening:[], questions:[] }, questions:[] };
+                } else if(['P1','P2','P3','P4','P5','P8','P9','P10','P11','P12'].includes(partKey)){
+                    if(examData[partKey]?.[0]?.questions?.length>=qCount){
+                        selectedQuestions[partKey]=getRandomItems(examData[partKey][0].questions,qCount);
+                        selectedQuestions[partKey].forEach((q,idx)=>{ let qKey=`${partKey}.${idx+1}`; selectedQuestionDetails[qKey]={ question:q, sectionId:examData[partKey][0].id, questionId:q.id }; questionCodes[qKey]={ sectionId:examData[partKey][0].id, questionId:q.id }; });
+                    } else selectedQuestions[partKey]=[];
+                } else if(partKey==='P6'||partKey==='P7'){
+                    let sections=(examData[partKey]||[]).filter(s=>s.questions?.length);
+                    if(sections.length){
+                        let sec=sections[Math.floor(Math.random()*sections.length)];
+                        let picked=partKey==='P6'? sec.questions.slice(0,qCount) : getRandomItems(sec.questions,qCount);
+                        selectedQuestions[partKey]={ section:sec, questions:picked };
+                        picked.forEach((q,idx)=>{ let qKey=`${partKey}.${idx+1}`; selectedQuestionDetails[qKey]={ question:q, sectionId:sec.id, questionId:q.id }; questionCodes[qKey]={ sectionId:sec.id, questionId:q.id }; });
+                    } else selectedQuestions[partKey]={ section:{ id:"C1", passage:"Không có dữ liệu", questions:[] }, questions:[] };
+                }
             }
         }
-        document.getElementById('voiceModeSelect')?.addEventListener('change', e => { voiceMode = parseInt(e.target.value); document.getElementById('singleVoiceDiv').style.display = voiceMode === 1 ? 'flex' : 'none'; document.getElementById('dualVoiceDiv').style.display = voiceMode === 2 ? 'flex' : 'none'; });
-        // Mặc định chọn giọng null (tự động)
-        singleVoice = null; oddVoice = null; evenVoice = null;
-        const defaultVoiceSelect = document.getElementById('voiceSelect');
-        if (defaultVoiceSelect) defaultVoiceSelect.value = '';
-    }
-    
-    function updateNextButtonState() {
-        const partKey = currentConfig.parts[currentPart];
-        let total = selectedQuestions[partKey] ? selectedQuestions[partKey].length : 0;
-        let answered = 0;
-        for (let i = 1; i <= total; i++) if (selectedAnswers[`${partKey}.${i}`] !== undefined) answered++;
-        document.getElementById('nextButton').disabled = !(answered === total && total > 0);
-    }
-    
-    function updateTimer() {
-        if (timeLeft <= 0) { nextPart(); return; }
-        timeLeft--;
-        const totalTime = currentConfig.partTimes[currentConfig.parts[currentPart]];
-        const percent = (timeLeft / totalTime) * 100;
-        document.getElementById('progressBar').style.width = `${percent}%`;
-        const mins = Math.floor(timeLeft / 60), secs = timeLeft % 60;
-        document.getElementById('progressText').textContent = `Thời gian còn lại: ${mins}:${secs < 10 ? '0' : ''}${secs}`;
-    }
-    
-    function nextPart() { if (timer) clearInterval(timer); showPart(currentPart + 1); }
-    
-    function getExerciseSetDisplayName(key) {
-        const map = { 'FULL': 'TỔNG HỢP', 'PRONUNCIATION_VOCABULARY_GRAMMAR': 'PHÁT ÂM, TRỌNG ÂM, TỪ VỰNG VÀ NGỮ PHÁP', 'ERROR_READING_COMMUNICATION_REWRITE': 'TÌM LỖI SAI, ĐỌC HIỂU, GIAO TIẾP VÀ VIẾT LẠI CÂU', 'FILL_ARRANGE_SIGNS_WORDS': 'ĐIỀN KHUYẾT, SẮP XẾP CÁC CÂU, BIỂN BÁO VÀ SẮP XẾP CÁC TỪ', 'P1': 'PHÁT ÂM', 'P2': 'TRỌNG ÂM', 'P3': 'ĐỒNG NGHĨA/NGƯỢC NGHĨA', 'P4': 'TÌM LỖI SAI', 'P5': 'TỪ VỰNG NGỮ PHÁP', 'P6': 'ĐIỀN KHUYẾT', 'P7': 'ĐỌC HIỂU', 'P8': 'SẮP XẾP CÂU', 'P9': 'GIAO TIẾP', 'P10': 'BIỂN BÁO', 'P11': 'VIẾT LẠI CÂU', 'P12': 'SẮP XẾP TỪ', 'P13': 'LUYỆN NGHE' };
-        return map[key] || key;
-    }
-    
-    function showReport() {
-        if (timer) clearInterval(timer);
-        showScreen('report');
-        const examSelectElem = document.getElementById('examSelect');
-        let termRaw = examSelectElem.value;
-        let termDisplay = (termRaw === 'GK1' ? 'GK1' : (termRaw === 'CK1' ? 'HK1' : (termRaw === 'GK2' ? 'GK2' : 'HK2')));
-        const exerciseSetDisplay = getExerciseSetDisplayName(currentExerciseSet);
-        document.getElementById('resultTitle').innerHTML = `KẾT QUẢ - ${termDisplay} - ${exerciseSetDisplay}`;
-        let partResults = {};
-        let totalCorrect = 0, totalCount = 0;
-        for (let part of currentConfig.parts) {
-            let cnt = selectedQuestions[part] ? selectedQuestions[part].length : 0;
-            let partCorrect = 0;
-            for (let i = 1; i <= cnt; i++) {
-                totalCount++;
-                let ans = selectedAnswers[`${part}.${i}`];
-                let detail = selectedQuestionDetails[`${part}.${i}`];
-                if (!detail) continue;
-                if (part === 'P13') {
-                    let q = detail.question;
-                    if (q && ans) {
-                        let opts = answerOrders[`P13.${i}`];
-                        let letters = ['A', 'B', 'C'];
-                        let chosenText = opts[letters.indexOf(ans)];
-                        let isCorrect = false;
-                        if (detail.subPart === 'P2') {
-                            isCorrect = (chosenText === q.correct);
+
+        function getRandomItems(arr,n){ let shuffled=[...arr]; for(let i=shuffled.length-1;i>0;i--){ let j=Math.floor(Math.random()*(i+1)); [shuffled[i],shuffled[j]]=[shuffled[j],shuffled[i]]; } return shuffled.slice(0,n); }
+        function showScreen(name){ document.getElementById('mainScreen').style.display=name==='main'?'block':'none'; document.getElementById('examScreen').style.display=name==='exam'?'block':'none'; document.getElementById('reportScreen').style.display=name==='report'?'block':'none'; document.getElementById('errorScreen').style.display=name==='error'?'block':'none'; currentScreen=name; }
+
+        function showPart(partIdx){
+            if(partIdx>=currentConfig.parts.length){ endTime=new Date(); showReport(); return; }
+            let partKey=currentConfig.parts[partIdx]; currentPart=partIdx; currentQuestionIndex=0;
+            if(['P1','P2','P3','P4','P5','P8','P9','P10','P11','P12'].includes(partKey)) currentPartQuestionCount=selectedQuestions[partKey]?.length||0;
+            else if(partKey==='P6'||partKey==='P7'||partKey==='P13') currentPartQuestionCount=selectedQuestions[partKey]?.questions?.length||0;
+            if(timer) clearInterval(timer); stopAudio();
+            let classText=document.getElementById('classSelect').options[document.getElementById('classSelect').selectedIndex].text;
+            let examText=document.getElementById('examSelect').options[document.getElementById('examSelect').selectedIndex].text;
+            document.getElementById('examSubtitle').innerHTML=`${classText} – ${examText}`;
+            let examCode=`${currentExam} – ${partKey}`;
+            if(selectedQuestions[partKey]?.section?.id) examCode+=`.${selectedQuestions[partKey].section.id}`;
+            document.getElementById('examCode').innerText=examCode; document.getElementById('examPart').innerText=`Phần ${partKey.substring(1)}`;
+            let examData=questionBank[currentExam];
+            let instruction='';
+            if(partKey==='P13') instruction=selectedQuestions[partKey]?.section?.passage||'';
+            else if(['P1','P2','P3','P4','P5','P8','P9','P10','P11','P12'].includes(partKey)) instruction=examData[partKey]?.[0]?.passage||'';
+            else if(partKey==='P6'||partKey==='P7') instruction=selectedQuestions[partKey]?.section?.passage||'';
+            document.getElementById('instruction').innerHTML=instruction;
+            let audioArea=document.getElementById('audioControlsArea');
+            if(partKey==='P13'){ audioArea.style.display='flex'; buildAudioControls(partKey); } else audioArea.style.display='none';
+            let btnContainer=document.getElementById('questionButtons'); btnContainer.innerHTML='';
+            for(let i=1;i<=currentPartQuestionCount;i++){ let btn=document.createElement('button'); btn.className='question-button'; btn.innerText=`CÂU ${i}`; btn.dataset.question=i; if(selectedAnswers[`${partKey}.${i}`]!==undefined) btn.classList.add('answered'); btn.addEventListener('click',()=>showQuestion(partKey,i)); btnContainer.appendChild(btn); }
+            showQuestion(partKey,1);
+            timeLeft=currentConfig.partTimes[partKey]; updateTimer(); timer=setInterval(updateTimer,1000);
+        }
+
+        function getAnswerArray(qData) {
+            let answers = [{ text: qData.correct, isCorrect: true }];
+            if (qData.wrong1 !== undefined) answers.push({ text: qData.wrong1, isCorrect: false });
+            if (qData.wrong2 !== undefined) answers.push({ text: qData.wrong2, isCorrect: false });
+            if (qData.wrong3 !== undefined) answers.push({ text: qData.wrong3, isCorrect: false });
+            // Có thể mở rộng thêm wrong4, wrong5,... nếu dữ liệu có
+            return answers;
+        }
+
+        function startListeningPlayback(sentences, intervalSec, repeatTimes, voiceName, onEndCallback) {
+            if (!sentences.length) return;
+            let currentSentenceIdx = 0;
+            let currentRepeatCount = 0;
+            let timeoutId = null;
+
+            function playCurrentSentence() {
+                if (currentSentenceIdx >= sentences.length) {
+                    if (onEndCallback) onEndCallback();
+                    return;
+                }
+                const utterance = new SpeechSynthesisUtterance(sentences[currentSentenceIdx]);
+                if (voiceName !== 'default') {
+                    let voices = speechSynthesis.getVoices();
+                    let selected = voices.find(v => v.name === voiceName);
+                    if (selected) utterance.voice = selected;
+                }
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9;
+                utterance.onend = () => {
+                    currentRepeatCount++;
+                    if (currentRepeatCount < repeatTimes) {
+                        timeoutId = setTimeout(() => playCurrentSentence(), intervalSec * 1000);
+                    } else {
+                        currentRepeatCount = 0;
+                        currentSentenceIdx++;
+                        if (currentSentenceIdx < sentences.length) {
+                            timeoutId = setTimeout(() => playCurrentSentence(), intervalSec * 1000);
                         } else {
-                            isCorrect = (chosenText === q.correct);
+                            if (onEndCallback) onEndCallback();
                         }
-                        if (isCorrect) partCorrect++;
                     }
-                } else {
-                    let qd = detail.question;
-                    if (qd && ans) {
-                        let opts = [qd.correct, qd.wrong1, qd.wrong2, qd.wrong3];
-                        let letters = ['A', 'B', 'C', 'D'];
-                        let chosenText = opts[letters.indexOf(ans)];
-                        if (chosenText === qd.correct) partCorrect++;
+                };
+                speechSynthesis.speak(utterance);
+            }
+            playCurrentSentence();
+            return () => {
+                if (timeoutId) clearTimeout(timeoutId);
+                speechSynthesis.cancel();
+            };
+        }
+
+        function buildAudioControls(partKey){
+            let container=document.getElementById('audioControlsArea'); if(!container) return;
+            container.innerHTML=`<div class="control-group"><button id="playAudioBtn">🔊 Phát</button><button id="pauseAudioBtn">⏸ Tạm dừng</button><button id="stopAudioBtn">⏹ Dừng</button></div>
+            <div class="control-group"><label>Khoảng cách (giây):</label><select id="intervalSelect"><option value="0.5">0.5s</option><option value="1" selected>1s</option><option value="2">2s</option><option value="3">3s</option><option value="4">4s</option></select></div>
+            <div class="control-group"><label>Lặp lại (mỗi câu):</label><select id="repeatSelect"><option value="1">1 lần</option><option value="2">2 lần</option><option value="3">3 lần</option></select></div>
+            <div class="control-group"><label>Giọng đọc:</label><select id="voiceSelect"></select></div>`;
+            let voiceSelect=document.getElementById('voiceSelect');
+            if(window.speechSynthesis){
+                let voices=speechSynthesis.getVoices();
+                let defaultOption=document.createElement('option'); defaultOption.value='default'; defaultOption.text='Mặc định hệ thống'; voiceSelect.appendChild(defaultOption);
+                voices.forEach(voice=>{ let opt=document.createElement('option'); opt.value=voice.name; opt.text=voice.name; voiceSelect.appendChild(opt); });
+                speechSynthesis.onvoiceschanged=()=>{ voiceSelect.innerHTML='<option value="default">Mặc định hệ thống</option>'; voices=speechSynthesis.getVoices(); voices.forEach(voice=>{ let opt=document.createElement('option'); opt.value=voice.name; opt.text=voice.name; voiceSelect.appendChild(opt); }); };
+            }
+            let cancelPlayback = null;
+            document.getElementById('playAudioBtn').onclick=()=>{
+                if(cancelPlayback) cancelPlayback();
+                let section=selectedQuestions[partKey]?.section; if(!section||!section.listening) return;
+                let sentences=section.listening.map(l=>l.word);
+                let interval=parseFloat(document.getElementById('intervalSelect').value);
+                let repeat=parseInt(document.getElementById('repeatSelect').value);
+                let voiceName=document.getElementById('voiceSelect').value;
+                cancelPlayback = startListeningPlayback(sentences, interval, repeat, voiceName, null);
+            };
+            document.getElementById('pauseAudioBtn').onclick=()=>{ if(cancelPlayback) cancelPlayback(); cancelPlayback=null; };
+            document.getElementById('stopAudioBtn').onclick=()=>{ if(cancelPlayback) cancelPlayback(); cancelPlayback=null; };
+        }
+
+        function stopAudio(){ if(window.speechSynthesis) speechSynthesis.cancel(); if(audioLoopTimeout) clearTimeout(audioLoopTimeout); audioLoopTimeout=null; }
+
+        function showQuestion(partKey,qNum){
+            currentQuestion=qNum; currentQuestionIndex=qNum-1;
+            let qKey=`${partKey}.${qNum}`;
+            document.querySelectorAll('.question-button').forEach(btn=>{ if(parseInt(btn.dataset.question)===qNum) btn.classList.add('active'); else btn.classList.remove('active'); });
+            let curCode=document.getElementById('examCode').innerText;
+            if(questionCodes[qKey]){ let {sectionId,questionId}=questionCodes[qKey]; let newCode=curCode.replace(new RegExp(`\\.${sectionId}\\.\\d+$`),`.${sectionId}.${questionId}`); if(newCode===curCode) newCode+=`.${sectionId}.${questionId}`; document.getElementById('examCode').innerText=newCode; }
+            let qData=selectedQuestionDetails[qKey]?.question; let container=document.getElementById('questionContent'); container.innerHTML='';
+            if(qData){
+                let qDiv=document.createElement('div'); qDiv.className='question-text'; qDiv.innerHTML=`<strong>Câu ${qNum}:</strong> ${qData.question}`; container.appendChild(qDiv);
+                let answersDiv=document.createElement('div'); answersDiv.className='answer-options';
+                let answers = getAnswerArray(qData);
+                let shuffled=answerOrders[qKey]; if(!shuffled){ shuffled=[...answers]; for(let i=shuffled.length-1;i>0;i--){ let j=Math.floor(Math.random()*(i+1)); [shuffled[i],shuffled[j]]=[shuffled[j],shuffled[i]]; } answerOrders[qKey]=shuffled; }
+                shuffled.forEach((ans,idx)=>{
+                    let opt=document.createElement('div'); opt.className='answer-option';
+                    let label = getLabel(idx);
+                    opt.innerHTML=`<strong>${label}.</strong> ${ans.text}`;
+                    opt.dataset.answer=label;
+                    if(selectedAnswers[qKey]===label) opt.classList.add('selected');
+                    opt.addEventListener('click',()=>{
+                        selectedAnswers[qKey]=label;
+                        document.querySelectorAll('.answer-option').forEach(o=>o.classList.remove('selected'));
+                        opt.classList.add('selected');
+                        let btn=document.querySelector(`.question-button[data-question="${qNum}"]`);
+                        if(btn) btn.classList.add('answered');
+                    });
+                    answersDiv.appendChild(opt);
+                });
+                container.appendChild(answersDiv);
+            } else container.innerHTML='<p>Không có câu hỏi.</p>';
+        }
+
+        function nextPart(){ if(timer) clearInterval(timer); stopAudio(); showPart(currentPart+1); }
+        function updateTimer(){ let bar=document.getElementById('progressBar'),text=document.getElementById('progressText'); let total=currentConfig.partTimes[currentConfig.parts[currentPart]]; let percent=(timeLeft/total)*100; bar.style.width=`${percent}%`; let m=Math.floor(timeLeft/60),s=timeLeft%60; text.innerText=`Thời gian còn lại: ${m}:${s<10?'0':''}${s}`; if(timeLeft<=0){ nextPart(); return; } timeLeft--; }
+        function endExamDueToCheating(){ if(currentScreen==='exam'){ isTabSwitched=true; endTime=new Date(); showReport(); } }
+
+        function showReport(){
+            if(timer) clearInterval(timer); stopAudio(); showScreen('report');
+            let classText=document.getElementById('classSelect').options[document.getElementById('classSelect').selectedIndex].text;
+            let examText=document.getElementById('examSelect').options[document.getElementById('examSelect').selectedIndex].text;
+            document.getElementById('reportSubtitle').innerHTML=`${classText} – ${examText}`;
+            document.getElementById('resultTitle').innerHTML=`KẾT QUẢ – ${currentConfig.title}`;
+            document.getElementById('reportStudentName').innerText=document.getElementById('studentName').value;
+            if(isTabSwitched) document.getElementById('cheatingWarning').style.display='block';
+            let result=calculateResult();
+            let pieChart=document.getElementById('resultPieChart'); let perc=result.correctPercentage;
+            let color=perc>=90?'#722ed1':perc>=80?'#1890ff':perc>=70?'#52c41a':perc>=50?'#faad14':'#f5222d';
+            pieChart.style.background=`conic-gradient(${color} 0% ${perc}%, #eee ${perc}% 100%)`;
+            document.getElementById('piePercentage').innerText=`${perc}%`; document.getElementById('piePercentage').style.color=color;
+            document.getElementById('pieScore').innerText=`${result.correctCount}/${result.totalCount}`;
+            let d=startTime; document.getElementById('reportDateDisplay').innerText=`${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`;
+            let sh=String(d.getHours()).padStart(2,'0'),sm=String(d.getMinutes()).padStart(2,'0'),ss=String(d.getSeconds()).padStart(2,'0');
+            document.getElementById('statStartTime').innerText=`${sh}:${sm}:${ss}`;
+            let e=endTime||new Date(); let eh=String(e.getHours()).padStart(2,'0'),em=String(e.getMinutes()).padStart(2,'0'),es=String(e.getSeconds()).padStart(2,'0');
+            document.getElementById('statEndTime').innerText=`${eh}:${em}:${es}`;
+            let totalSec=Math.floor((e-startTime)/1000); document.getElementById('statTotalTime').innerText=`${Math.floor(totalSec/60)}p ${totalSec%60}s`;
+            let answered=Object.keys(selectedAnswers).filter(k=>selectedAnswers[k]!==undefined).length;
+            let wrong=answered-result.correctCount; let unanswered=result.totalCount-answered;
+            document.getElementById('countWrong').innerText=wrong; document.getElementById('countUnanswered').innerText=unanswered; document.getElementById('countTotal').innerText=result.totalCount;
+            displayResultChart(result.partResults); displayQuestionList(result.partResults);
+        }
+
+        function calculateResult(){
+            let correct=0,total=0,partRes={};
+            for(let partKey of currentConfig.parts){
+                let qCount=currentConfig.questionCounts[partKey]; let partCor=0;
+                for(let i=1;i<=qCount;i++){ let qKey=`${partKey}.${i}`; total++;
+                    if(selectedAnswers[qKey]!==undefined && selectedQuestionDetails[qKey]){
+                        let q=selectedQuestionDetails[qKey].question;
+                        let order=answerOrders[qKey];
+                        if(order){
+                            let correctLabel=null;
+                            for(let idx=0;idx<order.length;idx++) if(order[idx].isCorrect) correctLabel=getLabel(idx);
+                            if(selectedAnswers[qKey]===correctLabel) { correct++; partCor++; }
+                        } else {
+                            let answers=getAnswerArray(q);
+                            let correctLabel=null;
+                            for(let idx=0;idx<answers.length;idx++) if(answers[idx].isCorrect) correctLabel=getLabel(idx);
+                            if(selectedAnswers[qKey]===correctLabel) { correct++; partCor++; }
+                        }
                     }
                 }
+                partRes[partKey]={ correctCount:partCor, totalCount:qCount, percentage:qCount?Math.round((partCor/qCount)*100):0 };
             }
-            partResults[part] = { correctCount: partCorrect, totalCount: cnt, percentage: cnt > 0 ? Math.round((partCorrect / cnt) * 100) : 0 };
-            totalCorrect += partCorrect;
+            return { correctCount:correct, totalCount:total, correctPercentage:total?Math.round((correct/total)*100):0, partResults:partRes };
         }
-        const percentage = Math.round(totalCorrect / totalCount * 100);
-        let color = '#f5222d';
-        if (percentage >= 90) color = '#722ed1';
-        else if (percentage >= 80) color = '#1890ff';
-        else if (percentage >= 70) color = '#52c41a';
-        else if (percentage >= 50) color = '#faad14';
-        document.getElementById('resultPieChart').style.background = `conic-gradient(${color} 0% ${percentage}%, #eee ${percentage}% 100%)`;
-        document.getElementById('piePercentage').innerText = `${percentage}%`;
-        document.getElementById('pieScore').innerText = `${totalCorrect}/${totalCount}`;
-        document.getElementById('reportStudentName').innerText = document.getElementById('studentName').value;
-        document.getElementById('reportDateDisplay').innerText = new Date().toLocaleDateString();
-        document.getElementById('statStartTime').innerText = startTime?.toLocaleTimeString() || '';
-        document.getElementById('statEndTime').innerText = endTime?.toLocaleTimeString() || '';
-        const totalSec = Math.floor((endTime - startTime) / 1000);
-        document.getElementById('statTotalTime').innerText = `${Math.floor(totalSec / 60)}p ${totalSec % 60}s`;
-        const wrong = totalCount - totalCorrect;
-        const unanswered = totalCount - Object.keys(selectedAnswers).length;
-        document.getElementById('detailWrongUnanswered').innerHTML = `<span class="count-wrong">${wrong}</span> / <span class="count-unanswered">${unanswered}</span> / <span class="count-total">${totalCount}</span>`;
-        if (isCheating) document.getElementById('cheatingWarning').style.display = 'block';
-        const chartContainer = document.getElementById('resultChart');
-        chartContainer.innerHTML = '';
-        for (let part of currentConfig.parts) {
-            let r = partResults[part];
-            if (!r) continue;
-            let progClass = r.percentage === 100 ? 'perfect' : r.percentage >= 90 ? 'excellent' : r.percentage >= 80 ? 'very-high' : r.percentage >= 70 ? 'high' : r.percentage >= 50 ? 'medium' : 'low';
-            let div = document.createElement('div'); div.className = 'part-result';
-            div.innerHTML = `<div class="part-name">Phần ${part.substring(1)}</div><div class="part-progress"><div class="part-progress-bar ${progClass}" style="width:${r.percentage}%"></div></div><div class="part-stats-row"><span class="part-count">${r.correctCount}/${r.totalCount}</span><span class="part-percentage">${r.percentage}%</span></div>`;
-            chartContainer.appendChild(div);
-        }
-        const detailedContainer = document.getElementById('detailedAnswersList');
-        detailedContainer.innerHTML = '';
-        const partNumbers = ['P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8', 'P9', 'P10', 'P11', 'P12'];
-        for (let part of partNumbers) {
-            if (!currentConfig.parts.includes(part)) continue;
-            const questions = selectedQuestions[part];
-            if (!questions || questions.length === 0) continue;
-            let hasAnswered = false;
-            let questionsHtml = '';
-            let passageText = '', lessonId = '';
-            const firstKey = `${part}.1`;
-            if (selectedQuestionDetails[firstKey]) {
-                passageText = selectedQuestionDetails[firstKey].passage || '';
-                lessonId = selectedQuestionDetails[firstKey].lessonId || '';
+
+        function displayResultChart(partRes){
+            let container=document.getElementById('resultChart'); container.innerHTML='';
+            for(let p of currentConfig.parts){
+                let res=partRes[p]; let div=document.createElement('div'); div.className='part-result';
+                let cls='low'; if(res.percentage===100) cls='perfect'; else if(res.percentage>=90) cls='excellent'; else if(res.percentage>=80) cls='very-high'; else if(res.percentage>=70) cls='high'; else if(res.percentage>=50) cls='medium';
+                div.innerHTML=`<div class="part-name">Phần ${p.substring(1)}</div><div class="part-progress"><div class="part-progress-bar ${cls}" style="width:${res.percentage}%"></div></div><div class="part-stats-row"><span class="part-count">${res.totalCount}</span><span class="part-percentage">${res.percentage}%</span></div>`;
+                container.appendChild(div);
             }
-            for (let i = 0; i < questions.length; i++) {
-                const ansKey = `${part}.${i + 1}`;
-                const userLetter = selectedAnswers[ansKey];
-                if (userLetter !== undefined) {
-                    hasAnswered = true;
-                    const detail = selectedQuestionDetails[ansKey];
-                    const qData = detail?.question;
-                    if (qData) {
-                        const opts = [qData.correct, qData.wrong1, qData.wrong2, qData.wrong3];
-                        const letters = ['A', 'B', 'C', 'D'];
-                        const chosenText = opts[letters.indexOf(userLetter)];
-                        const isCorrect = (chosenText === qData.correct);
-                        const qid = detail.originalId || '?';
-                        questionsHtml += `<div class="question-detail-item">
-                            <strong>Câu ${i + 1} (id: ${qid}):</strong> ${qData.question}<br>
-                            <span>📌 Đáp án đã chọn: <strong>${userLetter}. ${chosenText}</strong> ${isCorrect ? '✅' : '❌'}</span><br>
-                            <span>✔️ Đáp án đúng: <strong>${qData.correct}</strong></span>
-                        </div>`;
+        }
+
+        function displayQuestionList(partRes){
+            let container=document.getElementById('questionList'); container.innerHTML='';
+            for(let partKey of currentConfig.parts){
+                let partDiv=document.createElement('div'); partDiv.className='part-section';
+                let header=document.createElement('div'); header.className='part-header'; header.innerHTML=`Phần ${partKey.substring(1)}: ${getPartName(partKey)} <span>(${partRes[partKey].correctCount}/${partRes[partKey].totalCount} - ${partRes[partKey].percentage}%)</span>`;
+                let questionsDiv=document.createElement('div'); questionsDiv.className='part-questions';
+                header.addEventListener('click',()=>{ header.classList.toggle('expanded'); questionsDiv.classList.toggle('show'); });
+                let codeDiv=document.createElement('div'); codeDiv.className='part-exam-code'; let code=`${currentExam} – ${partKey}`;
+                if(selectedQuestions[partKey]?.section?.id) code+=`.${selectedQuestions[partKey].section.id}`; codeDiv.innerText=code; questionsDiv.appendChild(codeDiv);
+                if(partKey==='P6'||partKey==='P7'){ let passageDiv=document.createElement('div'); passageDiv.className='part-passage'; passageDiv.innerHTML=selectedQuestions[partKey]?.section?.passage||''; questionsDiv.appendChild(passageDiv); }
+                if(partKey==='P13'){
+                    let tapescriptDiv=document.createElement('div'); tapescriptDiv.className='part-tapescript'; tapescriptDiv.innerHTML=`<strong>📄 Tapescript:</strong> ${selectedQuestions[partKey]?.section?.tapescript||''}`; questionsDiv.appendChild(tapescriptDiv);
+                    let reportAudioDiv=document.createElement('div'); reportAudioDiv.className='audio-controls'; reportAudioDiv.style.marginTop='10px'; reportAudioDiv.style.marginBottom='10px';
+                    reportAudioDiv.innerHTML=`<div class="control-group"><button class="play-report-audio">🔊 Phát</button><button class="pause-report-audio">⏸ Tạm dừng</button><button class="stop-report-audio">⏹ Dừng</button></div>
+                    <div class="control-group"><label>Khoảng cách:</label><select class="interval-report"><option value="0.5">0.5s</option><option value="1" selected>1s</option><option value="2">2s</option><option value="3">3s</option><option value="4">4s</option></select></div>
+                    <div class="control-group"><label>Lặp lại (mỗi câu):</label><select class="repeat-report"><option value="1">1 lần</option><option value="2">2 lần</option><option value="3">3 lần</option></select></div>
+                    <div class="control-group"><label>Giọng đọc:</label><select class="voice-report"></select></div>`;
+                    questionsDiv.appendChild(reportAudioDiv);
+                    let voiceSelect=reportAudioDiv.querySelector('.voice-report');
+                    if(window.speechSynthesis){
+                        let voices=speechSynthesis.getVoices();
+                        let defaultOption=document.createElement('option'); defaultOption.value='default'; defaultOption.text='Mặc định hệ thống'; voiceSelect.appendChild(defaultOption);
+                        voices.forEach(voice=>{ let opt=document.createElement('option'); opt.value=voice.name; opt.text=voice.name; voiceSelect.appendChild(opt); });
+                        speechSynthesis.onvoiceschanged=()=>{ voiceSelect.innerHTML='<option value="default">Mặc định hệ thống</option>'; voices=speechSynthesis.getVoices(); voices.forEach(voice=>{ let opt=document.createElement('option'); opt.value=voice.name; opt.text=voice.name; voiceSelect.appendChild(opt); }); };
+                    }
+                    let cancelReportPlay = null;
+                    reportAudioDiv.querySelector('.play-report-audio').onclick=()=>{
+                        if(cancelReportPlay) cancelReportPlay();
+                        let section=selectedQuestions[partKey]?.section; if(!section||!section.listening) return;
+                        let sentences=section.listening.map(l=>l.word);
+                        let interval=parseFloat(reportAudioDiv.querySelector('.interval-report').value);
+                        let repeat=parseInt(reportAudioDiv.querySelector('.repeat-report').value);
+                        let voiceName=voiceSelect.value;
+                        cancelReportPlay = startListeningPlayback(sentences, interval, repeat, voiceName, null);
+                    };
+                    reportAudioDiv.querySelector('.pause-report-audio').onclick=()=>{ if(cancelReportPlay) cancelReportPlay(); cancelReportPlay=null; };
+                    reportAudioDiv.querySelector('.stop-report-audio').onclick=()=>{ if(cancelReportPlay) cancelReportPlay(); cancelReportPlay=null; };
+                }
+                let qCount=currentConfig.questionCounts[partKey];
+                for(let i=1;i<=qCount;i++){ let qKey=`${partKey}.${i}`;
+                    if(selectedQuestionDetails[qKey] && selectedAnswers[qKey]!==undefined){
+                        let qData=selectedQuestionDetails[qKey].question;
+                        let order=answerOrders[qKey];
+                        if(!order) {
+                            let answers=getAnswerArray(qData);
+                            order=[...answers];
+                            for(let j=order.length-1;j>0;j--){ let k=Math.floor(Math.random()*(j+1)); [order[j],order[k]]=[order[k],order[j]]; }
+                        }
+                        let correctLabel=null; for(let idx=0;idx<order.length;idx++) if(order[idx].isCorrect) correctLabel=getLabel(idx);
+                        let userAns=selectedAnswers[qKey]; let item=document.createElement('div'); item.className='question-item';
+                        let qCodeDiv=document.createElement('div'); qCodeDiv.className='part-exam-code'; qCodeDiv.style.fontWeight='bold'; qCodeDiv.style.marginBottom='5px';
+                        let fullCode=`${currentExam} – ${partKey}`; if(questionCodes[qKey]) fullCode+=`.${questionCodes[qKey].sectionId}.${questionCodes[qKey].questionId}`;
+                        qCodeDiv.innerText=fullCode; item.appendChild(qCodeDiv);
+                        let qTextDiv=document.createElement('div'); qTextDiv.className='question-text'; qTextDiv.innerHTML=`<strong>Câu ${i}:</strong> ${qData.question}`; item.appendChild(qTextDiv);
+                        let answerList=document.createElement('div'); answerList.className='report-answer-list';
+                        order.forEach((ans,idx)=>{
+                            let label=getLabel(idx);
+                            let row=document.createElement('div'); row.className='report-answer-row';
+                            let markerSpan=document.createElement('div'); markerSpan.className='report-marker-col';
+                            let markerChar='';
+                            if(label===correctLabel) markerChar='✓';
+                            else if(label===userAns && label!==correctLabel) markerChar='✗';
+                            markerSpan.innerText=markerChar;
+                            if(markerChar==='✓') markerSpan.classList.add('correct-marker');
+                            else if(markerChar==='✗') markerSpan.classList.add('incorrect-marker');
+                            else markerSpan.classList.add('empty-marker');
+                            let textSpan=document.createElement('div'); textSpan.className='report-answer-text';
+                            textSpan.innerHTML=`<strong>${label}.</strong> ${ans.text}`;
+                            row.appendChild(markerSpan); row.appendChild(textSpan);
+                            if(label===correctLabel) row.classList.add('correct');
+                            else if(label===userAns && label!==correctLabel) row.classList.add('incorrect');
+                            else row.classList.add('normal');
+                            answerList.appendChild(row);
+                        });
+                        item.appendChild(answerList); questionsDiv.appendChild(item);
                     }
                 }
-            }
-            if (hasAnswered) {
-                const partId = `part-${part}`;
-                const accordion = document.createElement('div'); accordion.className = 'part-accordion';
-                let headerText = `📁 Phần ${part.substring(1)} (đã trả lời)`;
-                if (lessonId) headerText = `📁 Phần ${part.substring(1)} - (${lessonId})`;
-                let passageHtml = passageText ? `<div class="passage-text">📖 ${passageText}</div>` : '';
-                accordion.innerHTML = `<div class="part-accordion-header" data-target="${partId}">${headerText} <span>▼</span></div><div id="${partId}" class="part-accordion-content">${passageHtml}${questionsHtml}</div>`;
-                detailedContainer.appendChild(accordion);
-                const header = accordion.querySelector('.part-accordion-header');
-                const content = accordion.querySelector(`#${partId}`);
-                header.addEventListener('click', () => { content.classList.toggle('open'); header.querySelector('span').innerHTML = content.classList.contains('open') ? '▲' : '▼'; });
+                partDiv.appendChild(header); partDiv.appendChild(questionsDiv); container.appendChild(partDiv);
             }
         }
-        const listeningContainer = document.getElementById('listeningReportContainer');
-        if (currentListeningLesson && currentConfig.parts.includes('P13')) {
-            const questions = selectedQuestions['P13'];
-            const lesson = currentListeningLesson.lessonData;
-            let listeningHtml = `<div class="report-listening-section"><h3>🎧 BÁO CÁO LUYỆN NGHE (P13) - (${lesson.id})</h3>
-            <div class="listening-panel"><span class="speaker-icon-big" id="reportPlayAudio">🔊</span><select id="reportGap"><option value="0.5">0.5s</option><option value="1">1s</option></select><select id="reportLoop"><option value="1">1 lần</option><option value="2">2 lần</option></select><button id="reportPause">⏸️</button><button id="reportStop">⏹️</button></div>
-            <div class="voice-control-row" id="reportVoiceControl"><label>Số giọng: <select id="reportVoiceModeSelect"><option value="1">1 giọng</option><option value="2">2 giọng</option></select></label><div id="reportSingleVoiceDiv"><label>Giọng: <select id="reportVoiceSelect"></select></label></div><div id="reportDualVoiceDiv" style="display:none;"><label>Giọng lẻ: <select id="reportOddVoiceSelect"></select></label><label>Giọng chẵn: <select id="reportEvenVoiceSelect"></select></label></div></div>
-            <div><button id="togglePassageBtn">📄 Hiện đoạn văn</button><div id="passageDiv" style="display:none; background:#f0f5ff; padding:15px; margin-top:10px;">${lesson.P4 || ''}</div></div>
-            <div id="listeningDetailList"></div></div>`;
-            listeningContainer.innerHTML = listeningHtml;
-            const detailDiv = document.getElementById('listeningDetailList');
-            for (let i = 0; i < questions.length; i++) {
-                const q = questions[i];
-                const ansKey = `P13.${i + 1}`;
-                const userLetter = selectedAnswers[ansKey];
-                const opts = answerOrders[ansKey] || (q.subPart === 'P2' ? ["True", "False", "Not given"] : [q.correct, q.wrong1, q.wrong2]);
-                const letters = ['A', 'B', 'C'];
-                let chosenText = userLetter ? opts[letters.indexOf(userLetter)] : '(chưa chọn)';
-                let isCorrect = false;
-                if (q.subPart === 'P2') {
-                    isCorrect = (chosenText === q.correct);
-                } else {
-                    isCorrect = (chosenText === q.correct);
-                }
-                const statusIcon = isCorrect ? '✅' : '❌';
-                const subPartLabel = q.subPart || 'P1';
-                detailDiv.innerHTML += `<div class="question-detail-item">
-                    <strong>Câu ${i + 1} (${subPartLabel} - id: ${q.id}):</strong> ${q.word}<br>
-                    <span>📌 Đáp án đã chọn: <strong>${userLetter ? userLetter + '. ' + chosenText : '(chưa chọn)'}</strong> ${userLetter ? statusIcon : ''}</span><br>
-                    <span>✔️ Đáp án đúng: <strong>${q.correct}</strong></span>
-                </div>`;
-            }
-            if (voiceList.length) {
-                const reportVoiceSelect = document.getElementById('reportVoiceSelect');
-                if (reportVoiceSelect) {
-                    fillVoiceSelect(reportVoiceSelect);
-                    reportVoiceSelect.addEventListener('change', () => handleVoiceChange(reportVoiceSelect, v => singleVoice = v));
-                }
-                const reportOddSelect = document.getElementById('reportOddVoiceSelect');
-                if (reportOddSelect) {
-                    fillVoiceSelect(reportOddSelect);
-                    reportOddSelect.addEventListener('change', () => handleVoiceChange(reportOddSelect, v => oddVoice = v));
-                }
-                const reportEvenSelect = document.getElementById('reportEvenVoiceSelect');
-                if (reportEvenSelect) {
-                    fillVoiceSelect(reportEvenSelect);
-                    reportEvenSelect.addEventListener('change', () => handleVoiceChange(reportEvenSelect, v => evenVoice = v));
-                }
-            }
-            document.getElementById('reportVoiceModeSelect')?.addEventListener('change', (e) => { voiceMode = parseInt(e.target.value); document.getElementById('reportSingleVoiceDiv').style.display = voiceMode === 1 ? 'flex' : 'none'; document.getElementById('reportDualVoiceDiv').style.display = voiceMode === 2 ? 'flex' : 'none'; });
-            document.getElementById('reportPlayAudio')?.addEventListener('click', () => { if (lesson.P5) { let gap = parseFloat(document.getElementById('reportGap').value); let loop = parseInt(document.getElementById('reportLoop').value); playAudioSentences(lesson.P5, gap, loop); } });
-            document.getElementById('reportPause')?.addEventListener('click', () => { if (isPaused) resumeAudio(); else pauseAudio(); });
-            document.getElementById('reportStop')?.addEventListener('click', stopAllAudio);
-            document.getElementById('togglePassageBtn')?.addEventListener('click', () => { const pd = document.getElementById('passageDiv'); pd.style.display = pd.style.display === 'none' ? 'block' : 'none'; });
-            // Mặc định chọn giọng null (tự động)
-            singleVoice = null; oddVoice = null; evenVoice = null;
-            if (reportVoiceSelect) reportVoiceSelect.value = '';
-            if (reportOddSelect) reportOddSelect.value = '';
-            if (reportEvenSelect) reportEvenSelect.value = '';
-        } else { listeningContainer.innerHTML = ''; }
-    }
-    
-    document.getElementById('startButton').addEventListener('click', startExam);
-    document.getElementById('nextButton').addEventListener('click', nextPart);
-    document.getElementById('retryButton').addEventListener('click', () => location.reload());
-    document.getElementById('newExamButton').addEventListener('click', () => location.reload());
-</script>
+
+        function getPartName(pk){ let names={P1:'Phát âm',P2:'Trọng âm',P3:'Từ vựng',P4:'Tìm lỗi sai',P5:'Ngữ pháp',P6:'Điền khuyết',P7:'Đọc hiểu',P8:'Sắp xếp câu',P9:'Giao tiếp',P10:'Biển báo',P11:'Viết lại câu',P12:'Sắp xếp từ',P13:'Nghe hiểu'}; return names[pk]||`Phần ${pk.substring(1)}`; }
+        function showNotification(msg){ let n=document.getElementById('notification'); n.innerText=msg; n.style.display='block'; setTimeout(()=>n.style.display='none',2000); }
+        function retryExam(){ showNotification('Đang chuẩn bị làm lại bài...'); selectedAnswers={}; selectedQuestions={}; selectedQuestionDetails={}; answerOrders={}; questionCodes={}; isTabSwitched=false; startTime=new Date(); selectRandomQuestions(); showScreen('exam'); showPart(0); }
+        function newExam(){ selectedAnswers={}; selectedQuestions={}; selectedQuestionDetails={}; answerOrders={}; questionCodes={}; isTabSwitched=false; currentExam=''; currentExerciseSet='FULL'; currentConfig=exerciseSetConfigs.FULL; document.getElementById('studentName').value=''; document.getElementById('classSelect').selectedIndex=0; document.getElementById('examSelect').selectedIndex=0; document.getElementById('exerciseSetSelect').selectedIndex=0; showScreen('main'); }
+        function backToMain(){ showScreen('main'); }
+    </script>
 </body>
 </html>
