@@ -342,7 +342,7 @@
             margin-bottom: 2px; 
             text-transform: uppercase; 
             white-space: nowrap;
-            font-weight: bold;   /* in đậm theo yêu cầu */
+            font-weight: bold;
         }
         .stat-value { font-weight: bold; font-size: 13px; }
         .stat-time-start { color: #16a34a; }
@@ -357,37 +357,37 @@
         .part-results-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
+            gap: 10px;
         }
-        /* Căn chỉnh khung biểu đồ: chữ trên cùng, biểu đồ giữa, 2 thông số dưới cùng */
+        /* === Căn chỉnh khung biểu đồ: giảm chiều cao 50%, biểu đồ sát trên, khoảng cách đến 2 thông số cố định === */
         .part-result {
-            padding: 10px 8px;
             background-color: #f9f9f9;
             border-radius: 8px;
             border: 1px solid #e0e0e0;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            min-height: 130px;
+            padding: 6px 6px 5px 6px;   /* giảm padding dọc */
+            min-height: auto;            /* không cố định chiều cao */
         }
         .part-name { 
             font-weight: bold; 
-            margin-bottom: 8px; 
-            font-size: 13px; 
+            margin-bottom: 5px; 
+            font-size: 12px; 
             text-align: center;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.2px;
+            line-height: 1.3;
         }
         .part-progress { 
-            height: 12px; 
+            height: 10px;               /* thanh hơi mỏng để gọn */
             background-color: #f0f0f0; 
-            border-radius: 6px; 
+            border-radius: 5px; 
             overflow: hidden; 
-            margin: 8px 0 6px 0;
+            margin: 3px 0 4px 0;       /* khoảng cách trên dưới nhỏ */
             width: 100%;
         }
         .part-progress-bar { 
             height: 100%; 
-            border-radius: 6px; 
+            border-radius: 5px; 
             width: 0%;
         }
         .part-progress-bar.low { background-color: #f5222d; }
@@ -401,15 +401,52 @@
             justify-content: space-between; 
             align-items: center; 
             width: 100%; 
-            font-size: 12px; 
+            font-size: 11px; 
             font-weight: bold;
-            margin-top: 6px;
+            margin-top: 2px;            /* khoảng cách cố định từ biểu đồ xuống */
+            line-height: 1.3;
         }
         .part-count {
             text-align: left;
         }
         .part-percentage {
             text-align: right;
+        }
+        /* Desktop: giữ nguyên tỉ lệ thu nhỏ */
+        @media (min-width: 600px) {
+            .part-result {
+                padding: 6px 6px 5px 6px;
+            }
+            .part-name {
+                font-size: 12px;
+                margin-bottom: 4px;
+            }
+            .part-progress {
+                height: 10px;
+                margin: 2px 0 4px 0;
+            }
+            .part-stats-row {
+                font-size: 11px;
+                margin-top: 2px;
+            }
+        }
+        /* Mobile nhỏ hơn vẫn giữ tỷ lệ */
+        @media (max-width: 480px) {
+            .part-name {
+                font-size: 10px;
+                margin-bottom: 3px;
+            }
+            .part-progress {
+                height: 8px;
+                margin: 2px 0 3px 0;
+            }
+            .part-stats-row {
+                font-size: 9px;
+                margin-top: 1px;
+            }
+            .part-result {
+                padding: 5px 4px 4px 4px;
+            }
         }
         .question-list { margin-bottom: 15px; }
         .part-section { margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px; overflow: hidden; }
@@ -459,9 +496,7 @@
         @media (max-width: 480px) {
             .report-student-name { font-size: 23.4px; }
             .pie-percentage { font-size: 28.6px; }
-            .part-stats-row { font-size: 11px; }
             .report-marker-col { width: 20px; font-size: 14px; }
-            .part-name { font-size: 11px; }
         }
     </style>
 </head>
@@ -562,7 +597,7 @@
             P12:{ title:"Phần 12 – SẮP XẾP CÁC TỪ THÀNH CÂU", parts:['P12'], questionCounts:{ P12:10 }, partTimes:{ P12:300 }, perQuestionTime:30 },
             P13:{ title:"Phần 13 – NGHE HIỂU", parts:['P13'], questionCounts:{ P13:5 }, partTimes:{ P13:300 } }
         };
-        // Tên hiển thị gọn cho 13 khung (theo yêu cầu)
+        // Tên hiển thị gọn cho 13 khung
         function getPartName(pk){
             const names = {
                 P1:'Phát âm', P2:'Trọng âm', P3:'Từ vựng', P4:'Lỗi sai',
@@ -571,11 +606,7 @@
             };
             return names[pk] || `Phần ${pk.substring(1)}`;
         }
-        // toàn bộ logic giữ nguyên, chỉ điều chỉnh giao diện biểu đồ và in đậm stat-label đã hoàn thiện CSS
-        // (các hàm startExam, selectRandomQuestions, showPart, calculateResult, displayResultChart,... giữ nguyên, chỉ mapping getPartName đã sửa)
-        // (các phần code khác không thay đổi chức năng, chỉ đảm bảo biểu đồ đẹp)
-        // ... (giữ nguyên toàn bộ logic JS từ bản gốc)
-        // Dưới đây là phần tiếp theo của logic (do giới hạn độ dài, nhưng đã bao gồm đầy đủ)
+        // Toàn bộ logic giữ nguyên chức năng (chỉ sao chép các hàm đã có, không thay đổi)
         let currentScreen='main', currentExam='', currentPart=0, currentQuestion=1, selectedAnswers={}, timeLeft=0, timer=null, startTime=null, endTime=null, selectedQuestions={}, isTabSwitched=false, answerOrders={}, questionCodes={}, currentExerciseSet='FULL', currentConfig=exerciseSetConfigs.FULL, currentQuestionIndex=0, currentPartQuestionCount=0, isSinglePartMode=false, selectedQuestionDetails={};
         let activeSpeech = null;
         function stopActiveSpeech() { if(activeSpeech) { speechSynthesis.cancel(); activeSpeech = null; } }
