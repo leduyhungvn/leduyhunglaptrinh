@@ -8,15 +8,18 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
         * { box-sizing: border-box; font-family: 'Segoe UI', 'Roboto', system-ui, sans-serif; }
-        body { background: #f0f2f5; margin: 0; padding: 20px; }
-        .container { max-width: 1400px; margin: 0 auto; background: white; border-radius: 28px; box-shadow: 0 12px 30px rgba(0,0,0,0.1); padding: 20px 24px; }
+        body { background: #f0f2f5; margin: 0; padding: 12px; }
+        .container { max-width: 1400px; margin: 0 auto; background: white; border-radius: 28px; box-shadow: 0 12px 30px rgba(0,0,0,0.1); padding: 16px; }
+        @media (min-width: 768px) {
+            body { padding: 20px; }
+            .container { padding: 20px 24px; }
+        }
         h1, h2, h3 { margin-top: 0; }
         .hidden { display: none !important; }
         .info-card { background: #f9f9ff; border-radius: 20px; padding: 18px; margin-bottom: 20px; border: 1px solid #e6e9f0; }
         button, .btn { background: #2c3e66; color: white; border: none; padding: 10px 20px; border-radius: 40px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 1rem; }
         button:hover { background: #1a2a48; transform: scale(0.97); }
         .timer { background: #1e2a3a; color: #ffd966; font-family: monospace; font-size: 1.6rem; font-weight: bold; padding: 8px 16px; border-radius: 60px; display: inline-block; }
-        /* passage tăng 20% so với lần trước */
         .passage { background: #fef7e0; padding: 18px; border-radius: 18px; border-left: 6px solid #f4b942; font-size: 1.2rem; white-space: pre-wrap; overflow-x: auto; line-height: 1.5; }
         .question-card { background: white; border-radius: 20px; margin-bottom: 20px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid #e4e9f2; }
         .options { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
@@ -24,11 +27,10 @@
         .option-row:hover { background: #f0f4ff; }
         .option-row input { width: 18px; height: 18px; margin: 0; cursor: pointer; }
         .option-row label { flex: 1; cursor: pointer; font-weight: normal; }
-        /* Bàn phím ảo bố trí lại theo yêu cầu */
         .virtual-pad { 
             display: grid; 
             grid-template-columns: repeat(4, 1fr); 
-            gap: 12px; 
+            gap: 10px; 
             max-width: 360px; 
             margin-top: 18px; 
             background: #f5f7fc;
@@ -38,179 +40,146 @@
         .v-key { 
             background: white; 
             border: 1px solid #ccd7f0; 
-            padding: 14px 0; 
+            padding: 12px 0; 
             text-align: center; 
             font-weight: bold; 
             font-size: 1.2rem; 
             border-radius: 20px; 
             cursor: pointer; 
             transition: 0.05s linear; 
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
         }
         .v-key:active { background: #cddaf5; transform: scale(0.96); }
-        .report-grid { display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 30px; align-items: stretch; }
-        .chart-box, .stats-box { flex: 1; min-width: 260px; background: #ffffff; border-radius: 24px; padding: 20px; box-shadow: 0 6px 14px rgba(0,0,0,0.05); text-align: center; display: flex; flex-direction: column; justify-content: center; }
-        .chart-container { position: relative; width: 220px; height: 220px; margin: 0 auto; }
-        .chart-percent-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem !important; font-weight: 800; text-align: center; pointer-events: none; white-space: nowrap; }
-        .chart-name-above { font-weight: bold; color: #1890ff; font-size: 1.8rem; margin-bottom: 8px; word-break: break-word; }
-        .chart-date-below { font-weight: bold; color: #1e2a3a; margin-top: 12px; font-size: 1rem; }
-        /* 4 ô nhỏ - chia đều cả chiều ngang và chiều dọc, không dư, to hơn */
+        .report-grid { display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 24px; align-items: stretch; }
+        .chart-box, .stats-box { flex: 1; min-width: 240px; background: #ffffff; border-radius: 24px; padding: 16px; box-shadow: 0 6px 14px rgba(0,0,0,0.05); text-align: center; display: flex; flex-direction: column; justify-content: center; }
+        .chart-container { position: relative; width: 200px; height: 200px; margin: 0 auto; }
+        @media (max-width: 600px) {
+            .chart-container { width: 160px; height: 160px; }
+            .chart-percent-text { font-size: 2.2rem !important; }
+        }
+        .chart-percent-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 2.8rem !important; font-weight: 800; text-align: center; pointer-events: none; white-space: nowrap; }
+        .chart-name-above { font-weight: bold; color: #1890ff; font-size: 1.5rem; margin-bottom: 6px; word-break: break-word; }
+        .chart-date-below { font-weight: bold; color: #1e2a3a; margin-top: 10px; font-size: 0.9rem; }
+        
+        /* 4 ô nhỏ - responsive, trên mobile gọn và vừa khung */
         .mini-cards { 
             display: grid; 
             grid-template-columns: repeat(2, 1fr); 
-            gap: 20px; 
+            gap: 16px; 
             height: 100%;
             align-items: stretch;
         }
         .mini-item { 
             background: #f8faff; 
-            border-radius: 28px; 
-            padding: 24px 12px; 
+            border-radius: 22px; 
+            padding: 16px 8px; 
             text-align: center; 
             font-weight: 600; 
-            font-size: 1.05rem;
+            font-size: 0.9rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            min-height: 130px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-            transition: 0.1s;
+            min-height: 100px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
         }
         .mini-item span { 
-            font-size: 1.6rem; 
+            font-size: 1.3rem; 
             font-weight: 800; 
-            margin-top: 12px; 
+            margin-top: 8px; 
             display: block;
             color: #1e2a3a;
-            letter-spacing: 1px;
         }
-        .stats-box .mini-cards {
-            height: 100%;
+        @media (min-width: 768px) {
+            .mini-item { padding: 24px 12px; font-size: 1rem; min-height: 130px; }
+            .mini-item span { font-size: 1.6rem; }
         }
+        
         /* Báo cáo câu hỏi */
         .question-review { border-left: 4px solid #aaa; margin: 20px 0; padding: 16px; background: #fefefe; border-radius: 16px; }
-        .review-option { display: flex; align-items: flex-start; gap: 12px; padding: 8px 12px; margin: 6px 0; border-radius: 40px; }
+        .review-option { display: flex; align-items: flex-start; gap: 12px; padding: 8px 12px; margin: 6px 0; border-radius: 40px; flex-wrap: wrap; }
         .review-option-correct { background: #e8f5e9; color: #2e7d32; }
         .review-option-wrong { background: #ffebee; color: #c62828; text-decoration: line-through; }
         .highlight-correct-answer { background: #e8f5e9; color: #2e7d32; font-weight: bold; border-left: 3px solid #2e7d32; }
         .mark-icon { font-weight: bold; min-width: 28px; font-size: 1.2rem; }
         footer { margin-top: 30px; font-size: 0.85rem; text-align: center; border-top: 1px solid #ddd; padding-top: 18px; color: #4a627a; }
         
-        /* LAYOUT LÀM BÀI */
+        /* LAYOUT LÀM BÀI - desktop và mobile cải thiện */
         .exam-wrapper {
             display: flex;
             flex-direction: column;
-            height: calc(100vh - 160px);
-            min-height: 550px;
+            height: calc(100vh - 120px);
+            min-height: 450px;
             overflow: hidden;
         }
-        .exam-header {
-            flex-shrink: 0;
-            margin-bottom: 16px;
-        }
-        .exam-scroll-area {
-            flex: 1;
-            overflow-y: auto;
-            overflow-x: hidden;
-            padding-right: 6px;
-        }
-        .exam-layout {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        @media (min-width: 768px) and (orientation: landscape) {
-            .exam-layout {
-                flex-direction: row;
-                align-items: flex-start;
-            }
-            .exam-passage-col {
-                flex: 0 0 40%;
-                width: 40%;
-                position: sticky;
-                top: 0;
-                display: flex;
-                flex-direction: column;
-            }
-            .exam-questions-col {
-                flex: 0 0 58%;
-                width: 58%;
-            }
-        }
-        @media (max-width: 767px) {
-            .exam-layout { flex-direction: column; }
-            .exam-passage-col, .exam-questions-col { width: 100%; }
-        }
-        .exam-passage-col .passage { margin-bottom: 16px; }
-        .ans-input { width: 100%; padding: 12px 16px; font-size: 1.1rem; border-radius: 40px; border: 1px solid #ccc; margin: 10px 0; }
+        .exam-header { flex-shrink: 0; margin-bottom: 12px; }
+        .exam-scroll-area { flex: 1; overflow-y: auto; overflow-x: hidden; padding-right: 4px; }
+        .exam-layout { display: flex; flex-direction: column; gap: 16px; }
         
-        /* Tiêu đề báo cáo */
-        .report-header {
-            text-align: center;
-            margin-bottom: 20px;
+        /* Desktop ngang: 2 cột */
+        @media (min-width: 768px) and (orientation: landscape) {
+            .exam-layout { flex-direction: row; align-items: flex-start; gap: 24px; }
+            .exam-passage-col { flex: 0 0 40%; width: 40%; position: sticky; top: 0; display: flex; flex-direction: column; }
+            .exam-questions-col { flex: 0 0 58%; width: 58%; }
+            .exam-wrapper { height: calc(100vh - 140px); }
         }
-        .report-main-title {
-            font-size: 1.9rem;
-            font-weight: bold;
-            color: #0b2b44;
-            margin-bottom: 6px;
+        /* Mobile dọc: passage chiếm vừa tầm, nút nộp bài gọn */
+        @media (max-width: 767px) {
+            .exam-wrapper { height: auto; min-height: 70vh; }
+            .exam-scroll-area { overflow-y: visible; }
+            .exam-layout { flex-direction: column; gap: 12px; }
+            .exam-passage-col, .exam-questions-col { width: 100%; }
+            .passage { font-size: 1rem; padding: 14px; }
+            .timer { font-size: 1.2rem; padding: 6px 12px; }
+            .question-progress { font-size: 0.8rem; }
         }
-        .report-sub-title {
-            font-size: 1.2rem;
-            font-weight: 500;
-            color: #2c3e66;
-            border-top: 2px solid #e0e7f0;
-            display: inline-block;
-            padding-top: 6px;
+        /* Mobile ngang: 2 cột nhẹ */
+        @media (max-width: 767px) and (orientation: landscape) {
+            .exam-layout { flex-direction: row; align-items: flex-start; gap: 16px; }
+            .exam-passage-col { flex: 0 0 45%; width: 45%; }
+            .exam-questions-col { flex: 0 0 52%; width: 52%; }
+            .exam-wrapper { height: calc(100vh - 100px); }
+            .passage { font-size: 0.95rem; padding: 12px; }
         }
-        .submit-btn-container {
-            margin-top: 16px;
-            width: 100%;
-        }
-        .question-progress {
-            font-size: 0.9rem;
-            color: #2c3e66;
-            margin-bottom: 12px;
-            font-weight: 500;
-        }
-        /* Báo cáo 2 cột */
+        
+        .exam-passage-col .passage { margin-bottom: 12px; }
+        .ans-input { width: 100%; padding: 12px 16px; font-size: 1rem; border-radius: 40px; border: 1px solid #ccc; margin: 10px 0; }
+        .report-header { text-align: center; margin-bottom: 16px; }
+        .report-main-title { font-size: 1.6rem; font-weight: bold; color: #0b2b44; margin-bottom: 4px; }
+        .report-sub-title { font-size: 1rem; font-weight: 500; color: #2c3e66; border-top: 2px solid #e0e7f0; display: inline-block; padding-top: 4px; }
+        .submit-btn-container { margin-top: 12px; width: 100%; }
+        .question-progress { font-size: 0.85rem; color: #2c3e66; margin-bottom: 10px; font-weight: 500; }
+        
+        /* Báo cáo 2 cột responsive */
         .report-review-wrapper {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 16px;
             margin-top: 10px;
-            max-height: 65vh;
+            max-height: 60vh;
             overflow-y: auto;
-            padding-right: 6px;
+            padding-right: 4px;
         }
         @media (min-width: 768px) and (orientation: landscape) {
-            .report-review-wrapper {
-                flex-direction: row;
-                align-items: flex-start;
-            }
-            .report-passage-col {
-                flex: 0 0 40%;
-                width: 40%;
-                position: sticky;
-                top: 0;
-            }
-            .report-answers-col {
-                flex: 0 0 58%;
-                width: 58%;
-            }
+            .report-review-wrapper { flex-direction: row; align-items: flex-start; gap: 24px; }
+            .report-passage-col { flex: 0 0 40%; width: 40%; position: sticky; top: 0; }
+            .report-answers-col { flex: 0 0 58%; width: 58%; }
+        }
+        @media (max-width: 767px) and (orientation: landscape) {
+            .report-review-wrapper { flex-direction: row; gap: 16px; }
+            .report-passage-col { flex: 0 0 45%; width: 45%; }
+            .report-answers-col { flex: 0 0 52%; width: 52%; }
         }
         @media (max-width: 767px) {
-            .report-review-wrapper { flex-direction: column; }
+            .report-review-wrapper { flex-direction: column; max-height: none; }
             .report-passage-col, .report-answers-col { width: 100%; }
         }
-        .answers-list { display: flex; flex-direction: column; gap: 20px; }
+        .answers-list { display: flex; flex-direction: column; gap: 16px; }
     </style>
 </head>
 <body>
 <div class="container" id="app">
     <!-- GIAO DIỆN 1 -->
     <div id="screen1">
-        <h1 style="color:#0b2b44;">📚 ÔN THI TOÁN THPT THEO CHUYÊN ĐỀ</h1>
+        <h1 style="color:#0b2b44; font-size: 1.6rem;">📚 ÔN THI TOÁN THPT THEO CHUYÊN ĐỀ</h1>
         <div class="info-card">
             <label>👤 Tên người làm (≤40 ký tự): </label>
             <input type="text" id="studentName" maxlength="40" placeholder="Ví dụ: Nguyễn Văn A" style="width:100%; padding:10px; margin:8px 0; border-radius:30px; border:1px solid #ccc;">
@@ -232,12 +201,12 @@
         <footer>📞 THÔNG TIN LIÊN HỆ<br>Thầy Hùng<br>** Zalo: 0967.095.025<br>** Facebook: leduyhung.vietnam</footer>
     </div>
 
-    <!-- GIAO DIỆN 2 - LÀM BÀI (1 câu/lần, nút nộp bài nằm cuối ô passage) -->
+    <!-- GIAO DIỆN 2 - LÀM BÀI (1 câu/lần, nút nộp bài ở cuối ô passage) -->
     <div id="screen2" class="hidden">
         <div class="exam-wrapper">
             <div class="exam-header">
-                <div style="display:flex; justify-content:space-between; flex-wrap:wrap; align-items:center;">
-                    <h2 id="subTitleCD">CHUYÊN ĐỀ 1</h2>
+                <div style="display:flex; justify-content:space-between; flex-wrap:wrap; align-items:center; gap:8px;">
+                    <h2 id="subTitleCD" style="font-size:1.2rem;">CHUYÊN ĐỀ 1</h2>
                     <div class="timer" id="timerDisplay">20:00</div>
                 </div>
             </div>
@@ -245,9 +214,8 @@
                 <div class="exam-layout" id="examLayout">
                     <div class="exam-passage-col">
                         <div class="passage" id="passageArea"></div>
-                        <!-- Nút NỘP BÀI đặt cuối ô passage -->
                         <div class="submit-btn-container">
-                            <button id="submitExamBtn" style="background:#b23c1c; width:100%; padding: 14px;">📤 NỘP BÀI</button>
+                            <button id="submitExamBtn" style="background:#b23c1c; width:100%; padding: 12px;">📤 NỘP BÀI</button>
                         </div>
                     </div>
                     <div class="exam-questions-col">
@@ -290,7 +258,7 @@
                 <div id="reviewDetails" class="answers-list"></div>
             </div>
         </div>
-        <div style="display: flex; gap:16px; margin-top:20px; justify-content:center;"><button id="retryBtn">🔄 LÀM LẠI</button><button id="backToStartBtn">🔙 QUAY LẠI</button></div>
+        <div style="display: flex; gap:16px; margin-top:20px; justify-content:center; flex-wrap:wrap;"><button id="retryBtn">🔄 LÀM LẠI</button><button id="backToStartBtn">🔙 QUAY LẠI</button></div>
     </div>
 </div>
 
@@ -349,7 +317,6 @@
     
     function renderMath() { if(window.MathJax) MathJax.typesetPromise(); }
     
-    // Hiển thị 1 câu
     function renderCurrentQuestion() {
         if(!questionsList.length) return;
         const q = questionsList[currentQIndex];
@@ -387,13 +354,12 @@
             let radios = document.querySelectorAll(`input[name="currentQ"]`);
             radios.forEach(r => r.addEventListener("change", (e) => { 
                 userAnswers[currentQIndex] = e.target.value;
-                setTimeout(() => { if(examActive && !submitted && currentQIndex+1 < questionsList.length) { currentQIndex++; renderCurrentQuestion(); } }, 500);
+                setTimeout(() => { if(examActive && !submitted && currentQIndex+1 < questionsList.length) { currentQIndex++; renderCurrentQuestion(); } }, 400);
             }));
         } else if(q.part === "P3") {
             const inputElem = document.getElementById("p3input");
             const padDiv = document.getElementById("virtualPad");
             if(padDiv) {
-                // Bố trí lại bàn phím: 7-8-9-dấu trừ; 4-5-6-dấu phẩy; 1-2-3-dấu /; xóa 1-ký tự,0,xóa hết,OK
                 let keys = ['7','8','9','-', '4','5','6','.', '1','2','3','/', '⌫','0','C','OK'];
                 padDiv.innerHTML = '';
                 keys.forEach(k => {
@@ -417,7 +383,7 @@
     
     function forceEnd() { if(!submitted && examActive) { submitted=true; examActive=false; clearInterval(timerInterval); endTime=new Date(); buildReportAndShow(); } }
     
-    function buildReportAndShow() { /* y chang logic cũ nhưng giữ nguyên hiển thị đáp án đúng cho P2 */ 
+    function buildReportAndShow() {
         let attemptedIndices = [];
         for(let i=0;i<questionsList.length;i++){ let ans = userAnswers[i]; if(ans !== undefined && ans !== null && ans !== '') attemptedIndices.push(i); }
         let correct = 0;
@@ -435,11 +401,11 @@
         let percentInt = Math.round(percent);
         let color = percent<50?"#f5222d": percent<70?"#faad14": percent<80?"#52c41a": percent<90?"#13c2c2": percent<100?"#1890ff":"#722ed1";
         let studentName = document.getElementById("studentName").value.trim() || "Người làm";
-        document.getElementById("chartNameAbove").innerHTML = `<strong style="color:#1890ff; font-size:2rem;">${studentName}</strong>`;
+        document.getElementById("chartNameAbove").innerHTML = `<strong style="color:#1890ff; font-size:1.6rem;">${studentName}</strong>`;
         document.getElementById("chartPercentText").innerHTML = `${percentInt}%`;
         document.getElementById("chartPercentText").style.color = color;
         let todayStr = new Date().toLocaleDateString("vi-VN");
-        document.getElementById("chartDateBelow").innerHTML = `<strong style="color:#1e2a3a;">${todayStr} - ${totalAttempted}/${questionsList.length} câu</strong>`;
+        document.getElementById("chartDateBelow").innerHTML = `<strong>${todayStr} - ${totalAttempted}/${questionsList.length} câu</strong>`;
         let ctx = document.getElementById('scoreChart').getContext('2d');
         if(window.myChart) window.myChart.destroy();
         window.myChart = new Chart(ctx, { type: 'doughnut', data: { labels: ['Đúng', 'Sai'], datasets: [{ data: [correct, totalAttempted-correct], backgroundColor: [color, '#e0e0e0'], borderWidth: 0 }] }, options: { cutout: '70%', plugins: { tooltip: { callbacks: { label: (ctx) => `${ctx.raw} câu` } }, legend: { display: false } } } });
@@ -466,7 +432,7 @@
             answersHtml += `<div class="question-review" style="border-left-color: ${borderColor};">`;
             answersHtml += `<strong>${isCorrect ? "✓" : "✗"} Câu ${d.originalIndex+1} (${q.idMeta})</strong><br>`;
             answersHtml += `<div style="margin: 8px 0;"><strong class="math-content">${q.content}</strong></div>`;
-            if(q.part === "P1") { /* giữ nguyên */ 
+            if(q.part === "P1") {
                 let allOptions = [{ key: 'A', value: q.correct },{ key: 'B', value: q.wrong1 },{ key: 'C', value: q.wrong2 },{ key: 'D', value: q.wrong3 }];
                 for(let opt of allOptions) {
                     let isUserChoice = (d.u === opt.value);
