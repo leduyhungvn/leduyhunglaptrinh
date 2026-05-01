@@ -2,17 +2,14 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <!-- viewport 关键: 禁止用户缩放，同时保证布局自适应，防止输入框聚焦时自动缩放 -->
+    <!-- viewport: chống zoom khi focus input -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Ôn Thi Toán THPT - Chuyên Đề Hàm Số</title>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
         * { box-sizing: border-box; font-family: 'Segoe UI', 'Roboto', system-ui, sans-serif; }
-        /* 禁止输入框缩放导致页面放大 */
-        input, textarea, select, button {
-            font-size: 16px; /* 防止 iOS 自动缩放（最小16px） */
-        }
+        input, textarea, select, button { font-size: 16px; }
         body { background: #f0f2f5; margin: 0; padding: 12px; }
         .container { max-width: 1400px; margin: 0 auto; background: white; border-radius: 28px; box-shadow: 0 12px 30px rgba(0,0,0,0.1); padding: 16px; }
         @media (min-width: 768px) {
@@ -62,10 +59,12 @@
             .chart-percent-text { font-size: 2.2rem !important; }
         }
         .chart-percent-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 2.8rem !important; font-weight: 800; text-align: center; pointer-events: none; white-space: nowrap; }
-        .chart-name-above { font-weight: bold; color: #1890ff; font-size: 1.5rem; margin-bottom: 6px; word-break: break-word; }
+        .chart-name-above { font-weight: bold; color: #1890ff; margin-bottom: 6px; word-break: break-word; }
+        /* Tăng kích thước tên người làm thêm 50% (cỡ 1.5rem -> 2.25rem) */
+        .chart-name-above strong { font-size: 2.25rem !important; }
         .chart-date-below { font-weight: bold; color: #1e2a3a; margin-top: 10px; font-size: 0.9rem; }
         
-        /* 4 ô nhỏ - responsive */
+        /* 4 ô nhỏ chia đều khung */
         .mini-cards { 
             display: grid; 
             grid-template-columns: repeat(2, 1fr); 
@@ -98,7 +97,6 @@
             .mini-item span { font-size: 1.6rem; }
         }
         
-        /* Báo cáo câu hỏi */
         .question-review { border-left: 4px solid #aaa; margin: 20px 0; padding: 16px; background: #fefefe; border-radius: 16px; }
         .review-option { display: flex; align-items: flex-start; gap: 12px; padding: 8px 12px; margin: 6px 0; border-radius: 40px; flex-wrap: wrap; }
         .review-option-correct { background: #e8f5e9; color: #2e7d32; }
@@ -107,7 +105,7 @@
         .mark-icon { font-weight: bold; min-width: 28px; font-size: 1.2rem; }
         footer { margin-top: 30px; font-size: 0.85rem; text-align: center; border-top: 1px solid #ddd; padding-top: 18px; color: #4a627a; }
         
-        /* LAYOUT LÀM BÀI - desktop và mobile cải thiện */
+        /* LAYOUT LÀM BÀI */
         .exam-wrapper {
             display: flex;
             flex-direction: column;
@@ -118,15 +116,12 @@
         .exam-header { flex-shrink: 0; margin-bottom: 12px; }
         .exam-scroll-area { flex: 1; overflow-y: auto; overflow-x: hidden; padding-right: 4px; }
         .exam-layout { display: flex; flex-direction: column; gap: 16px; }
-        
-        /* Desktop ngang: 2 cột */
         @media (min-width: 768px) and (orientation: landscape) {
             .exam-layout { flex-direction: row; align-items: flex-start; gap: 24px; }
             .exam-passage-col { flex: 0 0 40%; width: 40%; position: sticky; top: 0; display: flex; flex-direction: column; }
             .exam-questions-col { flex: 0 0 58%; width: 58%; }
             .exam-wrapper { height: calc(100vh - 140px); }
         }
-        /* Mobile dọc: passage chiếm vừa tầm, nút nộp bài gọn */
         @media (max-width: 767px) {
             .exam-wrapper { height: auto; min-height: 70vh; }
             .exam-scroll-area { overflow-y: visible; }
@@ -136,7 +131,6 @@
             .timer { font-size: 1.2rem; padding: 6px 12px; }
             .question-progress { font-size: 0.8rem; }
         }
-        /* Mobile ngang: 2 cột nhẹ */
         @media (max-width: 767px) and (orientation: landscape) {
             .exam-layout { flex-direction: row; align-items: flex-start; gap: 16px; }
             .exam-passage-col { flex: 0 0 45%; width: 45%; }
@@ -144,7 +138,6 @@
             .exam-wrapper { height: calc(100vh - 100px); }
             .passage { font-size: 0.95rem; padding: 12px; }
         }
-        
         .exam-passage-col .passage { margin-bottom: 12px; }
         .ans-input { width: 100%; padding: 12px 16px; font-size: 16px; border-radius: 40px; border: 1px solid #ccc; margin: 10px 0; }
         .report-header { text-align: center; margin-bottom: 16px; }
@@ -153,7 +146,6 @@
         .submit-btn-container { margin-top: 12px; width: 100%; }
         .question-progress { font-size: 0.85rem; color: #2c3e66; margin-bottom: 10px; font-weight: 500; }
         
-        /* Báo cáo 2 cột responsive */
         .report-review-wrapper {
             display: flex;
             flex-direction: column;
@@ -239,7 +231,7 @@
         </div>
         <div class="report-grid">
             <div class="chart-box">
-                <div id="chartNameAbove" class="chart-name-above">Người làm</div>
+                <div id="chartNameAbove" class="chart-name-above"></div>
                 <div class="chart-container">
                     <canvas id="scoreChart" width="200" height="200" style="width:100%; height:100%;"></canvas>
                     <div id="chartPercentText" class="chart-percent-text">0%</div>
@@ -406,7 +398,8 @@
         let percentInt = Math.round(percent);
         let color = percent<50?"#f5222d": percent<70?"#faad14": percent<80?"#52c41a": percent<90?"#13c2c2": percent<100?"#1890ff":"#722ed1";
         let studentName = document.getElementById("studentName").value.trim() || "Người làm";
-        document.getElementById("chartNameAbove").innerHTML = `<strong style="color:#1890ff; font-size:1.6rem;">${studentName}</strong>`;
+        // Tăng kích thước tên 50% so với 1.5rem -> 2.25rem (đã có CSS .chart-name-above strong)
+        document.getElementById("chartNameAbove").innerHTML = `<strong style="color:#1890ff;">${studentName}</strong>`;
         document.getElementById("chartPercentText").innerHTML = `${percentInt}%`;
         document.getElementById("chartPercentText").style.color = color;
         let todayStr = new Date().toLocaleDateString("vi-VN");
