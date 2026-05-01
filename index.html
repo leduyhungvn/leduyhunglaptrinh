@@ -2,12 +2,17 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <!-- viewport 关键: 禁止用户缩放，同时保证布局自适应，防止输入框聚焦时自动缩放 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Ôn Thi Toán THPT - Chuyên Đề Hàm Số</title>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
         * { box-sizing: border-box; font-family: 'Segoe UI', 'Roboto', system-ui, sans-serif; }
+        /* 禁止输入框缩放导致页面放大 */
+        input, textarea, select, button {
+            font-size: 16px; /* 防止 iOS 自动缩放（最小16px） */
+        }
         body { background: #f0f2f5; margin: 0; padding: 12px; }
         .container { max-width: 1400px; margin: 0 auto; background: white; border-radius: 28px; box-shadow: 0 12px 30px rgba(0,0,0,0.1); padding: 16px; }
         @media (min-width: 768px) {
@@ -60,7 +65,7 @@
         .chart-name-above { font-weight: bold; color: #1890ff; font-size: 1.5rem; margin-bottom: 6px; word-break: break-word; }
         .chart-date-below { font-weight: bold; color: #1e2a3a; margin-top: 10px; font-size: 0.9rem; }
         
-        /* 4 ô nhỏ - responsive, trên mobile gọn và vừa khung */
+        /* 4 ô nhỏ - responsive */
         .mini-cards { 
             display: grid; 
             grid-template-columns: repeat(2, 1fr); 
@@ -141,7 +146,7 @@
         }
         
         .exam-passage-col .passage { margin-bottom: 12px; }
-        .ans-input { width: 100%; padding: 12px 16px; font-size: 1rem; border-radius: 40px; border: 1px solid #ccc; margin: 10px 0; }
+        .ans-input { width: 100%; padding: 12px 16px; font-size: 16px; border-radius: 40px; border: 1px solid #ccc; margin: 10px 0; }
         .report-header { text-align: center; margin-bottom: 16px; }
         .report-main-title { font-size: 1.6rem; font-weight: bold; color: #0b2b44; margin-bottom: 4px; }
         .report-sub-title { font-size: 1rem; font-weight: 500; color: #2c3e66; border-top: 2px solid #e0e7f0; display: inline-block; padding-top: 4px; }
@@ -182,9 +187,9 @@
         <h1 style="color:#0b2b44; font-size: 1.6rem;">📚 ÔN THI TOÁN THPT THEO CHUYÊN ĐỀ</h1>
         <div class="info-card">
             <label>👤 Tên người làm (≤40 ký tự): </label>
-            <input type="text" id="studentName" maxlength="40" placeholder="Ví dụ: Nguyễn Văn A" style="width:100%; padding:10px; margin:8px 0; border-radius:30px; border:1px solid #ccc;">
+            <input type="text" id="studentName" maxlength="40" placeholder="Ví dụ: Nguyễn Văn A" style="width:100%; padding:10px; margin:8px 0; border-radius:30px; border:1px solid #ccc; font-size:16px;">
             <label>📂 Chọn Chuyên đề: </label>
-            <select id="chuyenDeSelect" style="width:100%; padding:10px; margin:8px 0; border-radius:30px;">
+            <select id="chuyenDeSelect" style="width:100%; padding:10px; margin:8px 0; border-radius:30px; font-size:16px;">
                 <option value="CD1">Chuyên Đề 1</option>
                 <option value="CD2">Chuyên Đề 2</option>
                 <option value="CD3">Chuyên Đề 3</option>
@@ -345,7 +350,7 @@
             html += `</div></div>`;
         } else {
             let val = userAnswers[currentQIndex] !== undefined ? userAnswers[currentQIndex] : '';
-            html += `<input type="text" id="p3input" class="ans-input" placeholder="Nhập đáp số..." value="${val}">`;
+            html += `<input type="text" id="p3input" class="ans-input" placeholder="Nhập đáp số..." value="${val}" inputmode="decimal">`;
             html += `<div class="virtual-pad" id="virtualPad"></div></div></div>`;
         }
         document.getElementById("questionsList").innerHTML = html;
