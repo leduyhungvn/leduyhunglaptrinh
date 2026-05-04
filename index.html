@@ -1,513 +1,364 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <!-- viewport: chống zoom khi focus input -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Ôn Thi Toán THPT - Chuyên Đề Hàm Số</title>
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <style>
-        * { box-sizing: border-box; font-family: 'Segoe UI', 'Roboto', system-ui, sans-serif; }
-        input, textarea, select, button { font-size: 16px; }
-        body { background: #f0f2f5; margin: 0; padding: 12px; }
-        .container { max-width: 1400px; margin: 0 auto; background: white; border-radius: 28px; box-shadow: 0 12px 30px rgba(0,0,0,0.1); padding: 16px; }
-        @media (min-width: 768px) {
-            body { padding: 20px; }
-            .container { padding: 20px 24px; }
-        }
-        h1, h2, h3 { margin-top: 0; }
-        .hidden { display: none !important; }
-        .info-card { background: #f9f9ff; border-radius: 20px; padding: 18px; margin-bottom: 20px; border: 1px solid #e6e9f0; }
-        button, .btn { background: #2c3e66; color: white; border: none; padding: 10px 20px; border-radius: 40px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 1rem; }
-        button:hover { background: #1a2a48; transform: scale(0.97); }
-        .timer { background: #1e2a3a; color: #ffd966; font-family: monospace; font-size: 1.6rem; font-weight: bold; padding: 8px 16px; border-radius: 60px; display: inline-block; }
-        .passage { background: #fef7e0; padding: 18px; border-radius: 18px; border-left: 6px solid #f4b942; font-size: 1.2rem; white-space: pre-wrap; overflow-x: auto; line-height: 1.5; }
-        .question-card { background: white; border-radius: 20px; margin-bottom: 20px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid #e4e9f2; }
-        .options { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
-        .option-row { display: flex; align-items: center; gap: 12px; cursor: pointer; padding: 6px 12px; border-radius: 40px; transition: background 0.1s; }
-        .option-row:hover { background: #f0f4ff; }
-        .option-row input { width: 18px; height: 18px; margin: 0; cursor: pointer; }
-        .option-row label { flex: 1; cursor: pointer; font-weight: normal; }
-        .virtual-pad { 
-            display: grid; 
-            grid-template-columns: repeat(4, 1fr); 
-            gap: 10px; 
-            max-width: 360px; 
-            margin-top: 18px; 
-            background: #f5f7fc;
-            padding: 12px;
-            border-radius: 28px;
-        }
-        .v-key { 
-            background: white; 
-            border: 1px solid #ccd7f0; 
-            padding: 12px 0; 
-            text-align: center; 
-            font-weight: bold; 
-            font-size: 1.2rem; 
-            border-radius: 20px; 
-            cursor: pointer; 
-            transition: 0.05s linear; 
-        }
-        .v-key:active { background: #cddaf5; transform: scale(0.96); }
-        .report-grid { display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 24px; align-items: stretch; }
-        .chart-box, .stats-box { flex: 1; min-width: 240px; background: #ffffff; border-radius: 24px; padding: 16px; box-shadow: 0 6px 14px rgba(0,0,0,0.05); text-align: center; display: flex; flex-direction: column; justify-content: center; }
-        .chart-container { position: relative; width: 200px; height: 200px; margin: 0 auto; }
-        @media (max-width: 600px) {
-            .chart-container { width: 160px; height: 160px; }
-            .chart-percent-text { font-size: 2.2rem !important; }
-        }
-        .chart-percent-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 2.8rem !important; font-weight: 800; text-align: center; pointer-events: none; white-space: nowrap; }
-        .chart-name-above { font-weight: bold; color: #1890ff; margin-bottom: 6px; word-break: break-word; }
-        /* Tăng kích thước tên người làm thêm 50% (cỡ 1.5rem -> 2.25rem) */
-        .chart-name-above strong { font-size: 2.25rem !important; }
-        .chart-date-below { font-weight: bold; color: #1e2a3a; margin-top: 10px; font-size: 0.9rem; }
-        
-        /* 4 ô nhỏ chia đều khung */
-        .mini-cards { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 16px; 
-            height: 100%;
-            align-items: stretch;
-        }
-        .mini-item { 
-            background: #f8faff; 
-            border-radius: 22px; 
-            padding: 16px 8px; 
-            text-align: center; 
-            font-weight: 600; 
-            font-size: 0.9rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            min-height: 100px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-        }
-        .mini-item span { 
-            font-size: 1.3rem; 
-            font-weight: 800; 
-            margin-top: 8px; 
-            display: block;
-            color: #1e2a3a;
-        }
-        @media (min-width: 768px) {
-            .mini-item { padding: 24px 12px; font-size: 1rem; min-height: 130px; }
-            .mini-item span { font-size: 1.6rem; }
-        }
-        
-        .question-review { border-left: 4px solid #aaa; margin: 20px 0; padding: 16px; background: #fefefe; border-radius: 16px; }
-        .review-option { display: flex; align-items: flex-start; gap: 12px; padding: 8px 12px; margin: 6px 0; border-radius: 40px; flex-wrap: wrap; }
-        .review-option-correct { background: #e8f5e9; color: #2e7d32; }
-        .review-option-wrong { background: #ffebee; color: #c62828; text-decoration: line-through; }
-        .highlight-correct-answer { background: #e8f5e9; color: #2e7d32; font-weight: bold; border-left: 3px solid #2e7d32; }
-        .mark-icon { font-weight: bold; min-width: 28px; font-size: 1.2rem; }
-        footer { margin-top: 30px; font-size: 0.85rem; text-align: center; border-top: 1px solid #ddd; padding-top: 18px; color: #4a627a; }
-        
-        /* LAYOUT LÀM BÀI */
-        .exam-wrapper {
-            display: flex;
-            flex-direction: column;
-            height: calc(100vh - 120px);
-            min-height: 450px;
-            overflow: hidden;
-        }
-        .exam-header { flex-shrink: 0; margin-bottom: 12px; }
-        .exam-scroll-area { flex: 1; overflow-y: auto; overflow-x: hidden; padding-right: 4px; }
-        .exam-layout { display: flex; flex-direction: column; gap: 16px; }
-        @media (min-width: 768px) and (orientation: landscape) {
-            .exam-layout { flex-direction: row; align-items: flex-start; gap: 24px; }
-            .exam-passage-col { flex: 0 0 40%; width: 40%; position: sticky; top: 0; display: flex; flex-direction: column; }
-            .exam-questions-col { flex: 0 0 58%; width: 58%; }
-            .exam-wrapper { height: calc(100vh - 140px); }
-        }
-        @media (max-width: 767px) {
-            .exam-wrapper { height: auto; min-height: 70vh; }
-            .exam-scroll-area { overflow-y: visible; }
-            .exam-layout { flex-direction: column; gap: 12px; }
-            .exam-passage-col, .exam-questions-col { width: 100%; }
-            .passage { font-size: 1rem; padding: 14px; }
-            .timer { font-size: 1.2rem; padding: 6px 12px; }
-            .question-progress { font-size: 0.8rem; }
-        }
-        @media (max-width: 767px) and (orientation: landscape) {
-            .exam-layout { flex-direction: row; align-items: flex-start; gap: 16px; }
-            .exam-passage-col { flex: 0 0 45%; width: 45%; }
-            .exam-questions-col { flex: 0 0 52%; width: 52%; }
-            .exam-wrapper { height: calc(100vh - 100px); }
-            .passage { font-size: 0.95rem; padding: 12px; }
-        }
-        .exam-passage-col .passage { margin-bottom: 12px; }
-        .ans-input { width: 100%; padding: 12px 16px; font-size: 16px; border-radius: 40px; border: 1px solid #ccc; margin: 10px 0; }
-        .report-header { text-align: center; margin-bottom: 16px; }
-        .report-main-title { font-size: 1.6rem; font-weight: bold; color: #0b2b44; margin-bottom: 4px; }
-        .report-sub-title { font-size: 1rem; font-weight: 500; color: #2c3e66; border-top: 2px solid #e0e7f0; display: inline-block; padding-top: 4px; }
-        .submit-btn-container { margin-top: 12px; width: 100%; }
-        .question-progress { font-size: 0.85rem; color: #2c3e66; margin-bottom: 10px; font-weight: 500; }
-        
-        .report-review-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-top: 10px;
-            max-height: 60vh;
-            overflow-y: auto;
-            padding-right: 4px;
-        }
-        @media (min-width: 768px) and (orientation: landscape) {
-            .report-review-wrapper { flex-direction: row; align-items: flex-start; gap: 24px; }
-            .report-passage-col { flex: 0 0 40%; width: 40%; position: sticky; top: 0; }
-            .report-answers-col { flex: 0 0 58%; width: 58%; }
-        }
-        @media (max-width: 767px) and (orientation: landscape) {
-            .report-review-wrapper { flex-direction: row; gap: 16px; }
-            .report-passage-col { flex: 0 0 45%; width: 45%; }
-            .report-answers-col { flex: 0 0 52%; width: 52%; }
-        }
-        @media (max-width: 767px) {
-            .report-review-wrapper { flex-direction: column; max-height: none; }
-            .report-passage-col, .report-answers-col { width: 100%; }
-        }
-        .answers-list { display: flex; flex-direction: column; gap: 16px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ÔN TẬP TRẮC NGHIỆM TOÁN (10-11-12) - CẤU TRÚC MỚI</title>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    packages: {'[+]': ['ams', 'boldsymbol']},
+    tags: 'ams',
+    multilineWidth: '85%',
+    tagsSide: 'right',
+    tagIndent: '0.8em'
+  },
+  svg: {
+    fontCache: 'global',
+    scale: 1,
+    minScale: .5,
+    mtextInheritFont: true,
+    merrorInheritFont: true,
+    mathmlSpacing: false,
+    displayAlign: 'center',
+    displayIndent: '0'
+  },
+  options: {
+    renderActions: { addMenu: [0, '', ''] },
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  startup: { typeset: false }
+};
+</script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+body { background-color: #f5f7fa; color: #333; line-height: 1.4; }
+.container { max-width: 1000px; margin: 0 auto; padding: 10px; }
+header { text-align: center; margin-bottom: 15px; padding: 15px; background: linear-gradient(135deg, #1e5799, #207cca); color: white; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+h1 { font-size: 28px; margin-bottom: 5px; }
+.screen { display: none; background-color: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); padding: 20px; margin-bottom: 20px; }
+.active { display: block; }
+.form-group { margin-bottom: 15px; }
+label { display: block; margin-bottom: 5px; font-weight: 600; color: #2c3e50; font-size: 16px; }
+input, select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px; transition: border-color 0.3s; }
+input:focus, select:focus { border-color: #3498db; outline: none; }
+.row { display: flex; gap: 15px; margin-bottom: 15px; }
+.col { flex: 1; }
+.btn { display: inline-block; padding: 12px 24px; background-color: #3498db; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; transition: background-color 0.3s; text-align: center; margin-right: 10px; margin-top: 10px; width: 100%; }
+.btn:hover { background-color: #2980b9; }
+.btn-secondary { background-color: #7f8c8d; }
+.btn-success { background-color: #2ecc71; }
+.btn-danger { background-color: #e74c3c; }
+.btn-info { background-color: #17a2b8; }
+.test-header-container { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #eee; flex-wrap: wrap; gap: 10px; }
+.test-title { font-size: 20px; font-weight: bold; color: #2c3e50; }
+.test-info { display: flex; align-items: center; gap: 10px; }
+.timer { text-align: center; font-size: 28px; font-weight: bold; color: #e74c3c; background: #f9f9f9; padding: 5px 10px; border-radius: 5px; }
+.question-counter { font-size: 18px; font-weight: bold; }
+.question { margin-bottom: 20px; padding: 15px; background-color: #f9f9f9; border-radius: 8px; border-left: 4px solid #3498db; }
+.question-number { font-weight: bold; color: #3498db; margin-bottom: 8px; font-size: 20px; }
+.question-content { margin-bottom: 12px; font-size: 18px; }
+.options { list-style-type: none; }
+.option { padding: 10px 15px; margin-bottom: 8px; background-color: white; border-radius: 5px; cursor: pointer; border: 1px solid #e0e0e0; font-size: 18px; transition: all 0.2s; }
+.option:hover { background-color: #f0f7ff; border-color: #3498db; }
+.option.selected { background-color: #e1f0ff; border-color: #3498db; font-weight: bold; }
+.statements-group { margin-top: 15px; background: #fff; border-radius: 8px; padding: 10px; border: 1px solid #e0e0e0; }
+.statement-item { margin-bottom: 15px; padding: 8px; background: #fefefe; border-left: 3px solid #9b59b6; }
+.statement-text { font-size: 17px; margin-bottom: 8px; font-weight: 500; }
+.statement-options { display: flex; gap: 20px; align-items: center; }
+.statement-options label { display: inline-flex; align-items: center; gap: 5px; font-weight: normal; cursor: pointer; margin-right: 15px; }
+.statement-options input { width: auto; margin-right: 5px; transform: scale(1.1); }
+.part-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; color: white; font-size: 12px; margin-right: 5px; font-weight: bold; }
+.badge-p1 { background-color: #3498db; }
+.badge-p2 { background-color: #9b59b6; }
+.badge-p3 { background-color: #e67e22; }
+.notification { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(46,204,113,0.9); color: white; padding: 15px 30px; border-radius: 8px; font-size: 18px; font-weight: bold; z-index: 1000; display: none; }
+.result-header { text-align: center; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #eee; }
+.result-header h2 { font-size: 22px; }
+.result-wrapper { display: flex; flex-direction: row; gap: 20px; align-items: stretch; }
+.result-left { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px; background-color: #fff; border-radius: 8px; text-align: center; }
+.student-name-display { color: #1890ff; font-weight: bold; font-size: 50px; margin-bottom: 15px; line-height: 1.1; }
+.chart-container { position: relative; width: 200px; height: 200px; margin-bottom: 15px; flex-shrink: 0; }
+.pie-chart { width: 100%; height: 100%; border-radius: 50%; background: conic-gradient(#eee 0% 100%); display: flex; align-items: center; justify-content: center; transition: background 1s ease-out; }
+.pie-chart::after { content: ""; position: absolute; width: 75%; height: 75%; background-color: white; border-radius: 50%; }
+.chart-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 10; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.percentage-text { display: block; font-size: 44px; font-weight: 800; color: #333; line-height: 1.2; }
+.exam-date { color: #000; font-weight: bold; font-size: 18.5px; margin-top: auto; padding-top: 10px; border-top: 1px solid #eee; width: 100%; }
+.result-right { flex: 1; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 10px; }
+.grid-item { border-radius: 8px; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border: 1px solid #e2e8f0; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+.grid-icon { width: 52px; height: 52px; margin-bottom: 10px; }
+.grid-label { font-size: 18px; margin-bottom: 5px; font-weight: 500; }
+.grid-value { font-size: 27px; font-weight: bold; }
+.time-start { background-color: #e6f7ff; border-left: 4px solid #1890ff; }
+.time-start .grid-icon { stroke: #1890ff; }
+.time-start .grid-label { color: #1890ff; }
+.time-end { background-color: #f6ffed; border-left: 4px solid #52c41a; }
+.time-end .grid-icon { stroke: #52c41a; }
+.time-end .grid-label { color: #52c41a; }
+.wrong { background-color: #fff2f0; border-left: 4px solid #ff4d4f; }
+.wrong .grid-icon { stroke: #ff4d4f; }
+.wrong .grid-label { color: #ff4d4f; }
+.unanswered { background-color: #fff7e6; border-left: 4px solid #faad14; }
+.unanswered .grid-icon { stroke: #faad14; }
+.unanswered .grid-label { color: #faad14; }
+.review-list { margin-top: 20px; width: 100%; }
+.review-item { padding: 10px; margin-bottom: 10px; border-radius: 8px; border-left: 4px solid; background-color: #fff; border: 1px solid #eee; }
+.review-item.correct { border-left-color: #2ecc71; background-color: #f0fff4; }
+.review-item.incorrect { border-left-color: #e74c3c; background-color: #fff5f5; }
+.review-question-title { font-weight: bold; margin-bottom: 5px; font-size: 16px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+.review-question-title:hover { opacity: 0.8; }
+.source-code { font-size: 11px; font-family: monospace; background: #f0f0f0; padding: 8px; margin-top: 8px; border-radius: 4px; overflow-x: auto; white-space: pre-wrap; word-break: break-all; display: none; }
+.source-code.show { display: block; }
+.code-toggle { background: none; border: none; color: #17a2b8; cursor: pointer; font-size: 12px; padding: 2px 8px; border-radius: 4px; }
+.code-toggle:hover { background: #e0e0e0; }
+.review-options { margin-top: 5px; }
+.review-option-row { padding: 3px 0; font-size: 14px; }
+.review-statement { margin-bottom: 8px; padding-left: 8px; border-left: 2px solid #ccc; }
+.review-statement.correct-st { color: #2ecc71; }
+.review-statement.incorrect-st { color: #e74c3c; }
+.math-container { margin: 5px 0; padding: 5px; background-color: rgba(255,255,255,0.9); border-radius: 3px; overflow-x: auto; }
+.input-group { margin-top: 15px; display: flex; flex-direction: column; gap: 15px; }
+.number-input { width: 100%; padding: 12px; font-size: 20px; text-align: center; border: 2px solid #3498db; border-radius: 8px; background: white; }
+.virtual-keypad { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; background: #f0f0f0; padding: 10px; border-radius: 10px; margin-top: 5px; }
+.keypad-btn { padding: 12px; font-size: 20px; font-weight: bold; background: white; border: 1px solid #ccc; border-radius: 8px; cursor: pointer; transition: all 0.2s; text-align: center; }
+.keypad-btn:hover { background: #e0e0e0; transform: scale(0.98); }
+.keypad-btn.special { background: #ff9800; color: white; }
+.keypad-btn.ok { background: #4caf50; color: white; grid-column: span 2; }
+.question-content table {
+    border-collapse: collapse;
+    width: auto;
+    margin: 16px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: white;
+}
+.question-content th, .question-content td {
+    border: 1px solid #333;
+    padding: 2px 8px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+.question-content th { background-color: #f2f2f2; font-weight: bold; }
+@media (max-width: 768px) {
+  .row { flex-direction: column; gap: 10px; }
+  .btn { padding: 10px; font-size: 14px; }
+  .result-wrapper { flex-direction: column; gap: 10px; }
+  .result-left { padding: 10px 5px; }
+  .student-name-display { font-size: 29px; margin-bottom: 5px; }
+  .chart-container { width: 140px; height: 140px; margin-bottom: 5px; }
+  .percentage-text { font-size: 29px; }
+  .exam-date { font-size: 14px; padding-top: 5px; }
+  .result-right { width: 100%; gap: 6px; }
+  .grid-item { padding: 6px; }
+  .grid-icon { width: 20px; height: 20px; margin-bottom: 2px; }
+  .grid-label { font-size: 10px; }
+  .grid-value { font-size: 14px; }
+  .review-item { padding: 8px; }
+  .review-question-title { font-size: 14px; }
+  .statement-text { font-size: 14px; }
+  .screen { padding: 10px; margin-bottom: 10px; }
+  .virtual-keypad { gap: 5px; }
+  .keypad-btn { padding: 8px; font-size: 16px; }
+  .question-content table { font-size: 12px; }
+  .question-content th, .question-content td { padding: 2px 4px; white-space: normal; }
+}
+</style>
 </head>
 <body>
-<div class="container" id="app">
-    <!-- GIAO DIỆN 1 -->
-    <div id="screen1">
-        <h1 style="color:#0b2b44; font-size: 1.6rem;">📚 ÔN THI TOÁN THPT THEO CHUYÊN ĐỀ</h1>
-        <div class="info-card">
-            <label>👤 Tên người làm (≤40 ký tự): </label>
-            <input type="text" id="studentName" maxlength="40" placeholder="Ví dụ: Nguyễn Văn A" style="width:100%; padding:10px; margin:8px 0; border-radius:30px; border:1px solid #ccc; font-size:16px;">
-            <label>📂 Chọn Chuyên đề: </label>
-            <select id="chuyenDeSelect" style="width:100%; padding:10px; margin:8px 0; border-radius:30px; font-size:16px;">
-                <option value="CD1">Chuyên Đề 1</option>
-                <option value="CD2">Chuyên Đề 2</option>
-                <option value="CD3">Chuyên Đề 3</option>
-                <option value="CD4">Chuyên Đề 4</option>
-                <option value="CD5">Chuyên Đề 5</option>
-                <option value="CD6">Chuyên Đề 6</option>
-                <option value="CD7">Chuyên Đề 7</option>
-                <option value="CD8">Chuyên Đề 8</option>
-                <option value="CD9">Chuyên Đề 9</option>
-                <option value="CD10">Chuyên Đề 10</option>
-            </select>
-            <button id="startExamBtn" style="margin-top:16px; width:100%;">✅ LÀM BÀI</button>
-        </div>
-        <footer>📞 THÔNG TIN LIÊN HỆ<br>Thầy Hùng<br>** Zalo: 0967.095.025<br>** Facebook: leduyhung.vietnam</footer>
-    </div>
-
-    <!-- GIAO DIỆN 2 - LÀM BÀI (1 câu/lần, nút nộp bài ở cuối ô passage) -->
-    <div id="screen2" class="hidden">
-        <div class="exam-wrapper">
-            <div class="exam-header">
-                <div style="display:flex; justify-content:space-between; flex-wrap:wrap; align-items:center; gap:8px;">
-                    <h2 id="subTitleCD" style="font-size:1.2rem;">CHUYÊN ĐỀ 1</h2>
-                    <div class="timer" id="timerDisplay">20:00</div>
-                </div>
-            </div>
-            <div class="exam-scroll-area">
-                <div class="exam-layout" id="examLayout">
-                    <div class="exam-passage-col">
-                        <div class="passage" id="passageArea"></div>
-                        <div class="submit-btn-container">
-                            <button id="submitExamBtn" style="background:#b23c1c; width:100%; padding: 12px;">📤 NỘP BÀI</button>
-                        </div>
-                    </div>
-                    <div class="exam-questions-col">
-                        <div id="questionsList"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- GIAO DIỆN 3 - BÁO CÁO -->
-    <div id="screen3" class="hidden">
-        <div class="report-header">
-            <div class="report-main-title">ÔN THI TOÁN THPT THEO CHUYÊN ĐỀ</div>
-            <div class="report-sub-title" id="reportSubTitle">BÁO CÁO CHI TIẾT - CHUYÊN ĐỀ 1</div>
-        </div>
-        <div class="report-grid">
-            <div class="chart-box">
-                <div id="chartNameAbove" class="chart-name-above"></div>
-                <div class="chart-container">
-                    <canvas id="scoreChart" width="200" height="200" style="width:100%; height:100%;"></canvas>
-                    <div id="chartPercentText" class="chart-percent-text">0%</div>
-                </div>
-                <div id="chartDateBelow" class="chart-date-below"></div>
-            </div>
-            <div class="stats-box">
-                <div class="mini-cards">
-                    <div class="mini-item" style="background:#e6f7ff;">⏱️ START<br><span id="statStart">--:--:--</span></div>
-                    <div class="mini-item" style="background:#fff7e6;">⏲️ END<br><span id="statEnd">--:--:--</span></div>
-                    <div class="mini-item" style="background:#f6ffed;">🏆 CHUỖI / ĐÚNG / TỔNG<br><span id="statStreak">0/0/0</span></div>
-                    <div class="mini-item" style="background:#f9f0ff;">⏱️ TỔNG THỜI GIAN<br><span id="totalTimeSpent">0s</span></div>
-                </div>
-            </div>
-        </div>
-        <div class="report-review-wrapper">
-            <div class="report-passage-col">
-                <div class="passage" id="reportPassageArea"></div>
-            </div>
-            <div class="report-answers-col">
-                <div id="reviewDetails" class="answers-list"></div>
-            </div>
-        </div>
-        <div style="display: flex; gap:16px; margin-top:20px; justify-content:center; flex-wrap:wrap;"><button id="retryBtn">🔄 LÀM LẠI</button><button id="backToStartBtn">🔙 QUAY LẠI</button></div>
-    </div>
+<div class="container">
+  <header><h1>ÔN TẬP TRẮC NGHIỆM TOÁN (10-11-12)</h1></header>
+  <div id="main-screen" class="screen active">
+    <div class="form-group"><label>Họ và tên:</label><input type="text" id="student-name" maxlength="40" placeholder="Nhập họ và tên (tối đa 40 ký tự)"></div>
+    <div class="row"><div class="col"><div class="form-group"><label>Chọn lớp:</label><select id="grade-select"><option value="">-- Chọn lớp --</option><option value="10">TOÁN LỚP 10</option><option value="11">TOÁN LỚP 11</option><option value="12">TOÁN LỚP 12</option></select></div></div><div class="col"><div class="form-group"><label>Chọn kỳ ôn tập:</label><select id="term-select"><option value="">-- Chọn kỳ --</option><option value="GK1">GIỮA HỌC KÌ 1</option><option value="HK1">CUỐI HỌC KÌ 1</option><option value="GK2">GIỮA HỌC KÌ 2</option><option value="HK2">CUỐI HỌC KÌ 2</option><option value="THI">THI THỬ TỐT NGHIỆP</option></select></div></div></div>
+    <div class="form-group"><label>Mã kho đề: <span id="code-display" style="font-weight: bold; color: #e74c3c;"></span></label></div>
+    <button id="start-btn" class="btn btn-success">Bắt đầu làm bài</button>
+    <div class="contact-info" style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; font-size:14px; margin-top:15px;"><h3>Thông tin liên hệ</h3><p><strong>Thầy Lê Duy Hùng</strong></p><p>ZALO: 0967 095 025</p><p>FACEBOOK: <a href="https://www.facebook.com/leduyhung.vietnam" target="_blank">https://www.facebook.com/leduyhung.vietnam</a></p></div>
+  </div>
+  <div id="test-screen" class="screen">
+    <div class="test-header-container"><div class="test-title" id="test-title"></div><div class="test-info"><div class="timer" id="timer">60:00</div><div class="question-counter">Câu <span id="current-question-number">1</span>/<span id="total-questions">22</span></div></div></div>
+    <div id="current-question-container"></div>
+    <div style="text-align: center;"><button id="submit-test-btn" class="btn btn-danger">NỘP BÀI</button></div>
+  </div>
+  <div id="result-screen" class="screen">
+    <div class="result-header"><h2 id="result-title"></h2></div>
+    <div class="result-wrapper"><div class="result-left"><div class="student-name-display" id="result-student-name"></div><div class="chart-container"><div class="pie-chart" id="score-chart"></div><div class="chart-center"><span class="percentage-text" id="score-percentage">0%</span></div></div><div class="exam-date" id="result-date"></div></div><div class="result-right"><div class="grid-item time-start"><svg class="grid-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg><div class="grid-label">Bắt đầu</div><div class="grid-value" id="start-time-hms">00:00:00</div></div><div class="grid-item time-end"><svg class="grid-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg><div class="grid-label">Kết thúc</div><div class="grid-value" id="end-time-hms">00:00:00</div></div><div class="grid-item wrong"><svg class="grid-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg><div class="grid-label">Sai</div><div class="grid-value" id="incorrect-count">0/22</div></div><div class="grid-item unanswered"><svg class="grid-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="8"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><div class="grid-label">Chưa chọn</div><div class="grid-value" id="unanswered-count">0/22</div></div></div></div>
+    <div id="cheating-warning" style="display: none; background-color: #ffebee; color: #c62828; padding: 10px; border-radius: 8px; margin-bottom: 15px; text-align: center; font-weight: bold;"></div>
+    <div class="review-list" id="review-list"></div>
+    <div style="text-align: center; margin-top: 20px;"><button id="retry-btn" class="btn btn-success">LÀM LẠI</button><button id="back-btn" class="btn btn-secondary">QUAY LẠI</button></div>
+  </div>
 </div>
-
+<div id="notification" class="notification"></div>
 <script>
-    // ======================= DỮ LIỆU (GIỮ NGUYÊN) =======================
-    const QUESTION_BANK = {
-        CD1: {
-            C1: {
-                id: "C1",
-                passage: "Cho bảng biến thiên sau: \\[\\begin{array}{c|ccccccc} x & -\\infty & & 0 & & 2 & & +\\infty \\\\ \\hline y' & & + & 0 & - & 0 & + & \\\\ \\hline y & & & 2 & & & & +\\infty \\\\ & & \\nearrow & & \\searrow & & \\nearrow & \\\\ & -\\infty & & & & -2 & & \\end{array}\\]",
-                P1: [
-                    {id:1, content:"Từ bảng biến thiên, hàm số đồng biến trên khoảng nào?", correct:"\\( (-\\infty;0) \\) v\\(\\grave{a}\\) \\((2;+\\infty) \\)", wrong1:"\\( (0;2) \\)", wrong2:"\\( (-\\infty;+\\infty) \\)", wrong3:"\\( (0;+\\infty) \\)"},
-                    {id:2, content:"Giá trị cực đại của hàm số là:", correct:"2", wrong1:"-2", wrong2:"0", wrong3:"+\\infty"},
-                    {id:3, content:"Hàm số nghịch biến trên khoảng:", correct:"\\( (0;2) \\)", wrong1:"\\( (-\\infty;0) \\)", wrong2:"\\( (2;+\\infty) \\)", wrong3:"\\( (-2;2) \\)"},
-                    {id:4, content:"Hệ số a của hàm số \\( y = ax^3 + bx^2 + cx + d \\) có dấu:", correct:"Dương", wrong1:"Âm", wrong2:"Không xác định", wrong3:"Bằng 0"},
-                    {id:5, content:"Tổng các giá trị cực đại và cực tiểu của hàm số là:", correct:"0", wrong1:"2", wrong2:"-2", wrong3:"4"},
-                    {id:6, content:"Đồ thị hàm số cắt trục tung tại điểm có tung độ:", correct:"2", wrong1:"0", wrong2:"-2", wrong3:"3"},
-                    {id:7, content:"Số giao điểm của đồ thị với trục hoành là:", correct:"3", wrong1:"1", wrong2:"2", wrong3:"0"},
-                    {id:8, content:"Phương trình \\( y' = 0 \\) có:", correct:"2 nghi\u1ec7m ph\u00e2n bi\u1ec7t", wrong1:"V\u00f4 nghi\u1ec7m", wrong2:"1 nghi\u1ec7m", wrong3:"Nghi\u1ec7m k\u00e9p"},
-                    {id:9, content:"Điểm cực đại của hàm số là:", correct:"\\( x = 0 \\)", wrong1:"\\( x = 2 \\)", wrong2:"\\( x = -2 \\)", wrong3:"\\( x = 1 \\)"},
-                    {id:10, content:"Hàm số đạt cực tiểu tại:", correct:"\\( x = 2 \\)", wrong1:"\\( x = 0 \\)", wrong2:"\\( x = -2 \\)", wrong3:"\\( x = 1 \\)"},
-                    {id:11, content:"Giá trị của \\( y \\) khi \\( x = 0 \\) là:", correct:"2", wrong1:"0", wrong2:"-2", wrong3:"1"},
-                    {id:12, content:"Giá trị của \\( y \\) khi \\( x = 2 \\) là:", correct:"-2", wrong1:"2", wrong2:"0", wrong3:"4"},
-                    {id:13, content:"Đạo hàm \\( y' \\) của hàm số \\( y = x^3 - 3x^2 + 2 \\) là:", correct:"\\( 3x^2 - 6x \\)", wrong1:"\\( 3x^2 + 6x \\)", wrong2:"\\( -3x^2 + 6x \\)", wrong3:"\\( -3x^2 - 6x \\)"},
-                    {id:14, content:"Hệ số b trong hàm số \\( y = x^3 - 3x^2 + 2 \\) là:", correct:"-3", wrong1:"3", wrong2:"0", wrong3:"2"},
-                    {id:15, content:"Hệ số c trong hàm số \\( y = x^3 - 3x^2 + 2 \\) là:", correct:"0", wrong1:"-3", wrong2:"2", wrong3:"1"},
-                    {id:16, content:"Hệ số tự do d của hàm số \\( y = x^3 - 3x^2 + 2 \\) là:", correct:"2", wrong1:"0", wrong2:"-2", wrong3:"1"},
-                    {id:17, content:"Tổng hoành độ hai điểm cực trị bằng:", correct:"2", wrong1:"0", wrong2:"1", wrong3:"3"},
-                    {id:18, content:"Khoảng cách giữa hai điểm cực trị trên trục hoành là:", correct:"2", wrong1:"0", wrong2:"1", wrong3:"3"},
-                    {id:19, content:"Trung điểm của hai điểm cực trị có hoành độ bằng:", correct:"1", wrong1:"0", wrong2:"2", wrong3:"-1"},
-                    {id:20, content:"Giới hạn \\( \\lim_{x \\to -\\infty} y \\) là:", correct:"-\\infty", wrong1:"+\\infty", wrong2:"0", wrong3:"2"}
-                ],
-                P2: [
-                    {id:1, content:"Hàm số có bậc là 3.", correct:"true"},{id:2, content:"Điểm cực tiểu có hoành độ bằng 2.", correct:"true"},{id:3, content:"Giá trị cực đại lớn hơn giá trị cực tiểu.", correct:"true"},{id:4, content:"Hàm số đồng biến trên khoảng (0;2).", correct:"false"},{id:5, content:"Hệ số a của hàm số âm.", correct:"false"},{id:6, content:"Đồ thị hàm số có đúng 2 giao điểm với trục hoành.", correct:"false"},{id:7, content:"Phương trình y' = 0 có nghiệm kép.", correct:"false"},{id:8, content:"Hàm số có tâm đối xứng là điểm I(1;0).", correct:"true"},{id:9, content:"Hàm số lẻ.", correct:"false"},{id:10, content:"Đạo hàm cấp hai y'' = 6x - 6.", correct:"true"},{id:11, content:"Tổng giá trị cực đại và cực tiểu bằng 0.", correct:"true"},{id:12, content:"Hàm số đạt cực trị tại x = 0 và x = 2.", correct:"true"},{id:13, content:"Giá trị cực tiểu bằng 2.", correct:"false"},{id:14, content:"Hệ số b của hàm số y = x^3 - 3x^2 + 2 là -3.", correct:"true"},{id:15, content:"Hệ số c của hàm số trên là 0.", correct:"true"},{id:16, content:"Đồ thị cắt trục tung tại điểm có tung độ dương.", correct:"true"},{id:17, content:"Trên khoảng (2;+∞), hàm số nghịch biến.", correct:"false"},{id:18, content:"Điểm uốn của đồ thị không thuộc trục hoành.", correct:"false"},{id:19, content:"Hàm số đồng biến trên (-∞;0).", correct:"true"},{id:20, content:"Hàm số y = -x^3 + 3x^2 - 2 có cùng bảng biến thiên.", correct:"false"}
-                ],
-                P3: [
-                    {id:1, content:"Tổng hệ số a + b + c + d của hàm số y = ax^3 + bx^2 + cx + d là ...", answerType:"int", correct:0},{id:2, content:"Giá trị của y''(1) là ...", answerType:"int_zero", correct:0},{id:3, content:"Tích hoành độ hai điểm cực trị là ...", answerType:"int", correct:0},{id:4, content:"Giá trị nhỏ nhất của hàm số trên [0;3] là ...", answerType:"int_neg", correct:-2},{id:5, content:"Giá trị lớn nhất của hàm số trên [-1;1] là ...", answerType:"int_pos", correct:2},{id:6, content:"Số đường tiệm cận của đồ thị hàm số là ...", answerType:"int_pos", correct:0},{id:7, content:"y(1,2), làm tròn đến hàng phần trăm là ...", answerType:"float_neg", correct:-0.59, decimals:2},{id:8, content:"y'(0,5), làm tròn đến hàng phần chục là ...", answerType:"float_neg", correct:-2.3, decimals:1},{id:9, content:"Khoảng cách từ điểm cực đại đến đường y = -1 (theo phương thẳng đứng), làm tròn đến hàng phần trăm là ...", answerType:"float_pos", correct:3.00, decimals:2},{id:10, content:"Tung độ giao điểm của đồ thị với đường thẳng x = 1,5, làm tròn đến hàng phần chục là ...", answerType:"float_neg", correct:-1.4, decimals:1},{id:11, content:"Trung bình cộng của y(0,2) và y(1,8), làm tròn đến hàng phần trăm là ...", answerType:"float_pos", correct:0.00, decimals:2},{id:12, content:"Hoành độ điểm có tung độ bằng 1 (khác 0), làm tròn đến hàng phần chục là ...", answerType:"float_pos", correct:2.4, decimals:1},{id:13, content:"y'(1,5), làm tròn đến hàng phần trăm là ...", answerType:"float_neg", correct:-2.25, decimals:2},{id:14, content:"y(0,6), làm tròn đến hàng phần chục là ...", answerType:"float_neg", correct:1.1, decimals:1},{id:15, content:"Nghiệm lớn hơn 2 của phương trình y = 3, làm tròn đến hàng phần trăm là ...", answerType:"float_pos", correct:3.10, decimals:2},{id:16, content:"Khoảng cách từ điểm uốn đến đường y = 0,5 (theo phương thẳng đứng), làm tròn đến hàng phần chục là ...", answerType:"float_pos", correct:0.5, decimals:1},{id:17, content:"Tổng hoành độ các giao điểm của đồ thị với trục hoành là ...", answerType:"int", correct:3},{id:18, content:"Giá trị của y tại x = -1 là ...", answerType:"int_neg", correct:-2},{id:19, content:"y'(-0,5), làm tròn đến hàng phần chục là ...", answerType:"float_pos", correct:3.8, decimals:1},{id:20, content:"Giá trị của biểu thức y(0) + y(2) + y(1) là ...", answerType:"int", correct:0}
-                ]
-            },
-            C2: {
-                id: "C2",
-                passage: "Cho bảng biến thiên sau: \\[\\begin{array}{c|ccccccc} x & -\\infty & & 0 & & 2 & & +\\infty \\\\ \\hline y' & & - & 0 & + & 0 & - & \\\\ \\hline y & +\\infty & & & & 2 & & \\\\ & & \\searrow & & \\nearrow & & \\searrow & \\\\ & & & -2 & & & & -\\infty \\end{array}\\]",
-                P1: [{id:1, content:"Từ bảng biến thiên, hàm số nghịch biến trên khoảng nào?", correct:"\\( (-\\infty;0) \\) v\\(\\grave{a}\\) \\((2;+\\infty) \\)", wrong1:"\\( (0;2) \\)", wrong2:"\\( (-\\infty;+\\infty) \\)", wrong3:"\\( (0;+\\infty) \\)"},{id:2, content:"Giá trị cực đại của hàm số là:", correct:"2", wrong1:"-2", wrong2:"0", wrong3:"+\\infty"}],
-                P2: [{id:1, content:"Hàm số có bậc là 3.", correct:"true"}],
-                P3: [{id:1, content:"Tổng hệ số a+b+c+d là ...", answerType:"int", correct:0}]
-            }
-        },
-        CD2: { B1: { id:"CD2_B1", passage: "Chuyên đề 2 đang cập nhật", P1: [], P2: [], P3: [] } },
-        CD3: { B1: { id:"CD3_B1", passage: "Chưa có dữ liệu", P1: [], P2: [], P3: [] } }, CD4: { B1: { id:"CD4_B1", passage: "Chưa có dữ liệu", P1: [], P2: [], P3: [] } }, CD5: { B1: { id:"CD5_B1", passage: "Chưa có dữ liệu", P1: [], P2: [], P3: [] } }, CD6: { B1: { id:"CD6_B1", passage: "Chưa có dữ liệu", P1: [], P2: [], P3: [] } }, CD7: { B1: { id:"CD7_B1", passage: "Chưa có dữ liệu", P1: [], P2: [], P3: [] } }, CD8: { B1: { id:"CD8_B1", passage: "Chưa có dữ liệu", P1: [], P2: [], P3: [] } }, CD9: { B1: { id:"CD9_B1", passage: "Chưa có dữ liệu", P1: [], P2: [], P3: [] } }, CD10: { B1: { id:"CD10_B1", passage: "Chưa có dữ liệu", P1: [], P2: [], P3: [] } }
-    };
+// ==================== KHO ĐỀ ĐỒNG BỘ CẤU TRÚC (12 P1 + 4 P2 + 6 P3) ====================
+const questionBanks = {
+  T12HK2: { P1A:[{id:1,content:"Trong không gian $Oxyz$, góc giữa $(P): x+2y-z+2=0$ và $(Q): 2x-y-z+4=0$, $\\cos\\alpha$?",correct:"$\\frac{1}{6}$",wrong1:"$\\frac{3}{4}$",wrong2:"$\\frac{1}{3}$",wrong3:"$-\\frac{1}{3}$"},{id:2,content:"Góc giữa $(P): x-y+2z+1=0$ và $(Q): 2x+y-z+3=0$ bằng:",correct:"$\\frac{\\pi}{2}$",wrong1:"$\\frac{\\pi}{3}$",wrong2:"$\\frac{\\pi}{6}$",wrong3:"$\\frac{\\pi}{4}$"}], P1B:[{id:1,content:"Vectơ pháp tuyến của $\\frac{x}{-2}+\\frac{y}{-1}+\\frac{z}{3}=1$ là:",correct:"$(3;6;-2)$",wrong1:"$(2;-1;3)$",wrong2:"$(-3;-6;-2)$",wrong3:"$(-2;-1;3)$"},{id:2,content:"Vectơ pháp tuyến của $\\frac{x}{2}+\\frac{y}{3}+\\frac{z}{-4}=1$ là:",correct:"$(6;4;-3)$",wrong1:"$(2;3;-4)$",wrong2:"$(3;2;4)$",wrong3:"$(12;8;-6)$"}], P1C:[{id:1,content:"Đường thẳng qua $M(2;-3;5)$ song song $d: x=1+2t,y=3-t,z=4+t$ là:",correct:"$\\begin{cases} x=2+2t \\\\ y=-3-t \\\\ z=5+t \\end{cases}$",wrong1:"$\\begin{cases} x=2+t \\\\ y=-3+3t \\\\ z=5+4t \\end{cases}$",wrong2:"$\\begin{cases} x=-2+t \\\\ y=3-t \\\\ z=-5+4t \\end{cases}$",wrong3:"$\\begin{cases} x=-2+2t \\\\ y=3-t \\\\ z=-5+t \\end{cases}$"},{id:2,content:"Đường thẳng qua $A(1;-2;3)$ vuông góc $(P): 2x-y+3z-5=0$ là:",correct:"$\\begin{cases} x=1+2t \\\\ y=-2-t \\\\ z=3+3t \\end{cases}$",wrong1:"$\\begin{cases} x=1+2t \\\\ y=-2+t \\\\ z=3+3t \\end{cases}$",wrong2:"$\\begin{cases} x=1+t \\\\ y=-2-2t \\\\ z=3+t \\end{cases}$",wrong3:"$\\begin{cases} x=1+3t \\\\ y=-2-2t \\\\ z=3+t \\end{cases}$"}], P1D:[{id:1,content:"Mặt cầu tâm $I(1;-2;3)$ tiếp xúc $(Oyz)$ là:",correct:"$(x-1)^2+(y+2)^2+(z-3)^2=1$",wrong1:"$(x-1)^2+(y+2)^2+(z-3)^2=9$",wrong2:"$(x+1)^2+(y-2)^2+(z+3)^2=1$",wrong3:"$(x-1)^2+(y-2)^2+(z+3)^2=4$"},{id:2,content:"Mặt cầu tâm $I(2;-1;4)$ tiếp xúc $(Oxz)$ là:",correct:"$(x-2)^2+(y+1)^2+(z-4)^2=1$",wrong1:"$(x-2)^2+(y+1)^2+(z-4)^2=4$",wrong2:"$(x-2)^2+(y+1)^2+(z-4)^2=16$",wrong3:"$(x+2)^2+(y-1)^2+(z+4)^2=1$"}], P1E:[{id:1,content:"Thể tích $y=e^x$, $y=0$, $x=0$, $x=2$ quay quanh Ox:",correct:"$\\pi\\int_0^2 e^{2x}dx$",wrong1:"$\\pi\\int_0^2 e^x dx$",wrong2:"$\\int_0^2 e^x dx$",wrong3:"$\\int_0^2 e^{2x} dx$"},{id:2,content:"Thể tích $y=\\sin x$, $y=0$, $x=0$, $x=\\pi$ quay quanh Ox:",correct:"$\\pi\\int_0^\\pi \\sin^2 x dx$",wrong1:"$\\pi\\int_0^\\pi \\sin x dx$",wrong2:"$\\int_0^\\pi \\sin^2 x dx$",wrong3:"$\\pi\\int_0^\\pi \\sin 2x dx$"}], P1F:[{id:1,content:"Tính $\\int_0^1 (3x^2+2x) dx$:",correct:"$2$",wrong1:"$1$",wrong2:"$3$",wrong3:"$4$"},{id:2,content:"$\\int_0^\\pi \\sin x dx$ bằng:",correct:"$2$",wrong1:"$0$",wrong2:"$1$",wrong3:"$-1$"}], P1G:[{id:1,content:"Tích phân $\\int_1^2 \\frac{1}{x} dx$ bằng:",correct:"$\\ln 2$",wrong1:"$\\ln 1$",wrong2:"$\\ln 3$",wrong3:"$\\ln 4$"},{id:2,content:"$\\int_0^1 e^x dx$ bằng:",correct:"$e-1$",wrong1:"$e$",wrong2:"$1$",wrong3:"$0$"}], P1H:[{id:1,content:"Cho $\\int_0^1 f(x)dx=2$, $\\int_0^3 f(x)dx=5$. Tính $\\int_1^3 f(x)dx$:",correct:"$3$",wrong1:"$7$",wrong2:"$-3$",wrong3:"$10$"},{id:2,content:"Nguyên hàm $\\int (3x^2+2)dx$ là:",correct:"$x^3+2x+C$",wrong1:"$x^3+2$",wrong2:"$6x+C$",wrong3:"$x^3+2x^2+C$"}], P1I:[{id:1,content:"Diện tích hình phẳng $y=x^2$, $y=0$, $x=0$, $x=2$ là:",correct:"$\\frac{8}{3}$",wrong1:"$\\frac{4}{3}$",wrong2:"$4$",wrong3:"$\\frac{16}{3}$"},{id:2,content:"Diện tích $y=\\sin x$, $y=0$, $x=0$, $x=\\pi$ là:",correct:"$2$",wrong1:"$1$",wrong2:"$0$",wrong3:"$\\pi$"}], P1J:[{id:1,content:"Số phức $z=3-4i$ có môđun bằng:",correct:"$5$",wrong1:"$7$",wrong2:"$1$",wrong3:"$25$"},{id:2,content:"Số phức liên hợp của $z=2+5i$ là:",correct:"$2-5i$",wrong1:"$-2+5i$",wrong2:"$-2-5i$",wrong3:"$2+5i$"}], P1K:[{id:1,content:"Mặt phẳng $(P): 2x-y+3z-6=0$ cắt trục $Ox$ tại:",correct:"$(3;0;0)$",wrong1:"$(0;6;0)$",wrong2:"$(0;0;2)$",wrong3:"$(6;0;0)$"},{id:2,content:"Khoảng cách từ $M(1;2;-1)$ đến $(P):x+2y-2z+3=0$ là:",correct:"$2$",wrong1:"$3$",wrong2:"$4$",wrong3:"$1$"}], P1L:[{id:1,content:"Đạo hàm $y=\\ln(2x+1)$ là:",correct:"$\\frac{2}{2x+1}$",wrong1:"$\\frac{1}{2x+1}$",wrong2:"$\\frac{2x}{2x+1}$",wrong3:"$\\frac{1}{x+1}$"},{id:2,content:"Đạo hàm $y=e^{3x}$ là:",correct:"$3e^{3x}$",wrong1:"$e^{3x}$",wrong2:"$3xe^{3x}$",wrong3:"$e^{x}$"}], P2A:[{id:1,content:"Trạm phát sóng $I(1;3;7)$ bán kính $3km$. Xét mệnh đề:",statements:[{text:"PT mặt cầu: $(x-1)^2+(y-3)^2+(z-7)^2=9$",correct:true},{text:"Tại $(5;6;7)$ không dùng được",correct:true},{text:"Điểm $A(2;2;7)$ nằm trong mặt cầu",correct:true},{text:"Bán kính mặt cầu là 9",correct:false},{text:"Tâm mặt cầu là $(-1;-3;-7)$",correct:false}]}], P2B:[{id:1,content:"Cho hàm số $y=f(x)$ liên tục trên $[a;b]$. Xét mệnh đề:",statements:[{text:"$\\int_a^b f(x)dx = -\\int_b^a f(x)dx$",correct:true},{text:"$\\int_a^b kf(x)dx = k\\int_a^b f(x)dx$",correct:true},{text:"$\\int_a^b [f(x)+g(x)]dx = \\int_a^b f(x)dx + \\int_a^b g(x)dx$",correct:true},{text:"$\\int_a^a f(x)dx = f(a)$",correct:false},{text:"Nếu $f(x)\\ge 0$ trên $[a;b]$ thì $\\int_a^b f(x)dx \\ge 0$",correct:true}]}], P2C:[{id:1,content:"Mặt phẳng $(P)$ qua $A(1;3;4), B(2;-1;5)$ vuông góc $(Q):2x-3y+z+1=0$. Xét mệnh đề:",statements:[{text:"Trung điểm $AB$ là $I(3/2;1;9/2)$",correct:true},{text:"$(Q)$ có VTPT $\\vec{n}=(2;-3;1)$",correct:true},{text:"VTPT của (P) là $\\vec{n}=(-4;6;-2)$",correct:true},{text:"(P) song song với (Q)",correct:false},{text:"(P) vuông góc với (Q)",correct:true}]}], P2D:[{id:1,content:"Kỳ kiểm tra có 400 hs, 180 nam, 220 nữ. Tỉ lệ giỏi nam 25%, nữ 30%. Xét mệnh đề:",statements:[{text:"Xác suất chọn được hs nữ là 0,55",correct:true},{text:"Xác suất chọn được hs giỏi nam là 0,1125",correct:true},{text:"Xác suất chọn được hs giỏi nữ là 0,165",correct:true},{text:"Xác suất chọn được hs giỏi là 0,2775",correct:true},{text:"Trong số hs giỏi, tỉ lệ nữ là 0,6",correct:false}]}], P3A:[{id:1,content:"Mặt phẳng $(P): x-2y+2z-5=0$, $M(5,1,c)$ thuộc (P). Tìm c (số nguyên).",answerType:"int_pos",correct:1},{id:2,content:"Tính $\\int_0^1 (2x+1)dx$ (số nguyên).",answerType:"int_pos",correct:2}], P3B:[{id:1,content:"Tìm môđun của số phức $z=3+4i$ (số nguyên).",answerType:"int_pos",correct:5},{id:2,content:"Tính $\\int_0^{\\pi/2} \\sin x dx$ (số nguyên).",answerType:"int_pos",correct:1}], P3C:[{id:1,content:"Wifi A(3;1;1) bán kính 11, điểm E(-3;8;m). Số giá trị m nguyên nhận sóng (số nguyên).",answerType:"int_pos",correct:13},{id:2,content:"Tính $\\int_1^e \\frac{1}{x} dx$ (số nguyên).",answerType:"int_pos",correct:1}], P3D:[{id:1,content:"Tìm giá trị lớn nhất của $y = -x^2 + 4x$ trên $[0;3]$ (số nguyên).",answerType:"int_pos",correct:4},{id:2,content:"Tính $\\int_0^2 |x-1| dx$ (số nguyên).",answerType:"int_pos",correct:1}], P3E:[{id:1,content:"Tính tích phân $I = \\int_0^1 (3x^2 + 2x) dx$ (số nguyên).",answerType:"int_pos",correct:2},{id:2,content:"Tính $\\int_0^1 e^x dx$ (số thập phân 2 chữ số).",answerType:"float_pos",decimals:2,correct:1.72}], P3F:[{id:1,content:"Tìm số phức liên hợp của $z=2-3i$ có phần thực + phần ảo bằng bao nhiêu? (số nguyên)",answerType:"int_pos",correct:-1},{id:2,content:"Tính $\\int_0^{\\pi} \\sin x dx$ (số nguyên).",answerType:"int_pos",correct:2}] },
+  T12THI: { P1A:[{id:1,content:"Trong không gian $Oxyz$, góc giữa $(P): x+2y-z+2=0$ và $(Q): 2x-y-z+4=0$, $\\cos\\alpha$?",correct:"$\\frac{1}{6}$",wrong1:"$\\frac{3}{4}$",wrong2:"$\\frac{1}{3}$",wrong3:"$-\\frac{1}{3}$"},{id:2,content:"Phương trình mặt phẳng qua $A(1;0;2)$ vuông góc $\\vec{n}=(2;-1;3)$ là:",correct:"$2x-y+3z-8=0$",wrong1:"$2x-y+3z+8=0$",wrong2:"$x+2y+3z-8=0$",wrong3:"$2x+y-3z+8=0$"}], P1B:[{id:1,content:"Vectơ pháp tuyến của $\\frac{x}{-2}+\\frac{y}{-1}+\\frac{z}{3}=1$ là:",correct:"$(3;6;-2)$",wrong1:"$(2;-1;3)$",wrong2:"$(-3;-6;-2)$",wrong3:"$(-2;-1;3)$"},{id:2,content:"Khoảng cách từ $M(1;2;-1)$ đến $(P): 2x-y+2z+5=0$ là:",correct:"$\\frac{7}{3}$",wrong1:"$\\frac{5}{3}$",wrong2:"$3$",wrong3:"$\\frac{4}{3}$"}], P1C:[{id:1,content:"Đường thẳng qua $M(2;-3;5)$ song song $d: x=1+2t,y=3-t,z=4+t$ là:",correct:"$\\begin{cases} x=2+2t \\\\ y=-3-t \\\\ z=5+t \\end{cases}$",wrong1:"$\\begin{cases} x=2+t \\\\ y=-3+3t \\\\ z=5+4t \\end{cases}$",wrong2:"$\\begin{cases} x=-2+t \\\\ y=3-t \\\\ z=-5+4t \\end{cases}$",wrong3:"$\\begin{cases} x=-2+2t \\\\ y=3-t \\\\ z=-5+t \\end{cases}$"},{id:2,content:"Góc giữa đường thẳng $d: \\frac{x-1}{2}=\\frac{y+1}{-1}=\\frac{z}{3}$ và mặt phẳng $(P): x-y+z=0$ là:",correct:"$\\arcsin\\frac{2\\sqrt{3}}{9}$",wrong1:"$\\arccos\\frac{2\\sqrt{3}}{9}$",wrong2:"$\\frac{\\pi}{4}$",wrong3:"$\\frac{\\pi}{3}$"}], P1D:[{id:1,content:"Mặt cầu tâm $I(1;-2;3)$ tiếp xúc $(Oyz)$ là:",correct:"$(x-1)^2+(y+2)^2+(z-3)^2=1$",wrong1:"$(x-1)^2+(y+2)^2+(z-3)^2=9$",wrong2:"$(x+1)^2+(y-2)^2+(z+3)^2=1$",wrong3:"$(x-1)^2+(y-2)^2+(z+3)^2=4$"},{id:2,content:"Phương trình mặt cầu đường kính AB với $A(1;2;3), B(3;4;5)$ là:",correct:"$(x-2)^2+(y-3)^2+(z-4)^2=3$",wrong1:"$(x-2)^2+(y-3)^2+(z-4)^2=12$",wrong2:"$(x+2)^2+(y+3)^2+(z+4)^2=3$",wrong3:"$(x-1)^2+(y-2)^2+(z-3)^2=12$"}], P1E:[{id:1,content:"Thể tích $y=e^x$, $y=0$, $x=0$, $x=2$ quay quanh Ox:",correct:"$\\pi\\int_0^2 e^{2x}dx$",wrong1:"$\\pi\\int_0^2 e^x dx$",wrong2:"$\\int_0^2 e^x dx$",wrong3:"$\\int_0^2 e^{2x} dx$"},{id:2,content:"Diện tích hình phẳng giới hạn bởi $y=\\ln x, y=0, x=1, x=e$ là:",correct:"$1$",wrong1:"$e-1$",wrong2:"$2$",wrong3:"$\\frac{1}{2}$"}], P1F:[{id:1,content:"Tính $\\int_0^1 (3x^2+2x) dx$:",correct:"$2$",wrong1:"$1$",wrong2:"$3$",wrong3:"$4$"},{id:2,content:"$\\int_0^2 |x-1| dx$ bằng:",correct:"$1$",wrong1:"$2$",wrong2:"$0$",wrong3:"$3$"}], P1G:[{id:1,content:"Tích phân $\\int_1^2 \\frac{1}{x} dx$ bằng:",correct:"$\\ln 2$",wrong1:"$\\ln 1$",wrong2:"$\\ln 3$",wrong3:"$\\ln 4$"},{id:2,content:"$\\int_0^{\\pi/2} \\cos x dx$ bằng:",correct:"$1$",wrong1:"$0$",wrong2:"$-1$",wrong3:"$2$"}], P1H:[{id:1,content:"Cho $\\int_0^1 f(x)dx=2$, $\\int_0^3 f(x)dx=5$. Tính $\\int_1^3 f(x)dx$:",correct:"$3$",wrong1:"$7$",wrong2:"$-3$",wrong3:"$10$"},{id:2,content:"Biết $\\int_1^2 f(x)dx=3$, $\\int_2^5 f(x)dx=4$. Tính $\\int_1^5 f(x)dx$:",correct:"$7$",wrong1:"$1$",wrong2:"$12$",wrong3:"$-1$"}], P1I:[{id:1,content:"Diện tích hình phẳng $y=x^2$, $y=0$, $x=0$, $x=2$ là:",correct:"$\\frac{8}{3}$",wrong1:"$\\frac{4}{3}$",wrong2:"$4$",wrong3:"$\\frac{16}{3}$"},{id:2,content:"Diện tích hình phẳng giới hạn bởi $y=x^2-2x$ và $y=0$ là:",correct:"$\\frac{4}{3}$",wrong1:"$\\frac{8}{3}$",wrong2:"$4$",wrong3:"$2$"}], P1J:[{id:1,content:"Số phức $z=3-4i$ có môđun bằng:",correct:"$5$",wrong1:"$7$",wrong2:"$1$",wrong3:"$25$"},{id:2,content:"Cho $z_1=2+3i, z_2=1-2i$. Tính $z_1+z_2$:",correct:"$3+i$",wrong1:"$3+5i$",wrong2:"$1+5i$",wrong3:"$1+i$"}], P1K:[{id:1,content:"Mặt phẳng $(P): 2x-y+3z-6=0$ cắt trục $Ox$ tại:",correct:"$(3;0;0)$",wrong1:"$(0;6;0)$",wrong2:"$(0;0;2)$",wrong3:"$(6;0;0)$"},{id:2,content:"Mặt phẳng $(P)$ đi qua $A(1;0;2)$ và song song $(Q): x-2y+z+3=0$ có PT:",correct:"$x-2y+z-3=0$",wrong1:"$x-2y+z+3=0$",wrong2:"$x+2y+z-3=0$",wrong3:"$x-2y-z+3=0$"}], P1L:[{id:1,content:"Đạo hàm $y=\\ln(2x+1)$ là:",correct:"$\\frac{2}{2x+1}$",wrong1:"$\\frac{1}{2x+1}$",wrong2:"$\\frac{2x}{2x+1}$",wrong3:"$\\frac{1}{x+1}$"},{id:2,content:"Đạo hàm $y=e^{3x}$ là:",correct:"$3e^{3x}$",wrong1:"$e^{3x}$",wrong2:"$3xe^{3x}$",wrong3:"$e^{x}$"}], P2A:[{id:1,content:"Trạm phát sóng $I(1;3;7)$ bán kính $3km$. Xét mệnh đề:",statements:[{text:"PT mặt cầu: $(x-1)^2+(y-3)^2+(z-7)^2=9$",correct:true},{text:"Tại $(5;6;7)$ không dùng được",correct:true},{text:"Điểm $A(2;2;7)$ nằm trong mặt cầu",correct:true},{text:"Bán kính mặt cầu là 9",correct:false},{text:"Tâm mặt cầu là $(-1;-3;-7)$",correct:false}]}], P2B:[{id:1,content:"Cho hàm số $y=f(x)$ liên tục trên $[a;b]$. Xét mệnh đề:",statements:[{text:"$\\int_a^b f(x)dx = -\\int_b^a f(x)dx$",correct:true},{text:"$\\int_a^b kf(x)dx = k\\int_a^b f(x)dx$",correct:true},{text:"$\\int_a^b [f(x)+g(x)]dx = \\int_a^b f(x)dx + \\int_a^b g(x)dx$",correct:true},{text:"$\\int_a^a f(x)dx = f(a)$",correct:false},{text:"Nếu $f(x)\\ge 0$ trên $[a;b]$ thì $\\int_a^b f(x)dx \\ge 0$",correct:true}]}], P2C:[{id:1,content:"Mặt phẳng $(P)$ qua $A(1;3;4), B(2;-1;5)$ vuông góc $(Q):2x-3y+z+1=0$. Xét mệnh đề:",statements:[{text:"Trung điểm $AB$ là $I(3/2;1;9/2)$",correct:true},{text:"$(Q)$ có VTPT $\\vec{n}=(2;-3;1)$",correct:true},{text:"VTPT của (P) là $\\vec{n}=(-4;6;-2)$",correct:true},{text:"(P) song song với (Q)",correct:false},{text:"(P) vuông góc với (Q)",correct:true}]}], P2D:[{id:1,content:"Kỳ kiểm tra có 400 hs, 180 nam, 220 nữ. Tỉ lệ giỏi nam 25%, nữ 30%. Xét mệnh đề:",statements:[{text:"Xác suất chọn được hs nữ là 0,55",correct:true},{text:"Xác suất chọn được hs giỏi nam là 0,1125",correct:true},{text:"Xác suất chọn được hs giỏi nữ là 0,165",correct:true},{text:"Xác suất chọn được hs giỏi là 0,2775",correct:true},{text:"Trong số hs giỏi, tỉ lệ nữ là 0,6",correct:false}]}], P3A:[{id:1,content:"Mặt phẳng $(P): x-2y+2z-5=0$, $M(5,1,c)$ thuộc (P). Tìm c (số nguyên).",answerType:"int_pos",correct:1},{id:2,content:"Tính $\\int_0^1 (2x+1)dx$ (số nguyên).",answerType:"int_pos",correct:2}], P3B:[{id:1,content:"Tìm môđun của số phức $z=3+4i$ (số nguyên).",answerType:"int_pos",correct:5},{id:2,content:"Tính $\\int_0^{\\pi/2} \\sin x dx$ (số nguyên).",answerType:"int_pos",correct:1}], P3C:[{id:1,content:"Wifi A(3;1;1) bán kính 11, điểm E(-3;8;m). Số giá trị m nguyên nhận sóng (số nguyên).",answerType:"int_pos",correct:13},{id:2,content:"Tính $\\int_1^e \\frac{1}{x} dx$ (số nguyên).",answerType:"int_pos",correct:1}], P3D:[{id:1,content:"Tìm giá trị lớn nhất của $y = -x^2 + 4x$ trên $[0;3]$ (số nguyên).",answerType:"int_pos",correct:4},{id:2,content:"Tính $\\int_0^2 |x-1| dx$ (số nguyên).",answerType:"int_pos",correct:1}], P3E:[{id:1,content:"Tính tích phân $I = \\int_0^1 (3x^2 + 2x) dx$ (số nguyên).",answerType:"int_pos",correct:2},{id:2,content:"Tính $\\int_0^1 e^x dx$ (số thập phân 2 chữ số).",answerType:"float_pos",decimals:2,correct:1.72}], P3F:[{id:1,content:"Tìm số phức liên hợp của $z=2-3i$ có phần thực + phần ảo bằng bao nhiêu? (số nguyên)",answerType:"int_pos",correct:-1},{id:2,content:"Tính $\\int_0^{\\pi} \\sin x dx$ (số nguyên).",answerType:"int_pos",correct:2}] },
+  T10GK1: { P1A:[{id:1,content:"Tập xác định của hàm số $y = \\sqrt{x-2}$ là:",correct:"$[2;+\\infty)$",wrong1:"$(-\\infty;2]$",wrong2:"$\\mathbb{R}$",wrong3:"$(2;+\\infty)$"},{id:2,content:"Tập xác định của $y = \\frac{1}{x-3}$ là:",correct:"$\\mathbb{R}\\setminus\\{3\\}$",wrong1:"$\\mathbb{R}$",wrong2:"$\\{3\\}$",wrong3:"$(-\\infty;3)$"}], P1B:[{id:1,content:"Hàm số $y = x^2 - 4x + 3$ có đỉnh là:",correct:"$I(2;-1)$",wrong1:"$I(-2;1)$",wrong2:"$I(2;1)$",wrong3:"$I(-2;-1)$"},{id:2,content:"Trục đối xứng của $y = -x^2 + 2x + 3$ là:",correct:"$x=1$",wrong1:"$x=-1$",wrong2:"$x=2$",wrong3:"$x=-2$"}], P1C:[{id:1,content:"Giá trị lớn nhất của $y = -x^2 + 4x$ trên $[0;3]$ là:",correct:"$4$",wrong1:"$0$",wrong2:"$3$",wrong3:"$5$"},{id:2,content:"Hàm số $y = x^2 - 2x + 5$ có giá trị nhỏ nhất là:",correct:"$4$",wrong1:"$1$",wrong2:"$5$",wrong3:"$0$"}], P1D:[{id:1,content:"Nghiệm của phương trình $\\sqrt{2x-1}=3$ là:",correct:"$x=5$",wrong1:"$x=4$",wrong2:"$x=3$",wrong3:"$x=2$"},{id:2,content:"Phương trình $|2x-1|=3$ có tổng các nghiệm là:",correct:"$1$",wrong1:"$0$",wrong2:"$2$",wrong3:"$3$"}], P1E:[{id:1,content:"Bất phương trình $2x-5>0$ có nghiệm là:",correct:"$x>\\frac{5}{2}$",wrong1:"$x<\\frac{5}{2}$",wrong2:"$x>\\frac{2}{5}$",wrong3:"$x>5$"},{id:2,content:"Tập nghiệm của $x^2-4x+3>0$ là:",correct:"$(-\\infty;1)\\cup(3;+\\infty)$",wrong1:"$(1;3)$",wrong2:"$\\mathbb{R}$",wrong3:"$\\emptyset$"}], P1F:[{id:1,content:"Cho $\\cos \\alpha = \\frac{3}{5}$ với $0<\\alpha<\\frac{\\pi}{2}$. Tính $\\sin \\alpha$:",correct:"$\\frac{4}{5}$",wrong1:"$\\frac{2}{5}$",wrong2:"$\\frac{1}{5}$",wrong3:"$\\frac{3}{4}$"},{id:2,content:"Giá trị của $\\sin 30^\\circ$ là:",correct:"$\\frac{1}{2}$",wrong1:"$\\frac{\\sqrt{3}}{2}$",wrong2:"$\\frac{\\sqrt{2}}{2}$",wrong3:"$1$"}], P1G:[{id:1,content:"Trong mặt phẳng Oxy, vectơ $\\vec{a} = (2; -3)$ có độ dài là:",correct:"$\\sqrt{13}$",wrong1:"$13$",wrong2:"$5$",wrong3:"$1$"},{id:2,content:"Cho $\\vec{u}=(1;2), \\vec{v}=(-3;1)$. Tính $\\vec{u}+\\vec{v}$:",correct:"$(-2;3)$",wrong1:"$(4;1)$",wrong2:"$(-2;1)$",wrong3:"$(4;3)$"}], P1H:[{id:1,content:"Cho tam giác ABC có A(1;2), B(3;4), C(5;0). Tọa độ trọng tâm G là:",correct:"$(3;2)$",wrong1:"$(2;3)$",wrong2:"$(4;2)$",wrong3:"$(3;3)$"},{id:2,content:"Khoảng cách giữa A(1;2) và B(4;6) là:",correct:"$5$",wrong1:"$4$",wrong2:"$6$",wrong3:"$3$"}], P1I:[{id:1,content:"Mệnh đề phủ định của '∀x∈ℝ, x² ≥ 0' là:",correct:"'∃x∈ℝ, x² < 0'",wrong1:"'∃x∈ℝ, x² ≤ 0'",wrong2:"'∀x∈ℝ, x² < 0'",wrong3:"'∃x∈ℝ, x² > 0'"},{id:2,content:"Mệnh đề nào sau đây đúng?",correct:"'∃x∈ℤ, x² = 4'",wrong1:"'∀x∈ℤ, x² = 4'",wrong2:"'∃x∈ℤ, x² = 2'",wrong3:"'∀x∈ℝ, x² < 0'"}], P1J:[{id:1,content:"Tập hợp A = {1,2,3}, B = {2,3,4}. Tập A∪B là:",correct:"{1,2,3,4}",wrong1:"{2,3}",wrong2:"{1,4}",wrong3:"{1,2,3}"},{id:2,content:"Tập A = {x∈ℕ | x<5} có số phần tử là:",correct:"5",wrong1:"4",wrong2:"6",wrong3:"3"}], P1K:[{id:1,content:"Hàm số nào chẵn trên ℝ?",correct:"$y = x^2$",wrong1:"$y = x^3$",wrong2:"$y = x$",wrong3:"$y = 2x+1$"},{id:2,content:"Hàm số nào nghịch biến trên ℝ?",correct:"$y = -2x + 3$",wrong1:"$y = 2x + 1$",wrong2:"$y = x^2$",wrong3:"$y = |x|$"}], P1L:[{id:1,content:"Điều kiện xác định của $\\sqrt{x+3}$ là:",correct:"$x \\ge -3$",wrong1:"$x \\le -3$",wrong2:"$x > -3$",wrong3:"$x < -3$"},{id:2,content:"Điều kiện xác định của $\\frac{1}{x^2-1}$ là:",correct:"$x \\ne \\pm 1$",wrong1:"$x \\ne 1$",wrong2:"$x \\ne -1$",wrong3:"$x \\ne 0$"}], P2A:[{id:1,content:"Cho hàm số $y = x^2 - 2x + 3$. Xét mệnh đề:",statements:[{text:"Đỉnh của parabol là $I(1;2)$",correct:true},{text:"Parabol có trục đối xứng $x=1$",correct:true},{text:"Parabol mở lên trên",correct:true},{text:"Giá trị nhỏ nhất của hàm số là 3",correct:false},{text:"Hàm số nghịch biến trên $(-\\infty;1)$",correct:true}]}], P2B:[{id:1,content:"Cho phương trình $x^2 - 3x + 2 = 0$. Xét mệnh đề:",statements:[{text:"Phương trình có hai nghiệm phân biệt",correct:true},{text:"Tổng hai nghiệm bằng 3",correct:true},{text:"Tích hai nghiệm bằng 2",correct:true},{text:"Phương trình vô nghiệm",correct:false},{text:"Hai nghiệm đều dương",correct:true}]}], P2C:[{id:1,content:"Cho tam giác ABC có A(1;2), B(3;4), C(5;0). Xét mệnh đề:",statements:[{text:"Trọng tâm G của tam giác là (3;2)",correct:true},{text:"Tọa độ vectơ AB là (2;2)",correct:true},{text:"Độ dài AB = $2\\sqrt{2}$",correct:true},{text:"Tam giác ABC vuông tại A",correct:false},{text:"Chu vi tam giác là $4\\sqrt{2}+\\sqrt{20}$",correct:true}]}], P2D:[{id:1,content:"Trong các mệnh đề sau, mệnh đề nào đúng? (Chọn Đ/S)",statements:[{text:"∀x∈ℝ, x² ≥ 0",correct:true},{text:"∃x∈ℝ, x² = -1",correct:false},{text:"∀x∈ℤ, x² ∈ ℕ",correct:true},{text:"Phủ định của '∀n∈ℕ, n² ≥ n' là '∃n∈ℕ, n² < n'",correct:true},{text:"Nếu a > b thì a² > b²",correct:false}]}], P3A:[{id:1,content:"Tìm tập xác định của hàm số $y = \\sqrt{x-5}$ (kết quả dạng [a;+∞), điền a).",answerType:"int_pos",correct:5},{id:2,content:"Tính $\\sin 30^\\circ$ (số thập phân).",answerType:"float_pos",decimals:1,correct:0.5}], P3B:[{id:1,content:"Tính giá trị biểu thức $2\\sin 30^\\circ + \\cos 0^\\circ$ (số nguyên).",answerType:"int_pos",correct:2},{id:2,content:"Tìm giá trị lớn nhất của $y = -x^2 + 4x$ trên $[0;3]$ (số nguyên).",answerType:"int_pos",correct:4}], P3C:[{id:1,content:"Khoảng cách giữa A(1;2) và B(4;6) là (số nguyên).",answerType:"int_pos",correct:5},{id:2,content:"Trung điểm của A(1;3) và B(5;7) có hoành độ là (số nguyên).",answerType:"int_pos",correct:3}], P3D:[{id:1,content:"Tổng các nghiệm của phương trình $|2x-1|=3$ (số nguyên).",answerType:"int_pos",correct:1},{id:2,content:"Nghiệm của phương trình $\\sqrt{3x-2}=2$ (số nguyên).",answerType:"int_pos",correct:2}], P3E:[{id:1,content:"Tích các nghiệm của phương trình $x^2 - 5x + 6 = 0$ (số nguyên).",answerType:"int_pos",correct:6},{id:2,content:"Tổng các nghiệm của phương trình $x^2 - 5x + 6 = 0$ (số nguyên).",answerType:"int_pos",correct:5}], P3F:[{id:1,content:"Tập A = {1,2,3,4}, B = {2,4,6}. Số phần tử của A∩B là (số nguyên).",answerType:"int_pos",correct:2},{id:2,content:"Tập A = {x∈ℕ | x < 4}. Số phần tử của A là (số nguyên).",answerType:"int_pos",correct:4}] },
+  T11GK1: { P1A:[{id:1,content:"$\\lim_{x\\to 2} (x^2+1)$ bằng:",correct:"$5$",wrong1:"$4$",wrong2:"$3$",wrong3:"$6$"},{id:2,content:"$\\lim_{x\\to 1} \\frac{x^2-1}{x-1}$ bằng:",correct:"$2$",wrong1:"$1$",wrong2:"$0$",wrong3:"$3$"}], P1B:[{id:1,content:"Đạo hàm của $y = x^3$ là:",correct:"$3x^2$",wrong1:"$x^2$",wrong2:"$2x^3$",wrong3:"$3x$"},{id:2,content:"Đạo hàm của $y = \\sin x$ là:",correct:"$\\cos x$",wrong1:"$-\\cos x$",wrong2:"$\\sin x$",wrong3:"$\\tan x$"}], P1C:[{id:1,content:"Hàm số $y = \\cos x$ có tập giá trị là:",correct:"$[-1;1]$",wrong1:"$\\mathbb{R}$",wrong2:"$[0;1]$",wrong3:"$[-1;0)$"},{id:2,content:"Giá trị lớn nhất của $y = \\sin x$ là:",correct:"$1$",wrong1:"$0$",wrong2:"$-1$",wrong3:"$2$"}], P1D:[{id:1,content:"Cấp số cộng có $u_1=2, u_3=8$. Tìm công sai d:",correct:"$3$",wrong1:"$2$",wrong2:"$4$",wrong3:"$6$"},{id:2,content:"Cấp số cộng có $u_1=1, d=2$. Tính $u_5$:",correct:"$9$",wrong1:"$7$",wrong2:"$11$",wrong3:"$13$"}], P1E:[{id:1,content:"Cấp số nhân có $u_1=2, u_3=8$. Tìm công bội q (q>0):",correct:"$2$",wrong1:"$3$",wrong2:"$4$",wrong3:"$6$"},{id:2,content:"Cấp số nhân có $u_1=1, q=2$. Tính $u_4$:",correct:"$8$",wrong1:"$6$",wrong2:"$4$",wrong3:"$16$"}], P1F:[{id:1,content:"Tổng của cấp số cộng $1+2+3+...+100$ là:",correct:"$5050$",wrong1:"$5000$",wrong2:"$5100$",wrong3:"$10000$"},{id:2,content:"Tổng của cấp số nhân $1+2+4+...+2^{10}$ là:",correct:"$2047$",wrong1:"$1023$",wrong2:"$4095$",wrong3:"$2048$"}], P1G:[{id:1,content:"$\\lim_{x\\to 0} \\frac{\\sin x}{x}$ bằng:",correct:"$1$",wrong1:"$0$",wrong2:"$\\infty$",wrong3:"$-1$"},{id:2,content:"$\\lim_{x\\to \\infty} \\frac{1}{x}$ bằng:",correct:"$0$",wrong1:"$1$",wrong2:"$\\infty$",wrong3:"$-\\infty$"}], P1H:[{id:1,content:"Đạo hàm của $y = \\ln x$ là:",correct:"$\\frac{1}{x}$",wrong1:"$x$",wrong2:"$e^x$",wrong3:"$\\frac{1}{x^2}$"},{id:2,content:"Đạo hàm của $y = e^x$ là:",correct:"$e^x$",wrong1:"$x e^x$",wrong2:"$e^{x-1}$",wrong3:"$\\ln x$"}], P1I:[{id:1,content:"Hàm số nào liên tục trên ℝ?",correct:"$y = x^2$",wrong1:"$y = \\frac{1}{x}$",wrong2:"$y = \\tan x$",wrong3:"$y = \\sqrt{x}$"},{id:2,content:"Hàm số $y = \\frac{1}{x-2}$ gián đoạn tại:",correct:"$x=2$",wrong1:"$x=0$",wrong2:"$x=1$",wrong3:"$x=-2$"}], P1J:[{id:1,content:"Phương trình $\\sin x = 1$ có nghiệm là:",correct:"$x = \\frac{\\pi}{2} + k2\\pi$",wrong1:"$x = \\pi + k2\\pi$",wrong2:"$x = 0 + k2\\pi$",wrong3:"$x = \\frac{\\pi}{2} + k\\pi$"},{id:2,content:"Phương trình $\\cos x = 0$ có nghiệm là:",correct:"$x = \\frac{\\pi}{2} + k\\pi$",wrong1:"$x = \\frac{\\pi}{2} + k2\\pi$",wrong2:"$x = k\\pi$",wrong3:"$x = 0 + k2\\pi$"}], P1K:[{id:1,content:"Chu kỳ tuần hoàn của hàm $y = \\sin x$ là:",correct:"$2\\pi$",wrong1:"$\\pi$",wrong2:"$\\frac{\\pi}{2}$",wrong3:"$4\\pi$"},{id:2,content:"Chu kỳ tuần hoàn của hàm $y = \\tan x$ là:",correct:"$\\pi$",wrong1:"$2\\pi$",wrong2:"$\\frac{\\pi}{2}$",wrong3:"$4\\pi$"}], P1L:[{id:1,content:"$\\lim_{x\\to 3^-} \\frac{x}{x-3}$ bằng:",correct:"$-\\infty$",wrong1:"$+\\infty$",wrong2:"$0$",wrong3:"$1$"},{id:2,content:"$\\lim_{x\\to 3^+} \\frac{x}{x-3}$ bằng:",correct:"$+\\infty$",wrong1:"$-\\infty$",wrong2:"$0$",wrong3:"$1$"}], P2A:[{id:1,content:"Cho hàm số $y = f(x) = x^2$. Xét mệnh đề:",statements:[{text:"$f'(x) = 2x$",correct:true},{text:"$f'(1) = 2$",correct:true},{text:"$f'(0) = 0$",correct:true},{text:"Hàm số đạo hàm tại mọi x",correct:true},{text:"$f'(x) > 0$ với mọi x",correct:false}]}], P2B:[{id:1,content:"Cho dãy số $u_n = \\frac{1}{n}$. Xét mệnh đề:",statements:[{text:"$\\lim u_n = 0$",correct:true},{text:"$u_n > 0$ với mọi n",correct:true},{text:"Dãy số giảm",correct:true},{text:"Dãy số bị chặn",correct:true},{text:"$\\lim u_n = 1$",correct:false}]}], P2C:[{id:1,content:"Cho cấp số cộng $u_n$ có $u_1=2, d=3$. Xét mệnh đề:",statements:[{text:"$u_5 = 14$",correct:true},{text:"$S_5 = 40$",correct:true},{text:"$u_{10} = 29$",correct:true},{text:"$d = u_2 - u_1$",correct:true},{text:"$u_3 = 8$",correct:true}]}], P2D:[{id:1,content:"Cho cấp số nhân $u_n$ có $u_1=1, q=2$. Xét mệnh đề:",statements:[{text:"$u_5 = 16$",correct:true},{text:"$S_5 = 31$",correct:true},{text:"$u_3 = 4$",correct:true},{text:"$q = \\frac{u_2}{u_1}$",correct:true},{text:"$u_4 = 6$",correct:false}]}], P3A:[{id:1,content:"Tính $\\lim_{x\\to 2} (x^2+1)$ (số nguyên).",answerType:"int_pos",correct:5},{id:2,content:"Tính $\\lim_{x\\to 1} \\frac{x^2-1}{x-1}$ (số nguyên).",answerType:"int_pos",correct:2}], P3B:[{id:1,content:"Đạo hàm của $y=x^3$ tại $x=2$ là (số nguyên).",answerType:"int_pos",correct:12},{id:2,content:"Đạo hàm của $y=\\sin x$ tại $x=0$ là (số nguyên).",answerType:"int_pos",correct:1}], P3C:[{id:1,content:"Cấp số cộng có $u_1=1, d=2$. Tính $u_6$ (số nguyên).",answerType:"int_pos",correct:11},{id:2,content:"Cấp số cộng có $u_1=3, d=2$. Tính $S_5$ (số nguyên).",answerType:"int_pos",correct:35}], P3D:[{id:1,content:"Cấp số nhân có $u_1=1, q=2$. Tính $u_6$ (số nguyên).",answerType:"int_pos",correct:32},{id:2,content:"Cấp số nhân có $u_1=2, q=3$. Tính $S_4$ (số nguyên).",answerType:"int_pos",correct:80}], P3E:[{id:1,content:"$\\lim_{x\\to 0} \\frac{\\sin x}{x}$ (số nguyên).",answerType:"int_pos",correct:1},{id:2,content:"$\\lim_{x\\to \\infty} \\frac{1}{x}$ (số nguyên).",answerType:"int_pos",correct:0}], P3F:[{id:1,content:"Tổng $1+2+3+...+20$ là (số nguyên).",answerType:"int_pos",correct:210},{id:2,content:"Tổng $1+2+4+...+2^9$ là (số nguyên).",answerType:"int_pos",correct:1023}] }
+};
 
-    function getRandomItems(arr, count) { if(!arr.length) return []; let shuffled = [...arr]; for(let i=shuffled.length-1;i>0;i--){ let j=Math.floor(Math.random()*(i+1)); [shuffled[i],shuffled[j]]=[shuffled[j],shuffled[i]]; } return shuffled.slice(0, count); }
-    
-    let currentExamData = null, timerInterval = null, timeLeft = 1200, examActive = false, submitted = false;
-    let questionsList = [], userAnswers = [], startTime = null, endTime = null, currentQIndex = 0;
-    
-    function renderMath() { if(window.MathJax) MathJax.typesetPromise(); }
-    
-    function renderCurrentQuestion() {
-        if(!questionsList.length) return;
-        const q = questionsList[currentQIndex];
-        const total = questionsList.length;
-        let html = `<div class="question-progress">📌 Câu ${currentQIndex+1} / ${total}</div>`;
-        html += `<div class="question-card"><strong>Câu ${currentQIndex+1} (${q.idMeta})</strong><br>`;
-        html += `<div class="math-content">${q.content}</div><div class="options">`;
-        if(q.part === "P1") {
-            let opts = [
-                { key: 'A', value: q.correct },
-                { key: 'B', value: q.wrong1 },
-                { key: 'C', value: q.wrong2 },
-                { key: 'D', value: q.wrong3 }
-            ];
-            opts.sort(()=>Math.random()-0.5);
-            opts.forEach(opt => {
-                let checked = (userAnswers[currentQIndex] === opt.value) ? 'checked' : '';
-                html += `<label class="option-row"><input type="radio" name="currentQ" value="${opt.value.replace(/"/g, '&quot;')}" ${checked}> <span><strong>${opt.key}.</strong> ${opt.value}</span></label>`;
-            });
-            html += `</div></div>`;
-        } else if(q.part === "P2") {
-            let trueChecked = (userAnswers[currentQIndex] === 'true') ? 'checked' : '';
-            let falseChecked = (userAnswers[currentQIndex] === 'false') ? 'checked' : '';
-            html += `<label class="option-row"><input type="radio" name="currentQ" value="true" ${trueChecked}> <span>Đúng</span></label>`;
-            html += `<label class="option-row"><input type="radio" name="currentQ" value="false" ${falseChecked}> <span>Sai</span></label>`;
-            html += `</div></div>`;
-        } else {
-            let val = userAnswers[currentQIndex] !== undefined ? userAnswers[currentQIndex] : '';
-            html += `<input type="text" id="p3input" class="ans-input" placeholder="Nhập đáp số..." value="${val}" inputmode="decimal">`;
-            html += `<div class="virtual-pad" id="virtualPad"></div></div></div>`;
-        }
-        document.getElementById("questionsList").innerHTML = html;
-        renderMath();
-        if(q.part === "P1" || q.part === "P2") {
-            let radios = document.querySelectorAll(`input[name="currentQ"]`);
-            radios.forEach(r => r.addEventListener("change", (e) => { 
-                userAnswers[currentQIndex] = e.target.value;
-                setTimeout(() => { if(examActive && !submitted && currentQIndex+1 < questionsList.length) { currentQIndex++; renderCurrentQuestion(); } }, 400);
-            }));
-        } else if(q.part === "P3") {
-            const inputElem = document.getElementById("p3input");
-            const padDiv = document.getElementById("virtualPad");
-            if(padDiv) {
-                let keys = ['7','8','9','-', '4','5','6','.', '1','2','3','/', '⌫','0','C','OK'];
-                padDiv.innerHTML = '';
-                keys.forEach(k => {
-                    let btn = document.createElement('div'); btn.className='v-key'; btn.innerText=k;
-                    btn.onclick = () => { 
-                        if(!inputElem) return; 
-                        if(k === 'OK') { 
-                            userAnswers[currentQIndex] = inputElem.value;
-                            if(examActive && !submitted && currentQIndex+1 < questionsList.length) { currentQIndex++; renderCurrentQuestion(); }
-                        } else if(k === '⌫') inputElem.value = inputElem.value.slice(0,-1);
-                        else if(k === 'C') inputElem.value = '';
-                        else inputElem.value += k; 
-                        userAnswers[currentQIndex] = inputElem.value;
-                    };
-                    padDiv.appendChild(btn);
-                });
-            }
-            if(inputElem) inputElem.addEventListener("input", (e) => { userAnswers[currentQIndex] = e.target.value; });
-        }
+function shuffleArray(arr){ for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; }
+function randomSample(arr, k){ if(k>=arr.length) return shuffleArray([...arr]); const shuffled=shuffleArray([...arr]); return shuffled.slice(0,k); }
+function getRandomQuestions(code){
+  const bank = questionBanks[code];
+  if(!bank) return [];
+  const p1Groups = ['P1A','P1B','P1C','P1D','P1E','P1F','P1G','P1H','P1I','P1J','P1K','P1L'];
+  const hasAllGroups = p1Groups.every(g => bank[g] && bank[g].length >= 1);
+  if(hasAllGroups && bank.P2A && bank.P3A) {
+    const final = [];
+    for(let grp of p1Groups) { if(bank[grp] && bank[grp].length) { const selected = randomSample(bank[grp], 1); if(selected.length) final.push({...selected[0], partType:'P1', sourceSubpart:grp, originalId:selected[0].id}); } }
+    const p1Questions = shuffleArray(final.filter(q => q.partType === 'P1'));
+    const p2Groups = ['P2A','P2B','P2C','P2D']; const p2Questions = [];
+    for(let grp of p2Groups) { if(bank[grp] && bank[grp].length) { const selected = randomSample(bank[grp], 1); if(selected.length) p2Questions.push({...selected[0], partType:'P2', sourceSubpart:grp, originalId:selected[0].id}); } }
+    const p3Groups = ['P3A','P3B','P3C','P3D','P3E','P3F']; const p3Questions = [];
+    for(let grp of p3Groups) { if(bank[grp] && bank[grp].length) { const selected = randomSample(bank[grp], 1); if(selected.length) p3Questions.push({...selected[0], partType:'P3', sourceSubpart:grp, originalId:selected[0].id}); } }
+    return [...p1Questions, ...shuffleArray(p2Questions), ...shuffleArray(p3Questions)];
+  } else { const final = []; if(bank.P1) final.push(...bank.P1.map(q => ({...q, partType:'P1', sourceSubpart:'P1', originalId:q.id}))); if(bank.P2) final.push(...bank.P2.map(q => ({...q, partType:'P2', sourceSubpart:'P2', originalId:q.id}))); if(bank.P3) final.push(...bank.P3.map(q => ({...q, partType:'P3', sourceSubpart:'P3', originalId:q.id}))); return final; }
+}
+function convertToDisplayFormat(question, partType){
+  const labels = ['A', 'B', 'C', 'D'];
+  if(partType === 'P2'){
+    let sts = [...question.statements];
+    let selectedStmts = randomSample(sts, Math.min(4, sts.length));
+    selectedStmts = shuffleArray(selectedStmts);
+    return { id: `${question.sourceSubpart}-${question.originalId}`, originalId: question.originalId, sourceSubpart: question.sourceSubpart, partType: 'P2', content: question.content, statements: selectedStmts.map((st,idx) => ({ index:idx, text:st.text, correct:st.correct })), correctAnswer: selectedStmts.map(st => st.correct), rawData: question };
+  } else if(partType === 'P3'){
+    return { id: `${question.sourceSubpart}-${question.originalId}`, originalId: question.originalId, sourceSubpart: question.sourceSubpart, partType: 'P3', content: question.content, answerType: question.answerType || 'int_pos', correctValue: question.correct, decimals: question.decimals || 2, rawData: question };
+  } else {
+    const allChoices = [{text: question.correct, isCorrect: true},{text: question.wrong1, isCorrect: false},{text: question.wrong2, isCorrect: false},{text: question.wrong3, isCorrect: false}].filter(c => c.text && c.text.trim() !== "");
+    const shuffled = shuffleArray([...allChoices]);
+    const correctChoice = shuffled.find(c => c.isCorrect);
+    const correctIndex = shuffled.indexOf(correctChoice);
+    const correctAnswer = labels[correctIndex];
+    const options = shuffled.map((c, idx) => ({id: labels[idx], text: c.text}));
+    return { id: `${question.sourceSubpart}-${question.originalId}`, originalId: question.originalId, sourceSubpart: question.sourceSubpart, partType: 'P1', content: question.content, options: options, correctAnswer: correctAnswer, rawData: question };
+  }
+}
+function generateSourceCode(q) { let raw = q.rawData; let sourceObj = { id: q.originalId, sourceSubpart: q.sourceSubpart, partType: q.partType, content: raw.content }; if(q.partType === 'P1') { sourceObj.correct = raw.correct; sourceObj.wrong1 = raw.wrong1; sourceObj.wrong2 = raw.wrong2; sourceObj.wrong3 = raw.wrong3; } else if(q.partType === 'P2') { sourceObj.statements = raw.statements; } else if(q.partType === 'P3') { sourceObj.answerType = raw.answerType; sourceObj.correct = raw.correct; } return JSON.stringify(sourceObj, null, 2); }
+
+let currentScreen = 'main-screen', userAnswers = {}, testStartTime = null, testSubmitTime = null, timerInterval = null, timeLeft = 3600, currentTestCode = '', currentQuestions = [], studentName = '', currentQuestionIndex = 0, isTransitioning = false, isCheating = false, visibilityHandler = null;
+function showScreen(id){ document.getElementById(currentScreen).classList.remove('active'); document.getElementById(id).classList.add('active'); currentScreen = id; if(window.MathJax) setTimeout(() => MathJax.typesetPromise(), 100); }
+function updateTestCode(){ let g = document.getElementById('grade-select').value; let t = document.getElementById('term-select').value; if(g && t){ currentTestCode = `T${g}${t}`; document.getElementById('code-display').textContent = currentTestCode; } else { currentTestCode = ''; document.getElementById('code-display').textContent = ''; } }
+function showNotification(msg, dur=1000){ let n = document.getElementById('notification'); n.textContent = msg; n.style.display = 'block'; setTimeout(() => n.style.display = 'none', dur); }
+function getPartBadgeClass(p){ if(p === 'P1') return 'badge-p1'; if(p === 'P2') return 'badge-p2'; return 'badge-p3'; }
+function allStatementsSelected(qid, total){ let ans = userAnswers[qid]; if(!ans) return false; for(let i = 0; i < total; i++) if(ans[i] === undefined) return false; return true; }
+function tryAutoAdvance(){ if(isTransitioning) return; let q = currentQuestions[currentQuestionIndex]; if(q.partType === 'P2' && allStatementsSelected(q.id, q.statements.length)){ isTransitioning = true; showNotification("Đã chọn đủ mệnh đề!"); setTimeout(() => { if(currentQuestionIndex >= currentQuestions.length - 1) submitTest(); else{ currentQuestionIndex++; renderCurrentQuestion(); isTransitioning = false; } }, 800); } }
+function createVirtualKeypad(inputEl, onOk){ let div = document.createElement('div'); div.className = 'virtual-keypad'; let btns = ['7','8','9','DEL','4','5','6','-','1','2','3','.','0','OK','C']; btns.forEach(b => { let btn = document.createElement('div'); btn.className = 'keypad-btn'; if(b === 'OK') btn.classList.add('ok'); if(b === 'DEL' || b === 'C') btn.classList.add('special'); btn.textContent = b; btn.addEventListener('click', () => { if(b === 'DEL') inputEl.value = inputEl.value.slice(0,-1); else if(b === 'C') inputEl.value = ''; else if(b === 'OK') onOk(); else inputEl.value += b; }); div.appendChild(btn); }); return div; }
+function renderCurrentQuestion(){
+  let container = document.getElementById('current-question-container');
+  let q = currentQuestions[currentQuestionIndex];
+  if(q.partType === 'P2'){
+    let stHtml = '';
+    q.statements.forEach((st, idx) => { let saved = userAnswers[q.id] && userAnswers[q.id][idx] !== undefined ? userAnswers[q.id][idx] : null; let trueChecked = saved === true ? 'checked' : ''; let falseChecked = saved === false ? 'checked' : ''; stHtml += `<div class="statement-item"><div class="statement-text"><div class="math-container">${st.text}</div></div><div class="statement-options"><label><input type="radio" name="stmt_${q.id}_${idx}" value="true" ${trueChecked}> Đúng</label><label><input type="radio" name="stmt_${q.id}_${idx}" value="false" ${falseChecked}> Sai</label></div></div>`; });
+    container.innerHTML = `<div class="question"><div class="question-number"><span class="part-badge ${getPartBadgeClass(q.partType)}">Phần 2 (Đ/S)</span> Câu ${q.displayOrder}</div><div class="question-content"><div class="math-container">${q.content}</div></div><div class="statements-group">${stHtml}</div></div>`;
+    q.statements.forEach((_, idx) => { document.querySelectorAll(`input[name="stmt_${q.id}_${idx}"]`).forEach(radio => { radio.addEventListener('change', (e) => { if(isTransitioning) return; if(!userAnswers[q.id]) userAnswers[q.id] = {}; userAnswers[q.id][idx] = e.target.value === 'true'; showNotification("Đã chọn mệnh đề", 500); tryAutoAdvance(); }); }); });
+  } else if(q.partType === 'P3'){
+    let saved = userAnswers[q.id] !== undefined ? userAnswers[q.id] : '';
+    container.innerHTML = `<div class="question"><div class="question-number"><span class="part-badge ${getPartBadgeClass(q.partType)}">Phần 3 (Điền số)</span> Câu ${q.displayOrder}</div><div class="question-content"><div class="math-container">${q.content}</div></div><div class="input-group"><input type="text" id="p3-input-${q.id}" class="number-input" placeholder="Nhập số" value="${saved}"><div id="keypad-${q.id}"></div><button id="p3-ok-${q.id}" class="btn btn-success">OK</button></div></div>`;
+    let inp = document.getElementById(`p3-input-${q.id}`); let keypadDiv = document.getElementById(`keypad-${q.id}`); let okBtn = document.getElementById(`p3-ok-${q.id}`);
+    let handleOk = () => { if(isTransitioning) return; let raw = inp.value.trim(); if(raw === ''){ showNotification("Vui lòng nhập số!", 800); return; } let numVal = null; if(q.answerType === 'int_pos' || q.answerType === 'int_neg'){ let num = Number(raw); if(!isNaN(num) && Number.isInteger(num)) numVal = num; else{ showNotification("Số nguyên hợp lệ!", 800); return; } } else if(q.answerType === 'float_pos' || q.answerType === 'float_neg'){ let num = parseFloat(raw); if(!isNaN(num)) numVal = num; else{ showNotification("Số thực hợp lệ!", 800); return; } } else numVal = raw; userAnswers[q.id] = numVal; showNotification("Đã lưu đáp án!"); isTransitioning = true; setTimeout(() => { if(currentQuestionIndex >= currentQuestions.length - 1) submitTest(); else{ currentQuestionIndex++; renderCurrentQuestion(); isTransitioning = false; } }, 600); };
+    let kp = createVirtualKeypad(inp, handleOk); keypadDiv.appendChild(kp); okBtn.addEventListener('click', handleOk);
+  } else {
+    let optsHtml = ''; q.options.forEach(opt => { optsHtml += `<li class="option" data-option="${opt.id}"><div class="math-container"><strong>${opt.id}.</strong> ${opt.text}</div></li>`; });
+    container.innerHTML = `<div class="question"><div class="question-number"><span class="part-badge ${getPartBadgeClass(q.partType)}">Phần 1</span> Câu ${q.displayOrder}</div><div class="question-content"><div class="math-container">${q.content}</div></div><ul class="options">${optsHtml}</ul></div>`;
+    document.querySelectorAll('.option').forEach(opt => { opt.addEventListener('click', function(){ if(isTransitioning) return; let selected = this.getAttribute('data-option'); userAnswers[q.id] = selected; showNotification("Đã chọn đáp án", 500); isTransitioning = true; setTimeout(() => { if(currentQuestionIndex >= currentQuestions.length - 1) submitTest(); else{ currentQuestionIndex++; renderCurrentQuestion(); isTransitioning = false; } }, 800); }); });
+  }
+  document.getElementById('current-question-number').textContent = currentQuestionIndex + 1;
+  if(window.MathJax) setTimeout(() => MathJax.typesetPromise(), 200);
+}
+function startTimer(){ clearInterval(timerInterval); let upd = () => { let m = Math.floor(timeLeft / 60), s = timeLeft % 60; document.getElementById('timer').textContent = `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`; if(timeLeft <= 60) document.getElementById('timer').style.backgroundColor = '#ffebee'; else document.getElementById('timer').style.backgroundColor = '#f9f9f9'; }; upd(); timerInterval = setInterval(() => { timeLeft--; upd(); if(timeLeft <= 0){ clearInterval(timerInterval); submitTest(); } }, 1000); }
+function startTest(){
+  studentName = document.getElementById('student-name').value.trim(); let grade = document.getElementById('grade-select').value; let term = document.getElementById('term-select').value;
+  if(!studentName){ alert('Vui lòng nhập họ và tên!'); return; } if(!grade || !term){ alert('Vui lòng chọn lớp và kỳ ôn tập!'); return; }
+  let raw = getRandomQuestions(currentTestCode); if(raw.length === 0){ alert('Kho đề trống! Vui lòng chọn lớp và kỳ khác.'); return; }
+  currentQuestions = raw.map((q, idx) => { let dq = convertToDisplayFormat(q, q.partType); dq.displayOrder = idx + 1; return dq; });
+  userAnswers = {}; timeLeft = 3600; testStartTime = new Date(); currentQuestionIndex = 0; isTransitioning = false; isCheating = false;
+  let gradeNames = {10:'TOÁN LỚP 10', 11:'TOÁN LỚP 11', 12:'TOÁN LỚP 12'}, termNames = {GK1:'GIỮA HỌC KÌ 1', HK1:'CUỐI HỌC KÌ 1', GK2:'GIỮA HỌC KÌ 2', HK2:'CUỐI HỌC KÌ 2', THI:'THI THỬ TỐT NGHIỆP'};
+  document.getElementById('test-title').textContent = `${gradeNames[grade]} - ${termNames[term]}`; document.getElementById('total-questions').textContent = currentQuestions.length;
+  renderCurrentQuestion(); startTimer(); showScreen('test-screen');
+  if(visibilityHandler) document.removeEventListener('visibilitychange', visibilityHandler);
+  visibilityHandler = () => { if(document.hidden && !isCheating && testStartTime && currentScreen === 'test-screen'){ isCheating = true; clearInterval(timerInterval); submitTest(); } };
+  document.addEventListener('visibilitychange', visibilityHandler);
+}
+function submitTest(){ clearInterval(timerInterval); testSubmitTime = new Date(); if(visibilityHandler) document.removeEventListener('visibilitychange', visibilityHandler); showResults(isCheating); }
+function formatTimeHMS(d){ return `${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}:${d.getSeconds().toString().padStart(2,'0')}`; }
+function calculateScore(){
+  let total = 0, correct = 0, incorrect = 0, unanswered = 0;
+  currentQuestions.forEach(q => {
+    if(q.partType === 'P1'){ let ans = userAnswers[q.id]; if(ans && ans === q.correctAnswer){ total += 2.5; correct++; } else if(ans) incorrect++; else unanswered++; }
+    else if(q.partType === 'P2'){ let us = userAnswers[q.id] || {}; let corrSt = 0, all = true; for(let i=0;i<q.statements.length;i++){ if(us[i] !== undefined){ if(us[i] === q.statements[i].correct) corrSt++; } else all=false; } if(all){ if(corrSt===4) total+=10; else if(corrSt===3) total+=5; else if(corrSt===2) total+=2.5; else if(corrSt===1) total+=1; if(corrSt===4) correct++; else incorrect++; } else unanswered++; }
+    else if(q.partType === 'P3'){ let ans = userAnswers[q.id]; if(ans !== undefined){ let un=parseFloat(ans), cn=parseFloat(q.correctValue); let ok=false; if(!isNaN(un)&&!isNaN(cn)){ if(q.answerType === 'float_pos'||q.answerType==='float_neg'){ let f=Math.pow(10,q.decimals||2); ok=(Math.round(un*f)/f===Math.round(cn*f)/f); } else ok=(un===cn); } else if(q.answerType === 'str') ok=(ans===q.correctValue); if(ok){ total+=5; correct++; } else incorrect++; } else unanswered++; }
+  });
+  return {totalScore: total, correctCount: correct, incorrect, unanswered};
+}
+function showResults(cheating){
+  let grade = document.getElementById('grade-select').value, term = document.getElementById('term-select').value;
+  let gradeNames = {10:'TOÁN LỚP 10', 11:'TOÁN LỚP 11', 12:'TOÁN LỚP 12'}, termNames = {GK1:'GIỮA HỌC KÌ 1', HK1:'CUỐI HỌC KÌ 1', GK2:'GIỮA HỌC KÌ 2', HK2:'CUỐI HỌC KÌ 2', THI:'THI THỬ TỐT NGHIỆP'};
+  document.getElementById('result-title').textContent = `${gradeNames[grade]} - ${termNames[term]} - KẾT QUẢ`;
+  let {totalScore, incorrect, unanswered} = calculateScore();
+  document.getElementById('result-student-name').textContent = studentName;
+  let percentVal = totalScore.toFixed(1);
+  document.getElementById('score-percentage').textContent = `${percentVal}%`;
+  let col = (s) => { if(s<50) return '#f5222d'; if(s<70) return '#faad14'; if(s<80) return '#52c41a'; if(s<90) return '#13c2c2'; if(s<100) return '#1890ff'; return '#722ed1'; };
+  document.getElementById('score-chart').style.background = `conic-gradient(${col(totalScore)} ${totalScore}%, #eee ${totalScore}% 100%)`;
+  document.getElementById('result-date').textContent = `${testSubmitTime.getDate().toString().padStart(2,'0')}/${(testSubmitTime.getMonth()+1).toString().padStart(2,'0')}/${testSubmitTime.getFullYear()}`;
+  document.getElementById('start-time-hms').textContent = formatTimeHMS(testStartTime);
+  document.getElementById('end-time-hms').textContent = formatTimeHMS(testSubmitTime);
+  document.getElementById('incorrect-count').textContent = `${incorrect}/${currentQuestions.length}`;
+  document.getElementById('unanswered-count').textContent = `${unanswered}/${currentQuestions.length}`;
+  let warnDiv = document.getElementById('cheating-warning');
+  if(cheating){ warnDiv.style.display = 'block'; warnDiv.innerHTML = '⚠️ PHÁT HIỆN GIAN LẬN (chuyển tab/ứng dụng). Chỉ hiển thị các câu đã làm.'; } else warnDiv.style.display = 'none';
+  let container = document.getElementById('review-list'); container.innerHTML = '';
+  currentQuestions.forEach((q, idx) => {
+    let isAnswered = false;
+    if(q.partType === 'P1') isAnswered = userAnswers[q.id] !== undefined;
+    else if(q.partType === 'P2') isAnswered = userAnswers[q.id] && Object.keys(userAnswers[q.id]).length === q.statements.length;
+    else isAnswered = userAnswers[q.id] !== undefined;
+    if(!isAnswered) return;
+    let sourceCode = generateSourceCode(q), sourceId = `source-${idx}`;
+    if(q.partType === 'P2'){
+      let us = userAnswers[q.id] || {}; let allCorrect = true; for(let i=0;i<q.statements.length;i++) if(us[i] !== q.statements[i].correct){ allCorrect=false; break; }
+      let status = allCorrect ? 'correct' : 'incorrect';
+      let stHtml = ''; q.statements.forEach((st, idx2) => { let uc = us[idx2]; let isC = (uc === st.correct); let cls = (uc !== undefined) ? (isC ? 'correct-st' : 'incorrect-st') : ''; let ut = uc===undefined ? 'Chưa chọn' : (uc ? 'Đúng' : 'Sai'); stHtml += `<div class="review-statement ${cls}"><strong>Mệnh đề ${idx2+1}:</strong> ${st.text}<br><span style="font-size:13px;">→ Bạn chọn: ${ut} (Đáp án: ${st.correct ? 'Đúng' : 'Sai'})</span></div>`; });
+      container.innerHTML += `<div class="review-item ${status}"><div class="review-question-title" onclick="toggleSourceCode('${sourceId}')"><span><span class="part-badge ${getPartBadgeClass(q.partType)}">P2</span> Câu ${q.displayOrder} - ${currentTestCode} - ${q.sourceSubpart} - id:${q.originalId}</span><button class="code-toggle">📄 Mã nguồn</button></div><div class="question-content">${q.content}</div>${stHtml}<div id="${sourceId}" class="source-code"><strong>📋 Mã nguồn câu hỏi:</strong><br><pre>${escapeHtml(sourceCode)}</pre></div></div>`;
+    } else if(q.partType === 'P3'){
+      let ans = userAnswers[q.id]; let isCor = false;
+      if(ans !== undefined){ let un=parseFloat(ans), cn=parseFloat(q.correctValue); if(!isNaN(un)&&!isNaN(cn)){ if(q.answerType === 'float_pos'||q.answerType==='float_neg'){ let f=Math.pow(10,q.decimals||2); isCor=(Math.round(un*f)/f===Math.round(cn*f)/f); } else isCor=(un===cn); } else if(q.answerType === 'str') isCor=(ans===q.correctValue); }
+      let status = isCor ? 'correct' : 'incorrect';
+      container.innerHTML += `<div class="review-item ${status}"><div class="review-question-title" onclick="toggleSourceCode('${sourceId}')"><span><span class="part-badge ${getPartBadgeClass(q.partType)}">P3</span> Câu ${q.displayOrder} - ${currentTestCode} - ${q.sourceSubpart} - id:${q.originalId}</span><button class="code-toggle">📄 Mã nguồn</button></div><div class="question-content">${q.content}</div><div><strong>Đáp án của bạn:</strong> ${ans !== undefined ? ans : 'Chưa điền'}</div><div><strong>Đáp án đúng:</strong> ${q.correctValue}</div><div id="${sourceId}" class="source-code"><strong>📋 Mã nguồn câu hỏi:</strong><br><pre>${escapeHtml(sourceCode)}</pre></div></div>`;
+    } else {
+      let ans = userAnswers[q.id]; let isCor = (ans === q.correctAnswer); let status = isCor ? 'correct' : 'incorrect';
+      let optsHtml = ''; q.options.forEach(opt => { let style = ''; if(opt.id === q.correctAnswer) style = 'color:#2ecc71; font-weight:bold;'; else if(opt.id === ans && !isCor) style = 'color:#e74c3c; text-decoration:line-through;'; optsHtml += `<div class="review-option-row" style="${style}"><strong>${opt.id}.</strong> ${opt.text}</div>`; });
+      container.innerHTML += `<div class="review-item ${status}"><div class="review-question-title" onclick="toggleSourceCode('${sourceId}')"><span><span class="part-badge ${getPartBadgeClass(q.partType)}">P1</span> Câu ${q.displayOrder} - ${currentTestCode} - ${q.sourceSubpart} - id:${q.originalId}</span><button class="code-toggle">📄 Mã nguồn</button></div><div class="question-content">${q.content}</div>${optsHtml}<div id="${sourceId}" class="source-code"><strong>📋 Mã nguồn câu hỏi:</strong><br><pre>${escapeHtml(sourceCode)}</pre></div></div>`;
     }
-    
-    function forceEnd() { if(!submitted && examActive) { submitted=true; examActive=false; clearInterval(timerInterval); endTime=new Date(); buildReportAndShow(); } }
-    
-    function buildReportAndShow() {
-        let attemptedIndices = [];
-        for(let i=0;i<questionsList.length;i++){ let ans = userAnswers[i]; if(ans !== undefined && ans !== null && ans !== '') attemptedIndices.push(i); }
-        let correct = 0;
-        let detailsForReview = [];
-        for(let idx of attemptedIndices){
-            let q=questionsList[idx], u=userAnswers[idx], ok=false;
-            if(q.part==="P1") ok=(u===q.correct);
-            else if(q.part==="P2") ok=(u===q.correct);
-            else { let nu=parseFloat(u), nc=parseFloat(q.correct); ok=(!isNaN(nu) && !isNaN(nc) && Math.abs(nu-nc)<0.001); }
-            if(ok) correct++;
-            detailsForReview.push({q, u, ok, correctAns: q.correct, originalIndex: idx});
-        }
-        let totalAttempted = attemptedIndices.length;
-        let percent = totalAttempted === 0 ? 0 : (correct/totalAttempted)*100;
-        let percentInt = Math.round(percent);
-        let color = percent<50?"#f5222d": percent<70?"#faad14": percent<80?"#52c41a": percent<90?"#13c2c2": percent<100?"#1890ff":"#722ed1";
-        let studentName = document.getElementById("studentName").value.trim() || "Người làm";
-        // Tăng kích thước tên 50% so với 1.5rem -> 2.25rem (đã có CSS .chart-name-above strong)
-        document.getElementById("chartNameAbove").innerHTML = `<strong style="color:#1890ff;">${studentName}</strong>`;
-        document.getElementById("chartPercentText").innerHTML = `${percentInt}%`;
-        document.getElementById("chartPercentText").style.color = color;
-        let todayStr = new Date().toLocaleDateString("vi-VN");
-        document.getElementById("chartDateBelow").innerHTML = `<strong>${todayStr} - ${totalAttempted}/${questionsList.length} câu</strong>`;
-        let ctx = document.getElementById('scoreChart').getContext('2d');
-        if(window.myChart) window.myChart.destroy();
-        window.myChart = new Chart(ctx, { type: 'doughnut', data: { labels: ['Đúng', 'Sai'], datasets: [{ data: [correct, totalAttempted-correct], backgroundColor: [color, '#e0e0e0'], borderWidth: 0 }] }, options: { cutout: '70%', plugins: { tooltip: { callbacks: { label: (ctx) => `${ctx.raw} câu` } }, legend: { display: false } } } });
-        document.getElementById("statStart").innerText = startTime?startTime.toLocaleTimeString():"--";
-        document.getElementById("statEnd").innerText = endTime?endTime.toLocaleTimeString():new Date().toLocaleTimeString();
-        let totalSec = Math.floor(((endTime||new Date())-startTime)/1000);
-        document.getElementById("totalTimeSpent").innerText = `${Math.floor(totalSec/60)}m ${totalSec%60}s`;
-        let longest=0,cur=0;
-        for(let i=0;i<questionsList.length;i++){
-            let ans = userAnswers[i];
-            if(ans !== undefined && ans !== null && ans !== ''){
-                let qq=questionsList[i];
-                let ok = (qq.part==="P1")? (ans===qq.correct) : (qq.part==="P2")? (ans===qq.correct) : (Math.abs(parseFloat(ans)-parseFloat(qq.correct))<0.001);
-                if(ok){ cur++; longest=Math.max(longest,cur); } else cur=0;
-            } else cur=0;
-        }
-        document.getElementById("statStreak").innerHTML = `${longest}/${correct}/${questionsList.length}`;
-        document.getElementById("reportPassageArea").innerHTML = currentExamData?.passage || "";
-        let answersHtml = '';
-        for(let d of detailsForReview){
-            let q = d.q;
-            let isCorrect = d.ok;
-            let borderColor = isCorrect ? "#2e7d32" : "#c62828";
-            answersHtml += `<div class="question-review" style="border-left-color: ${borderColor};">`;
-            answersHtml += `<strong>${isCorrect ? "✓" : "✗"} Câu ${d.originalIndex+1} (${q.idMeta})</strong><br>`;
-            answersHtml += `<div style="margin: 8px 0;"><strong class="math-content">${q.content}</strong></div>`;
-            if(q.part === "P1") {
-                let allOptions = [{ key: 'A', value: q.correct },{ key: 'B', value: q.wrong1 },{ key: 'C', value: q.wrong2 },{ key: 'D', value: q.wrong3 }];
-                for(let opt of allOptions) {
-                    let isUserChoice = (d.u === opt.value);
-                    let isCorrectChoice = (q.correct === opt.value);
-                    let markIcon = "", optClass = "review-option";
-                    if(isCorrectChoice) markIcon = "✓ ";
-                    if(isUserChoice && isCorrectChoice) optClass += " review-option-correct";
-                    else if(isUserChoice && !isCorrectChoice) optClass += " review-option-wrong";
-                    else if(isCorrectChoice && !isCorrect) optClass += " highlight-correct-answer";
-                    answersHtml += `<div class="${optClass}"><span class="mark-icon">${markIcon}</span><strong>${opt.key}.</strong> ${opt.value}</div>`;
-                }
-                if(!isCorrect && d.u) answersHtml += `<div class="review-option highlight-correct-answer"><span class="mark-icon">✓</span> Đáp án đúng: ${q.correct}</div>`;
-            } else if(q.part === "P2") {
-                let userChoiceText = d.u === "true" ? "Đúng" : "Sai";
-                let correctText = q.correct === "true" ? "Đúng" : "Sai";
-                answersHtml += `<div class="review-option"><span class="mark-icon">${isCorrect?"✓":"✗"}</span> Lựa chọn của bạn: <strong>${userChoiceText}</strong></div>`;
-                answersHtml += `<div class="review-option highlight-correct-answer"><span class="mark-icon">✓</span> Đáp án đúng: ${correctText}</div>`;
-            } else {
-                answersHtml += `<div class="review-option"><span class="mark-icon">${isCorrect?"✓":"✗"}</span> Đáp án đã nhập: <strong>${d.u || "(chưa nhập)"}</strong></div>`;
-                answersHtml += `<div class="review-option highlight-correct-answer"><span class="mark-icon">✓</span> Đáp án đúng: ${d.correctAns}</div>`;
-            }
-            answersHtml += `</div>`;
-        }
-        if(detailsForReview.length === 0) answersHtml = `<div class="info-card">⚠️ Bạn chưa làm câu nào.</div>`;
-        document.getElementById("reviewDetails").innerHTML = answersHtml;
-        let titleCD = document.getElementById("subTitleCD").innerText;
-        document.getElementById("reportSubTitle").innerHTML = `BÁO CÁO CHI TIẾT - ${titleCD}`;
-        renderMath();
-        switchScreen(3);
-    }
-    
-    function switchScreen(num) {
-        document.getElementById("screen1").classList.add("hidden");
-        document.getElementById("screen2").classList.add("hidden");
-        document.getElementById("screen3").classList.add("hidden");
-        if(num===1) document.getElementById("screen1").classList.remove("hidden");
-        else if(num===2) document.getElementById("screen2").classList.remove("hidden");
-        else document.getElementById("screen3").classList.remove("hidden");
-        renderMath();
-    }
-    
-    function startExamProcess(examData) {
-        if(timerInterval) clearInterval(timerInterval);
-        questionsList = examData.questions;
-        userAnswers = new Array(questionsList.length).fill(undefined);
-        examActive = true; submitted = false; timeLeft = 20*60; startTime = new Date(); currentQIndex = 0;
-        currentExamData = examData;
-        document.getElementById("passageArea").innerHTML = examData.passage;
-        renderCurrentQuestion();
-        timerInterval = setInterval(()=>{ if(examActive && !submitted){ if(timeLeft<=0) forceEnd(); else { timeLeft--; let m=Math.floor(timeLeft/60), s=timeLeft%60; document.getElementById("timerDisplay").innerText=`${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`; } } },1000);
-        const handleBlur = () => { if(examActive && !submitted) forceEnd(); };
-        document.addEventListener("visibilitychange", handleBlur);
-        window.addEventListener("blur", handleBlur);
-    }
-    
-    document.getElementById("startExamBtn").addEventListener("click",()=>{
-        let name = document.getElementById("studentName").value.trim();
-        if(name===""){ alert("Vui lòng nhập tên"); return; }
-        let selected = document.getElementById("chuyenDeSelect").value;
-        let topic = QUESTION_BANK[selected];
-        if(!topic || Object.keys(topic).length===0){ alert(`Chuyên đề ${selected} chưa có thông tin đề thi.`); return; }
-        let boList = Object.values(topic);
-        let randomBo = boList[Math.floor(Math.random() * boList.length)];
-        if(randomBo.P1.length===0 && randomBo.P2.length===0 && randomBo.P3.length===0 && selected!=="CD1"){ alert(`Chuyên đề ${selected} chưa có câu hỏi.`); return; }
-        let p1sel = getRandomItems(randomBo.P1,10), p2sel = getRandomItems(randomBo.P2,5), p3sel = getRandomItems(randomBo.P3,5);
-        p1sel.sort(()=>Math.random()-0.5); p2sel.sort(()=>Math.random()-0.5); p3sel.sort(()=>Math.random()-0.5);
-        let allQ = [];
-        p1sel.forEach((q,i)=> allQ.push({...q, part:"P1", idMeta:`${randomBo.id || 'C?'}-P1-${q.id}`}));
-        p2sel.forEach((q,i)=> allQ.push({...q, part:"P2", idMeta:`${randomBo.id || 'C?'}-P2-${q.id}`}));
-        p3sel.forEach((q,i)=> allQ.push({...q, part:"P3", idMeta:`${randomBo.id || 'C?'}-P3-${q.id}`}));
-        document.getElementById("subTitleCD").innerText = `${selected} - ${randomBo.id || 'Bộ'}`;
-        startExamProcess({ passage: randomBo.passage, questions: allQ });
-        switchScreen(2);
-    });
-    document.getElementById("submitExamBtn").addEventListener("click",()=>{ if(!submitted && examActive) forceEnd(); });
-    document.getElementById("retryBtn").addEventListener("click",()=>{ switchScreen(1); if(timerInterval)clearInterval(timerInterval); });
-    document.getElementById("backToStartBtn").addEventListener("click",()=>{ switchScreen(1); if(timerInterval)clearInterval(timerInterval); });
+  });
+  if(window.MathJax) setTimeout(() => MathJax.typesetPromise(), 300);
+  showScreen('result-screen');
+}
+function escapeHtml(str) { return str.replace(/[&<>]/g, function(m) { if(m === '&') return '&amp;'; if(m === '<') return '&lt;'; if(m === '>') return '&gt;'; return m; }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) { return c; }); }
+function retryTest(){
+  if(visibilityHandler) document.removeEventListener('visibilitychange', visibilityHandler);
+  let raw = getRandomQuestions(currentTestCode); if(raw.length === 0){ alert('Kho đề trống!'); showScreen('main-screen'); return; }
+  currentQuestions = raw.map((q, idx) => { let dq = convertToDisplayFormat(q, q.partType); dq.displayOrder = idx + 1; return dq; });
+  userAnswers = {}; timeLeft = 3600; testStartTime = new Date(); currentQuestionIndex = 0; isTransitioning = false; isCheating = false;
+  renderCurrentQuestion(); startTimer(); showScreen('test-screen');
+  visibilityHandler = () => { if(document.hidden && !isCheating && testStartTime && currentScreen === 'test-screen'){ isCheating = true; clearInterval(timerInterval); submitTest(); } };
+  document.addEventListener('visibilitychange', visibilityHandler);
+}
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('grade-select').addEventListener('change', updateTestCode);
+  document.getElementById('term-select').addEventListener('change', updateTestCode);
+  document.getElementById('start-btn').addEventListener('click', startTest);
+  document.getElementById('submit-test-btn').addEventListener('click', submitTest);
+  document.getElementById('retry-btn').addEventListener('click', retryTest);
+  document.getElementById('back-btn').addEventListener('click', () => { if(visibilityHandler) document.removeEventListener('visibilitychange', visibilityHandler); showScreen('main-screen'); });
+});
+window.toggleSourceCode = function(id) { let src = document.getElementById(id); if(src) src.classList.toggle('show'); };
 </script>
 </body>
 </html>
