@@ -1,1371 +1,1582 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Luyện nghe TA Lớp 6 (thêm dạng tổng hợp)</title>
-    <meta name="google" content="notranslate">
-    <meta http-equiv="Content-Language" content="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>English Audio Tool - 6 Bước 4 Vòng Lặp (Quy trình chuẩn v2.0) | Bảo vệ động + Cắt đúng</title>
     <style>
-        /* Toàn bộ style giữ nguyên như bản trước */
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            font-family: system-ui, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
         }
         body {
-            background: linear-gradient(145deg, #f0f4fa 0%, #e6ecf5 100%);
+            background: linear-gradient(145deg, #f6f9fc 0%, #eef2f5 100%);
+            margin: 0;
             min-height: 100vh;
-            padding: 20px;
+            padding: 2rem 1.5rem;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
         }
-        .app-container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        .main-card {
+        .tool-container {
+            max-width: 1400px;
             width: 100%;
             background: rgba(255,255,255,0.85);
-            backdrop-filter: blur(12px);
-            border-radius: 48px;
-            padding: 30px 32px;
-            box-shadow: 0 25px 50px -8px rgba(0,20,40,0.3);
-            border: 1px solid rgba(255,255,255,0.6);
-            margin-bottom: 20px;
-        }
-        @media (max-width: 700px) {
-            body { padding: 10px; }
-            .main-card { padding: 20px 16px; border-radius: 32px; }
-        }
-        h1, h2, h3 {
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            word-break: break-word;
+            backdrop-filter: blur(2px);
+            border-radius: 2rem;
+            box-shadow: 0 25px 45px -12px rgba(0,0,0,0.25);
+            padding: 1.8rem 2rem;
         }
         h1 {
-            font-size: 2.2rem;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 25px;
-            border-left: 8px solid #2a5298;
-            padding-left: 20px;
-        }
-        @media (max-width: 700px) {
-            h1 { font-size: 1.8rem; border-left-width: 6px; padding-left: 16px; }
-        }
-        h2 {
-            font-size: 1.6rem;
-            margin-bottom: 8px;
-            line-height: 1.3;
-            color: #1e3c72;
-        }
-        .title-sub {
-            font-size: 1.3rem;
-            color: #2a5298;
-            margin-bottom: 20px;
-            font-weight: 500;
-            padding-left: 4px;
-        }
-        @media (max-width: 700px) {
-            h2 { font-size: 1.4rem; }
-            .title-sub { font-size: 1.2rem; }
-        }
-        .flex-col {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            align-items: center;
-        }
-        .label-input {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: white;
-            padding: 10px 24px;
-            border-radius: 60px;
-            box-shadow: inset 2px 2px 8px #b8c3d0, inset -4px -4px 8px #ffffff;
-            width: 100%;
-        }
-        .label-input label {
+            font-size: 1.8rem;
             font-weight: 600;
-            color: #1e2f4d;
-            font-size: 1rem;
-            white-space: nowrap;
-        }
-        .label-input input, .label-input select {
-            border: none;
-            background: transparent;
-            font-size: 1rem;
-            padding: 8px 0;
-            outline: none;
-            font-weight: 500;
-            width: 100%;
-            min-width: 0;
-        }
-        .btn-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin: 20px 0 10px;
-            justify-content: center;
-        }
-        .btn {
-            background: white;
-            border: none;
-            padding: 14px 32px;
-            border-radius: 60px;
-            font-weight: 600;
-            font-size: 1.2rem;
-            box-shadow: 6px 6px 16px #b8c3d0, -6px -6px 16px #ffffff;
-            cursor: pointer;
-            transition: 0.15s;
-            color: #1e2f4d;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            flex: 0 1 auto;
-            justify-content: center;
-        }
-        .btn:active {
-            box-shadow: inset 6px 6px 12px #b8c3d0, inset -6px -6px 12px #ffffff;
-            transform: scale(0.97);
-        }
-        .btn.primary {
-            background: #2a5298;
-            color: white;
-            box-shadow: 6px 6px 16px #1e3c72, -6px -6px 16px #3f6ab3;
-        }
-        @media (max-width: 700px) {
-            .btn { padding: 12px 24px; font-size: 1.1rem; }
-        }
-        .footer-info {
-            margin-top: 30px;
-            background: #d9e2ef;
-            border-radius: 40px;
-            padding: 20px 30px;
-            text-align: center;
-            font-weight: 500;
-            color: #102a4c;
-            border: 1px solid #ffffff80;
-        }
-        .footer-info p {
-            margin: 6px 0;
-            font-size: 1rem;
-        }
-        .footer-info .zalo {
-            font-size: 1.3rem;
-            font-weight: 700;
-            background: #0068ff20;
-            display: inline-block;
-            padding: 6px 32px;
-            border-radius: 60px;
-        }
-        .audio-panel {
-            background: #eef3fc;
-            border-radius: 60px;
-            padding: 16px 24px;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 16px;
-            margin: 20px 0 25px;
-            box-shadow: inset 2px 2px 8px #b8c3d0, inset -4px -4px 10px white;
-        }
-        .audio-panel select, .audio-panel button {
-            background: white;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 40px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            box-shadow: 3px 3px 8px #b8c3d0;
-            flex: 1 0 auto;
-            min-width: 80px;
-        }
-        .speaker-icon {
-            font-size: 2rem;
-            cursor: pointer;
-            background: #2a5298;
-            color: white;
-            width: 56px;
-            height: 56px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 40px;
-            box-shadow: 0 5px 0 #102a4c;
-            flex-shrink: 0;
-        }
-        .voice-container {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 15px;
-            width: 100%;
-            background: rgba(255,255,255,0.4);
-            border-radius: 40px;
-            padding: 10px 18px;
-        }
-        .voice-container label {
-            font-weight: 600;
-            color: #1e2f4d;
-            font-size: 0.9rem;
-            white-space: nowrap;
-        }
-        .voice-container select {
-            background: white;
-            border: 1px solid #2a5298;
-            border-radius: 40px;
-            padding: 6px 12px;
-            font-size: 0.85rem;
-            min-width: 180px;
-        }
-        .question-item {
-            background: white;
-            border-radius: 32px;
-            padding: 22px 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-        }
-        .question-text {
-            font-weight: 600;
-            margin-bottom: 18px;
-            font-size: 1.1rem;
-            line-height: 1.5;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            color: #1e2a3e;
             display: flex;
             align-items: center;
             gap: 10px;
+            flex-wrap: wrap;
         }
-        .question-text .speaker-btn {
-            font-size: 1.8rem;
-            cursor: pointer;
-            background: #2a5298;
-            color: white;
-            width: 44px;
-            height: 44px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+        h1 small {
+            font-size: 0.8rem;
+            font-weight: normal;
+            background: #d9e8f5;
+            padding: 4px 12px;
             border-radius: 40px;
-            box-shadow: 0 3px 0 #102a4c;
-            flex-shrink: 0;
+            color: #0c4e6e;
         }
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-left: 8px;
-        }
-        .option {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            background: #f3f7ff;
-            padding: 12px 20px;
-            border-radius: 60px;
-            cursor: pointer;
-            border: 2px solid transparent;
-            font-size: 1rem;
-            word-break: break-word;
-        }
-        .option.selected {
-            border-color: #2a5298;
-            background: #cddcff;
-        }
-        .option input {
-            accent-color: #2a5298;
-            width: 20px;
-            height: 20px;
-            flex-shrink: 0;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        .paste-area {
             background: white;
-            border-radius: 28px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px #00000015;
-            font-size: 0.95rem;
+            border-radius: 1.5rem;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #e2edf2;
         }
-        th {
-            background: #2a5298;
-            color: white;
-            padding: 14px 10px;
-            font-weight: 600;
-        }
-        td {
-            padding: 12px 10px;
-            border-bottom: 1px solid #d0ddef;
-        }
-        .wrong-answer {
-            background: #ffccc7;
-            color: #a8071a;
-            font-weight: 600;
-            border-radius: 30px;
-            padding: 4px 12px;
-            display: inline-block;
-        }
-        .correct-answer {
-            background: #b7eb8f;
-            color: #237804;
-            font-weight: 600;
-            border-radius: 30px;
-            padding: 4px 12px;
-            display: inline-block;
-            border: 2px solid #52c41a;
-        }
-        .report-chart-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin: 25px 0;
-        }
-        @media (max-width: 700px) {
-            .report-chart-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-        }
-        .chart-box {
-            background: white;
-            border-radius: 48px;
-            padding: 25px;
-            box-shadow: 0 15px 30px #0000001a;
-            text-align: center;
-        }
-        .pie {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            margin: 15px auto;
-            background: conic-gradient(#f5222d 0deg 180deg, #faad14 180deg 360deg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .pie span {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 2.5rem;
-            color: #1e2f4d;
-        }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-        }
-        .stat-item {
-            background: white;
-            border-radius: 32px;
-            padding: 20px 12px;
-            font-weight: 600;
-            box-shadow: 0 5px 0 #b8c3d0;
-            text-align: center;
-            font-size: 1.2rem;
-            word-break: break-word;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100px;
-        }
-        .stat-item div:first-child { font-size: 1.1rem; margin-bottom: 8px; color: #1e2f4d; }
-        .stat-item div:last-child { font-size: 1.4rem; font-weight: 700; color: #2a5298; }
-        @media (max-width: 700px) {
-            .stat-item { font-size: 1rem; padding: 15px 8px; min-height: 80px; }
-            .stat-item div:first-child { font-size: 0.95rem; }
-            .stat-item div:last-child { font-size: 1.2rem; }
-        }
-        .hidden-passage {
-            background: #f0f5ff;
-            border-radius: 36px;
-            padding: 25px;
-            margin: 25px 0;
-            white-space: pre-line;
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-        .action-buttons-container {
+        .textarea-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 30px;
-            margin-bottom: 5px;
-            gap: 16px;
+            margin-bottom: 8px;
             flex-wrap: wrap;
+            gap: 10px;
         }
-        .scroll-top {
+        .textarea-label { font-weight: 600; }
+        .textarea-buttons { display: flex; gap: 8px; }
+        .small-btn {
+            background: #eef2ff;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .small-btn:hover { background: #d9e6f7; transform: scale(1.02); }
+        .small-btn.clear-btn { background: #fee2e2; color: #c2410c; }
+        .small-btn.sample-btn { background: #e6f7e6; color: #2d6a2d; }
+        textarea {
+            width: 100%;
+            border-radius: 1.2rem;
+            border: 1px solid #cbdbe0;
+            padding: 1rem 1.2rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            font-family: monospace;
+            resize: vertical;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
+        }
+        .cards-grid {
+            display: grid;
+            gap: 1.8rem;
+            grid-template-columns: 1fr;
+        }
+        @media (min-width: 800px) {
+            .cards-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        .card {
             background: white;
-            width: 56px;
-            height: 56px;
-            border-radius: 40px;
+            border-radius: 1.5rem;
+            padding: 1.2rem 1.4rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border: 1px solid #eef2f8;
+            display: flex;
+            flex-direction: column;
+        }
+        .card h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            font-size: 1.3rem;
+            color: #1f3a4b;
+            border-left: 5px solid #3b82f6;
+            padding-left: 0.7rem;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 2.2rem;
-            box-shadow: 4px 4px 14px #b8c3d0;
+            justify-content: space-between;
+        }
+        .card h3 .card-icon-action {
+            font-size: 0.9rem;
             cursor: pointer;
-            text-decoration: none;
-            color: #1e2f4d;
-            transition: 0.2s;
-            flex-shrink: 0;
+            background: #eef2ff;
+            padding: 6px 10px;
+            border-radius: 40px;
         }
-        .scroll-top:active {
-            box-shadow: inset 4px 4px 10px #b8c3d0;
-            transform: scale(0.95);
-        }
-        .btn-back {
-            background: white;
-            border: none;
-            padding: 14px 32px;
+        .audio-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            background: #f8fafc;
+            padding: 12px 14px;
             border-radius: 60px;
-            font-weight: 600;
-            font-size: 1.2rem;
-            box-shadow: 6px 6px 16px #b8c3d0, -6px -6px 16px #ffffff;
+        }
+        .audio-btn {
+            background: #f1f5f9;
+            border: none;
+            font-size: 1.5rem;
             cursor: pointer;
-            color: #1e2f4d;
+            width: 44px;
+            height: 44px;
+            border-radius: 60px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #1e293b;
+        }
+        .audio-btn:hover { background: #e2e8f0; transform: scale(1.02); }
+        .select-small {
+            background: white;
+            border: 1px solid #cbd5e1;
+            border-radius: 40px;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .voice-row {
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .voice-row label { font-weight: 600; color: #0f3b4f; }
+        #voiceSelect { flex: 2; min-width: 180px; border-radius: 60px; padding: 8px 16px; }
+        .natural-reading-row {
+            margin-top: 10px;
+            padding: 8px 14px;
+            background: #e6f7e6;
+            border-radius: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 16px;
+        }
+        .natural-reading-row label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 500; }
+        .natural-reading-row input { width: 18px; height: 18px; cursor: pointer; }
+        .pause-level-select { padding: 6px 12px; border-radius: 30px; border: 1px solid #b8d9b0; background: white; cursor: pointer; }
+        .copy-text {
+            background: #fefcf5;
+            padding: 1rem;
+            border-radius: 1.2rem;
+            white-space: pre-wrap;
+            word-break: break-word;
+            line-height: 1.5;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #e9eef3;
+            flex: 1;
+        }
+        .sentences-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-height: 380px;
+            overflow-y: auto;
+            padding-right: 4px;
+            flex: 1;
+        }
+        .sentence-item {
+            background: #f9fbfd;
+            border-radius: 1rem;
+            padding: 10px 12px;
+            border: 1px solid #e9edf2;
+        }
+        .sentence-main {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .sentence-play {
+            background: #eef2ff;
+            border: none;
+            font-size: 1.4rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .sentence-play:hover { background: #d9e6f7; }
+        .sentence-text { flex: 1; font-size: 0.95rem; line-height: 1.4; color: #1e2f3d; }
+        .chunk-list-play-btn {
+            background: #e0e7ff;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 34px;
+            height: 34px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #1e3a5f;
+        }
+        .chunk-list-play-btn:hover { background: #c7d2fe; }
+        .chunk-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+            margin-left: 52px;
+            padding-top: 6px;
+            border-top: 1px dashed #ddd;
+        }
+        .chunk-badge {
+            background: #e8f0fe;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            color: #1e5a8a;
+            cursor: pointer;
+        }
+        .chunk-badge:hover { background: #d0e0f5; }
+        .dict-popup {
+            position: fixed;
+            z-index: 10000;
+            background: white;
+            border-radius: 1.2rem;
+            box-shadow: 0 20px 35px -10px rgba(0,0,0,0.3);
+            width: 300px;
+            max-width: 85vw;
+            padding: 1rem;
+            border: 1px solid #cbd5e1;
+            font-size: 0.9rem;
+        }
+        .dict-popup .dict-word { font-weight: bold; font-size: 1.2rem; border-bottom: 2px solid #3b82f6; display: inline-block; margin-bottom: 8px; color: #0f3b4f; }
+        .dict-popup .dict-phonetic { color: #4b6e8a; font-family: monospace; margin: 5px 0; }
+        .dict-popup .dict-meaning { margin: 10px 0; color: #1e2a3e; }
+        .dict-popup .dict-example { font-style: italic; background: #f1f5f9; padding: 6px; border-radius: 12px; margin: 8px 0; font-size: 0.85rem; }
+        .dict-popup .close-dict { background: #eef2ff; border: none; border-radius: 30px; padding: 4px 10px; cursor: pointer; font-size: 0.7rem; float: right; }
+        .dict-error { color: #c2410c; text-align: center; }
+        footer { font-size: 0.75rem; text-align: center; margin-top: 1.5rem; color: #5b6e8c; }
+        .translation-loading { color: #3b82f6; font-style: italic; }
+        .translation-error { color: #c2410c; background: #fff1f0; border-radius: 1rem; padding: 0.5rem; }
+        .info-badge { background: #e6f7e6; border-radius: 20px; padding: 4px 10px; font-size: 0.7rem; color: #2d6a2d; }
+        .rule-toggle-btn {
+            background: #eef2ff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 0.85rem;
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            margin-top: 1rem;
         }
-        * {
-            -webkit-tap-highlight-color: transparent;
+        .rule-toggle-btn:hover { background: #d9e6f7; }
+        .rule-panel {
+            background: #fefce8;
+            border: 1px solid #e5e0b0;
+            border-radius: 1.2rem;
+            padding: 1.2rem;
+            margin-top: 1rem;
+            display: none;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        .rule-panel.show { display: block; }
+        .rule-panel h4 { margin-top: 0; color: #8a6e1e; }
+        .rule-example { background: #f0f0d0; padding: 8px 12px; border-radius: 12px; font-family: monospace; margin: 10px 0; }
+        .current-level-badge { background: #4caf50; color: white; padding: 2px 8px; border-radius: 20px; font-size: 0.7rem; }
+        .step-box { background: #e8f0fe; padding: 8px 12px; border-radius: 12px; margin: 10px 0; border-left: 4px solid #3b82f6; }
+        .step-title { font-weight: bold; color: #1e3a5f; }
+        .rule-table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+        .rule-table td, .rule-table th { border: 1px solid #ddd; padding: 6px; text-align: left; vertical-align: top; }
+        .rule-table th { background: #e5e0b0; }
+        
+        .translation-item {
+            background: #f0fdf4;
+            border-radius: 1rem;
+            padding: 10px 12px;
+            border: 1px solid #bbf7d0;
+            margin-bottom: 12px;
+        }
+        .translation-main {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .translation-number {
+            background: #10b981;
+            color: white;
+            border-radius: 30px;
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            min-width: 32px;
+            text-align: center;
+        }
+        .translation-text {
+            flex: 1;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            color: #065f46;
+        }
+        .translation-chunk-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+            margin-left: 52px;
+            padding-top: 6px;
+            border-top: 1px dashed #bbf7d0;
+        }
+        .translation-chunk-badge {
+            background: #dcfce7;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            color: #065f46;
+        }
+        .step-number {
+            display: inline-block;
+            background: #3b82f6;
+            color: white;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            font-size: 0.7rem;
+            text-align: center;
+            line-height: 22px;
+            margin-right: 8px;
+        }
+        .principle-box {
+            background: #e6f7e6;
+            border-left: 4px solid #4caf50;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+        .dynamic-badge {
+            background: #c2410c;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            margin-left: 8px;
+        }
+        .protected-boundary {
+            border-bottom: 2px dotted #c2410c;
+        }
+        .default-voice-option {
+            background: #e8f0fe;
+            font-weight: bold;
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-<div class="app-container" id="app"></div>
+<div class="tool-container">
+    <h1>🎧 English Audio Repeater + Đọc tự nhiên <small>6 bước - 4 vòng lặp (v2.0) + Bảo vệ động + Cắt đúng</small></h1>
+    <div class="paste-area">
+        <div class="textarea-header">
+            <span class="textarea-label">📝 Dán đoạn văn tiếng Anh vào đây:</span>
+            <div class="textarea-buttons">
+                <button id="clearTextBtn" class="small-btn clear-btn"><i class="fas fa-trash-alt"></i> Xóa</button>
+                <button id="sampleTextBtn" class="small-btn sample-btn"><i class="fas fa-file-alt"></i> Mẫu</button>
+            </div>
+        </div>
+        <textarea id="inputText" rows="6">Hello there! Welcome to the English audio tool. You can paste any paragraph. I try to minimize activities that waste excessive time like reducing time spent on social media or other distractions during study periods. I usually create a daily, weekly or monthly schedule that includes dedicated time for studying, and other activities. The system will split long sentences into small chunks, then repeat each chunk several times. Practice pronunciation easily, because this tool now supports natural pauses just like a real person. Enjoy!</textarea>
+        <div style="font-size:0.7rem; margin-top: 8px;">✏️ Nhấp đôi vào bất kỳ từ tiếng Anh để tra nghĩa.</div>
+    </div>
+    <div class="cards-grid">
+        <div class="card">
+            <h3><i class="fas fa-sliders-h"></i> 1. Điều khiển phát</h3>
+            <div class="audio-row" style="flex-wrap: wrap; gap: 10px;">
+                <button id="playSequentialBtn" class="audio-btn"><i class="fas fa-volume-up"></i></button>
+                <button id="pauseBtn" class="audio-btn"><i class="fas fa-pause"></i></button>
+                <button id="stopBtn" class="audio-btn"><i class="fas fa-stop"></i></button>
+                <div style="display: flex; gap: 6px; align-items: center;">
+                    <label style="font-size:0.75rem;">⏱️ Delay:</label>
+                    <select id="delaySelect" class="select-small" style="width: 70px;">
+                        <option value="0.5">0.5s</option><option value="0.75">0.75s</option>
+                        <option value="1">1s</option><option value="2" selected>2s</option>
+                        <option value="3">3s</option><option value="4">4s</option>
+                    </select>
+                </div>
+                <div style="display: flex; gap: 6px; align-items: center;">
+                    <label style="font-size:0.75rem;">🔁 Lặp mỗi cụm:</label>
+                    <select id="repeatSelect" class="select-small" style="width: 70px;">
+                        <option value="1">1</option><option value="2" selected>2</option>
+                        <option value="3">3</option><option value="4">4</option>
+                    </select>
+                </div>
+                <div style="display: flex; gap: 6px; align-items: center;">
+                    <label style="font-size:0.75rem;">🔄 Nghỉ giữa các lần lặp:</label>
+                    <select id="repeatDelaySelect" class="select-small" style="width: 75px;">
+                        <option value="0.1">0.1s</option><option value="0.3" selected>0.3s</option>
+                        <option value="0.5">0.5s</option><option value="0.7">0.7s</option>
+                        <option value="1">1s</option><option value="2">2s</option>
+                        <option value="3">3s</option>
+                    </select>
+                </div>
+            </div>
+            <div class="natural-reading-row">
+                <label><input type="checkbox" id="naturalPauseToggle" checked> 🗣️ <strong>Đọc tự nhiên</strong><span class="info-badge">6 bước - 4 vòng lặp chuẩn</span></label>
+                <select id="pauseLevel" class="pause-level-select">
+                    <option value="light">🌿 Nhẹ (max 12 từ)</option>
+                    <option value="moderate" selected>⭐ Vừa (max 6 từ)</option>
+                    <option value="strong">⚡ Mạnh (max 4 từ)</option>
+                </select>
+            </div>
+            <div class="voice-row">
+                <label><i class="fas fa-microphone-alt"></i> Giọng đọc:</label>
+                <select id="voiceSelect" class="select-small">
+                    <option value="default" selected>📱 Mặc định (giọng hệ thống)</option>
+                </select>
+            </div>
+        </div>
+        <div class="card">
+            <h3><i class="fas fa-file-alt"></i> 2. Đoạn văn gốc</h3>
+            <div id="originalTextDisplay" class="copy-text"></div>
+        </div>
+        <div class="card">
+            <h3><i class="fas fa-list-ol"></i> 3. Các câu & cụm</h3>
+            <div id="sentencesList" class="sentences-list"><div style="color:gray; text-align:center;">Chưa có dữ liệu</div></div>
+        </div>
+        <div class="card">
+            <h3><span><i class="fas fa-language"></i> 4. Dịch tiếng Việt</span><span id="refreshTranslationBtn" class="card-icon-action"><i class="fas fa-sync-alt"></i> Dịch lại</span></h3>
+            <div id="translationResult" class="sentences-list"><div style="color:gray; text-align:center;">⏳ Đang tải...</div></div>
+        </div>
+    </div>
+    <div style="text-align: center; margin-top: 1.5rem;">
+        <button id="ruleToggleBtn" class="rule-toggle-btn"><i class="fas fa-graduation-cap"></i> Giải thích quy tắc (6 bước - 4 vòng lặp chuẩn v2.0 + Bảo vệ động)</button>
+    </div>
+    <div id="rulePanel" class="rule-panel"></div>
+    <footer>⚡ Web Speech API | Dịch Anh→Việt | Double-click tra từ | 6 BƯỚC - 4 VÒNG LẶP CHUẨN v2.0 | Bảo vệ cụm cố định | Bảo vệ động (1 từ + cụm gốc) - KHÔNG chặn cắt đầu/cuối cụm</footer>
+</div>
 <script>
-    // =====================================================
-    // HỆ THỐNG TỰ ĐỘNG THU THẬP CÁC BÀI HỌC (LỚP 6)
-    // Chỉ cần khai báo biến với tên theo mẫu E6_U{unit}_B{bai}
-    // =====================================================
+    // ==================== DOM Elements ====================
+    const textarea = document.getElementById('inputText');
+    const originalDisplay = document.getElementById('originalTextDisplay');
+    const sentencesContainer = document.getElementById('sentencesList');
+    const translationContainer = document.getElementById('translationResult');
+    const playSequentialBtn = document.getElementById('playSequentialBtn');
+    const pauseBtn = document.getElementById('pauseBtn');
+    const stopBtn = document.getElementById('stopBtn');
+    const delaySelect = document.getElementById('delaySelect');
+    const repeatSelect = document.getElementById('repeatSelect');
+    const repeatDelaySelect = document.getElementById('repeatDelaySelect');
+    const voiceSelect = document.getElementById('voiceSelect');
+    const refreshTranslationBtn = document.getElementById('refreshTranslationBtn');
+    const naturalPauseToggle = document.getElementById('naturalPauseToggle');
+    const pauseLevelSelect = document.getElementById('pauseLevel');
+    const ruleToggleBtn = document.getElementById('ruleToggleBtn');
+    const rulePanel = document.getElementById('rulePanel');
+    const clearTextBtn = document.getElementById('clearTextBtn');
+    const sampleTextBtn = document.getElementById('sampleTextBtn');
 
-    // Registry chứa tất cả các bài học
-    window.LESSON_REGISTRY = {};
+    // ==================== Sample Text ====================
+    const SAMPLE_TEXT = `Hello there! Welcome to the English audio tool. You can paste any paragraph. I try to minimize activities that waste excessive time like reducing time spent on social media or other distractions during study periods. I usually create a daily, weekly or monthly schedule that includes dedicated time for studying, and other activities. The system will split long sentences into small chunks, then repeat each chunk several times. Practice pronunciation easily, because this tool now supports natural pauses just like a real person. Enjoy!`;
 
-    // Hàm quét window để tìm các biến có tên dạng E6_..._...
-    function scanLessons() {
-        const lessonRegex = /^E6_U(\d+)_B(\d+)$/; // Lớp 6
-        for (let key in window) {
-            if (window.hasOwnProperty(key)) {
-                const match = key.match(lessonRegex);
-                if (match) {
-                    const unit = match[1]; // unit, ví dụ "1"
-                    const bai = match[2];  // bài, ví dụ "2"
-                    const data = window[key];
-                    // Kiểm tra xem data có cấu trúc bài học không (có P1, P2,...)
-                    if (data && typeof data === 'object' && data.P1 !== undefined) {
-                        if (!LESSON_REGISTRY['6']) LESSON_REGISTRY['6'] = {};
-                        if (!LESSON_REGISTRY['6'][`U${unit}`]) LESSON_REGISTRY['6'][`U${unit}`] = {};
-                        LESSON_REGISTRY['6'][`U${unit}`][`B${bai}`] = data;
+    clearTextBtn.onclick = () => { textarea.value = ''; onTextChange(); textarea.focus(); };
+    sampleTextBtn.onclick = () => { textarea.value = SAMPLE_TEXT; onTextChange(); textarea.focus(); };
+
+    // ==================== DANH SÁCH BẢO VỆ ĐỘNG (lưu các ranh giới không được cắt) ====================
+    let protectedBoundaries = [];  // Lưu các chuỗi con không được phép cắt bên trong (ví dụ: "need to", "teenagers need to")
+
+    function addProtectedBoundary(phrase) {
+        if (!protectedBoundaries.includes(phrase.toLowerCase())) {
+            protectedBoundaries.push(phrase.toLowerCase());
+        }
+    }
+
+    function resetProtectedBoundaries() {
+        protectedBoundaries = [];
+    }
+
+    // Hàm kiểm tra một vị trí cắt có nằm bên trong ranh giới bảo vệ không
+    function isCutInsideProtectedBoundary(text, cutPos) {
+        if (!text || cutPos <= 0 || cutPos >= text.length) return false;
+        
+        const lowerText = text.toLowerCase();
+        
+        for (let boundary of protectedBoundaries) {
+            const idx = lowerText.indexOf(boundary);
+            if (idx !== -1) {
+                // Ranh giới bảo vệ nằm trong text
+                const boundaryStart = idx;
+                const boundaryEnd = idx + boundary.length;
+                
+                // Nếu vị trí cắt nằm BÊN TRONG ranh giới bảo vệ -> không được cắt
+                if (cutPos > boundaryStart && cutPos < boundaryEnd) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    // ==================== CẤU HÌNH MỨC ĐỘ ====================
+    function getMaxChunkSize(level) {
+        if (level === 'light') return 12;
+        if (level === 'moderate') return 6;
+        return 4; // strong
+    }
+
+    function getCutSizeForStep5(level) {
+        if (level === 'light') return 9;
+        if (level === 'moderate') return 5;
+        return 3; // strong
+    }
+
+    // ==================== DANH SÁCH CỤM CỐ ĐỊNH GỐC ====================
+    const FIXED_PHRASES = [
+        'as well as', 'as far as', 'in spite of', 'in front of', 'in addition to',
+        'in case of', 'in lieu of', 'in light of', 'in place of', 'in terms of',
+        'in view of', 'on account of', 'on behalf of', 'on top of', 'with regard to',
+        'with respect to', 'as long as', 'as soon as', 'even if', 'even though',
+        'provided that', 'so that', 'the most of', 'welcome to', 'just like', 'such as',
+        'because of', 'instead of', 'due to', 'prior to', 'together with', 'along with',
+        'apart from', 'according to', 'ahead of', 'aside from', 'contrary to',
+        'except for', 'inside of', 'outside of', 'owing to', 'regardless of',
+        'subsequent to', 'thanks to', 'a lot of', 'lots of', 'kind of', 'type of', 'sort of',
+        'look like', 'feel like', 'sound like', 'taste like', 'seem like',
+        'want to', 'need to', 'have to', 'used to', 'going to', 'ought to', 'supposed to', 'able to', 'wants to', 'needs to', 'has to', 'wanted to', 'needed to', 'had to',  'looks like', 'feels like', 'sounds like', 'tastes like', 'seems like', 'looked like', 'felt like', 'sounded like', 'tasted like', 'seemed like', 'such that', 'proud of', 'excepted for', 'excepts for', 'more than'
+
+
+    ];
+    FIXED_PHRASES.sort((a, b) => b.split(' ').length - a.split(' ').length);
+
+    // Khởi tạo ranh giới bảo vệ từ danh sách gốc
+    for (let phrase of FIXED_PHRASES) {
+        addProtectedBoundary(phrase);
+    }
+
+    // ==================== TỪ NỐI ====================
+    const STEP3_WORDS = [
+        'which', 'who', 'that', 'when', 'where', 'whom', 'what', 'how',
+        'and', 'or', 'but', 'so', 'for', 'nor', 'yet',
+        'because', 'since', 'although', 'though', 'whereas', 'while',
+        'if', 'unless', 'whenever', 'as', 'once', 'until', 'till',
+        'even though', 'then', 'however', 'therefore', 'consequently',
+        'furthermore', 'moreover', 'nevertheless', 'accordingly', 'hence', 'thus'
+    ];
+
+    // ==================== GIỚI TỪ ====================
+    const PREPOSITIONS = [
+        'aboard', 'about', 'above', 'absent', 'across', 'after', 'against',
+        'along', 'alongside', 'amid', 'amidst', 'among', 'amongst', 'anti',
+        'around', 'as', 'astride', 'at', 'atop', 'bar', 'barring', 'before',
+        'behind', 'below', 'beneath', 'beside', 'besides', 'between', 'beyond',
+        'by', 'circa', 'concerning', 'considering', 'despite', 'down',
+        'during', 'except', 'excepting', 'excluding', 'far', 'following', 'for',
+        'from', 'given', 'in', 'including', 'inside', 'into', 'less', 'like',
+        'low', 'minus', 'near', 'nearer', 'nearest', 'notwithstanding', 'of',
+        'on', 'onto', 'opposite', 'out', 'outside', 'over', 'past', 'per',
+        'plus', 'regarding', 'respecting', 'round', 'save', 'saving',
+        'since', 'than', 'through', 'throughout', 'till', 'toward', 'towards',
+        'under', 'underneath', 'unlike', 'until', 'up', 'to', 'upon', 'versus',
+        'via', 'with', 'within', 'without', 'each', 'every'
+    ];
+
+    // ==================== BƯỚC 1: DẤU CÂU (có vòng lặp con, kiểm tra ranh giới) ====================
+    function cutByPunctuation(text) {
+        const punctChars = [',', ';', ':'];
+        for (let i = 0; i < text.length; i++) {
+            if (punctChars.includes(text[i])) {
+                const cutPos = i + 1;
+                // Kiểm tra không cắt bên trong ranh giới bảo vệ
+                if (isCutInsideProtectedBoundary(text, cutPos)) {
+                    continue;
+                }
+                const firstPart = text.substring(0, cutPos).trim();
+                const secondPart = text.substring(cutPos).trim();
+                if (firstPart.length > 0 && secondPart.length > 0) {
+                    return { success: true, parts: [firstPart, secondPart] };
+                }
+            }
+        }
+        return { success: false, parts: [text] };
+    }
+
+    function processStep1WithLoop(chunks, maxSubLoops = 5) {
+        let currentList = [...chunks];
+        let changed = true;
+        let loopCount = 0;
+        
+        while (changed && loopCount < maxSubLoops) {
+            changed = false;
+            let newList = [];
+            for (let chunk of currentList) {
+                const result = cutByPunctuation(chunk);
+                if (result.success) {
+                    newList.push(...result.parts);
+                    changed = true;
+                } else {
+                    newList.push(chunk);
+                }
+            }
+            currentList = newList;
+            loopCount++;
+            if (!changed) break;
+        }
+        return currentList;
+    }
+
+    // ==================== BƯỚC 2: CỤM CỐ ĐỊNH (tạo ranh giới bảo vệ động) ====================
+    function protectFixedPhrases(text) {
+        let result = [text];
+        let changed = true;
+        let maxPasses = 10;
+        
+        while (changed && maxPasses-- > 0) {
+            changed = false;
+            let newParts = [];
+            
+            for (let part of result) {
+                let found = false;
+                const lowerPart = part.toLowerCase();
+                
+                for (let phrase of FIXED_PHRASES) {
+                    const phraseIndex = lowerPart.indexOf(phrase);
+                    if (phraseIndex !== -1) {
+                        // Đếm số từ ở phía trước cụm
+                        const beforeText = part.substring(0, phraseIndex).trim();
+                        const beforeWords = beforeText.length > 0 ? beforeText.split(/\s+/).length : 0;
+                        
+                        // TRƯỜNG HỢP ĐẶC BIỆT: phía trước có đúng 1 từ
+                        // → GỘP 1 từ đó với cụm cố định thành 1 cụm BẢO VỆ ĐỘNG
+                        if (beforeWords === 1 && phraseIndex > 0) {
+                            // Lấy vị trí bắt đầu của 1 từ phía trước
+                            const lastSpaceBefore = part.lastIndexOf(' ', phraseIndex - 1);
+                            const startPos = (lastSpaceBefore === -1) ? 0 : lastSpaceBefore + 1;
+                            
+                            // Tạo ranh giới bảo vệ động mới
+                            const oneWord = part.substring(startPos, phraseIndex).trim();
+                            const combinedPhrase = oneWord + ' ' + phrase;
+                            
+                            // THÊM VÀO DANH SÁCH RANH GIỚI BẢO VỆ
+                            addProtectedBoundary(combinedPhrase);
+                            
+                            // Cắt SAU cụm đã gộp
+                            const combinedLength = combinedPhrase.length;
+                            const cutPosAfterCombined = startPos + combinedLength;
+                            
+                            if (cutPosAfterCombined < part.length) {
+                                const before = part.substring(0, cutPosAfterCombined).trim();
+                                const after = part.substring(cutPosAfterCombined).trim();
+                                if (before.length > 0 && after.length > 0) {
+                                    newParts.push(before);
+                                    newParts.push(after);
+                                    found = true;
+                                    changed = true;
+                                    break;
+                                }
+                            } else {
+                                newParts.push(part);
+                                found = true;
+                                changed = false;
+                                break;
+                            }
+                        }
+                        
+                        // TRƯỜNG HỢP THÔNG THƯỜNG: Cắt SAU cụm
+                        const cutPosAfter = phraseIndex + phrase.length;
+                        if (cutPosAfter < part.length) {
+                            // Kiểm tra không cắt bên trong ranh giới bảo vệ
+                            if (!isCutInsideProtectedBoundary(part, cutPosAfter)) {
+                                const before = part.substring(0, cutPosAfter).trim();
+                                const after = part.substring(cutPosAfter).trim();
+                                if (before.length > 0 && after.length > 0) {
+                                    newParts.push(before);
+                                    newParts.push(after);
+                                    found = true;
+                                    changed = true;
+                                    break;
+                                }
+                            }
+                        }
+                        
+                        // TRƯỜNG HỢP KHÁC: Cắt TRƯỚC cụm (khi phía trước có nhiều hơn 1 từ)
+                        if (beforeWords > 1 && phraseIndex > 0) {
+                            if (!isCutInsideProtectedBoundary(part, phraseIndex)) {
+                                const before = part.substring(0, phraseIndex).trim();
+                                const after = part.substring(phraseIndex).trim();
+                                if (before.length > 0 && after.length > 0) {
+                                    newParts.push(before);
+                                    newParts.push(after);
+                                    found = true;
+                                    changed = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                if (!found) {
+                    newParts.push(part);
+                }
+            }
+            
+            result = newParts;
+            if (!changed) break;
+        }
+        
+        return result.filter(p => p.length > 0);
+    }
+
+    function processStep2WithLoop(chunks, maxSubLoops = 5) {
+        let currentList = [...chunks];
+        let changed = true;
+        let loopCount = 0;
+        
+        while (changed && loopCount < maxSubLoops) {
+            changed = false;
+            let newList = [];
+            for (let chunk of currentList) {
+                const result = protectFixedPhrases(chunk);
+                if (result.length !== 1 || result[0] !== chunk) {
+                    newList.push(...result);
+                    changed = true;
+                } else {
+                    newList.push(chunk);
+                }
+            }
+            currentList = newList;
+            loopCount++;
+            if (!changed) break;
+        }
+        return currentList;
+    }
+
+    // ==================== BƯỚC 3: TỪ NỐI (có vòng lặp con, kiểm tra ranh giới) ====================
+    function cutByConnector(text) {
+        for (let conn of STEP3_WORDS) {
+            const regex = new RegExp(`^(.*?)\\s+(${conn})([,.;:!?]?)\\s+(.*)$`, 'i');
+            const match = text.match(regex);
+            if (match && match[1].trim().length > 0) {
+                const beforeConn = match[1].trim();
+                const connector = match[2];
+                const punctuationAfter = match[3];
+                const afterConn = match[4].trim();
+                
+                // Xác định vị trí cắt
+                const cutPos = beforeConn.length + 1; // +1 cho khoảng trắng
+                
+                // Kiểm tra không cắt bên trong ranh giới bảo vệ
+                if (isCutInsideProtectedBoundary(text, cutPos)) {
+                    continue;
+                }
+                
+                let parts = [];
+                if (punctuationAfter === ',' || punctuationAfter === '.' || 
+                    punctuationAfter === ';' || punctuationAfter === ':' || 
+                    punctuationAfter === '!' || punctuationAfter === '?') {
+                    parts = [beforeConn, connector + punctuationAfter, afterConn];
+                } else {
+                    parts = [beforeConn, connector + ' ' + afterConn];
+                }
+                
+                if (parts.every(p => p.length > 0)) {
+                    return { success: true, parts: parts };
+                }
+            }
+        }
+        return { success: false, parts: [text] };
+    }
+
+    function processStep3WithLoop(chunks, maxSubLoops = 5) {
+        let currentList = [...chunks];
+        let changed = true;
+        let loopCount = 0;
+        
+        while (changed && loopCount < maxSubLoops) {
+            changed = false;
+            let newList = [];
+            for (let chunk of currentList) {
+                const result = cutByConnector(chunk);
+                if (result.success) {
+                    newList.push(...result.parts);
+                    changed = true;
+                } else {
+                    newList.push(chunk);
+                }
+            }
+            currentList = newList;
+            loopCount++;
+            if (!changed) break;
+        }
+        return currentList;
+    }
+
+    // ==================== BƯỚC 4: GIỚI TỪ (CHỈ cắt khi > maxSize, kiểm tra ranh giới) ====================
+    function cutByPreposition(text, maxSize) {
+        const words = text.split(' ');
+        const totalWords = words.length;
+        
+        if (totalWords <= maxSize) {
+            return { success: false, parts: [text] };
+        }
+        
+        for (let i = 0; i < words.length; i++) {
+            let lowerWord = words[i].toLowerCase().replace(/[,.;:!?]$/, '');
+            if (PREPOSITIONS.includes(lowerWord)) {
+                let cutPos = 0;
+                for (let j = 0; j < i; j++) {
+                    cutPos += words[j].length + (j > 0 ? 1 : 0);
+                }
+                
+                // Kiểm tra không cắt bên trong ranh giới bảo vệ
+                if (isCutInsideProtectedBoundary(text, cutPos)) {
+                    continue;
+                }
+                
+                const firstPart = text.substring(0, cutPos).trim();
+                const secondPart = text.substring(cutPos).trim();
+                if (firstPart.length > 0 && secondPart.length > 0) {
+                    return { success: true, parts: [firstPart, secondPart] };
+                }
+            }
+        }
+        
+        return { success: false, parts: [text] };
+    }
+
+    function processStep4WithLoop(chunks, maxSize, maxSubLoops = 5) {
+        let currentList = [...chunks];
+        let changed = true;
+        let loopCount = 0;
+        
+        while (changed && loopCount < maxSubLoops) {
+            changed = false;
+            let newList = [];
+            for (let chunk of currentList) {
+                const result = cutByPreposition(chunk, maxSize);
+                if (result.success) {
+                    newList.push(...result.parts);
+                    changed = true;
+                } else {
+                    newList.push(chunk);
+                }
+            }
+            currentList = newList;
+            loopCount++;
+            if (!changed) break;
+        }
+        return currentList;
+    }
+
+    // ==================== BƯỚC 5: CẮT THÔNG MINH (cắt cứng, kiểm tra ranh giới) ====================
+    function cutBySmartFixed(chunk, maxSize, cutSize) {
+        const words = chunk.split(' ');
+        const totalWords = words.length;
+        
+        if (totalWords <= maxSize) {
+            return { success: false, parts: [chunk] };
+        }
+        
+        let takeFirst = cutSize;
+        if (totalWords - takeFirst < 2) {
+            takeFirst = totalWords - 2;
+        }
+        if (takeFirst <= 0) {
+            return { success: false, parts: [chunk] };
+        }
+        
+        let cutPos = 0;
+        for (let i = 0; i < takeFirst; i++) {
+            cutPos += words[i].length + (i > 0 ? 1 : 0);
+        }
+        
+        // Kiểm tra không cắt bên trong ranh giới bảo vệ
+        if (isCutInsideProtectedBoundary(chunk, cutPos)) {
+            // Thử cắt với số từ khác
+            for (let tryTake = takeFirst - 1; tryTake >= Math.floor(takeFirst / 2); tryTake--) {
+                let tryCutPos = 0;
+                for (let i = 0; i < tryTake; i++) {
+                    tryCutPos += words[i].length + (i > 0 ? 1 : 0);
+                }
+                if (!isCutInsideProtectedBoundary(chunk, tryCutPos)) {
+                    cutPos = tryCutPos;
+                    break;
+                }
+            }
+        }
+        
+        const firstPart = chunk.substring(0, cutPos).trim();
+        const secondPart = chunk.substring(cutPos).trim();
+        
+        if (firstPart.length > 0 && secondPart.length > 0 && !isCutInsideProtectedBoundary(chunk, cutPos)) {
+            return { success: true, parts: [firstPart, secondPart] };
+        }
+        
+        return { success: false, parts: [chunk] };
+    }
+
+    function processStep5(chunks, maxSize, cutSize) {
+        let newList = [];
+        for (let chunk of chunks) {
+            const result = cutBySmartFixed(chunk, maxSize, cutSize);
+            if (result.success) {
+                newList.push(...result.parts);
+            } else {
+                newList.push(chunk);
+            }
+        }
+        return newList;
+    }
+
+    // ==================== BƯỚC 6: KIỂM TRA ĐỘ DÀI (cắt thô, kiểm tra ranh giới) ====================
+    function cutByForce(chunk, maxSize) {
+        const words = chunk.split(' ');
+        const totalWords = words.length;
+        
+        if (totalWords <= maxSize) {
+            return { success: false, parts: [chunk] };
+        }
+        
+        let cutPos = 0;
+        for (let i = 0; i < maxSize; i++) {
+            cutPos += words[i].length + (i > 0 ? 1 : 0);
+        }
+        
+        // Kiểm tra không cắt bên trong ranh giới bảo vệ
+        if (isCutInsideProtectedBoundary(chunk, cutPos)) {
+            // Thử cắt ở vị trí khác
+            for (let trySize = maxSize - 1; trySize >= Math.floor(maxSize / 2); trySize--) {
+                let tryCutPos = 0;
+                for (let i = 0; i < trySize; i++) {
+                    tryCutPos += words[i].length + (i > 0 ? 1 : 0);
+                }
+                if (!isCutInsideProtectedBoundary(chunk, tryCutPos)) {
+                    cutPos = tryCutPos;
+                    break;
+                }
+            }
+        }
+        
+        const firstPart = chunk.substring(0, cutPos).trim();
+        const secondPart = chunk.substring(cutPos).trim();
+        
+        if (firstPart.length > 0 && secondPart.length > 0 && !isCutInsideProtectedBoundary(chunk, cutPos)) {
+            return { success: true, parts: [firstPart, secondPart] };
+        }
+        
+        return { success: false, parts: [chunk] };
+    }
+
+    function processStep6(chunks, maxSize) {
+        let newList = [];
+        let changed = false;
+        
+        for (let chunk of chunks) {
+            const result = cutByForce(chunk, maxSize);
+            if (result.success) {
+                newList.push(...result.parts);
+                changed = true;
+            } else {
+                newList.push(chunk);
+            }
+        }
+        
+        return { chunks: newList, changed: changed };
+    }
+
+    // ==================== 6 BƯỚC - 4 VÒNG LẶP CHÍNH ====================
+    function processOneFullLoop(chunks, maxSize, cutSize) {
+        let result = processStep1WithLoop(chunks, 5);
+        result = processStep2WithLoop(result, 5);
+        result = processStep3WithLoop(result, 5);
+        result = processStep4WithLoop(result, maxSize, 5);
+        result = processStep5(result, maxSize, cutSize);
+        const step6Result = processStep6(result, maxSize);
+        
+        return step6Result;
+    }
+
+    function splitWithSixLoopsAndFourCycles(sentence, level) {
+        const maxSize = getMaxChunkSize(level);
+        const cutSize = getCutSizeForStep5(level);
+        
+        let chunks = [sentence];
+        const maxCycles = 4;
+        
+        for (let cycle = 0; cycle < maxCycles; cycle++) {
+            const result = processOneFullLoop(chunks, maxSize, cutSize);
+            
+            let changed = (result.chunks.length !== chunks.length);
+            if (!changed) {
+                for (let i = 0; i < result.chunks.length; i++) {
+                    if (result.chunks[i] !== chunks[i]) {
+                        changed = true;
+                        break;
                     }
                 }
             }
-        }
-    }
-
-    // =====================================================
-    // KHAI BÁO DỮ LIỆU CÁC BÀI (đã chuyển từ lớp 4 sang lớp 6, giữ nội dung)
-    // =====================================================
-
-    // ---------- UNIT 1 BÀI 1 ---------- (Giữ nguyên dữ liệu từ E4_U1_B1)
-    var E6_U1_B1 = {
-        P1: [ // trắc nghiệm trả lời câu hỏi
-            { id: 1, word: "Where does Miss Lien live?", correct: "in a small house in Hanoi", wrong1: "in a big apartment", wrong2: "in the countryside" },
-            { id: 2, word: "What does Miss Lien do?", correct: "She teaches English", wrong1: "She is a doctor", wrong2: "She works in a factory" },
-            { id: 3, word: "What time does she have breakfast?", correct: "at seven", wrong1: "at six", wrong2: "at eight" },
-            { id: 4, word: "Where does she have lunch?", correct: "in the canteen of the school", wrong1: "at home", wrong2: "in a restaurant" },
-            { id: 5, word: "When does she teach dialogues?", correct: "on Wednesdays and Fridays", wrong1: "on Mondays", wrong2: "every day" },
-            { id: 6, word: "What does she teach on Mondays?", correct: "grammar", wrong1: "dialogues", wrong2: "listening" },
-            { id: 7, word: "What does she do in the evening?", correct: "stays at home and listens to music", wrong1: "goes out with friends", wrong2: "watches TV" },
-            { id: 8, word: "Does she sometimes go to the movie theatre?", correct: "Yes, she does", wrong1: "No, she never goes", wrong2: "Only on Sundays" },
-            { id: 9, word: "What time does she go to bed?", correct: "at ten o'clock", wrong1: "at nine o'clock", wrong2: "at eleven" },
-            { id: 10, word: "Who is Miss Lien?", correct: "an English teacher", wrong1: "a student", wrong2: "a nurse" }
-        ],
-        P2: [ // TRUE - FALSE - NOT GIVEN
-            { id: 1, word: "Miss Lien lives in a small house in Hanoi.", correct: "True", wrong1: "False", wrong2: "Not Given" },
-            { id: 2, word: "She teaches Math at a school.", correct: "False", wrong1: "True", wrong2: "Not Given" },
-            { id: 3, word: "She has lunch at home.", correct: "False", wrong1: "True", wrong2: "Not Given" },
-            { id: 4, word: "She teaches dialogues on Wednesdays and Fridays.", correct: "True", wrong1: "False", wrong2: "Not Given" },
-            { id: 5, word: "She teaches grammar on Tuesdays.", correct: "False", wrong1: "True", wrong2: "Not Given" },
-            { id: 6, word: "In the evening she usually stays at home.", correct: "True", wrong1: "False", wrong2: "Not Given" },
-            { id: 7, word: "She sometimes goes to the cinema.", correct: "True", wrong1: "False", wrong2: "Not Given" },
-            { id: 8, word: "She has a pet dog.", correct: "Not Given", wrong1: "True", wrong2: "False" },
-            { id: 9, word: "She always goes to bed at ten.", correct: "True", wrong1: "False", wrong2: "Not Given" },
-            { id: 10, word: "Her school is in Hanoi.", correct: "True", wrong1: "False", wrong2: "Not Given" }
-        ],
-        P3: [ // Điền khuyết
-            { id: 1, word: "Miss Lien lives in a small house ______ Hanoi.", correct: "in", wrong1: "on", wrong2: "at" },
-            { id: 2, word: "She teaches English ______ a school there.", correct: "at", wrong1: "in", wrong2: "on" },
-            { id: 3, word: "She usually has breakfast ______ seven.", correct: "at", wrong1: "in", wrong2: "on" },
-            { id: 4, word: "She has lunch in the canteen ______ the school.", correct: "of", wrong1: "at", wrong2: "in" },
-            { id: 5, word: "She teaches her students ______ the morning.", correct: "in", wrong1: "on", wrong2: "at" },
-            { id: 6, word: "She teaches them dialogues ______ Wednesdays.", correct: "on", wrong1: "in", wrong2: "at" },
-            { id: 7, word: "______ Mondays, she teaches grammar.", correct: "On", wrong1: "In", wrong2: "At" },
-            { id: 8, word: "In the evening, she usually stays ______ home.", correct: "at", wrong1: "in", wrong2: "on" },
-            { id: 9, word: "She sometimes goes ______ the movie theatre.", correct: "to", wrong1: "in", wrong2: "at" },
-            { id: 10, word: "She always goes to bed ______ ten o'clock.", correct: "at", wrong1: "in", wrong2: "on" }
-        ],
-        P4: "Miss Lien lives in a small house in Hanoi. She teaches English at a school there. She usually has breakfast at seven in the morning and she has lunch at twelve o'clock in the canteen of the school. She teaches her students in the morning. She teaches them dialogues on Wednesdays and Fridays. On Mondays, she teaches them grammar. In the evening, she usually stays at home and listens to music. She sometimes goes to the movie theatre. She always goes to bed at ten o'clock.",
-        P5: [
-            { id: 1, word: "Miss Lien lives in a small house in Hanoi." },
-            { id: 2, word: "She teaches English at a school there." },
-            { id: 3, word: "She usually has breakfast at seven in the morning and she has lunch at twelve o'clock in the canteen of the school." },
-            { id: 4, word: "She teaches her students in the morning." },
-            { id: 5, word: "She teaches them dialogues on Wednesdays and Fridays." },
-            { id: 6, word: "On Mondays, she teaches them grammar." },
-            { id: 7, word: "In the evening, she usually stays at home and listens to music." },
-            { id: 8, word: "She sometimes goes to the movie theatre." },
-            { id: 9, word: "She always goes to bed at ten o'clock." }
-        ]
-    };
-
-    // ---------- UNIT 1 BÀI 2 ---------- (Giữ nguyên dữ liệu từ E4_U1_B2)
-    var E6_U1_B2 = {
-        P1: [
-            { id: 1, word: "How old is Janet?", correct: "eleven years old", wrong1: "ten years old", wrong2: "twelve years old" },
-            { id: 2, word: "Which school does Janet go to?", correct: "Palmer School", wrong1: "Park School", wrong2: "Parker School" },
-            { id: 3, word: "How are her classmates?", correct: "friendly", wrong1: "quiet", wrong2: "noisy" },
-            { id: 4, word: "Who is Janet's favourite teacher?", correct: "Mrs. Smith", wrong1: "Mr. Smith", wrong2: "Ms. Smith" },
-            { id: 5, word: "What subject does Mrs. Smith teach?", correct: "maths", wrong1: "English", wrong2: "science" },
-            { id: 6, word: "How many hours a week does Janet study Vietnamese?", correct: "two hours", wrong1: "one hour", wrong2: "three hours" },
-            { id: 7, word: "Where does Janet usually do her homework?", correct: "in the library", wrong1: "at home", wrong2: "in the classroom" },
-            { id: 8, word: "Do the students wear uniforms every day?", correct: "Yes, they do", wrong1: "No, they don't", wrong2: "Only on Mondays" },
-            { id: 9, word: "Why aren't they wearing uniforms today?", correct: "because they are going to a farm", wrong1: "because it's a holiday", wrong2: "because they don't have to" },
-            { id: 10, word: "What lesson are they going to have on the farm?", correct: "biology", wrong1: "geography", wrong2: "art" }
-        ],
-        P2: [
-            { id: 1, word: "Janet is twelve years old.", correct: "False", wrong1: "True", wrong2: "Not Given" },
-            { id: 2, word: "She is in year 6 at Palmer School.", correct: "True", wrong1: "False", wrong2: "Not Given" },
-            { id: 3, word: "Her classmates are not very friendly.", correct: "False", wrong1: "True", wrong2: "Not Given" },
-            { id: 4, word: "Mrs. Smith teaches English.", correct: "False", wrong1: "True", wrong2: "Not Given" },
-            { id: 5, word: "Janet studies Vietnamese for two hours every week.", correct: "True", wrong1: "False", wrong2: "Not Given" },
-            { id: 6, word: "She usually does her homework at home.", correct: "False", wrong1: "True", wrong2: "Not Given" },
-            { id: 7, word: "Students at Palmer School wear uniforms every day.", correct: "True", wrong1: "False", wrong2: "Not Given" },
-            { id: 8, word: "Today they are wearing casual clothes.", correct: "True", wrong1: "False", wrong2: "Not Given" },
-            { id: 9, word: "The farm is very far from the school.", correct: "Not Given", wrong1: "True", wrong2: "False" },
-            { id: 10, word: "They are going to have a biology lesson on the farm.", correct: "True", wrong1: "False", wrong2: "Not Given" }
-        ],
-        P3: [
-            { id: 1, word: "Hi. My name ______ Janet.", correct: "is", wrong1: "are", wrong2: "am" },
-            { id: 2, word: "I'm eleven years ______.", correct: "old", wrong1: "age", wrong2: "young" },
-            { id: 3, word: "I'm now in year 6 ______ Palmer School.", correct: "at", wrong1: "in", wrong2: "on" },
-            { id: 4, word: "My classmates are ______.", correct: "friendly", wrong1: "kind", wrong2: "helpful" },
-            { id: 5, word: "My favourite teacher is ______. Smith.", correct: "Mrs.", wrong1: "Mr.", wrong2: "Ms." },
-            { id: 6, word: "She teaches ______ maths.", correct: "us", wrong1: "we", wrong2: "our" },
-            { id: 7, word: "I have two hours to study Vietnamese ______ week.", correct: "every", wrong1: "a", wrong2: "in" },
-            { id: 8, word: "I usually do my homework ______ the library.", correct: "in", wrong1: "at", wrong2: "on" },
-            { id: 9, word: "We wear our uniforms ______ day.", correct: "every", wrong1: "all", wrong2: "each" },
-            { id: 10, word: "We're going to have a biology lesson ______ a farm.", correct: "on", wrong1: "in", wrong2: "at" }
-        ],
-        P4: "Hi. My name's Janet. I'm eleven years old. I'm now in year 6 at Palmer School. I like it here. My classmates are friendly. The teachers at my school are nice and very helpful, and my favourite teacher is Mrs. Smith. She teaches us maths. I have two hours to study Vietnamese every week. I usually do my homework in the library. We wear our uniforms every day, but today we aren't. We're going to have a biology lesson on a farm.",
-        P5: [
-            { id: 1, word: "Hi. My name's Janet." },
-            { id: 2, word: "I'm eleven years old." },
-            { id: 3, word: "I'm now in year 6 at Palmer School." },
-            { id: 4, word: "I like it here." },
-            { id: 5, word: "My classmates are friendly." },
-            { id: 6, word: "The teachers at my school are nice and very helpful, and my favourite teacher is Mrs. Smith." },
-            { id: 7, word: "She teaches us maths." },
-            { id: 8, word: "I have two hours to study Vietnamese every week." },
-            { id: 9, word: "I usually do my homework in the library." },
-            { id: 10, word: "We wear our uniforms every day, but today we aren't." },
-            { id: 11, word: "We're going to have a biology lesson on a farm." }
-        ]
-    };
-
-    // ---------- UNIT 1 BÀI 3 ---------- (Giữ nguyên dữ liệu từ E4_U1_B3)
-    var E6_U1_B3 = {
-        P1: [
-            { id: 1, word: "Where is Sunrise boarding school?", correct: "in Sydney", wrong1: "in Bac Giang", wrong2: "in London" },
-            { id: 2, word: "How many students go to Sunrise?", correct: "about 1,200", wrong1: "about 1,500", wrong2: "about 800" },
-            { id: 3, word: "Where do the students at Sunrise come from?", correct: "all over Australia", wrong1: "only Sydney", wrong2: "all over the world" },
-            { id: 4, word: "What subjects do they study at Sunrise?", correct: "maths, science and English", wrong1: "art, music and history", wrong2: "biology, physics and chemistry" },
-            { id: 5, word: "How many classes does An Son school have?", correct: "only 8 classes", wrong1: "12 classes", wrong2: "20 classes" },
-            { id: 6, word: "What is around An Son school?", correct: "mountains and green fields", wrong1: "a big city", wrong2: "a river and a lake" },
-            { id: 7, word: "What facilities does An Son school have?", correct: "a computer room and a library", wrong1: "a swimming pool", wrong2: "a gym" },
-            { id: 8, word: "What kind of school is Dream?", correct: "an international school", wrong1: "a boarding school", wrong2: "a lower secondary school" },
-            { id: 9, word: "Who do students learn English with at Dream?", correct: "English-speaking teachers", wrong1: "Vietnamese teachers", wrong2: "Australian teachers" },
-            { id: 10, word: "What do students do in the afternoon at Dream?", correct: "join clubs and play sports", wrong1: "study in the library", wrong2: "go home" }
-        ],
-        P2: [
-            { id: 1, word: "Sunrise is a boarding school in Sydney.", correct: "True", wrong1: "False", wrong2: "Not Given" },
-            { id: 2, word: "Sunrise has 2,000 students.", correct: "False", wrong1: "True", wrong2: "Not Given" },
-            { id: 3, word: "Students at Sunrise come from all over Australia.", correct: "True", wrong1: "False", wrong2: "Not Given" },
-            { id: 4, word: "An Son is a primary school in Bac Giang.", correct: "False", wrong1: "True", wrong2: "Not Given" },
-            { id: 5, word: "An Son has a swimming pool.", correct: "False", wrong1: "True", wrong2: "Not Given" },
-            { id: 6, word: "There is a school garden at An Son.", correct: "True", wrong1: "False", wrong2: "Not Given" },
-            { id: 7, word: "Dream school is in Sydney.", correct: "Not Given", wrong1: "True", wrong2: "False" },
-            { id: 8, word: "Students at Dream learn English with Vietnamese teachers.", correct: "False", wrong1: "True", wrong2: "Not Given" },
-            { id: 9, word: "Dream school has an art club.", correct: "True", wrong1: "False", wrong2: "Not Given" },
-            { id: 10, word: "All three schools are in Australia.", correct: "False", wrong1: "True", wrong2: "Not Given" }
-        ],
-        P3: [
-            { id: 1, word: "Sunrise is a boarding school ______ Sydney.", correct: "in", wrong1: "at", wrong2: "on" },
-            { id: 2, word: "Students study and live ______ Sunrise.", correct: "at", wrong1: "in", wrong2: "on" },
-            { id: 3, word: "It has students from all ______ Australia.", correct: "over", wrong1: "in", wrong2: "around" },
-            { id: 4, word: "An Son is a lower secondary school ______ Bac Giang.", correct: "in", wrong1: "at", wrong2: "on" },
-            { id: 5, word: "There are mountains and green fields ______ the school.", correct: "around", wrong1: "in", wrong2: "on" },
-            { id: 6, word: "There is a computer room and ______ library.", correct: "a", wrong1: "the", wrong2: "an" },
-            { id: 7, word: "There is also a school garden and ______ playground.", correct: "a", wrong1: "the", wrong2: "an" },
-            { id: 8, word: "Dream is ______ international school.", correct: "an", wrong1: "a", wrong2: "the" },
-            { id: 9, word: "Here students learn English ______ English-speaking teachers.", correct: "with", wrong1: "from", wrong2: "by" },
-            { id: 10, word: "Some students do paintings ______ the art club.", correct: "in", wrong1: "at", wrong2: "on" }
-        ],
-        P4: "Sunrise is a boarding school in Sydney. Students study and live there. About 1,200 boys and girls go to Sunrise. It has students from all over Australia. They study subjects like maths, science and English.<br> An Son is a lower secondary school in Bac Giang. It has only 8 classes. There are mountains and green fields around the school. There is a computer room and a library. There is also a school garden and a playground.<br> Dream is an international school. Here students learn English with English-speaking teachers. In the afternoon, they join many interesting clubs. They play sports and games. Some students do paintings in the art club.",
-        P5: [
-            { id: 1, word: "Sunrise is a boarding school in Sydney." },
-            { id: 2, word: "Students study and live there." },
-            { id: 3, word: "About 1,200 boys and girls go to Sunrise." },
-            { id: 4, word: "It has students from all over Australia." },
-            { id: 5, word: "They study subjects like maths, science and English." },
-            { id: 6, word: "An Son is a lower secondary school in Bac Giang." },
-            { id: 7, word: "It has only 8 classes." },
-            { id: 8, word: "There are mountains and green fields around the school." },
-            { id: 9, word: "There is a computer room and a library." },
-            { id: 10, word: "There is also a school garden and a playground." },
-            { id: 11, word: "Dream is an international school." },
-            { id: 12, word: "Here students learn English with English-speaking teachers." },
-            { id: 13, word: "In the afternoon, they join many interesting clubs." },
-            { id: 14, word: "They play sports and games." },
-            { id: 15, word: "Some students do paintings in the art club." }
-        ]
-    };
-
-    // ---------- UNIT 1 BÀI 4 đến BÀI 20 (rỗng) ----------
-    for (let i = 4; i <= 20; i++) {
-        window[`E6_U1_B${i}`] = { P1: [], P2: [], P3: [], P4: "Chưa có nội dung", P5: [] };
-    }
-
-    // ---------- UNIT 2 đến UNIT 12, mỗi unit 20 bài rỗng ----------
-    (function createEmptyLessons() {
-        for (let unit = 2; unit <= 12; unit++) {
-            for (let bai = 1; bai <= 20; bai++) {
-                let varName = 'E6_U' + unit + '_B' + bai;
-                if (typeof window[varName] === 'undefined') {
-                    window[varName] = {
-                        P1: [],
-                        P2: [],
-                        P3: [],
-                        P4: "Chưa có nội dung",
-                        P5: []
-                    };
-                }
+            
+            chunks = result.chunks;
+            
+            if (!changed || !result.changed) {
+                break;
             }
         }
-    })();
-
-    // Quét registry sau khi khai báo tất cả
-    scanLessons();
-
-    // =====================================================
-    // HÀM SẮP XẾP GIỌNG THEO NỀN TẢNG
-    // =====================================================
-    function sortVoicesByPlatform(voices) {
-        const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-        if (isIOS) {
-            // Đưa giọng Samantha lên đầu (nếu có)
-            const samanthaIndex = voices.findIndex(v => v.name.toLowerCase().includes('samantha'));
-            if (samanthaIndex !== -1) {
-                const samantha = voices[samanthaIndex];
-                const otherVoices = voices.filter((_, idx) => idx !== samanthaIndex);
-                return [samantha, ...otherVoices];
-            }
-            return voices;
-        } else {
-            // Desktop / Android: ưu tiên Google, Microsoft lên đầu
-            const googleVoices = voices.filter(v => v.name.toLowerCase().includes('google'));
-            const microsoftVoices = voices.filter(v => v.name.toLowerCase().includes('microsoft'));
-            const otherVoices = voices.filter(v => !v.name.toLowerCase().includes('google') && !v.name.toLowerCase().includes('microsoft'));
-            return [...googleVoices, ...microsoftVoices, ...otherVoices];
-        }
-    }
-
-    // =====================================================
-    // CÁC BIẾN VÀ HÀM XỬ LÝ (dùng LESSON_REGISTRY, lớp 6)
-    // =====================================================
-    const UNIT_ITEMS = [];
-    for (let i = 1; i <= 12; i++) UNIT_ITEMS.push(`UNIT ${i}`);
-    
-    const BAI_ITEMS = ['KIỂM TRA NGẪU NHIÊN', ...Array.from({ length: 20 }, (_, i) => `BÀI ${i+1}`)];
-    const DANG_BAI = ['TRẮC NGHIỆM TỔNG HỢP', 'TRẮC NGHIỆM TRẢ LỜI CÂU HỎI', 'TRẮC NGHIỆM TRUE – FALSE – NOT GIVEN', 'TRẮC NGHIỆM ĐIỀN KHUYẾT'];
-
-    let currentScreen = 'main';
-    let studentName = '';
-    let selectedUnit = 'UNIT 1';
-    let selectedBai = 'KIỂM TRA NGẪU NHIÊN';
-    let selectedDang = DANG_BAI[0];
-    let quizData = null;
-    let userAnswers = [];
-    let startTime = null;
-    let endTime = null;
-    let currentLessonData = null;
-
-    let voiceList = [];
-    let voiceMode = 1;
-    let singleVoice = null;
-    let oddVoice = null;
-    let evenVoice = null;
-    let isPaused = false;
-    let audioQueue = [];
-    let audioTimeout = null;
-    let audioEnabled = false;
-
-    const app = document.getElementById('app');
-
-    // ---------- HÀM PHÁT ÂM (giữ nguyên) ----------
-    function stopAllAudio() {
-        speechSynthesis.cancel();
-        if (audioTimeout) {
-            clearTimeout(audioTimeout);
-            audioTimeout = null;
-        }
-        audioQueue = [];
-        isPaused = false;
-    }
-
-    function pauseAudio() {
-        if (speechSynthesis.speaking) {
-            speechSynthesis.pause();
-            isPaused = true;
-        }
-        if (audioTimeout) {
-            clearTimeout(audioTimeout);
-            audioTimeout = null;
-        }
-    }
-
-    function resumeAudio() {
-        if (isPaused && speechSynthesis.paused) {
-            speechSynthesis.resume();
-            isPaused = false;
-            return;
-        }
-    }
-
-    function getVoiceForId(id) {
-        if (voiceMode === 1) return singleVoice;
-        return (id % 2 === 1) ? oddVoice : evenVoice;
-    }
-
-    function playAudioSentences(sentences, gapSec, loop) {
-        stopAllAudio();
-        if (!sentences || sentences.length === 0) return;
-
-        sentences.forEach(item => {
-            for (let i = 0; i < loop; i++) {
-                audioQueue.push({ text: item.word, id: item.id });
-            }
-        });
-
-        let index = 0;
-        const playNext = () => {
-            if (index >= audioQueue.length) {
-                stopAllAudio();
-                return;
-            }
-            const item = audioQueue[index];
-            const utterance = new SpeechSynthesisUtterance(item.text);
-            utterance.lang = 'en-GB';
-
-            const voice = getVoiceForId(item.id);
-            if (voice) utterance.voice = voice;
-
-            utterance.onend = () => {
-                index++;
-                if (index < audioQueue.length && !isPaused) {
-                    audioTimeout = setTimeout(playNext, gapSec * 1000);
-                } else if (index >= audioQueue.length) {
-                    stopAllAudio();
-                }
-            };
-            utterance.onerror = () => {
-                index++;
-                if (index < audioQueue.length && !isPaused) {
-                    audioTimeout = setTimeout(playNext, gapSec * 1000);
-                }
-            };
-            speechSynthesis.speak(utterance);
-        };
-        playNext();
-    }
-
-    function splitTextWithUnderscores(text) {
-        const parts = [];
-        let lastIndex = 0;
-        const regex = /_+/g;
-        let match;
-        while ((match = regex.exec(text)) !== null) {
-            if (match.index > lastIndex) {
-                parts.push({ type: 'text', content: text.substring(lastIndex, match.index) });
-            }
-            parts.push({ type: 'blank', content: match[0] });
-            lastIndex = match.index + match[0].length;
-        }
-        if (lastIndex < text.length) {
-            parts.push({ type: 'text', content: text.substring(lastIndex) });
-        }
-        return parts;
-    }
-
-    function speakSingleText(text, id) {
-        if (!text || text.trim() === '') return;
-        const parts = splitTextWithUnderscores(text);
         
-        if (parts.length === 1 && parts[0].type === 'text') {
-            speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'en-GB';
-            const voice = getVoiceForId(id);
-            if (voice) utterance.voice = voice;
-            speechSynthesis.speak(utterance);
+        return chunks.filter(c => c.trim().length > 0);
+    }
+
+    // ==================== Tách câu từ đoạn văn ====================
+    function splitIntoSentences(text) {
+        if (!text.trim()) return [];
+        let sentences = text.match(/[^.!?]+[.!?]+/g);
+        if (!sentences || sentences.length === 0) return [text.trim()];
+        return sentences.map(s => s.trim()).filter(s => s.length > 0);
+    }
+
+    let currentSentences = [], currentChunks = [];
+    
+    function buildAllChunks(sentences, level) {
+        // Reset ranh giới bảo vệ khi xử lý văn bản mới
+        resetProtectedBoundaries();
+        // Thêm lại các ranh giới gốc
+        for (let phrase of FIXED_PHRASES) {
+            addProtectedBoundary(phrase);
+        }
+        
+        const maxSize = getMaxChunkSize(level);
+        const allChunks = [];
+        
+        for (let i = 0; i < sentences.length; i++) {
+            const sentence = sentences[i];
+            const wordCount = sentence.split(' ').length;
+            const shouldSplit = naturalPauseToggle.checked && wordCount > maxSize;
+            
+            if (shouldSplit) {
+                const chunks = splitWithSixLoopsAndFourCycles(sentence, level);
+                for (let j = 0; j < chunks.length; j++) {
+                    allChunks.push({ text: chunks[j], sentenceIdx: i, originalSentence: sentence });
+                }
+            } else {
+                allChunks.push({ text: sentence, sentenceIdx: i, originalSentence: sentence });
+            }
+        }
+        
+        return allChunks;
+    }
+
+    // ==================== Audio Core ====================
+    let activePlayback = { cancelled: false };
+    let repeatCount = 2, delaySec = 1, repeatDelaySec = 0.3;
+    let availableVoices = [];
+
+    function delay(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+    
+    function createUtterance(text) {
+        if (!text) return null;
+        const utterance = new SpeechSynthesisUtterance(text);
+        const selectedVoice = voiceSelect.value;
+        
+        // Nếu chọn "Mặc định" (value="default") thì KHÔNG set voice -> hệ thống tự chọn giọng mặc định
+        if (selectedVoice && selectedVoice !== 'default') {
+            const found = availableVoices.find(v => v.name === selectedVoice);
+            if (found) utterance.voice = found;
+        }
+        // Nếu selectedVoice === 'default' thì bỏ qua, để hệ thống tự chọn giọng mặc định
+        
+        utterance.rate = 0.92;
+        return utterance;
+    }
+
+    async function playChunkSequence(chunks, repeat, delayMs, repeatDelayMs, cancelToken) {
+        for (let i = 0; i < chunks.length; i++) {
+            if (cancelToken.cancelled) break;
+            for (let r = 0; r < repeat; r++) {
+                if (cancelToken.cancelled) break;
+                const utterance = createUtterance(chunks[i]);
+                if (utterance) {
+                    await new Promise(res => { utterance.onend = res; utterance.onerror = res; speechSynthesis.cancel(); speechSynthesis.speak(utterance); });
+                }
+                if (r < repeat - 1 && !cancelToken.cancelled) await delay(repeatDelayMs);
+            }
+            if (i < chunks.length - 1 && !cancelToken.cancelled) await delay(delayMs);
+        }
+    }
+
+    async function startSequentialPlayback() {
+        if (currentChunks.length === 0) { alert("Không có nội dung."); return; }
+        stopAndReset();
+        const token = { cancelled: false };
+        activePlayback = token;
+        const chunksTexts = currentChunks.map(c => c.text);
+        await playChunkSequence(chunksTexts, repeatCount, delaySec * 1000, repeatDelaySec * 1000, token);
+        if (!token.cancelled) resetPlayState();
+    }
+    
+    function stopAndReset() { 
+        activePlayback.cancelled = true; 
+        speechSynthesis.cancel(); 
+    }
+    
+    function resetPlayState() { activePlayback = { cancelled: false }; }
+    
+    // ==================== DỊCH THUẬT ====================
+    let translationDebounceTimer = null;
+    let sentenceTranslations = [];
+    let chunksBySentenceForTranslate = [];
+
+    async function translateTextToVietnamese(text) {
+        if (!text.trim()) return "";
+        const encodedText = encodeURIComponent(text);
+        const url = `https://lingva.ml/api/v1/en/vi/${encodedText}`;
+        try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 8000);
+            const response = await fetch(url, { signal: controller.signal });
+            clearTimeout(timeoutId);
+            if (response.ok) {
+                const data = await response.json();
+                if (data && data.translation) {
+                    let translated = data.translation;
+                    translated = translated.replace(/&#39;/g, "'").replace(/&quot;/g, '"');
+                    if (translated && translated !== text) return translated;
+                }
+            }
+        } catch (error) { console.log("Lingva API error", error); }
+        try {
+            const myMemoryUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|vi`)}`;
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 8000);
+            const response = await fetch(myMemoryUrl, { signal: controller.signal });
+            clearTimeout(timeoutId);
+            if (response.ok) {
+                const data = await response.json();
+                let translated = data?.responseData?.translatedText || "";
+                if (translated && translated !== text) {
+                    translated = translated.replace(/&#39;/g, "'").replace(/&quot;/g, '"');
+                    return translated;
+                }
+            }
+        } catch (error) { console.log("Fallback API error", error); }
+        return `[Tạm dịch] ${text}`;
+    }
+
+    async function translateSentenceAndChunks(sentenceIdx, sentenceText, chunksTexts) {
+        const fullTranslation = await translateTextToVietnamese(sentenceText);
+        const chunkTranslations = [];
+        for (let i = 0; i < chunksTexts.length; i++) {
+            chunkTranslations.push(await translateTextToVietnamese(chunksTexts[i]));
+            if (i < chunksTexts.length - 1) await delay(100);
+        }
+        sentenceTranslations[sentenceIdx] = { full: fullTranslation, chunks: chunkTranslations };
+        updateTranslationDisplay();
+    }
+
+    async function performTranslation() {
+        const text = textarea.value;
+        if (!text.trim()) { sentenceTranslations = []; updateTranslationDisplay(); return; }
+        const sentences = splitIntoSentences(text);
+        if (sentences.length === 0) { sentenceTranslations = []; updateTranslationDisplay(); return; }
+        const chunksData = buildAllChunks(sentences, pauseLevelSelect.value);
+        chunksBySentenceForTranslate = [];
+        for (let i = 0; i < sentences.length; i++) {
+            chunksBySentenceForTranslate.push(chunksData.filter(c => c.sentenceIdx === i).map(c => c.text));
+        }
+        sentenceTranslations = sentences.map(() => ({ full: null, chunks: [] }));
+        updateTranslationDisplay();
+        for (let i = 0; i < sentences.length; i++) {
+            translateSentenceAndChunks(i, sentences[i], chunksBySentenceForTranslate[i]);
+            if (i < sentences.length - 1) await delay(200);
+        }
+    }
+    
+    function scheduleTranslation() { 
+        if (translationDebounceTimer) clearTimeout(translationDebounceTimer); 
+        translationDebounceTimer = setTimeout(() => performTranslation(), 500); 
+    }
+    
+    function refreshTranslation() { performTranslation(); }
+    
+    function updateTranslationDisplay() {
+        if (!translationContainer) return;
+        if (sentenceTranslations.length === 0) {
+            translationContainer.innerHTML = '<div style="color:gray; text-align:center; padding:2rem;">⏳ Đang tải bản dịch...</div>';
             return;
         }
-
-        speechSynthesis.cancel();
-
-        let currentIndex = 0;
-
-        const speakNext = () => {
-            if (currentIndex >= parts.length) return;
-            const part = parts[currentIndex];
-            let textToSpeak = part.content;
-            if (part.type === 'blank') {
-                textToSpeak = 'blank';
+        let html = '';
+        for (let i = 0; i < sentenceTranslations.length; i++) {
+            const trans = sentenceTranslations[i];
+            const hasFull = trans.full !== null;
+            const chunks = trans.chunks || [];
+            const hasChunks = chunks.length > 1;
+            if (!hasFull) {
+                html += `<div class="translation-item"><div class="translation-main"><span class="translation-number">${i+1}</span><span class="translation-text"><i class="fas fa-spinner fa-pulse"></i> Đang dịch...</span></div></div>`;
+                continue;
             }
-            const utterance = new SpeechSynthesisUtterance(textToSpeak);
-            utterance.lang = 'en-GB';
-            const voice = getVoiceForId(id);
-            if (voice) utterance.voice = voice;
-
-            utterance.onend = () => {
-                currentIndex++;
-                if (part.type === 'blank') {
-                    setTimeout(speakNext, 300);
-                } else {
-                    speakNext();
+            html += `<div class="translation-item"><div class="translation-main"><span class="translation-number">${i+1}</span><span class="translation-text">${escapeHtml(trans.full)}</span></div>`;
+            if (hasChunks && chunks.length > 0) {
+                html += `<div class="translation-chunk-list">`;
+                for (let j = 0; j < chunks.length; j++) {
+                    html += `<div class="translation-chunk-badge">📝 ${j+1}. ${escapeHtml(chunks[j])}</div>`;
                 }
-            };
-            utterance.onerror = () => {
-                currentIndex++;
-                if (part.type === 'blank') {
-                    setTimeout(speakNext, 300);
-                } else {
-                    speakNext();
-                }
-            };
-            speechSynthesis.speak(utterance);
-        };
-
-        speakNext();
-    }
-
-    function populateVoiceList() {
-        if (!('speechSynthesis' in window)) return;
-        const voices = speechSynthesis.getVoices();
-        voiceList = sortVoicesByPlatform(voices);
-        const davidVoice = voiceList.find(v => 
-            v.name.toLowerCase().includes('david') && 
-            (v.lang.includes('en-GB') || v.lang.includes('en-US'))
-        );
-        updateVoiceDropdowns(davidVoice);
-    }
-
-    function updateVoiceDropdowns(preferredVoice = null) {
-        const singleSelect = document.getElementById('voiceSelect');
-        const oddSelect = document.getElementById('oddVoiceSelect');
-        const evenSelect = document.getElementById('evenVoiceSelect');
-        if (!singleSelect || !oddSelect || !evenSelect) return;
-
-        const fillSelect = (select) => {
-            select.innerHTML = '';
-            const emptyOpt = document.createElement('option');
-            emptyOpt.value = '';
-            emptyOpt.textContent = '-- Chọn giọng --';
-            select.appendChild(emptyOpt);
-
-            voiceList.forEach(v => {
-                const opt = document.createElement('option');
-                opt.value = v.voiceURI;
-                opt.textContent = `${v.name} (${v.lang})${v.default ? ' [Mặc định]' : ''}`;
-                if (preferredVoice && v.voiceURI === preferredVoice.voiceURI) {
-                    opt.selected = true;
-                }
-                select.appendChild(opt);
-            });
-        };
-        fillSelect(singleSelect);
-        fillSelect(oddSelect);
-        fillSelect(evenSelect);
-
-        singleVoice = singleSelect.value ? voiceList.find(v => v.voiceURI === singleSelect.value) : null;
-        oddVoice = oddSelect.value ? voiceList.find(v => v.voiceURI === oddSelect.value) : null;
-        evenVoice = evenSelect.value ? voiceList.find(v => v.voiceURI === evenSelect.value) : null;
-    }
-
-    if ('speechSynthesis' in window) {
-        speechSynthesis.onvoiceschanged = populateVoiceList;
-        if (speechSynthesis.getVoices().length > 0) {
-            populateVoiceList();
-        }
-    }
-
-    // ---------- HÀM KIỂM TRA BÀI HỢP LỆ (CÓ DỮ LIỆU) ----------
-    function isLessonValid(lesson) {
-        return (lesson.P1 && lesson.P1.length > 0) ||
-               (lesson.P2 && lesson.P2.length > 0) ||
-               (lesson.P3 && lesson.P3.length > 0) ||
-               (lesson.P4 && lesson.P4 !== "Chưa có nội dung");
-    }
-
-    // ---------- HÀM CHUẨN BỊ DỮ LIỆU (lớp 6) ----------
-    function prepareQuizData() {
-        const unitKey = selectedUnit.replace('UNIT ', 'U'); // "U1"
-        let baiNumber = null;
-        let rawData = null;
-
-        if (selectedBai === 'KIỂM TRA NGẪU NHIÊN') {
-            const unitLessons = LESSON_REGISTRY['6']?.[unitKey];
-            if (!unitLessons) {
-                alert(`Unit ${selectedUnit} chưa có bài nào.`);
-                return false;
+                html += `</div>`;
             }
-            const availableBais = Object.keys(unitLessons);
-            const validBais = availableBais.filter(b => isLessonValid(unitLessons[b]));
-            if (validBais.length === 0) {
-                alert(`Unit ${selectedUnit} chưa có bài nào có dữ liệu.`);
-                return false;
-            }
-            const randomBai = validBais[Math.floor(Math.random() * validBais.length)];
-            baiNumber = randomBai.substring(1);
-            rawData = unitLessons[randomBai];
-        } else {
-            baiNumber = selectedBai.replace('BÀI ', '');
-            rawData = LESSON_REGISTRY['6']?.[unitKey]?.[`B${baiNumber}`];
-            if (!rawData) {
-                alert(`Không tìm thấy dữ liệu cho ${selectedUnit} - ${selectedBai}.`);
-                return false;
-            }
-            if (!isLessonValid(rawData)) {
-                alert(`Bài ${selectedBai} trong ${selectedUnit} chưa có nội dung.`);
-                return false;
-            }
+            html += `</div>`;
         }
-
-        if (!rawData) {
-            alert(`Không tìm thấy dữ liệu cho ${selectedUnit} - ${selectedBai}.`);
-            return false;
-        }
-
-        currentLessonData = rawData;
-
-        let questionPool = [];
-        let numberOfQuestions = 5;
-
-        if (selectedDang === 'TRẮC NGHIỆM TỔNG HỢP') {
-            const p1 = rawData.P1 || [];
-            const p2 = rawData.P2 || [];
-            const p3 = rawData.P3 || [];
-            questionPool = [...p1, ...p2, ...p3];
-            numberOfQuestions = 10;
-        } else if (selectedDang.includes('TRẮC NGHIỆM TRẢ LỜI CÂU HỎI')) {
-            questionPool = rawData.P1 || [];
-        } else if (selectedDang.includes('TRUE – FALSE')) {
-            questionPool = rawData.P2 || [];
-        } else if (selectedDang.includes('ĐIỀN KHUYẾT')) {
-            questionPool = rawData.P3 || [];
-        }
-
-        if (!questionPool.length) {
-            alert('Dạng bài này chưa có câu hỏi.');
-            return false;
-        }
-
-        const shuffled = [...questionPool].sort(() => 0.5 - Math.random());
-        const selected = shuffled.slice(0, Math.min(numberOfQuestions, shuffled.length));
-
-        quizData = selected.map(q => {
-            let opts = [q.correct, q.wrong1, q.wrong2];
-            for (let i = opts.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [opts[i], opts[j]] = [opts[j], opts[i]];
-            }
-            return {
-                id: q.id,
-                question: q.word,
-                options: opts,
-                correct: q.correct
-            };
-        });
-        return true;
+        translationContainer.innerHTML = html;
     }
-
-    // ---------- RENDER CÁC MÀN HÌNH (giữ nguyên logic, chỉ sửa tên lớp) ----------
-    function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-
-    function renderMain() {
-        let html = `
-            <div class="main-card">
-                <h1>🔊 LUYỆN NGHE TIẾNG ANH LỚP 6</h1>
-                <div class="flex-col">
-                    <div class="label-input"><label>👤 TÊN</label><input type="text" id="studentNameInput" value="${studentName}"></div>
-                    <div class="label-input"><label>📚 UNIT</label><select id="unitSelect">${UNIT_ITEMS.map(u => `<option ${selectedUnit===u?'selected':''}>${u}</option>`).join('')}</select></div>
-                    <div class="label-input"><label>📖 BÀI</label><select id="baiSelect">${BAI_ITEMS.map(b => `<option ${selectedBai===b?'selected':''}>${b}</option>`).join('')}</select></div>
-                    <div class="label-input"><label>🎯 DẠNG</label><select id="dangSelect">${DANG_BAI.map(d => `<option ${selectedDang===d?'selected':''}>${d}</option>`).join('')}</select></div>
-                    <div class="btn-group"><button class="btn primary" id="startBtn">▶ LÀM BÀI</button></div>
-                </div>
-                <div class="footer-info"><p>👨🏫 Thầy Hùng</p><p>Giáo viên dạy kèm Toán, tiếng Anh</p><p class="zalo">📞 Zalo: 0967.095.025</p></div>
-                <div class="action-buttons-container"><div></div><a href="#" class="scroll-top" id="scrollTopMain">⬆️</a></div>
-            </div>`;
-        app.innerHTML = html;
-        document.getElementById('studentNameInput').addEventListener('input', e => studentName = e.target.value);
-        document.getElementById('unitSelect').addEventListener('change', e => selectedUnit = e.target.value);
-        document.getElementById('baiSelect').addEventListener('change', e => selectedBai = e.target.value);
-        document.getElementById('dangSelect').addEventListener('change', e => selectedDang = e.target.value);
-        document.getElementById('startBtn').addEventListener('click', () => {
-            if (!studentName.trim()) { alert('Vui lòng nhập tên'); return; }
-            if (!prepareQuizData()) { return; }
-            currentScreen = 'quiz';
-            startTime = Date.now();
-            endTime = null;
-            userAnswers = [];
-            audioEnabled = false;
-            render();
-            scrollToTop();
-        });
-        document.getElementById('scrollTopMain').addEventListener('click', (e)=>{ e.preventDefault(); scrollToTop(); });
+    
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m]));
     }
-
-    function renderQuiz() {
-        let titleBai = selectedBai === 'KIỂM TRA NGẪU NHIÊN' ? 'KIỂM TRA' : selectedBai;
-        let html = `
-            <div class="main-card">
-                <h2>📘 LỚP 6 - ${selectedUnit} - ${titleBai}</h2>
-                <div class="title-sub">${selectedDang}</div>
-                
-                <div class="audio-panel" id="audioPanel">
-                    <span class="speaker-icon" id="playSpeaker">🔊</span>
-                    <select id="gapTimeSelect">
-                        <option value="0.25">0.25s</option>
-                        <option value="0.5" selected>0.5s</option>
-                        <option value="0.75">0.75s</option>
-                        <option value="1">1s</option>
-                        <option value="2">2s</option>
-                        <option value="3">3s</option>
-                        <option value="4">4s</option>
-                        <option value="5">5s</option>
-                        <option value="6">6s</option>
-                    </select>
-                    <select id="loopCountSelect">
-                        <option value="1" selected>1 lần</option>
-                        <option value="2">2 lần</option>
-                        <option value="3">3 lần</option>
-                        <option value="4">4 lần</option>
-                    </select>
-                    <button id="pauseAudioBtn">⏸️</button>
-                    <button id="stopAudioBtn">⏹️</button>
-                </div>
-                <div style="display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 20px; align-items: center; background: #e0ebf9; padding: 12px 20px; border-radius: 40px;">
-                    <label style="font-weight:600;">Số giọng:
-                        <select id="voiceModeSelect" style="padding:6px 12px; border-radius:40px;">
-                            <option value="1" selected>1 giọng</option>
-                            <option value="2">2 giọng (lẻ/chẵn)</option>
-                        </select>
-                    </label>
-                    <div id="singleVoiceContainer" style="display: flex; align-items:center; gap: 10px;">
-                        <label>Giọng: <select id="voiceSelect" style="min-width:180px; padding:6px;"></select></label>
-                    </div>
-                    <div id="dualVoiceContainer" style="display: none; align-items:center; gap: 10px; flex-wrap:wrap;">
-                        <label>Giọng lẻ (1,3,5...): <select id="oddVoiceSelect" style="min-width:160px;"></select></label>
-                        <label>Giọng chẵn (2,4,6...): <select id="evenVoiceSelect" style="min-width:160px;"></select></label>
-                    </div>
-                </div>
-
-                <div id="quizQuestions"></div>
-                <div class="btn-group"><button class="btn primary" id="submitQuizBtn">📩 NỘP BÀI</button></div>
-                
-                <div class="action-buttons-container">
-                    <button class="btn-back" id="backToMainBtn">◀ QUAY LẠI</button>
-                    <a href="#" class="scroll-top" id="scrollTopQuiz">⬆️</a>
-                </div>
-            </div>`;
-        app.innerHTML = html;
-
-        let qDiv = document.getElementById('quizQuestions');
-        quizData.forEach((q, idx) => {
-            let qHtml = `<div class="question-item" data-qidx="${idx}">
-                <div class="question-text">
-                    <span class="speaker-btn" data-text="${q.question.replace(/"/g, '&quot;')}" data-id="${q.id}">🔊</span>
-                    ${idx+1}. ${q.question}
-                </div>
-                <div class="options">`;
-            q.options.forEach((opt, optIdx) => {
-                let checked = (userAnswers[idx] && userAnswers[idx].chosen === opt) ? 'checked' : '';
-                qHtml += `<label class="option ${checked ? 'selected' : ''}"><input type="radio" name="q${idx}" value="${opt}" ${checked}> ${opt}</label>`;
-            });
-            qHtml += '</div></div>';
-            qDiv.innerHTML += qHtml;
-        });
-
-        document.querySelectorAll('.question-item input[type=radio]').forEach(radio => {
-            radio.addEventListener('change', function(e) {
-                let name = this.name;
-                let qIndex = parseInt(name.substring(1));
-                let chosen = this.value;
-                if (!userAnswers[qIndex]) userAnswers[qIndex] = {};
-                userAnswers[qIndex].chosen = chosen;
-                document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
-                    r.closest('.option').classList.remove('selected');
+    
+    // ==================== UI UPDATE ====================
+    function updatePanelsFromText(rawText) {
+        originalDisplay.innerText = rawText || "(chưa có nội dung)";
+        const sentences = splitIntoSentences(rawText);
+        currentSentences = sentences;
+        currentChunks = buildAllChunks(sentences, pauseLevelSelect.value);
+        
+        if (!sentences.length) {
+            sentencesContainer.innerHTML = `<div style="text-align:center; color:gray;">📭 Không tìm thấy câu nào</div>`;
+            return;
+        }
+        
+        sentencesContainer.innerHTML = '';
+        sentences.forEach((sentence, idx) => {
+            const sentenceDiv = document.createElement('div');
+            sentenceDiv.className = 'sentence-item';
+            
+            const mainDiv = document.createElement('div');
+            mainDiv.className = 'sentence-main';
+            
+            const playBtn = document.createElement('button');
+            playBtn.className = 'sentence-play';
+            playBtn.innerHTML = '<i class="fas fa-play-circle"></i>';
+            playBtn.onclick = async () => { stopAndReset(); const token = { cancelled: false }; activePlayback = token; await playChunkSequence([sentence], repeatCount, delaySec*1000, repeatDelaySec*1000, token); };
+            
+            const textSpan = document.createElement('span');
+            textSpan.className = 'sentence-text';
+            const maxSize = getMaxChunkSize(pauseLevelSelect.value);
+            const isLong = sentence.split(' ').length > maxSize;
+            textSpan.innerText = `${idx+1}. ${sentence} ${isLong ? '📏' : ''}`;
+            
+            mainDiv.appendChild(playBtn);
+            mainDiv.appendChild(textSpan);
+            
+            const chunksOfThisSentence = currentChunks.filter(c => c.sentenceIdx === idx);
+            if (isLong && naturalPauseToggle.checked && chunksOfThisSentence.length > 1) {
+                const chunkListPlayBtn = document.createElement('button');
+                chunkListPlayBtn.className = 'chunk-list-play-btn';
+                chunkListPlayBtn.innerHTML = '<i class="fas fa-head-side-headphones"></i> 🎧';
+                chunkListPlayBtn.title = 'Nghe toàn bộ câu (từng cụm rời)';
+                const chunksTexts = chunksOfThisSentence.map(c => c.text);
+                chunkListPlayBtn.onclick = async () => { stopAndReset(); const token = { cancelled: false }; activePlayback = token; await playChunkSequence(chunksTexts, repeatCount, delaySec*1000, repeatDelaySec*1000, token); };
+                mainDiv.appendChild(chunkListPlayBtn);
+            }
+            
+            sentenceDiv.appendChild(mainDiv);
+            
+            if (isLong && naturalPauseToggle.checked && chunksOfThisSentence.length > 1) {
+                const chunkListDiv = document.createElement('div');
+                chunkListDiv.className = 'chunk-list';
+                chunksOfThisSentence.forEach((chunk, ci) => {
+                    const badge = document.createElement('span');
+                    badge.className = 'chunk-badge';
+                    badge.innerText = `${ci+1}. ${chunk.text}`;
+                    badge.onclick = async () => { stopAndReset(); const token = { cancelled: false }; activePlayback = token; await playChunkSequence([chunk.text], repeatCount, delaySec*1000, repeatDelaySec*1000, token); };
+                    chunkListDiv.appendChild(badge);
                 });
-                this.closest('.option').classList.add('selected');
-            });
+                sentenceDiv.appendChild(chunkListDiv);
+            }
+            
+            sentencesContainer.appendChild(sentenceDiv);
         });
-
-        document.querySelectorAll('.speaker-btn[data-text]').forEach(btn => {
-            btn.addEventListener('click', e => {
-                e.stopPropagation();
-                const text = btn.getAttribute('data-text');
-                const id = parseInt(btn.getAttribute('data-id'));
-                speakSingleText(text, id);
-            });
+    }
+    
+    function onTextChange() {
+        updatePanelsFromText(textarea.value);
+        stopAndReset();
+        scheduleTranslation();
+    }
+    
+    function refreshChunks() {
+        if (currentSentences.length) {
+            currentChunks = buildAllChunks(currentSentences, pauseLevelSelect.value);
+            updatePanelsFromText(textarea.value);
+        }
+    }
+    
+    // ==================== Từ điển popup ====================
+    let activeDictPopup = null;
+    function closeDictPopup() { if (activeDictPopup) { activeDictPopup.remove(); activeDictPopup = null; } }
+    
+    function showDictPopup(word, x, y, html) {
+        closeDictPopup();
+        const popup = document.createElement('div');
+        popup.className = 'dict-popup';
+        popup.style.left = (x + 10) + 'px';
+        popup.style.top = (y + 10) + 'px';
+        popup.innerHTML = `<button class="close-dict"><i class="fas fa-times"></i> Đóng</button><div class="dict-word">📖 ${escapeHtml(word)}</div>${html}`;
+        document.body.appendChild(popup);
+        activeDictPopup = popup;
+        popup.querySelector('.close-dict').onclick = () => closeDictPopup();
+        setTimeout(() => {
+            const handler = (e) => { if (activeDictPopup && !activeDictPopup.contains(e.target)) { closeDictPopup(); document.removeEventListener('click', handler); } };
+            document.addEventListener('click', handler);
+        }, 50);
+        const rect = popup.getBoundingClientRect();
+        if (rect.right > window.innerWidth) popup.style.left = (window.innerWidth - rect.width - 10) + 'px';
+        if (rect.bottom > window.innerHeight) popup.style.top = (y - rect.height - 10) + 'px';
+    }
+    
+    async function lookupWord(word) {
+        if (!/^[a-zA-Z]+(?:[-'][a-zA-Z]+)*$/.test(word)) return null;
+        try {
+            const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word.toLowerCase())}`);
+            if (!res.ok) return { error: `Không tìm thấy "${word}"` };
+            const data = await res.json();
+            const entry = data[0];
+            const phonetic = entry.phonetic || (entry.phonetics?.[0]?.text) || "";
+            let meaningHtml = '';
+            for (let m of entry.meanings.slice(0, 2)) {
+                meaningHtml += `<div><strong>${m.partOfSpeech}</strong><ul>`;
+                for (let def of m.definitions.slice(0, 2)) {
+                    meaningHtml += `<li>${escapeHtml(def.definition)}</li>`;
+                    if (def.example) meaningHtml += `<div class="dict-example">📌 "${escapeHtml(def.example)}"</div>`;
+                }
+                meaningHtml += `</ul></div>`;
+            }
+            return { phonetic, meaningHtml };
+        } catch(e) { return { error: "Lỗi kết nối" }; }
+    }
+    
+    async function onDoubleClickWord(e) {
+        const selection = window.getSelection().toString().trim();
+        if (!selection) return;
+        const match = selection.match(/[a-zA-Z]+(?:[-'][a-zA-Z]+)*/);
+        if (!match) return;
+        const word = match[0];
+        if (word.length < 2) return;
+        showDictPopup(word, e.clientX, e.clientY, '<div><i class="fas fa-spinner fa-pulse"></i> Đang tra...</div>');
+        const result = await lookupWord(word);
+        const content = result.error ? `<div class="dict-error">${escapeHtml(result.error)}</div>` : `${result.phonetic ? `<div class="dict-phonetic">/${escapeHtml(result.phonetic)}/</div>` : ''}<div class="dict-meaning">${result.meaningHtml}</div>`;
+        if (activeDictPopup) {
+            activeDictPopup.querySelector('.dict-word').innerHTML = `📖 ${escapeHtml(word)}`;
+            const old = activeDictPopup.querySelector('.dict-phonetic, .dict-meaning, .dict-error');
+            if (old) old.remove();
+            activeDictPopup.insertAdjacentHTML('beforeend', content);
+        } else showDictPopup(word, e.clientX, e.clientY, content);
+    }
+    
+    function bindDictionaryEvents() {
+        const orig = document.getElementById('originalTextDisplay');
+        const sent = document.getElementById('sentencesList');
+        if (orig) orig.removeEventListener('dblclick', onDoubleClickWord);
+        if (sent) sent.removeEventListener('dblclick', onDoubleClickWord);
+        if (orig) orig.addEventListener('dblclick', onDoubleClickWord);
+        if (sent) sent.addEventListener('dblclick', onDoubleClickWord);
+    }
+    
+    // ==================== Voice list ====================
+    function populateVoiceList() {
+        const voices = speechSynthesis.getVoices();
+        if (!voices.length) return;
+        
+        availableVoices = voices;
+        const selected = voiceSelect.value;
+        
+        // Xóa tất cả option cũ, giữ lại option "Mặc định" đầu tiên
+        voiceSelect.innerHTML = '<option value="default" selected>📱 Mặc định (giọng hệ thống)</option>';
+        
+        // Thêm các giọng có sẵn
+        voices.forEach(v => {
+            const opt = document.createElement('option');
+            opt.value = v.name;
+            opt.textContent = v.name + (v.lang ? ` (${v.lang})` : '');
+            voiceSelect.appendChild(opt);
         });
-
-        if (voiceList.length) {
-            const davidVoice = voiceList.find(v => 
-                v.name.toLowerCase().includes('david') && 
-                (v.lang.includes('en-GB') || v.lang.includes('en-US'))
-            );
-            updateVoiceDropdowns(davidVoice);
+        
+        // Khôi phục lựa chọn trước đó (nếu có và không phải default)
+        if (selected && selected !== 'default' && voices.some(v => v.name === selected)) {
+            voiceSelect.value = selected;
         } else {
-            populateVoiceList();
+            voiceSelect.value = 'default';
         }
-
-        document.getElementById('voiceModeSelect').addEventListener('change', function(e) {
-            voiceMode = parseInt(e.target.value);
-            document.getElementById('singleVoiceContainer').style.display = voiceMode === 1 ? 'flex' : 'none';
-            document.getElementById('dualVoiceContainer').style.display = voiceMode === 2 ? 'flex' : 'none';
-        });
-        document.getElementById('voiceSelect')?.addEventListener('change', e => {
-            singleVoice = e.target.value ? voiceList.find(v => v.voiceURI === e.target.value) : null;
-        });
-        document.getElementById('oddVoiceSelect')?.addEventListener('change', e => {
-            oddVoice = e.target.value ? voiceList.find(v => v.voiceURI === e.target.value) : null;
-        });
-        document.getElementById('evenVoiceSelect')?.addEventListener('change', e => {
-            evenVoice = e.target.value ? voiceList.find(v => v.voiceURI === e.target.value) : null;
-        });
-
-        document.getElementById('playSpeaker').addEventListener('click', ()=>{
-            if (!audioEnabled) { startTime = Date.now(); audioEnabled = true; }
-            if (currentLessonData && currentLessonData.P5) {
-                let gap = parseFloat(document.getElementById('gapTimeSelect').value);
-                let loop = parseInt(document.getElementById('loopCountSelect').value);
-                playAudioSentences(currentLessonData.P5, gap, loop);
-            }
-        });
-        document.getElementById('pauseAudioBtn').addEventListener('click', ()=>{
-            if (isPaused) resumeAudio(); else pauseAudio();
-        });
-        document.getElementById('stopAudioBtn').addEventListener('click', stopAllAudio);
-        document.getElementById('backToMainBtn').addEventListener('click', ()=>{ stopAllAudio(); currentScreen='main'; render(); scrollToTop(); });
-        document.getElementById('scrollTopQuiz').addEventListener('click', e=>{ e.preventDefault(); scrollToTop(); });
-        document.getElementById('submitQuizBtn').addEventListener('click', ()=>{
-            if (userAnswers.filter(a=>a?.chosen).length !== quizData.length) { 
-                alert(`Vui lòng trả lời đủ ${quizData.length} câu`); 
-                return; 
-            }
-            endTime = Date.now();
-            stopAllAudio();
-            currentScreen = 'report';
-            render();
-            scrollToTop();
-        });
     }
-
-    function renderReport() {
-        let total = quizData.length;
-        let correctCount = userAnswers.filter((ans,i)=> ans?.chosen === quizData[i]?.correct).length;
-        let percent = (correctCount/total)*100;
-        let color = percent<50?'#f5222d':percent<70?'#faad14':percent<80?'#52c41a':percent<90?'#13c2c2':percent<100?'#1890ff':'#722ed1';
-        let startStr = startTime ? new Date(startTime).toLocaleTimeString() : '';
-        let endStr = endTime ? new Date(endTime).toLocaleTimeString() : '';
-        let streak = 0, maxStreak=0;
-        userAnswers.forEach((a,i)=> { if(a?.chosen===quizData[i]?.correct) streak++; else { maxStreak=Math.max(maxStreak,streak); streak=0; } });
-        maxStreak=Math.max(maxStreak,streak);
-        let totalTime = endTime && startTime ? Math.round((endTime-startTime)/300) : 0;
-
-        let titleBai = selectedBai === 'KIỂM TRA NGẪU NHIÊN' ? 'KIỂM TRA' : selectedBai;
-        let passageText = currentLessonData?.P4 || 'Chưa có nội dung';
-        let sentences = currentLessonData?.P5 || [];
-
-        let html = `
-            <div class="main-card">
-                <h2>📊 BÁO CÁO LỚP 6 - ${selectedUnit} - ${titleBai}</h2>
-                <div class="title-sub">${selectedDang}</div>
-                
-                <div class="report-chart-grid">
-                    <div class="chart-box">
-                        <div style="font-weight:800; font-size:2.4rem; color:blue; margin-bottom:10px;">${studentName}</div>
-                        <div class="pie" style="background: conic-gradient(${color} 0deg ${percent*3.6}deg, #e0e0e0 ${percent*3.6}deg 360deg);">
-                            <span style="color: ${color};">${Math.round(percent)}%</span>
-                        </div>
-                        <div style="font-weight:bold; color:#1e3c72; margin-top:15px;">${new Date().toLocaleDateString()}</div>
-                    </div>
-                    <div class="stats-grid">
-                        <div class="stat-item"><div>⏱️ START</div><div>${startStr}</div></div>
-                        <div class="stat-item"><div>⌛ END</div><div>${endStr}</div></div>
-                        <div class="stat-item"><div>🔗 CHUỖI</div><div>${maxStreak}/${correctCount}/${total}</div></div>
-                        <div class="stat-item"><div>⏳ Tổng</div><div>${totalTime}s</div></div>
-                    </div>
-                </div>
-
-                <div class="audio-panel" id="audioPanelReport">
-                    <span class="speaker-icon" id="playSpeakerReport">🔊</span>
-                    <select id="gapTimeSelectReport">
-                        <option value="0.25">0.25s</option>
-                        <option value="0.5" selected>0.5s</option>
-                        <option value="0.75">0.75s</option>
-                        <option value="1">1s</option>
-                        <option value="2">2s</option>
-                        <option value="3">3s</option>
-                        <option value="4">4s</option>
-                        <option value="5">5s</option>
-                        <option value="6">6s</option>
-                    </select>
-                    <select id="loopCountSelectReport">
-                        <option value="1" selected>1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                    </select>
-                    <button id="pauseAudioBtnReport">⏸️</button><button id="stopAudioBtnReport">⏹️</button>
-                </div>
-                <div style="display: flex; flex-wrap: wrap; gap: 16px; margin: 10px 0 20px; align-items: center; background: #e0ebf9; padding: 12px 20px; border-radius: 40px;">
-                    <label style="font-weight:600;">Số giọng:
-                        <select id="voiceModeSelectReport" style="padding:6px 12px;">
-                            <option value="1" selected>1 giọng</option>
-                            <option value="2">2 giọng</option>
-                        </select>
-                    </label>
-                    <div id="singleVoiceContainerReport" style="display: flex; gap:10px;">
-                        <label>Giọng: <select id="voiceSelectReport"></select></label>
-                    </div>
-                    <div id="dualVoiceContainerReport" style="display: none; gap:10px; flex-wrap:wrap;">
-                        <label>Giọng lẻ: <select id="oddVoiceSelectReport"></select></label>
-                        <label>Giọng chẵn: <select id="evenVoiceSelectReport"></select></label>
-                    </div>
-                </div>
-
-                <button class="btn" id="togglePassageBtn">📄 HIỆN đoạn văn P4</button>
-                <div id="passageContainer" style="display:none;" class="hidden-passage">${passageText}</div>
-                
-                <h3>📋 Chi tiết câu hỏi</h3>
-                <table><thead><tr><th>STT</th><th>Nội dung</th><th>Đáp án chọn</th><th>Đáp án đúng</th></tr></thead><tbody>`;
-        quizData.forEach((q,i)=>{
-            let chosen = userAnswers[i]?.chosen || '—';
-            let correct = q.correct;
-            let wrongClass = (chosen !== correct) ? 'wrong-answer' : '';
-            html += `<tr><td>${i+1}</td><td>${q.question}</td><td class="${wrongClass}">${chosen}</td><td><span class="correct-answer">${correct}</span></td></tr>`;
-        });
-        html += `</tbody></table><br>
-                <div class="action-buttons-container">
-                    <button class="btn-back" id="backToMainBtnReport">◀ QUAY LẠI</button>
-                    <a href="#" class="scroll-top" id="scrollTopReport">⬆️</a>
-                </div>
-            </div>`;
-        app.innerHTML = html;
-
-        // Xử lý voice dropdowns trong report (giống quiz)
-        if (voiceList.length) {
-            const davidVoice = voiceList.find(v => 
-                v.name.toLowerCase().includes('david') && 
-                (v.lang.includes('en-GB') || v.lang.includes('en-US'))
-            );
-            const singleSel = document.getElementById('voiceSelectReport');
-            const oddSel = document.getElementById('oddVoiceSelectReport');
-            const evenSel = document.getElementById('evenVoiceSelectReport');
-            if (singleSel && oddSel && evenSel) {
-                const fill = (sel) => {
-                    sel.innerHTML = '';
-                    const emptyOpt = document.createElement('option');
-                    emptyOpt.value = '';
-                    emptyOpt.textContent = '-- Chọn giọng --';
-                    sel.appendChild(emptyOpt);
-                    voiceList.forEach(v => {
-                        let opt = document.createElement('option');
-                        opt.value = v.voiceURI;
-                        opt.textContent = `${v.name} (${v.lang})`;
-                        if (davidVoice && v.voiceURI === davidVoice.voiceURI) opt.selected = true;
-                        sel.appendChild(opt);
-                    });
-                };
-                fill(singleSel);
-                fill(oddSel);
-                fill(evenSel);
-            }
-        }
-
-        const modeSel = document.getElementById('voiceModeSelectReport');
-        const singleDiv = document.getElementById('singleVoiceContainerReport');
-        const dualDiv = document.getElementById('dualVoiceContainerReport');
-        modeSel.addEventListener('change', e => {
-            voiceMode = parseInt(e.target.value);
-            singleDiv.style.display = voiceMode === 1 ? 'flex' : 'none';
-            dualDiv.style.display = voiceMode === 2 ? 'flex' : 'none';
-        });
-        document.getElementById('voiceSelectReport')?.addEventListener('change', e => {
-            singleVoice = e.target.value ? voiceList.find(v => v.voiceURI === e.target.value) : null;
-        });
-        document.getElementById('oddVoiceSelectReport')?.addEventListener('change', e => {
-            oddVoice = e.target.value ? voiceList.find(v => v.voiceURI === e.target.value) : null;
-        });
-        document.getElementById('evenVoiceSelectReport')?.addEventListener('change', e => {
-            evenVoice = e.target.value ? voiceList.find(v => v.voiceURI === e.target.value) : null;
-        });
-
-        document.getElementById('playSpeakerReport').addEventListener('click', ()=>{
-            if (currentLessonData && currentLessonData.P5) {
-                let gap = parseFloat(document.getElementById('gapTimeSelectReport').value);
-                let loop = parseInt(document.getElementById('loopCountSelectReport').value);
-                playAudioSentences(currentLessonData.P5, gap, loop);
-            }
-        });
-        document.getElementById('pauseAudioBtnReport').addEventListener('click', ()=>{
-            if (isPaused) resumeAudio(); else pauseAudio();
-        });
-        document.getElementById('stopAudioBtnReport').addEventListener('click', stopAllAudio);
-        document.getElementById('togglePassageBtn').addEventListener('click', ()=>{
-            let c = document.getElementById('passageContainer');
-            c.style.display = c.style.display === 'none' ? 'block' : 'none';
-        });
-        document.getElementById('backToMainBtnReport').addEventListener('click', ()=>{ stopAllAudio(); currentScreen='main'; render(); scrollToTop(); });
-        document.getElementById('scrollTopReport').addEventListener('click', e=>{ e.preventDefault(); scrollToTop(); });
+    
+    // ==================== NỘI DUNG QUY TẮC CHUẨN ====================
+    function getRuleContent(level) {
+        const maxSize = getMaxChunkSize(level);
+        const cutSize = getCutSizeForStep5(level);
+        
+        const fullPrepositionsList = PREPOSITIONS.join(', ');
+        const fixedPhrasesList = FIXED_PHRASES.join(', ');
+        const step3WordsList = STEP3_WORDS.join(', ');
+        
+        return `
+            <div><h4><i class="fas fa-gavel"></i> QUY TẮC CHUẨN: 6 BƯỚC - 4 VÒNG LẶP (v2.0) <span class="dynamic-badge">+ BẢO VỆ RANH GIỚI</span></h4></div>
+            
+            <div class="step-box"><div class="step-title">📌 CÁC MỨC ĐỘ CẮT</div>
+            <table class="rule-table">
+                <tr><th>Mức</th><th>Ký hiệu</th><th>Số từ tối đa/cụm (maxSize)</th><th>Cắt Bước 5 (lấy số từ đầu)</th><th>Phù hợp</th></tr>
+                <tr><td style="background:#4caf50; color:white; text-align:center;">🌿</td><td><strong>Nhẹ</strong></td><td>12 từ</td><td>9 từ</td><td>Người mới bắt đầu, đọc hiểu</td></tr>
+                <tr><td style="background:#ff9800; color:white; text-align:center;">⭐</td><td><strong>Vừa</strong></td><td>6 từ</td><td>5 từ</td><td>Trình độ trung cấp, luyện nghe</td></tr>
+                <tr><td style="background:#f44336; color:white; text-align:center;">⚡</td><td><strong>Mạnh</strong></td><td>4 từ</td><td>3 từ</td><td>Luyện phát âm chi tiết</td></tr>
+            </table>
+            </div>
+            
+            <div class="step-box"><div class="step-title">🛡️ HỆ THỐNG BẢO VỆ RANH GIỚI (KHÔNG CẮT BÊN TRONG)</div>
+            <div><strong>Loại 1 - CỤM CỐ ĐỊNH GỐC (KHÔNG BAO GIỜ THAY ĐỔI):</strong><br>
+            <code style="font-size:0.7rem; word-break:break-all;">${fixedPhrasesList}</code></div>
+            <div style="margin-top:10px;"><strong>Loại 2 - RANH GIỚI BẢO VỆ ĐỘNG (SINH RA TRONG BƯỚC 2):</strong><br>
+            Khi phát hiện <strong style="color:#c2410c;">chỉ có 1 từ duy nhất đứng trước một cụm cố định gốc</strong>, hệ thống sẽ:<br>
+            • Gộp thành ranh giới bảo vệ mới (ví dụ: "teenagers need to" từ "teenagers" + "need to")<br>
+            • <strong>KHÔNG cắt bên trong</strong> ranh giới này (không cắt giữa "teenagers" và "need to")<br>
+            • Nhưng VẪN CÓ THỂ cắt <strong>TRƯỚC</strong> hoặc <strong>SAU</strong> ranh giới bảo vệ
+            </div>
+            <div class="rule-example">Ví dụ: "To stay healthy, teenagers need to build habits" (mức Vừa - max 6 từ)<br>
+            → Ranh giới bảo vệ "teenagers need to" (3 từ, không bị cắt bên trong)<br>
+            → Kết quả: "To stay healthy," (3 từ) + "teenagers need to" (3 từ) + "build habits" (2 từ)
+            </div>
+            </div>
+            
+            <div class="step-box"><div class="step-title">📋 DANH SÁCH TỪ NỐI (Bước 3)</div>
+            <code style="font-size:0.7rem; word-break:break-all;">${step3WordsList}</code>
+            </div>
+            
+            <div class="step-box"><div class="step-title">📋 DANH SÁCH GIỚI TỪ (Bước 4)</div>
+            <code style="font-size:0.7rem; word-break:break-all;">${fullPrepositionsList}</code>
+            </div>
+            
+            <div class="step-box"><div class="step-title">🔄 6 BƯỚC XỬ LÝ TRONG VÒNG LẶP CHÍNH</div>
+            
+            <div class="step-box"><div class="step-title"><span class="step-number">1</span> BƯỚC 1: DẤU CÂU</div>
+            <div>• <strong>Vòng lặp con:</strong> 5 lần</div>
+            <div>• <strong>Cách cắt:</strong> Cắt <strong>SAU</strong> dấu phẩy (,), chấm phẩy (;), hai chấm (:)</div>
+            <div>• <strong>🛡️ Bảo vệ:</strong> Không cắt bên trong ranh giới bảo vệ</div>
+            </div>
+            
+            <div class="step-box"><div class="step-title"><span class="step-number">2</span> BƯỚC 2: CỤM CỐ ĐỊNH <span class="dynamic-badge">TẠO RANH GIỚI BẢO VỆ ĐỘNG</span></div>
+            <div>• <strong>Vòng lặp con:</strong> 5 lần</div>
+            <div>• <strong>Nguyên tắc 1:</strong> <span style="color:#c2410c;">TUYỆT ĐỐI KHÔNG</span> cắt bên trong cụm cố định gốc</div>
+            <div>• <strong>Nguyên tắc 2 (MỚI):</strong> Nếu <strong>chỉ có 1 từ</strong> đứng trước cụm cố định gốc → tạo ranh giới bảo vệ mới (1 từ + cụm gốc)</div>
+            <div>• <strong>Nguyên tắc 3:</strong> Ưu tiên cắt <strong>SAU</strong> toàn bộ cụm (kể cả cụm đã gộp)</div>
+            </div>
+            
+            <div class="step-box"><div class="step-title"><span class="step-number">3</span> BƯỚC 3: TỪ NỐI</div>
+            <div>• <strong>Vòng lặp con:</strong> 5 lần</div>
+            <div>• <strong>CÓ dấu câu sau</strong> → <strong>TÁCH RIÊNG</strong> từ nối (kèm dấu)</div>
+            <div>• <strong>KHÔNG có dấu sau</strong> → <strong>GỘP</strong> từ nối với cụm phía sau</div>
+            <div>• <strong>🛡️ Bảo vệ:</strong> Không cắt bên trong ranh giới bảo vệ</div>
+            </div>
+            
+            <div class="step-box"><div class="step-title"><span class="step-number">4</span> BƯỚC 4: GIỚI TỪ</div>
+            <div>• <strong>Vòng lặp con:</strong> 5 lần</div>
+            <div>• <strong>Điều kiện:</strong> CHỈ cắt khi số từ trong cụm <strong>> maxSize</strong></div>
+            <div>• <strong>Cách cắt:</strong> Cắt <strong>TRƯỚC</strong> giới từ</div>
+            <div>• <strong>🛡️ Bảo vệ:</strong> Không cắt bên trong ranh giới bảo vệ</div>
+            </div>
+            
+            <div class="step-box"><div class="step-title"><span class="step-number">5</span> BƯỚC 5: CẮT THÔNG MINH</div>
+            <div>• <strong>Điều kiện:</strong> CHỈ cắt khi số từ trong cụm <strong>> maxSize</strong></div>
+            <div>• <strong>Cách cắt:</strong> Cắt lấy <strong>${cutSize} từ đầu</strong></div>
+            <div>• <strong>🛡️ Bảo vệ:</strong> Tự động điều chỉnh vị trí cắt để tránh cắt bên trong ranh giới bảo vệ</div>
+            </div>
+            
+            <div class="step-box"><div class="step-title"><span class="step-number">6</span> BƯỚC 6: KIỂM TRA ĐỘ DÀI</div>
+            <div>• Đảm bảo <strong>không có cụm nào > maxSize</strong></div>
+            <div>• <strong>🛡️ Bảo vệ:</strong> Tự động điều chỉnh vị trí cắt để tránh cắt bên trong ranh giới bảo vệ</div>
+            </div>
+            </div>
+            
+            <div class="principle-box"><div class="step-title">✅ 7 NGUYÊN TẮC VÀNG</div>
+            <table class="rule-table">
+                <tr><th>STT</th><th>Nguyên tắc</th><th>Mô tả</th></tr>
+                <tr><td style="background:#4caf50; color:white; text-align:center;">1</td><td><strong>Không gộp lại</strong></td><td>Đã cắt thì giữ nguyên</td></tr>
+                <tr><td style="background:#4caf50; color:white; text-align:center;">2</td><td><strong>Chỉ cắt khi cần</strong></td><td>Bước 4,5,6 chỉ cắt khi số từ > maxSize</td></tr>
+                <tr><td style="background:#4caf50; color:white; text-align:center;">3</td><td><strong>Ranh giới bất khả xâm phạm</strong></td><td>Không cắt bên trong ranh giới bảo vệ</td></tr>
+                <tr><td style="background:#c2410c; color:white; text-align:center;">4</td><td><strong>1 từ + cụm gốc → tạo ranh giới mới</strong></td><td>Gộp và thêm vào danh sách bảo vệ</td></tr>
+                <tr><td style="background:#4caf50; color:white; text-align:center;">5</td><td><strong>Giới từ gộp với phía sau</strong></td><td>Khi cắt tại giới từ → giới từ thuộc phần phía sau</td></tr>
+                <tr><td style="background:#4caf50; color:white; text-align:center;">6</td><td><strong>Từ nối không dấu → gộp</strong></td><td>Gộp từ nối với cụm phía sau</td></tr>
+                <tr><td style="background:#4caf50; color:white; text-align:center;">7</td><td><strong>Vòng lặp con xử lý triệt để</strong></td><td>Bước 1-4 có vòng lặp con 5 lần</td></tr>
+            </table>
+            </div>
+            
+            <div class="step-box"><div class="step-title">📊 VÍ DỤ MINH HỌA (Mức Vừa - max 6 từ)</div>
+            <div><strong>Câu:</strong> "To stay healthy, teenagers need to build good daily habits."</div>
+            <div><strong>Kết quả sau xử lý:</strong></div>
+            <div>1. To stay healthy,</div>
+            <div>2. teenagers need to</div>
+            <div>3. build good daily habits.</div>
+            </div>
+            
+            <div class="step-box"><div class="step-title">📌 GHI CHÚ QUAN TRỌNG</div>
+            <div>• Ranh giới bảo vệ động <strong>KHÔNG chặn cắt</strong> ở đầu hoặc cuối cụm</div>
+            <div>• Mục tiêu: Đảm bảo mỗi cụm ≤ maxSize nhưng vẫn giữ nguyên các cặp từ quan trọng</div>
+            </div>
+        `;
     }
-
-    function render() {
-        if (currentScreen === 'main') renderMain();
-        else if (currentScreen === 'quiz') renderQuiz();
-        else if (currentScreen === 'report') renderReport();
+    
+    function updateRulePanel() { rulePanel.innerHTML = getRuleContent(pauseLevelSelect.value); }
+    
+    // ==================== Khởi tạo sự kiện ====================
+    pauseLevelSelect.addEventListener('change', () => { updateRulePanel(); if (currentSentences.length) refreshChunks(); });
+    ruleToggleBtn.addEventListener('click', () => { 
+        rulePanel.classList.toggle('show'); 
+        ruleToggleBtn.innerHTML = rulePanel.classList.contains('show') ? '<i class="fas fa-eye-slash"></i> Ẩn quy tắc' : '<i class="fas fa-graduation-cap"></i> Giải thích quy tắc (6 bước - 4 vòng lặp chuẩn v2.0 + Bảo vệ ranh giới)'; 
+        if (rulePanel.classList.contains('show')) updateRulePanel(); 
+    });
+    textarea.addEventListener('input', onTextChange);
+    playSequentialBtn.addEventListener('click', startSequentialPlayback);
+    pauseBtn.addEventListener('click', () => { activePlayback.cancelled = true; speechSynthesis.cancel(); });
+    stopBtn.addEventListener('click', stopAndReset);
+    refreshTranslationBtn.addEventListener('click', refreshTranslation);
+    naturalPauseToggle.addEventListener('change', () => { refreshChunks(); stopAndReset(); scheduleTranslation(); });
+    repeatSelect.addEventListener('change', () => { repeatCount = parseInt(repeatSelect.value); });
+    delaySelect.addEventListener('change', () => { delaySec = parseFloat(delaySelect.value); });
+    repeatDelaySelect.addEventListener('change', () => { repeatDelaySec = parseFloat(repeatDelaySelect.value); });
+    
+    if (typeof speechSynthesis !== 'undefined') {
+        speechSynthesis.onvoiceschanged = populateVoiceList;
+        populateVoiceList();
     }
-
-    render();
+    
+    textarea.value = SAMPLE_TEXT;
+    onTextChange();
+    repeatCount = parseInt(repeatSelect.value);
+    delaySec = parseFloat(delaySelect.value);
+    repeatDelaySec = parseFloat(repeatDelaySelect.value);
+    bindDictionaryEvents();
+    updateRulePanel();
 </script>
 </body>
 </html>
